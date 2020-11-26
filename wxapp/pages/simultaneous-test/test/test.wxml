@@ -1,0 +1,15 @@
+<view class="intro">
+  <view>
+  <canvas class="handWriting" disable-scroll="true" bindtouchstart="uploadScaleStart" bindtouchmove="uploadScaleMove"
+      bindtouchend="uploadScaleEnd" bindtap="mouseDown" canvas-id="handWriting">
+    </canvas>
+
+  <view>
+    <button class='btn-default' bindtap='clearDraw'>清除</button>
+  </view>
+  </view>
+  <view>
+    <button class='btn-primary' bindtap='saveCanvas'>确定</button>
+  </view>
+  
+</view>

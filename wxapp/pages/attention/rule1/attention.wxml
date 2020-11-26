@@ -1,0 +1,11 @@
+<!--pages/attention/attention.wxml-->
+<view>
+<image class="title" src="../../../image/attention/title.png" mode="scaleToFill"></image>
+</view>
+<view class="rule">
+<text class="rule_text" decode="{{true}}" space="{{true}}">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;接下来，你会看到一个题目，和几张图片，根据题目所给出的要求，在最快的时间内，选出所有符合要求的图片，如果选择错误，将会增加5秒钟。你需要完成若干题这样的题目。
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;请看下面的示例：
+</text>
+<image class="rule_gif" src="../../../image/attention/demo.gif"></image>
+<image catchtap='button_start' class="rule_start" src="../../../image/attention/start.png"></image>
+</view>

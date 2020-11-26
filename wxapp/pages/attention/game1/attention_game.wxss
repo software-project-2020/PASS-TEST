@@ -1,0 +1,50 @@
+/* pages/attention/attention_game.wxss */
+page {
+  overflow: hidden;
+  background-image: url('https://picture.morii.top/renzhixuetang/background/10.jpg');
+  background-size: 100% 100%;
+}
+.top{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.clock{
+  margin:12% 0% 0% 5%;
+}
+.time{
+  margin: 13% 0% 1% 0%;
+  height: 50rpx;
+  width: 10%;
+  display: flex;
+  background-color: #ffffff;
+  opacity: 0.8;
+  border: 4rpx solid #edbf40d5;
+  border-radius: 15rpx;
+  text-align:center;
+  align-items:center;
+  justify-content: center;
+}
+.title {
+ margin-top: 32%;
+  height: 80rpx;
+  width: 250rpx;
+  display: flex;
+}
+
+.back {
+  background-color: #ffffffd5;
+  border-color:  #edbf40d5;
+  border-width: 5rpx;
+  border-style: solid;
+  height: 100%;
+  width: 80%;
+  margin: 5% 10%;
+  border-radius: 20rpx;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.text{
+  width: 50px;
+}
