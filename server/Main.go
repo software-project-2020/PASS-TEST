@@ -42,11 +42,21 @@ type User struct {
 	birthday      time.Time `db:"birthday"`
 }
 
+type Configuration struct {
+	testId string `db:"test_id"`
+	difficulty int `db:"difficulty"`
+	ageGroup int `db:"age_group"`
+	parameterInfo string `db:"parameter_info"`
+}
+
 func main() {
 	r := gin.Default()
-	// 获取用户信息 post:{"userid":xx}
+	// 获取用户信息
+	//post = {
+	//	  "userid": 7
+	//}
 	r.POST("/api/user/getbyid", getUserById)
-	// 用户注册 post: 注册时间和上次登录时间直接用time.Now()
+	// 用户注册  注册时间和上次登录时间直接用time.Now()
 	//post = {
 	//    "openid": "",
 	//    "session_key": "",
@@ -56,6 +66,12 @@ func main() {
 	//    "birthday": "2020-01-01",
 	//}
 	r.POST("/api/user/register", registerUser)
+	// 获取题目单个题目的信息
+	//post = {
+	//    "test_id": "S11",
+	//    "age_group": 0
+	//}
+	r.POST("/api/test/configuration",getConfiguration)
 
 	r.Run(":23333")
 }
@@ -97,4 +113,21 @@ func registerUser(c *gin.Context) {
 		c.PostForm("gender"),time.Now(),time.Now(),c.PostForm("nickname"),c.PostForm("birthday"))
 	checkErr(err)
 	fmt.Println(res.LastInsertId())
+}
+
+func getConfiguration(c *gin.Context){
+	conifg :=Configuration{}
+	testId := c.PostForm("test_id")
+	ageGroup := c.PostForm("age_group")
+	sql :="select * from parameter_configuration where test_id = ? and age_group = ?"
+	stmt,err := Db.Prepare(sql)
+	checkErr(err)
+	defer stmt.Close()
+	row := stmt.QueryRow(testId,ageGroup)
+	err = row.Scan(&conifg.testId,&conifg.difficulty,&conifg.ageGroup,&conifg.parameterInfo)
+	checkErr(err)
+	c.JSON(200,gin.H{
+		"difficulty":conifg.difficulty,
+		"parameter":conifg.parameterInfo,
+	})
 }
