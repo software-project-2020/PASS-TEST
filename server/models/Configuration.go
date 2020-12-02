@@ -6,3 +6,7 @@ type Configuration struct {
 	AgeGroup      int    `db:"age_group"`
 	ParameterInfo string `db:"parameter_info"`
 }
+
+type Configurations struct {
+	Configurations []Configuration
+}

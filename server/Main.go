@@ -24,14 +24,16 @@ func checkErr(err error) {
 }
 
 func recoverErr() {
-	err := recover()
-	log.Println(err)
-	fmt.Println("程序捕获，继续执行")
+	if err := recover(); err != nil {
+		log.Println(err)
+		fmt.Println("程序捕获，继续执行")
+
+	}
 }
 
-func checkEmpty(value string ,name string){
-	if value == ""{
-		panic(name+"字段为空")
+func checkEmpty(value string, name string) {
+	if value == "" {
+		panic(name + "字段为空")
 	}
 }
 
@@ -96,8 +98,8 @@ func getUserById(c *gin.Context) {
 func registerUser(c *gin.Context) {
 	sql := "insert into user(openid,session_key,age,gender,register_time,last_login_time,nickname,birthday)" +
 		" values(?,?,?,?,?,?,?,?)"
-	openid :=c.PostForm("openid")
-	checkEmpty(openid,"open_id")
+	openid := c.PostForm("openid")
+	checkEmpty(openid, "open_id")
 	res, err := Db.Exec(sql, openid, c.PostForm("session_key"), c.PostForm("age"),
 		c.PostForm("gender"), time.Now(), time.Now(), c.PostForm("nickname"), c.PostForm("birthday"))
 	checkErr(err)
@@ -106,20 +108,26 @@ func registerUser(c *gin.Context) {
 
 func getConfiguration(c *gin.Context) {
 	defer recoverErr()
-	conifg := models.Configuration{}
+	configs := models.Configurations{}
 	testId := c.PostForm("test_id")
-	checkEmpty(testId,"test_id")
+	checkEmpty(testId, "test_id")
 	ageGroup := c.PostForm("age_group")
-	checkEmpty(ageGroup,"age_group")
+	checkEmpty(ageGroup, "age_group")
 	sql := "select * from parameter_configuration where test_id = ? and age_group = ?"
 	stmt, err := Db.Prepare(sql)
 	checkErr(err)
 	defer stmt.Close()
-	row := stmt.QueryRow(testId, ageGroup)
-	err = row.Scan(&conifg.TestId, &conifg.Difficulty, &conifg.AgeGroup, &conifg.ParameterInfo)
+	row,err := stmt.Query(testId, ageGroup)
+	for row.Next(){
+		config := new(models.Configuration)
+		err = row.Scan(&config.TestId, &config.Difficulty, &config.AgeGroup, &config.ParameterInfo)
+		configs.Configurations = append(configs.Configurations,*config)
+	}
+	fmt.Println(configs)
 	checkErr(err)
-	c.JSON(200, gin.H{
-		"difficulty": conifg.Difficulty,
-		"parameter":  conifg.ParameterInfo,
-	})
+	c.JSON(200,"ok")
+	//c.JSON(200, gin.H{
+	//	"difficulty": config.Difficulty,
+	//	"parameter":  config.ParameterInfo,
+	//})
 }
