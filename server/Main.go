@@ -23,6 +23,18 @@ func checkErr(err error) {
 	}
 }
 
+func recoverErr() {
+	err := recover()
+	log.Println(err)
+	fmt.Println("程序捕获，继续执行")
+}
+
+func checkEmpty(value string ,name string){
+	if value == ""{
+		panic(name+"字段为空")
+	}
+}
+
 func main() {
 	r := gin.Default()
 	// 获取用户信息
@@ -51,6 +63,7 @@ func main() {
 }
 
 func getUserById(c *gin.Context) {
+	defer recoverErr()
 	user := models.User{}
 	id := c.PostForm("userid")
 	sql := "select * from user where id = ?;"
@@ -83,16 +96,21 @@ func getUserById(c *gin.Context) {
 func registerUser(c *gin.Context) {
 	sql := "insert into user(openid,session_key,age,gender,register_time,last_login_time,nickname,birthday)" +
 		" values(?,?,?,?,?,?,?,?)"
-	res, err := Db.Exec(sql, c.PostForm("openid"), c.PostForm("session_key"), c.PostForm("age"),
+	openid :=c.PostForm("openid")
+	checkEmpty(openid,"open_id")
+	res, err := Db.Exec(sql, openid, c.PostForm("session_key"), c.PostForm("age"),
 		c.PostForm("gender"), time.Now(), time.Now(), c.PostForm("nickname"), c.PostForm("birthday"))
 	checkErr(err)
 	fmt.Println(res.LastInsertId())
 }
 
 func getConfiguration(c *gin.Context) {
+	defer recoverErr()
 	conifg := models.Configuration{}
 	testId := c.PostForm("test_id")
+	checkEmpty(testId,"test_id")
 	ageGroup := c.PostForm("age_group")
+	checkEmpty(ageGroup,"age_group")
 	sql := "select * from parameter_configuration where test_id = ? and age_group = ?"
 	stmt, err := Db.Prepare(sql)
 	checkErr(err)
