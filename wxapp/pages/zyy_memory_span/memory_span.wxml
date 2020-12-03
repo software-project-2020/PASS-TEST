@@ -1,0 +1,6 @@
+<view class="chess_map">
+  <view class="chess_box" style="width:72px;height:72px;" wx:for="{{board_num}}" wx:key="item">
+    <view class="chess_content" style="background-image: url('{{board_img_url[index]}}');" >
+    </view>
+  </view>
+</view>

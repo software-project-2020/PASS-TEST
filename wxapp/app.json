@@ -1,0 +1,16 @@
+{
+  "pages":["pages/zyy_memory_span/memory_span",
+    "pages/index/index",
+    "pages/Planning/rule1/rule1",
+    "pages/Planning/test1easy/test1easy",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle":"black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
