@@ -4,6 +4,7 @@ import (
 	"./driver"
 	"./models"
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
@@ -108,6 +109,7 @@ func registerUser(c *gin.Context) {
 
 func getConfiguration(c *gin.Context) {
 	defer recoverErr()
+	result := make(map[string]interface{})
 	configs := models.Configurations{}
 	testId := c.PostForm("test_id")
 	checkEmpty(testId, "test_id")
@@ -117,17 +119,20 @@ func getConfiguration(c *gin.Context) {
 	stmt, err := Db.Prepare(sql)
 	checkErr(err)
 	defer stmt.Close()
-	row,err := stmt.Query(testId, ageGroup)
-	for row.Next(){
+	row, err := stmt.Query(testId, ageGroup)
+	var list []map[string]interface{}
+	for row.Next() {
 		config := new(models.Configuration)
+		resultData := make(map[string]interface{})
 		err = row.Scan(&config.TestId, &config.Difficulty, &config.AgeGroup, &config.ParameterInfo)
-		configs.Configurations = append(configs.Configurations,*config)
+		resultData["difficulty"] = config.Difficulty
+		resultData["parameter_info"] = config.ParameterInfo
+		list = append(list,resultData)
+		configs.Configurations = append(configs.Configurations, *config)
 	}
-	fmt.Println(configs)
+	result["error_code"]=0
+	result["data"] =list
+	mapJson, err := json.Marshal(result)
 	checkErr(err)
-	c.JSON(200,"ok")
-	//c.JSON(200, gin.H{
-	//	"difficulty": config.Difficulty,
-	//	"parameter":  config.ParameterInfo,
-	//})
+	c.JSON(200, string(mapJson))
 }
