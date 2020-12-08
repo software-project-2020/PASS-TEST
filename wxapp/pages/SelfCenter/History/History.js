@@ -1,18 +1,30 @@
-// pages/rule1/rule1.js
+// pages/SelfCenter/History/History.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    show:false,//控制下拉列表的显示隐藏，false隐藏、true显示
+    selectData:['1','2','3','4','5','6','7','8','9','10','11','12'],//下拉列表的数据
+    index:0,//选择的下拉列表下标
+    month:[[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+    },
+    // 点击下拉显示框
+    selectTap(){
+    this.setData({
+     show: !this.data.show,
+    });
+    },
+    // 点击下拉列表
+    optionTap(e){
+    let Index=e.currentTarget.dataset.index;//获取点击的下拉列表的下标
+    this.setData({
+     index:Index,
+     show:!this.data.show
+    });
+    },
 
-  },
-  gototest1:function(e){
-    wx.navigateTo({
-      url: '/pages/Planning/test1/test1',
-      })
-  },
-  
   /**
    * 生命周期函数--监听页面加载
    */

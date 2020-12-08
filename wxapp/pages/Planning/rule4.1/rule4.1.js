@@ -1,4 +1,4 @@
-// pages/rule1/rule1.js
+// pages/Planning/rule4.1/rule4.1.js
 Page({
 
   /**
@@ -9,9 +9,10 @@ Page({
   },
   gototest1:function(e){
     wx.navigateTo({
-      url: '/pages/Planning/test1easy/test1easy',
+      url: '/pages/Planning/test4.1/test4.1',
       })
   },
+  
   /**
    * 生命周期函数--监听页面加载
    */

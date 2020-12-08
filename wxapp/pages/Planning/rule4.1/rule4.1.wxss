@@ -1,21 +1,21 @@
-/* pages/rule1/rule1.wxss */
+/* pages/Planning/rule4.1/rule4.1.wxss */
 page{
   overflow: hidden;
-  background-image: url('https://picture.morii.top/renzhixuetang/background/8.jpg');
+  background-image: url('https://picture.morii.top/renzhixuetang/background/9.jpg');
   background-size: 100% 100%;
 }
 .container{
   padding: 0rpx;
 }
 .border{
-  height: 760rpx;
+  height: 800rpx;
   width: 65%;
   display: flex;
   justify-content: center;  /*水平*/
   align-items: center; /*垂直*/
   background-color: #ffffff;
   opacity: 0.8;
-  border: 9rpx solid #2BB31C;
+  border: 9rpx solid #9f9fdf;
   border-radius: 30rpx;
   padding: 20rpx;
   flex-direction: column;
@@ -43,10 +43,10 @@ page{
   margin-bottom: 2%;
 }
 .rules{
-  color: #1d7913;
-  font-size: 32rpx;
+  color: #6262c2;
+  font-size: 30rpx;
   font-weight: 544;
-  line-height: 53rpx;
+  line-height: 50rpx;
 }
 .introduction{
   margin: 0% 5% 2% 5%;
