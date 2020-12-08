@@ -1,11 +1,15 @@
 {
   "pages":[
-    
+    "pages/index/index",
+    "pages/start/start",
+    "pages/attention/game2/attention_game",
+    "pages/attention/rule2/attention",
+    "pages/result/result",
+    "pages/attention/rule1/attention",
+    "pages/attention/game1/attention_game",
     "pages/simultaneous-test/simultaneous1/simultaneous1",
     "pages/simultaneous-test/test/test",
     "pages/Planning/test1easy/test1easy",
-    
-    "pages/index/index",
     "pages/Planning/rule1/rule1",
     "pages/logs/logs"
   ],

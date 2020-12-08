@@ -1,0 +1,21 @@
+<!--pages/result/result.wxml-->
+<view class="top">
+  <image class="return" src="../../image/return.png" bindtap="return"></image>
+  <text class="text">测试结果</text>
+</view>
+
+<view class="back">
+  <scroll-view scroll-y class="result">
+  <view wx:for="{{arr}}" style="display: flex; height: 100px;">
+    <image src="https://images.unsplash.com/photo-1565699894576-1710004524ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1832&q=80"></image>
+    <image src="https://images.unsplash.com/photo-1566402441483-c959946717ed?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=80"></image>
+    <image src="https://images.unsplash.com/photo-1566378955258-7633cb5c823e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"></image>
+    <image src="https://images.unsplash.com/photo-1566404394190-cda8c6209208?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=630&q=80"></image>
+    <image src="https://images.unsplash.com/photo-1566490595448-be523b4d2914?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=958&q=80"></image>
+    </view>
+</scroll-view>
+</view>
+<view class="button">
+  <button class="save" bindtap="save" style="width: 280rpx;height: 80rpx;">保存图片</button>
+  <button class="share" bindtap="share" style="width: 280rpx;height: 80rpx;">分享结果</button>
+</view>
