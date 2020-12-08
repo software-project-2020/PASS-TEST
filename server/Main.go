@@ -9,6 +9,8 @@ import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"log"
+	"math/rand"
+	"strconv"
 	"time"
 )
 
@@ -62,6 +64,8 @@ func main() {
 	//}
 	r.POST("/api/test/configuration", getConfiguration)
 
+	r.POST("/api/test/detail", getDetail)
+
 	r.Run(":23333")
 }
 
@@ -110,7 +114,6 @@ func registerUser(c *gin.Context) {
 func getConfiguration(c *gin.Context) {
 	defer recoverErr()
 	result := make(map[string]interface{})
-	configs := models.Configurations{}
 	testId := c.PostForm("test_id")
 	checkEmpty(testId, "test_id")
 	ageGroup := c.PostForm("age_group")
@@ -127,11 +130,47 @@ func getConfiguration(c *gin.Context) {
 		err = row.Scan(&config.TestId, &config.Difficulty, &config.AgeGroup, &config.ParameterInfo)
 		resultData["difficulty"] = config.Difficulty
 		resultData["parameter_info"] = config.ParameterInfo
-		list = append(list,resultData)
-		configs.Configurations = append(configs.Configurations, *config)
+		list = append(list, resultData)
 	}
-	result["error_code"]=0
-	result["data"] =list
+	result["error_code"] = 0
+	result["data"] = list
+	mapJson, err := json.Marshal(result)
+	checkErr(err)
+	c.JSON(200, string(mapJson))
+}
+
+func getDetail(c *gin.Context) {
+	defer recoverErr()
+	result := make(map[string]interface{})
+	testId := c.PostForm("test_id")
+	checkEmpty(testId, "test_id")
+	category := c.PostForm("category")
+	checkEmpty(category, "category")
+	num := c.PostForm("num")
+	checkEmpty(num, "num")
+	sql := "select * from test_detail where test_id = ? and category = ?"
+	stmt, err := Db.Prepare(sql)
+	checkErr(err)
+	defer stmt.Close()
+	row, err := stmt.Query(testId, category)
+	var list []string
+	var details models.Details
+	for row.Next() {
+		detail := new(models.Detail)
+		err = row.Scan(&detail.TestId, &detail.Category, &detail.Details)
+		details.Details = append(details.Details, *detail)
+	}
+	for i := len(details.Details) - 1; i > 0; i-- {
+		j := rand.Intn(i + 1)
+		details.Details[i], details.Details[j] = details.Details[j], details.Details[i]
+	}
+	numint,err := strconv.Atoi(num)
+	checkErr(err)
+	for i := 0; i < numint; i++ {
+	 	list = append(list,details.Details[i].Details)
+	}
+	result["error_code"] = 0
+	result["data"] = list
 	mapJson, err := json.Marshal(result)
 	checkErr(err)
 	c.JSON(200, string(mapJson))
