@@ -8,8 +8,10 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
+	"io"
 	"log"
 	"math/rand"
+	"os"
 	"strconv"
 	"time"
 )
@@ -41,6 +43,9 @@ func checkEmpty(value string, name string) {
 }
 
 func main() {
+	f, _ := os.OpenFile("gin.log",os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	defer f.Close()
+	gin.DefaultWriter = io.MultiWriter(f)
 	r := gin.Default()
 	// 获取用户信息
 	//post = {
