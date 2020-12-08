@@ -174,39 +174,43 @@ function prettyBoard(board) {
     /* 如果 是第1列 */
     if (i % 4 == 0) {
       /* 则 向右 挪动一格 */
-      if(board[i+1]==-1){
-        [board[i],board[i+1]]=[board[i+1],board[i]];
+      if (board[i + 1] == -1) {
+        [board[i], board[i + 1]] = [board[i + 1], board[i]];
       }
     }
     /* 如果 是第4列 */
     else if (i % 4 == 3) {
       /* 则 向左 挪动一格 */
-      if(board[i-1]==-1){
-        [board[i],board[i-1]]=[board[i-1],board[i]];
+      if (board[i - 1] == -1) {
+        [board[i], board[i - 1]] = [board[i - 1], board[i]];
       }
     }
     /* 如果 是第1行 */
     else if (i / 4 < 1) {
       /* 则 向下 挪动一格 */
-      if(board[i+4]==-1){
-        [board[i],board[i+4]]=[board[i+4],board[i]];
+      if (board[i + 4] == -1) {
+        [board[i], board[i + 4]] = [board[i + 4], board[i]];
       }
     }
     /* 如果 是第4行 */
     else if (i / 4 >= 3) {
       /* 则 向上 挪动一格 */
-      if(board[i-4]==-1){
-        [board[i],board[i-4]]=[board[i-4],board[i]];
+      if (board[i - 4] == -1) {
+        [board[i], board[i - 4]] = [board[i - 4], board[i]];
       }
     }
   }
 
 
-  console.log("调整前：",isOK(board));
-  while(!isOK(board)){
-    for (let i=0;i<board.length;i++){
-      step(board,i);
+  console.log("调整前：", isOK(board));
+  for (let k = 0; k < 5; k++) {
+    if (!isOK(board)) {
+      for (let i = 0; i < board.length; i++) {
+        step(board, i);
+      }
+      console.log("调整后：", isOK(board));
+    } else {
+      break;
     }
-    console.log("调整后：",isOK(board));
   }
 }
