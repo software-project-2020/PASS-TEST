@@ -1,4 +1,4 @@
-// pages/rule1/rule1.js
+// pages/SelfCenter/my/my.js
 Page({
 
   /**
@@ -7,11 +7,27 @@ Page({
   data: {
 
   },
-  gototest1:function(e){
+  gotoHistoryTest:function(e){
     wx.navigateTo({
-      url: '/pages/Planning/test1easy/test1easy',
+      url: '/pages/Planning/test1/test1',
       })
   },
+  gotoSuggestions:function(e){
+    wx.navigateTo({
+      url: '/pages/Planning/test1/test1',
+      })
+  },
+  gotoAboutUs:function(e){
+    wx.navigateTo({
+      url: '/pages/SelfCenter/aboutus/aboutus',
+      })
+  },
+  goback:function(e){
+    wx.navigateTo({
+      url: '/pages/SelfCenter/aboutus/aboutus',
+      })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

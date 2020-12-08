@@ -1,0 +1,148 @@
+/* pages/SelfCenter/History/History.wxss */
+/* pages/SelfCenter/my/my.wxss */
+page{
+  overflow: hidden;
+  background-image: url('https://picture.morii.top/renzhixuetang/background/8.jpg');
+  background-size: 100% 100%;
+}
+.container{
+  padding: 0rpx;
+}
+.border{
+  height: 450rpx;
+  width: 80%;
+  background-color: rgb(252, 252, 252);
+  opacity: 0.8;
+  display: flex;
+  border-radius: 10rpx;
+  justify-content: center;  /*水平*/
+  align-items: center; /*垂直*/
+  margin-top: 20rpx;
+  flex-direction: column;
+}
+.head{
+  display: flex;
+  flex-direction: row;
+  margin-top: 6%;
+  margin-bottom: 2%;
+}
+.back_btn[plain]{
+  border:none;
+  padding: 0;
+  margin-right: 480rpx;
+}
+.music_btn[plain]{
+  border:none;
+  padding: 0;
+}
+.select_box{
+  background: #fff;
+  border-radius: 15rpx;
+  width: 100%;
+  margin: 30rpx auto;
+  position: relative;
+ }
+ .select{
+  box-sizing: border-box;
+  width: 100%;
+  height: 55rpx;
+  border:1px solid #efefef;
+  border-radius: 15rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 20rpx;
+ }
+ .select_text{
+  font-size: 30rpx;
+  flex: 1;
+ }
+ .select_img{
+  width: 40rpx;
+  height: 40rpx;
+  display: block;
+  transition:transform 0.3s;
+ }
+ .select_img_rotate{
+  transform:rotate(180deg); 
+ }
+ .option_box{
+  position: absolute;
+  top: 53rpx;
+  width: 100%;
+  border:1px solid #efefef;
+  box-sizing: border-box;
+  height: 0;
+  overflow-y: auto;
+  border-top: 0;
+  background: #fff;
+  transition: height 0.3s;
+ }
+ .option{
+  display: block;
+  line-height: 30rpx;
+  font-size: 30rpx;
+  border-bottom: 1px solid #efefef;
+  padding: 10rpx;
+ }
+ .time{
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+ }
+ .testtime{
+   width: 300rpx;
+   margin-right: 40rpx;
+   font-size: 36rpx;
+   font-weight: 600;
+   color: rgb(255, 255, 255);
+ }
+ .t1{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 40%;
+  align-items: center;
+}
+.t2{
+  justify-content: center;
+  /* border: 1rpx solid #2BB31C; */
+  color: #2BB31C;
+  display: flex;
+  height: 100%;
+  width: 24%;
+  align-items: center;
+}
+.month_btn{
+  height: 90%;
+  align-items: center;
+  display: flex;
+  justify-content: center;  /*水平*/
+}
+.text_month{
+  font-size: 70rpx;
+  color: #2BB31C;
+}
+.record{
+  width: 100%;
+  margin-left: 20%;
+  margin-top: 2%;
+}
+.tecord_border{
+  height: 400rpx;
+  width: 80%;
+  background-color: rgb(252, 252, 252);
+  opacity: 0.8;
+  display: flex;
+  border-radius: 10rpx;
+  justify-content: center;  /*水平*/
+  align-items: center; /*垂直*/
+  margin-top: 20rpx;
+  flex-direction: column;
+}
+.record_text{
+  width: 300rpx;
+  margin-right: 40rpx;
+  font-size: 36rpx;
+  font-weight: 600;
+  color: rgb(255, 255, 255);
+}

@@ -1,4 +1,4 @@
-// pages/rule1/rule1.js
+// pages/SelfCenter/aboutus/aboutus.js
 Page({
 
   /**
@@ -7,12 +7,7 @@ Page({
   data: {
 
   },
-  gototest1:function(e){
-    wx.navigateTo({
-      url: '/pages/Planning/test1/test1',
-      })
-  },
-  
+
   /**
    * 生命周期函数--监听页面加载
    */

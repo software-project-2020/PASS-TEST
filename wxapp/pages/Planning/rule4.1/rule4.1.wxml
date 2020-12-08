@@ -1,4 +1,4 @@
-<!--pages/rule1/rule1.wxml-->
+<!--pages/Planning/rule4.1/rule4.1.wxml-->
 <view class="container">
   <view class="top" style="flex-direction:row;">
     <view class="sheep">
@@ -7,10 +7,10 @@
   </view>
   <view class="border">
     <view class="introduction">
-      <text class="rules">接下来，在游戏方框里会出现数字1~16，均匀打乱分布在4*4的表格里，你需要在规定的时间内按从小到大的顺序依次点击数字，完成一题后难度会上升哦！
+      <text class="rules">接下来，你会依次看到几个词组或者图片，每个词组或者图片只出现一次，展示完毕后请按照出现的顺序点击词组，再次点击可取消选中，全部排序并确定答案后点击提交按钮,隔一次速度会变快哦！
         请看下面的示例：</text>
     </view>
-    <image class='img1' mode='widthFix' src='../../../image/lyq/guize.gif' style="width: 400rpx; "></image>
+    <image class='img1' mode='widthFix' src='../../../image/lyq/rule4.1.gif' style="width: 400rpx; "></image>
 
   </view>
   <view class="bottom">
@@ -19,3 +19,4 @@
   </button>
 </view>
 </view>
+

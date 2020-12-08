@@ -1,0 +1,37 @@
+<!--pages/Planning/test1/test1.wxml-->
+<view class="container">
+  <view class="jindu"><image class='img1' mode='widthFix' src='../../../image/lyq/lyq.png' style="width: 600rpx; "></image></view>
+  <view class="top" style="flex-direction:row;">
+    <view class="eyu">
+      <image class='img1' mode='widthFix' src='../../../image/lyq/animal/eyu.png' style="width: 175rpx; "></image>
+    </view>
+    <view class="hide" style="visibility: {{isHide?'hidden':'visible'}}; width:40%">
+    <image class='img_pika' mode='widthFix' src='../../../image/lyq/pika.png' style="width: 170rpx;"></image>
+  <text class="Series">X  {{SeriesCount}}</text></view>
+    <view class="clock">
+      <image class='img1' mode='widthFix' src='../../../image/lyq/clock.png' style="width: 70rpx;"></image>
+    </view>
+    <view class="time">
+      <text style='color:#2BB31C' wx:if="{{showTime==true}}">{{displayTime}}s</text>
+    </view>
+  </view>
+  
+  <view class="border">
+    
+  <view class="tt">
+    <view class="t1" wx:for="{{complex}}" >
+    <view class="t2 {{l[item.index].ischoose?'bg2':'bg1'}}" wx:for="{{complex[index]}}" wx:if="{{!item.isEmpty}}" bindtap="change" data-name="{{item.index}}"  mode='widthFix'>{{item.value}}</view>
+    </view>
+    </view>
+  </view>
+
+  <view class="bottom">
+    <image class='img2' mode='widthFix' src='../../../image/lyq/animal/sheep.png' style="width: 220rpx;"></image>
+    <view class="say"><text class="saytext">加油，认真仔细，你一定可以的！</text></view>
+  </view>
+  
+</view>
+<mp-dialog title="抱歉" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{istry?tryButton:testButton}}">
+    <text>时间花光了</text>
+</mp-dialog>
+
