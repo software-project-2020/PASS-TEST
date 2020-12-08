@@ -20,8 +20,8 @@ Page({
     tar.board_num.forEach((e) => {
       tar.board_img_url.push(get_num_img(e));
     });
-    console.log(tar.board_num);
-    console.log(tar.board_img_url);
+    // console.log(tar.board_num);
+    // console.log(tar.board_img_url);
     this.setData({
       board_num: tar.board_num,
       board_img_url: tar.board_img_url
@@ -82,6 +82,7 @@ function get_Random_board(n, size) {
     out.push(-1);
   }
   randArr(out);
+  prettyBoard(out);
   return out;
 }
 
@@ -102,7 +103,7 @@ function randArr(arr) {
  * @returns {String} 返回图片的路径（相对路径）                                                                        
  */
 function get_num_img(num) {
-  console.log("get num", num);
+  // console.log("get num", num);
   if (num >= 0) {
     return "../../image/zyy/" + num + ".png";
   } else {
@@ -125,7 +126,7 @@ function prettyBoard(board) {
     let start = -1;
     let totalCnt = 0;
     let stack = []; /* 预备查看的索引值 栈 */
-    let isVisited = [];/* -1:无需访问 0:已经访问 >0:需要访问还未访问 */
+    let isVisited = []; /* -1:无需访问 0:已经访问 >0:需要访问还未访问 */
     let step_cnt = 0;
 
     /* 遍历出所有合法点个数 */
@@ -141,35 +142,71 @@ function prettyBoard(board) {
     }
     stack.push(start);
     do {
-      let x = stack.pop();/* 取出并保存本次局部搜索的起点索引 */
-      let tars=[x-1,x+1,x-4,x+4];/* 本次局部搜索四个方向上的索引 */
+      let x = stack.pop(); /* 取出并保存本次局部搜索的起点索引 */
+      let tars = [x - 1, x + 1, x - 4, x + 4]; /* 本次局部搜索四个方向上的索引 */
 
-      tars.forEach((tar)=>{
+      tars.forEach((tar) => {
         /* 如果坐标未越界 */
         if (tar >= 0 || tar < board.length) {
           /* 当前节点待遍历 */
-          if(isVisited[tar]>0){
-            isVisited[tar] = 0;/* 标记为已经遍历 */
-            step_cnt++;/* 有效值计数器自增 */
-            stack.push(tar);/* 当前位置标记为下一个起点 */
-          }/* 否则（≤0），无需访问 */
+          if (isVisited[tar] > 0) {
+            isVisited[tar] = 0; /* 标记为已经遍历 */
+            step_cnt++; /* 有效值计数器自增 */
+            stack.push(tar); /* 当前位置标记为下一个起点 */
+          } /* 否则（≤0），无需访问 */
         }
       })
-    } while (stack.length>0);
-    return step_cnt==totalCnt;
+    } while (stack.length > 0);
+    return step_cnt == totalCnt;
   }
 
   /**                                                                        
-   * 调整`i`号位的棋子                                                                        
+   * 调整`i`号位的棋子                            
+   * @param {Number[]} 待调整的棋盘数组                                    
    * @param {Number} i 这一步想调整的棋子的索引值                                                                        
    */
-  function step(i) {
-    if ([5, 6, 9, 10].indexOf(i) > -1) {
-
+  function step(board, i) {
+    /* 如果 位置上没有数字 or i是在中间的那四个格子（索引分别是 5 6 9 10） */
+    if (board[i] == -1 || [5, 6, 9, 10].indexOf(i) > -1) {
+      /* 则什么都不做 */
+      return;
+    }
+    /* 如果 是第1列 */
+    if (i % 4 == 0) {
+      /* 则 向右 挪动一格 */
+      if(board[i+1]==-1){
+        [board[i],board[i+1]]=[board[i+1],board[i]];
+      }
+    }
+    /* 如果 是第4列 */
+    else if (i % 4 == 3) {
+      /* 则 向左 挪动一格 */
+      if(board[i-1]==-1){
+        [board[i],board[i-1]]=[board[i-1],board[i]];
+      }
+    }
+    /* 如果 是第1行 */
+    else if (i / 4 < 1) {
+      /* 则 向下 挪动一格 */
+      if(board[i+4]==-1){
+        [board[i],board[i+4]]=[board[i+4],board[i]];
+      }
+    }
+    /* 如果 是第4行 */
+    else if (i / 4 >= 3) {
+      /* 则 向上 挪动一格 */
+      if(board[i-4]==-1){
+        [board[i],board[i-4]]=[board[i-4],board[i]];
+      }
     }
   }
 
-  for (let i = 0; i < board.length; i++) {
-    step(i);
+
+  console.log("调整前：",isOK(board));
+  while(!isOK(board)){
+    for (let i=0;i<board.length;i++){
+      step(board,i);
+    }
+    console.log("调整后：",isOK(board));
   }
 }
