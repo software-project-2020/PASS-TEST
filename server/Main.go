@@ -36,14 +36,15 @@ func recoverErr() {
 	}
 }
 
-func checkEmpty(value string, name string) {
-	if value == "" {
-		panic(name + "字段为空")
-	}
-}
+//func checkEmpty(value string, name string,errorCode int,ctx *gin.Context) {
+//	if value == "" {
+//		ctx.JSON()
+//		//panic(name + "字段为空")
+//	}
+//}
 
 func main() {
-	f, _ := os.OpenFile("gin.log",os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	f, _ := os.OpenFile("gin.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	defer f.Close()
 	gin.DefaultWriter = io.MultiWriter(f)
 	r := gin.Default()
@@ -109,7 +110,7 @@ func registerUser(c *gin.Context) {
 	sql := "insert into user(openid,session_key,age,gender,register_time,last_login_time,nickname,birthday)" +
 		" values(?,?,?,?,?,?,?,?)"
 	openid := c.PostForm("openid")
-	checkEmpty(openid, "open_id")
+	//checkEmpty(openid, "open_id",10001)
 	res, err := Db.Exec(sql, openid, c.PostForm("session_key"), c.PostForm("age"),
 		c.PostForm("gender"), time.Now(), time.Now(), c.PostForm("nickname"), c.PostForm("birthday"))
 	checkErr(err)
@@ -120,9 +121,24 @@ func getConfiguration(c *gin.Context) {
 	defer recoverErr()
 	result := make(map[string]interface{})
 	testId := c.PostForm("test_id")
-	checkEmpty(testId, "test_id")
+	if testId == "" {
+		result["error_code"] = 10001
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200,string(mapJson))
+		panic("test_id" + "字段为空")
+	}
+	//checkEmpty(testId, "test_id",10001,c)
 	ageGroup := c.PostForm("age_group")
-	checkEmpty(ageGroup, "age_group")
+	if ageGroup == "" {
+		result["error_code"] = 10002
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200,string(mapJson))
+		panic("age_group" + "字段为空")
+
+	}
+	//checkEmpty(ageGroup, "age_group",10002,c)
 	sql := "select * from parameter_configuration where test_id = ? and age_group = ?"
 	stmt, err := Db.Prepare(sql)
 	checkErr(err)
@@ -147,12 +163,33 @@ func getConfiguration(c *gin.Context) {
 func getDetail(c *gin.Context) {
 	defer recoverErr()
 	result := make(map[string]interface{})
+	result["error_code"] = 0
 	testId := c.PostForm("test_id")
-	checkEmpty(testId, "test_id")
+	if testId == "" {
+		result["error_code"] = 10001
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200,string(mapJson))
+		panic("test_id" + "字段为空")
+	}
 	category := c.PostForm("category")
-	checkEmpty(category, "category")
+	if category == "" {
+		result["error_code"] = 10003
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200,string(mapJson))
+		panic("category" + "字段为空")
+
+	}
 	num := c.PostForm("num")
-	checkEmpty(num, "num")
+	if num == "" {
+		result["error_code"] = 10003
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200,string(mapJson))
+		panic("num" + "字段为空")
+
+	}
 	sql := "select * from test_detail where test_id = ? and category = ?"
 	stmt, err := Db.Prepare(sql)
 	checkErr(err)
@@ -169,12 +206,17 @@ func getDetail(c *gin.Context) {
 		j := rand.Intn(i + 1)
 		details.Details[i], details.Details[j] = details.Details[j], details.Details[i]
 	}
-	numint,err := strconv.Atoi(num)
+	numint, err := strconv.Atoi(num)
 	checkErr(err)
-	for i := 0; i < numint; i++ {
-	 	list = append(list,details.Details[i].Details)
+	if len(details.Details) < numint {
+		result["error_code"] = 10004
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200,string(mapJson))
 	}
-	result["error_code"] = 0
+	for i := 0; i < numint; i++ {
+		list = append(list, details.Details[i].Details)
+	}
 	result["data"] = list
 	mapJson, err := json.Marshal(result)
 	checkErr(err)
