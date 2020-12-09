@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/dragdemo/dragdemo",
     "pages/zyy_memory_span/memory_span"
   ],
   "window": {
