@@ -8,7 +8,8 @@ Page({
     difficulty: 5 /* [ 5、6、7 ] */ ,
     board_num: [] /* board.length = board_size */ ,
     board_img_url: [],
-    chess_index: []
+    chess_index: [],
+    chess_move: []
   },
 
   /**                                                                        
@@ -20,15 +21,21 @@ Page({
     tar.board_img_url = [];
     tar.board_num.forEach((e) => {
       tar.board_img_url.push(get_num_img(e));
+      tar.chess_move.push({
+        "left": 0,
+        "top": 0
+      });
     });
     tar.chess_index = fillter_board(tar.board_num);
     // console.log(tar.board_num);
     // console.log(tar.board_img_url);
     console.log(tar.chess_index);
+    console.log(tar.chess_move);
     this.setData({
       board_num: tar.board_num,
       board_img_url: tar.board_img_url,
-      chess_index: tar.chess_index
+      chess_index: tar.chess_index,
+      chess_move: tar.chess_move
     });
   },
 
@@ -71,13 +78,15 @@ Page({
     get_num_img(num);
   },
   handleMove: function (event) {
-    let query = wx.createSelectorQuery().in(this);
-    query.select('#' + event.currentTarget.id).boundingClientRect((rect) => {
-      console.log('rect', rect);
-      // let x = rect.width;
-      // let y = rect.height / 2;
-    }).exec()
-
+    let who = "chess_move[" + event.currentTarget.dataset.who + "]";
+    let move = {
+      "left": event.changedTouches[0].pageX - event.currentTarget.offsetLeft,
+      "top": event.changedTouches[0].pageY - event.currentTarget.offsetTop
+    };
+    let param={};
+    param[who] = move;
+    this.setData(param);
+    console.log(param);
   }
 });
 
@@ -215,13 +224,13 @@ function prettyBoard(board) {
   }
 
 
-  console.log("调整前：", isOK(board));
+  // console.log("调整前：", isOK(board));
   for (let k = 0; k < 5; k++) {
     if (!isOK(board)) {
       for (let i = 0; i < board.length; i++) {
         step(board, i);
       }
-      console.log("调整后：", isOK(board));
+      // console.log("调整后：", isOK(board));
     } else {
       break;
     }

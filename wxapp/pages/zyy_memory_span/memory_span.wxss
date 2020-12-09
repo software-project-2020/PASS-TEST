@@ -51,7 +51,7 @@ page {
 }
 .chess_below{
   display: flex;
-  overflow: hidden;
+  overflow: visible;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
