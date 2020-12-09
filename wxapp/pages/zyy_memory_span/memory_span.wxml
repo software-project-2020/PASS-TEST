@@ -1,6 +1,10 @@
 <view class="chess_map">
   <view class="chess_box" style="width:72px;height:72px;" wx:for="{{board_num}}" wx:key="item">
-    <view class="chess_content" style="background-image: url('{{board_img_url[index]}}');" >
-    </view>
+    <view class="chess_content" style="background-image: url('{{board_img_url[index]}}');" />
+  </view>
+</view>
+<view class="chess_below">
+  <view wx:for="{{chess_index}}" wx:key="item" catchtouchmove="handleMove" id="chess_{{board_num[item]}}" style="  position: relative;">
+    <image src='{{board_img_url[item]}}' style="width:40px;height:40px" />
   </view>
 </view>

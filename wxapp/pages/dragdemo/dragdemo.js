@@ -5,8 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    chess_s:[1, 3, 4, 7, 6 ],
     /* 约束可拖动的最大范围 X:84% Y:89% */
-    win_limit: [84, 89],
+    win_limit: [20, 20],
     /* X Y 定位 */
     writesize: [0, 0],
     /* 屏幕尺寸 */
@@ -62,4 +63,20 @@ Page({
   onPageScroll(e) {
     this.data.scrolltop = e.scrollTop;
   },
+  get_num_img: function (num) {
+    get_num_img(num);
+  }
 })
+/**                                                                        
+ * 得到指定数字的图片路径                                                                        
+ * @param {Number} num 需要图片的数字为`num`                                                                        
+ * @returns {String} 返回图片的路径（相对路径）                                                                        
+ */
+function get_num_img(num) {
+  // console.log("get num", num);
+  if (num >= 0) {
+    return "../../image/zyy/" + num + ".png";
+  } else {
+    return "../../image/zyy/base.png";
+  }
+}

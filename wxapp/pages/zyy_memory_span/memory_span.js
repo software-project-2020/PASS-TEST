@@ -8,6 +8,7 @@ Page({
     difficulty: 5 /* [ 5、6、7 ] */ ,
     board_num: [] /* board.length = board_size */ ,
     board_img_url: [],
+    chess_index: []
   },
 
   /**                                                                        
@@ -20,11 +21,14 @@ Page({
     tar.board_num.forEach((e) => {
       tar.board_img_url.push(get_num_img(e));
     });
+    tar.chess_index = fillter_board(tar.board_num);
     // console.log(tar.board_num);
     // console.log(tar.board_img_url);
+    console.log(tar.chess_index);
     this.setData({
       board_num: tar.board_num,
-      board_img_url: tar.board_img_url
+      board_img_url: tar.board_img_url,
+      chess_index: tar.chess_index
     });
   },
 
@@ -65,6 +69,15 @@ Page({
 
   get_num_img: function (num) {
     get_num_img(num);
+  },
+  handleMove: function (event) {
+    let query = wx.createSelectorQuery().in(this);
+    query.select('#' + event.currentTarget.id).boundingClientRect((rect) => {
+      console.log('rect', rect);
+      // let x = rect.width;
+      // let y = rect.height / 2;
+    }).exec()
+
   }
 });
 
@@ -112,7 +125,7 @@ function get_num_img(num) {
 }
 
 /**                                                                        
- * 递归地整理棋盘，是棋子聚拢向中间                                                                        
+ * 整理棋盘，使棋子聚拢向中间                                                                        
  * @param {Number[]} board 需要被聚拢的棋盘数组（原地聚拢）                                                                        
  */
 function prettyBoard(board) {
@@ -213,4 +226,18 @@ function prettyBoard(board) {
       break;
     }
   }
+}
+
+/**
+ * 返回一个过滤了数组中全部的-1的新数组，数组元素是索引值
+ * @param {Number[]} board 待过滤的棋盘数组
+ */
+function fillter_board(board) {
+  let out = [];
+  board.forEach((e, i) => {
+    if (e != -1) {
+      out.push(i);
+    }
+  });
+  return out;
 }
