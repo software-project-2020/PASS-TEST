@@ -11,6 +11,7 @@ import (
 	"io"
 	"log"
 	"math/rand"
+	"net/http"
 	"os"
 	"strconv"
 	"time"
@@ -71,6 +72,8 @@ func main() {
 	r.POST("/api/test/configuration", getConfiguration)
 
 	r.POST("/api/test/detail", getDetail)
+
+	r.POST("/api/user/login",userLogin)
 
 	r.Run(":23333")
 }
@@ -221,4 +224,33 @@ func getDetail(c *gin.Context) {
 	mapJson, err := json.Marshal(result)
 	checkErr(err)
 	c.JSON(200, string(mapJson))
+}
+
+func userLogin(c *gin.Context){
+	defer recoverErr()
+	result := make(map[string]interface{})
+	result["error_code"] = 0
+	appid := "wxbe7e6a8c236b2b8c"
+	appSecret := "881be456b991f2037fea8217908d6c9d"
+	code := c.PostForm("code")
+	if code == ""{
+		result["error_code"] = 10001
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200,string(mapJson))
+		panic("code" + "字段为空")
+	}
+	url := "https://api.weixin.qq.com/sns/jscode2session?appid={"+appid+"}&secret={"+appSecret+
+		"}&js_code={"+code+"}&grant_type=authorization_code"
+
+	resp, err := http.Get(url)
+	if err != nil {
+		result["error_code"] = 10002
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200,string(mapJson))
+		panic("请求失败")
+	}
+	fmt.Println(resp)
+
 }
