@@ -9,11 +9,13 @@ import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"io"
+	"io/ioutil"
 	"log"
 	"math/rand"
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -73,7 +75,7 @@ func main() {
 
 	r.POST("/api/test/detail", getDetail)
 
-	r.POST("/api/user/login",userLogin)
+	r.POST("/api/user/login", userLogin)
 
 	r.Run(":23333")
 }
@@ -82,8 +84,8 @@ func getUserById(c *gin.Context) {
 	defer recoverErr()
 	user := models.User{}
 	id := c.PostForm("userid")
-	sql := "select * from user where id = ?;"
-	stmt, err := Db.Prepare(sql)
+	sqlForRun := "select * from user where id = ?;"
+	stmt, err := Db.Prepare(sqlForRun)
 	checkErr(err)
 	defer stmt.Close()
 	row := stmt.QueryRow(id)
@@ -92,7 +94,9 @@ func getUserById(c *gin.Context) {
 	var birthday string
 	err = row.Scan(&user.Id, &user.Openid, &user.SessionKey, &user.Age, &user.Gender, &registerTime,
 		&lastLoginTime, &user.NickName, &birthday)
-	checkErr(err)
+	if err == sql.ErrNoRows{
+		panic("不存在这个用户")
+	}
 	user.RegisterTime, _ = time.Parse("2006-01-02 15:04:05", registerTime)
 	user.LastLoginTime, _ = time.Parse("2006-01-02 15:04:05", lastLoginTime)
 	user.Birthday, _ = time.Parse("2006-01-02", birthday)
@@ -128,7 +132,7 @@ func getConfiguration(c *gin.Context) {
 		result["error_code"] = 10001
 		mapJson, err := json.Marshal(result)
 		checkErr(err)
-		c.JSON(200,string(mapJson))
+		c.JSON(200, string(mapJson))
 		panic("test_id" + "字段为空")
 	}
 	//checkEmpty(testId, "test_id",10001,c)
@@ -137,7 +141,7 @@ func getConfiguration(c *gin.Context) {
 		result["error_code"] = 10002
 		mapJson, err := json.Marshal(result)
 		checkErr(err)
-		c.JSON(200,string(mapJson))
+		c.JSON(200, string(mapJson))
 		panic("age_group" + "字段为空")
 
 	}
@@ -172,7 +176,7 @@ func getDetail(c *gin.Context) {
 		result["error_code"] = 10001
 		mapJson, err := json.Marshal(result)
 		checkErr(err)
-		c.JSON(200,string(mapJson))
+		c.JSON(200, string(mapJson))
 		panic("test_id" + "字段为空")
 	}
 	category := c.PostForm("category")
@@ -180,7 +184,7 @@ func getDetail(c *gin.Context) {
 		result["error_code"] = 10003
 		mapJson, err := json.Marshal(result)
 		checkErr(err)
-		c.JSON(200,string(mapJson))
+		c.JSON(200, string(mapJson))
 		panic("category" + "字段为空")
 
 	}
@@ -189,7 +193,7 @@ func getDetail(c *gin.Context) {
 		result["error_code"] = 10003
 		mapJson, err := json.Marshal(result)
 		checkErr(err)
-		c.JSON(200,string(mapJson))
+		c.JSON(200, string(mapJson))
 		panic("num" + "字段为空")
 
 	}
@@ -215,7 +219,7 @@ func getDetail(c *gin.Context) {
 		result["error_code"] = 10004
 		mapJson, err := json.Marshal(result)
 		checkErr(err)
-		c.JSON(200,string(mapJson))
+		c.JSON(200, string(mapJson))
 	}
 	for i := 0; i < numint; i++ {
 		list = append(list, details.Details[i].Details)
@@ -226,31 +230,85 @@ func getDetail(c *gin.Context) {
 	c.JSON(200, string(mapJson))
 }
 
-func userLogin(c *gin.Context){
+func userLogin(c *gin.Context) {
 	defer recoverErr()
 	result := make(map[string]interface{})
 	result["error_code"] = 0
 	appid := "wxbe7e6a8c236b2b8c"
 	appSecret := "881be456b991f2037fea8217908d6c9d"
 	code := c.PostForm("code")
-	if code == ""{
+	if code == "" {
 		result["error_code"] = 10001
 		mapJson, err := json.Marshal(result)
 		checkErr(err)
-		c.JSON(200,string(mapJson))
+		c.JSON(200, string(mapJson))
 		panic("code" + "字段为空")
 	}
-	url := "https://api.weixin.qq.com/sns/jscode2session?appid={"+appid+"}&secret={"+appSecret+
-		"}&js_code={"+code+"}&grant_type=authorization_code"
-
-	resp, err := http.Get(url)
-	if err != nil {
+	nickname := c.PostForm("nickname")
+	if nickname == "" {
 		result["error_code"] = 10002
 		mapJson, err := json.Marshal(result)
 		checkErr(err)
-		c.JSON(200,string(mapJson))
-		panic("请求失败")
+		c.JSON(200, string(mapJson))
+		panic("nickname" + "字段为空")
 	}
-	fmt.Println(resp)
+	gender := c.PostForm("gender")
+	if gender == "" {
+		result["error_code"] = 10003
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("gender" + "字段为空")
+	}
+	url := "https://api.weixin.qq.com/sns/jscode2session?appid={" + appid + "}&secret={" + appSecret +
+		"}&js_code={" + code + "}&grant_type=authorization_code"
+	resp, err := http.Get(url)
+	checkErr(err)
+	body, err := ioutil.ReadAll(resp.Body)
+	checkErr(err)
+	if strings.Contains(string(body), "openid") {
+		user := models.User{}
+		requestBody := make(map[string]interface{})
+		err = json.Unmarshal(body, &requestBody)
+		checkErr(err)
+		sqlForRun := "select * from user where openid = ?;"
+		stmt, err := Db.Prepare(sqlForRun)
+		checkErr(err)
+		defer stmt.Close()
+		row := stmt.QueryRow(requestBody["openid"])
+		var registerTime string
+		var lastLoginTime string
+		var birthday string
+		err = row.Scan(&user.Id, &user.Openid, &user.SessionKey, &user.Age, &user.Gender, &registerTime,
+			&lastLoginTime, &user.NickName, &birthday)
+		if err == sql.ErrNoRows{
+			sqlForRun = "insert into user(openid,session_key,gender,register_time,last_login_time,nickname)" +
+				" values(?,?,?,?,?,?)"
+			res, err := Db.Exec(sqlForRun, requestBody["openid"], requestBody["session_key"],
+				c.PostForm("gender"), time.Now(), time.Now(), c.PostForm("nickname"))
+			checkErr(err)
+			fmt.Println(res.LastInsertId())
+		}else{
+			sqlForRun = "update user set last_login_time = ? where openid = ?"
+			stmt2, err := Db.Prepare(sqlForRun)
+			checkErr(err)
+			defer stmt2.Close()
+			row = stmt2.QueryRow(1)
+			err = row.Scan(&user.Id, &user.Openid, &user.SessionKey, &user.Age, &user.Gender, &registerTime,
+				&lastLoginTime, &user.NickName, &birthday)
+			if err == sql.ErrNoRows{
+				panic("不存在这个用户")
+			}
+			user.RegisterTime, _ = time.Parse("2006-01-02 15:04:05", registerTime)
+			user.LastLoginTime, _ = time.Parse("2006-01-02 15:04:05", lastLoginTime)
+			user.Birthday, _ = time.Parse("2006-01-02", birthday)
+		}
+	} else {
+		result["error_code"] = 10003
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("code 无效")
+	}
 
 }
