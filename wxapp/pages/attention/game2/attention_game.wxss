@@ -1,0 +1,104 @@
+/* pages/attention/attention_game.wxss */
+page {
+  overflow: hidden;
+  background-image: url('https://picture.morii.top/renzhixuetang/background/10.jpg');
+  background-size: 100% 100%;
+}
+.top{
+  width:25%;
+  display: flex;
+  margin-left: 65%;
+}
+.clock{
+  margin:12% 0% 0% 5%;
+}
+.time{
+  margin: 13% 0% 1% 0%;
+  height: 50rpx;
+  width: 100%;
+  display: flex;
+  background-color: #ffffffcc;
+  opacity: 0.8;
+  border: 4rpx solid #edbf40d5;
+  border-radius: 15rpx;
+  text-align:center;
+  align-items:center;
+  justify-content: center;
+}
+.title {
+ margin-top: 32%;
+  height: 80rpx;
+  width: 250rpx;
+  display: flex;
+}
+.question{
+  height: 2rem;
+  width: 2rem;
+  margin-left: 20rpx;
+}
+
+.back {
+  background-color: #ffffffd5;
+  border-color:  #edbf40d5;
+  border-width: 5rpx;
+  border-style: solid;
+  height: 100%;
+  width: 80%;
+  margin: 3% 10%;
+  border-radius: 20rpx;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+.text{
+  width: 50px;
+}
+.bg1{
+  padding: 4rpx;
+}
+.bg2{
+  border: 10rpx solid #edbf40;
+  border-radius: 100rpx;
+  padding: 4rpx;
+}
+.text1{
+  color: #000000;
+  font-size: 40rpx;
+  font-weight: 1000;
+}
+.text2{
+  color: #000000;
+  font-size: 40rpx;
+  font-weight: 1000;
+  border: 10rpx solid #edbf40;
+  border-radius: 100rpx;
+  padding: 4rpx;
+}
+.t1{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 4rem;
+  align-items: center;
+}
+.t2{
+  width: 40%;
+  justify-content: center;
+  color: #edbf40;
+  display: flex;
+  height: 4rem;
+  width: 4rem;
+  align-items: center;
+}
+.finish{
+  border: 3rpx solid #edbf40;
+  border-radius: 20rpx;
+  margin-top: 3%;
+  background-color: #edbf40a2;
+  color: #ffffff;
+  letter-spacing:5px;
+  font-size: 40rpx;
+  font-weight: 1000;
+}

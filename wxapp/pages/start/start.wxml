@@ -4,36 +4,26 @@
   <block>
     <view class="tr">
       <view class="td">  
-        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+        <!-- <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image> -->
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="../../image/attention/animals/cat.png" mode="cover"></image>
       </view>
-
       <view class="td">
         <view class="tr1">
-          <view class="td1"><text>{{nickname}}</text></view>
-          <view class="td1">
-            <image catchtap='no_sign'  wx:if="{{isSign}}" src="../../image/start/no_sign.png" mode="scaleToFill" style="width:50px;height: 20px;"></image>
-            <image wx:else catchtap='sign' src="../../image/start/sign.png" mode="scaleToFill" style="width:50px;height: 20px;"></image>
-        </view>
+          <view><text class="nickname">{{nickname}}</text></view>
         </view>
         <view class="tr1">
-          <view class="td2"><text class="text_age">年龄</text></view>
-          <view class="td2"><text class="text_age">{{age}}</text></view>
-          <view class="td2"><text class="text_age">岁</text></view>
+          <view><text class="text_age">年龄</text></view>
+          <view><text class="text_age">{{age}}</text></view>
+          <view><text class="text_age">岁</text></view>
         </view>
       </view>
-      <view class="td"> <button class="huizhang" size="mini" bindtap = "huizhang_list">
-          <image  mode="scaleToFill" style="width: 30px; height: 30px;">
-          </image>
-        </button></view>
+      <view class="td"></view>
     </view>
   </block>
 </view>
 <view class="start">
   <button class="button_back_test" size="mini" bindtap = "test">
     <image class="button_back_test_image" src="../../image/start/button_back_test.png" mode="scaleToFill" ></image>
-  </button>
-  <button class="button_back_confirm" size="mini" bindtap = "confirm">
-    <image class="button_back_confirm_image" src="../../image/start/button_back_confirm.png" mode="scaleToFill" ></image>
   </button>
   <button class="list_back" size="mini" bindtap = "list">
     <image class="list_back_image" src="../../image/start/list_back.png" mode="scaleToFill" ></image>

@@ -1,20 +1,20 @@
 <!--pages/attention/attention_game.wxml-->
-<view class="top" style="flex-direction:row;">
-  <view>
-  <image class="title" src="../../../image/attention/title.png" mode="scaleToFill"></image>
-</view>
-<view class="clock">
-      <image class='img1' mode='widthFix' src='../../../image/lyq/clock.png' style="width: 70rpx;"></image>
-    </view>
-    <view class="time">
-      <text style='color:#2BB31C'>{{countDownNum}}s</text>
-    </view>
+<view class="top">
+  <view class="clock">
+  </view>
 </view>
 
 <view class="back">
-  <text>选出下列数字中的1，2，3</text>
+  <text>判断下列数字是否为 {{answer1}} ， {{answer2}} ， {{answer3}}</text>
 </view>
-<view class="back">
-
-
+<view class="back1">
+  <text class="Num_text">{{Num}}</text>
 </view>
+<view class="button">
+  <image src="../../../image/attention/right.png" class="{{rightflag?'right':'right2'}}" mode="widthFix" bindtap="right"></image>
+  <image src="../../../image/attention/wrong.png" class="{{wrongflag?'wrong':'wrong2'}}" bindtap="wrong"></image>
+</view>
+
+<mp-dialog wx:if="{{finish}}" title="提示" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{oneButton}}">
+  <text>{{letter[number]}}</text>
+</mp-dialog>

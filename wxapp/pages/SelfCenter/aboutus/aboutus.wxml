@@ -1,0 +1,15 @@
+<!--pages/SelfCenter/aboutus/aboutus.wxml-->
+<view class="container">
+  <text class="header">认知学堂</text>
+  <text class="title">关于认知学堂</text>
+  <view class="border">
+    <text class="about">认知学堂这款软件是针对5-16周岁的孩子进行认知能力评估以及训练，这款软件利用了基于PASS智力评估模型，从计划能力、注意力、同时性加工、继时性加工这四个方面进行多维智力测验，该测验由四个与PASS技能匹配的量表和一个代表整体能力的满分量表组成。规划测试提供了一种新颖的解决问题的情况，需要自我调节，灵活使用策略，分配注意力和记忆力，抑制响应，设定目标，自我监控和自我纠正。此外，这款软件还提供了训练模式，儿童化的界面以及有趣的闯关情景可以让孩子在游戏中逐步提升对应方面能力，从而提升认知水平。</text>
+  </view>
+  <text class="title2">联系我们</text>
+  <view class="border2">
+    <text class="about2">邮箱 : 1234567890@gmail.com
+      公众号 : 认知学堂
+      电话 : 0571-01234567890
+    </text>
+  </view>
+</view>

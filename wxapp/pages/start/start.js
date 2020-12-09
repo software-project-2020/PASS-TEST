@@ -8,7 +8,8 @@ Page({
   data: {
     isSign : true,
     age : 7,
-    nickname : wx.getStorageInfoSync('userInfo').nickname
+    // nickname : wx.getStorageInfoSync('userInfo').nickname
+    nickname:"昵称"
   },
   /**
    * 生命周期函数--监听页面显示
