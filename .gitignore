@@ -141,4 +141,8 @@ node_modules
 code.zip
 .vscode/
 
+server/pkg/*
+server/src/*
+
+
 
