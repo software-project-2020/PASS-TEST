@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据                                                                        
    */
   data: {
-    difficulty: 7 /* [ 5、6、7 ] */ ,
+    difficulty: 5 /* [ 5、6、7 ] */ ,
     board_num: [] /* board.length = board_size */ ,
     board_img_url: [],
   },
