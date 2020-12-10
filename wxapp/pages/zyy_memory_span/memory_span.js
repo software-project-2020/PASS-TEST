@@ -9,7 +9,9 @@ Page({
     board_num: [] /* board.length = board_size */ ,
     board_img_url: [],
     chess_index: [],
-    chess_move: []
+    chess_move: [],
+    chess_start: [],
+    chess_size: 50
   },
 
   /**                                                                        
@@ -25,12 +27,16 @@ Page({
         "left": 0,
         "top": 0
       });
+      tar.chess_start.push({
+        "left": 0,
+        "top": 0
+      });
     });
     tar.chess_index = fillter_board(tar.board_num);
     // console.log(tar.board_num);
     // console.log(tar.board_img_url);
     console.log(tar.chess_index);
-    console.log(tar.chess_move);
+    // console.log(tar.chess_move);
     this.setData({
       board_num: tar.board_num,
       board_img_url: tar.board_img_url,
@@ -77,16 +83,40 @@ Page({
   get_num_img: function (num) {
     get_num_img(num);
   },
+  handleStart: function (event) {
+    let who = event.currentTarget.dataset.who;
+    let chess_start = this.data.chess_start;
+    let param = {};
+    if (chess_start[who].left == 0 && chess_start[who].top == 0) {
+      param["chess_start[" + who + "]"] = {
+        "left": event.currentTarget.offsetLeft + this.data.chess_size / 2, 
+        "top": event.currentTarget.offsetTop - this.data.chess_size / 4
+      };
+      this.setData(param);
+      // console.log(param);
+    }
+    // console.log("触摸开始 who",who);
+    // console.log("触摸开始 chess_start",chess_start);
+  },
   handleMove: function (event) {
     let who = "chess_move[" + event.currentTarget.dataset.who + "]";
+    let start = this.data.chess_start[event.currentTarget.dataset.who];
+    if (event.currentTarget.offsetLeft <= 10 || event.currentTarget.offsetLeft >= 300 || event.currentTarget.offsetTop <= 10 || event.currentTarget.offsetTop >= 500) {
+      return;
+    }
     let move = {
-      "left": event.changedTouches[0].pageX - event.currentTarget.offsetLeft,
-      "top": event.changedTouches[0].pageY - event.currentTarget.offsetTop
+      "left": event.changedTouches[0].pageX - start["left"],
+      "top": event.changedTouches[0].pageY - start["top"]
     };
-    let param={};
+
+    let param = {};
     param[who] = move;
     this.setData(param);
-    console.log(param);
+    console.log(param[who]);
+    console.log(event.changedTouches[0], event.currentTarget);
+  },
+  moveEnd: function (event) {
+    console.log("触摸结束", this.data.chess_move[event.currentTarget.dataset.who]);
   }
 });
 
