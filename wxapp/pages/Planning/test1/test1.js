@@ -9,64 +9,15 @@ Page({
     age: 16,
     nowdifficulty: 3,
     complex: [{}],
-    isPass: false,//有没有结束游戏
     noworder: [],
-    Alltime: 100,//测试规定最长时间
-    Passtime: 0,//完成测试所花时间
-    Lasttime: 0,//上次点击的时间
-    SeriesCount: 0,//连续点击次数
-    SeriesAdd:0,
-    GoodTime: 5,//属于连续点击的间隔秒
-    LastIsCorrect: 1,//上次点击是否正确
-    isHide: true,
-    dialogShow: false,
-    istry:true,
-    tryButton: [{ text: '再次尝试' }, { text: '开始测试' }],
-    testButton: [ { text: '下一题' }],
-    showTime: false
-  },
-  //时间用完
-  timeout: function () {
-      this.setData({
-        dialogShow: true
-      })
-  },
-  //点击确定，
-  tapDialogButton: function (e) {
-    this.setData({
-      dialogShow: false
-    })
-    var nowdifficulty = this.data.nowdifficulty
-    if (this.data.nowdifficulty == 3) {
-      if (e.detail.index == 0) {
-        console.log('再次尝试')
-        this.initnum(this.data.nowdifficulty)
-      } else {
-        console.log('开始测试')
-        this.setData({
-          nowdifficulty: nowdifficulty + 1
-        })
-        this.initnum(this.data.nowdifficulty)
-      }
-    }
-    else if (this.data.nowdifficulty == 5) {
-      wx.navigateTo({
-        url: '/pages/Planning/rule4.1/rule4.1',
-      })
-    }
-    else{
-      this.setData({
-        nowdifficulty: nowdifficulty + 1
-      })
-      this.initnum(this.data.nowdifficulty)
-    }
+    showTime: false,
+    PassScore:0,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // this.initScore(this.data.nowdifficulty)
     this.initnum(this.data.nowdifficulty)
   },
   /**
@@ -82,11 +33,11 @@ Page({
       Passtime: 0,
       Lasttime: 0,
       SeriesCount: 0,
-      SeriesAdd:0,
+      SeriesAdd: 0,
       GoodTime: 5,
       LastIsCorrect: 1,
       isHide: true,
-      istry:true,
+      istry: true,
     })
     var l = this.data.l;
     var complex = this.data.complex;
@@ -102,7 +53,7 @@ Page({
       }
       l.push(item)
     }
-    console.log(l)
+    // console.log(l)
     this.setData({
       l: l,
     })
@@ -128,7 +79,7 @@ Page({
       tem.index = i;
       i++;
     })
-    console.log(complex)
+    // console.log(complex)
     this.setData({
       complex: complex
     })
@@ -149,7 +100,7 @@ Page({
     }
     else {
       this.setData({
-        istry:false
+        istry: false
       })
       util.initCountDown(this, this.data.Alltime, 0.1)
     }
@@ -185,14 +136,54 @@ Page({
       Passtime: this.data.Alltime
     })
     this.CountSore()
+    var nowdifficulty = this.data.nowdifficulty
+    var that = this
+    if (this.data.nowdifficulty == 3) {
+      wx.showModal({
+        title: '糟糕',
+        content: '时间花光了',
+        confirmText: '开始测试',
+        cancelText: '再次尝试',
+        success: function (res) {
+          if (res.confirm) {//这里是点击了确定以后
+            console.log('用户点击确定')
+            that.setData({
+              nowdifficulty: nowdifficulty + 1
+            })
+            that.initnum(that.data.nowdifficulty)
+          }
+          else if (res.cancel) {
+            that.initnum(that.data.nowdifficulty)
+          }
+        }
+      })
+    } else {
+      wx.showModal({
+        title: '糟糕',
+        content: '时间花光了',
+        confirmText: '下一题',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {//这里是点击了确定以后
+            console.log('用户点击确定')
+            that.setData({
+              nowdifficulty: nowdifficulty + 1
+            })
+            if (that.data.nowdifficulty == 6) {
+              wx.navigateTo({
+                url: '/pages/Planning/rule4.1/rule4.1',
+              })
+            }else
+            that.initnum(that.data.nowdifficulty)
+          }
+        }
+      })
+    }
   },
   CountSore() {
-    var noworder = this.data.noworder
     var RightScore;
     RightScore = this.data.noworder.length / (this.data.nowdifficulty * this.data.nowdifficulty) * 100
-    console.log(RightScore)
     var Passtime = this.data.Passtime
-    console.log(Passtime)
     var TimeScore = 0;
 
     if (this.data.nowdifficulty == 4 && (this.data.age == 5 || this.data.age == 6)) {
@@ -245,12 +236,25 @@ Page({
     }
     console.log("时间得分")
     console.log(TimeScore)
-    console.log('连击加分')
+    console.log('连击加个数')
     console.log(this.data.SeriesAdd)
     var FinalScore;
-    FinalScore = (TimeScore+this.data.SeriesAdd*0.5) * 0.8 + RightScore * 0.2
+    FinalScore = (TimeScore + this.data.SeriesAdd * 0.5) * 0.8 + RightScore * 0.2
     console.log("总得分")
     console.log(FinalScore)
+    var PassScore = this.data.PassScore
+    if(this.data.nowdifficulty==4||this.data.nowdifficulty==5){
+      PassScore=PassScore+FinalScore
+      this.setData({
+        PassScore:PassScore
+      })
+    }
+    if(this.data.nowdifficulty==5){
+      this.setData({
+        PassScore:(PassScore/2).toFixed(1)
+      })
+    }
+    console.log(this.data.PassScore)
   },
   change: function (e) {
     var that = this;
@@ -265,29 +269,24 @@ Page({
     var i;
     if (isPass == false) {
       i = Number(e.target.dataset.name)
-      // console.log(e.target.dataset.name)//获取点击对象的下标
-      // i = Number(e.target.dataset.name)
       if (noworder.length == 0 && l[i]["value"] == 1 || (l[i]["value"] == noworder[noworder.length - 1] + 1)) {
         this.recolor(i);
         if (l[i]["value"] == 1) {
           that.setData({
             Lasttime: this.data.countDownNum,
           })
-          //  console.log(this.data.Lasttime)
         } else {
           costtime = this.data.Lasttime - this.data.countDownNum
           that.setData({
             Lasttime: this.data.countDownNum,
           })
-          console.log(costtime)
           //如果两次点击间隔在GoodTime之间，并且两次点击之间没有错误点击
           if (costtime <= this.data.GoodTime && this.data.LastIsCorrect != 0) {
             that.setData({
               SeriesCount: this.data.SeriesCount + 1,
-              SeriesAdd:this.data.SeriesAdd+1,
+              SeriesAdd: this.data.SeriesAdd + 1,
               isHide: false
             })
-            console.log(this.data.isHide)
           } else {
             that.setData({
               SeriesCount: 0,
@@ -306,12 +305,9 @@ Page({
           isHide: true
         })
       }
-      // console.log(this.data.LastIsCorrect)
-      console.log(this.data.SeriesCount)
       that.setData({
         noworder: noworder
       })
-      console.log(this.data.noworder)
     }
     if (this.data.noworder.length == this.data.nowdifficulty * this.data.nowdifficulty && this.data.isPass == false) {
       util.closeCountDown(this)//关闭计时器
@@ -322,103 +318,48 @@ Page({
         Passtime: (this.data.Alltime - this.data.countDownNum).toFixed(1)
       })
       this.CountSore();
-      if(this.data.nowdifficulty!=3){
-        wx.showModal({
-        title: '恭喜',
-        content: '作答正确',
-        showCancel: false,
-        success: function (res) {
-          if (res.confirm) {//这里是点击了确定以后
-            console.log('用户点击确定')
-            that.setData({
-              nowdifficulty: nowdifficulty + 1
-            })
-            if (that.data.nowdifficulty == 6) {
-              wx.navigateTo({
-                url: '/pages/Planning/rule4.1/rule4.1',
-              })
-            }
-            else
-              that.initnum(that.data.nowdifficulty)
-          }
-        }
-      })
-      console.log(this.data.isPass);
-      }
-      else{
+      if (this.data.nowdifficulty != 3) {
         wx.showModal({
           title: '恭喜',
           content: '作答正确',
-          cancelText:'再次尝试',
-          confirmText:'开始测试',
+          showCancel: false,
           success: function (res) {
             if (res.confirm) {//这里是点击了确定以后
               console.log('用户点击确定')
               that.setData({
                 nowdifficulty: nowdifficulty + 1
               })
+              if (that.data.nowdifficulty == 6) {
+                wx.navigateTo({
+                  url: '/pages/Planning/rule4.1/rule4.1',
+                })
+              }
+              else
                 that.initnum(that.data.nowdifficulty)
             }
-            else if(res.cancel){
+          }
+        })
+      }
+      else {
+        wx.showModal({
+          title: '恭喜',
+          content: '作答正确',
+          cancelText: '再次尝试',
+          confirmText: '开始测试',
+          success: function (res) {
+            if (res.confirm) {//这里是点击了确定以后
+              console.log('用户点击确定')
+              that.setData({
+                nowdifficulty: nowdifficulty + 1
+              })
+              that.initnum(that.data.nowdifficulty)
+            }
+            else if (res.cancel) {
               that.initnum(that.data.nowdifficulty)
             }
           }
         })
       }
-      
-      // console.log(this.data.Passtime)
     }
   },
-
-  onReady: function () {
-
-  },
-
-
-
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-  countDown: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

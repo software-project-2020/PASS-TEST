@@ -11,7 +11,7 @@
     <view class="clock">
       <image class='img1' mode='widthFix' src='../../../image/lyq/clock.png' style="width: 70rpx;"></image>
     </view>
-    <view class="time">
+    <view class="time" >
       <text style='color:#2BB31C' wx:if="{{showTime==true}}">{{displayTime}}s</text>
     </view>
   </view>
@@ -31,7 +31,5 @@
   </view>
   
 </view>
-<mp-dialog title="抱歉" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{istry?tryButton:testButton}}">
-    <text>时间花光了</text>
-</mp-dialog>
+
 
