@@ -9,12 +9,12 @@ Page({
   },
   gotoHistoryTest:function(e){
     wx.navigateTo({
-      url: '/pages/Planning/test1/test1',
+      url: '/pages/SelfCenter/History/History',
       })
   },
   gotoSuggestions:function(e){
     wx.navigateTo({
-      url: '/pages/Planning/test1/test1',
+      url: '/pages/SelfCenter/suggestion/suggestion',
       })
   },
   gotoAboutUs:function(e){
