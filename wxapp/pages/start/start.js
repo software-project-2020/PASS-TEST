@@ -15,9 +15,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    wx.setNavigationBarTitle({
-      title: '首页'
-    })
+    // wx.setNavigationBarTitle({
+    //   title: '首页'
+    // })
   },
   myinformation:function(){
     wx.navigateTo({
@@ -31,12 +31,12 @@ Page({
   },
   huizhang_list:function(){
     wx.navigateTo({
-      url: '../index/index'
+      url: '/pages/Planning/rule1/rule1'
     })
   },
   test:function(){
     wx.navigateTo({
-      url: '../index/index'
+      url: '/pages/Planning/rule1/rule1'
     })
   }
 })

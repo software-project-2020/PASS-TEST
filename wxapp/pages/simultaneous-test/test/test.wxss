@@ -1,10 +1,121 @@
 /* pages/simultaneous-test/test/test.wxss */
-.intro {
-  margin: 30px;
-  text-align: center;
+page {
+  overflow: hidden;
+  background-image: url('https://picture.morii.top/renzhixuetang/background/13.jpg');
+  background-size: 100% 100%;
 }
-.handWriting {
+
+.intro {
+  /* margin: 10px; */
+  justify-content: center;
+  /*水平*/
+  align-items: center;
+  /*垂直*/
   width: 100%;
-  height: 300px;
-  border: 1rpx solid #ddd;
+}
+
+.huabu {
+  justify-content: center;
+  /*水平*/
+  align-items: center;
+  /*垂直*/
+}
+
+.handWriting {
+  width: 95%;
+  height: 350px;
+  border: 2rpx green solid;
+}
+
+.container {
+  padding: 0rpx;
+}
+
+.border {
+  height: 90%;
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  /*水平*/
+  align-items: center;
+  /*垂直*/
+  background-color: #ffffff;
+  opacity: 0.8;
+  border: 9rpx solid #2BB31C;
+  border-radius: 30rpx;
+  padding: 25rpx;
+  flex-direction: column;
+}
+
+
+.top {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.clock {
+  margin: 12% 0% 0% 1%;
+}
+
+.time {
+  margin: 13% 0% 1% 0%;
+  height: 50rpx;
+  width: 10%;
+  display: flex;
+  background-color: #ffffff;
+  opacity: 0.8;
+  border: 4rpx solid #2BB31C;
+  border-radius: 15rpx;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.jindu {
+  /* 上右下左 */
+  margin: 12% 3% 1% 0%;
+  height: 60rpx;
+  width: 25%;
+  display: flex;
+  background-color: #ffffff;
+  opacity: 0.8;
+  border: 4rpx solid #2BB31C;
+  border-radius: 15rpx;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.eyu {
+  margin: 0% 5% 0% 0%;
+}
+
+.word {
+  color: #18690f;
+  font-size: 32rpx;
+  font-weight: 550;
+  line-height: 53rpx;
+  padding-bottom: 20rpx;
+}
+
+.timu {
+  height: 100%;
+  width: 100%;
+  padding: 10rpx;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.submit {
+  border: 4rpx solid #2BB31C;
+  border-radius: 50rpx;
+  width: 20rpx;
+}
+
+.clear {
+  display: inline-block;
+  /* float: right; */
+  width: 180rpx;
 }

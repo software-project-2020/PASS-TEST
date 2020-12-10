@@ -1,0 +1,21 @@
+<view class="container">
+  <view class="top" style="flex-direction:row;">
+    <view class="sheep">
+      <image class='img1' mode='widthFix' src='../../../image/lyq/animal/sheep.png' style="width: 170rpx; "></image>
+    </view>
+  </view>
+  <view class="border">
+    <view class="introduction">
+      <text class="rules">接下来，你会看到一幅不完整的矩阵图片，你需要根据规律在下面给出的选项中选出空缺处的图案。
+        请看下面的示例：</text>
+    </view>
+    <image class='img1' mode='widthFix' src='../../../image/lyq/guize.gif' style="width: 400rpx; "></image>
+
+  </view>
+  <view class="bottom">
+    <button class="btn" plain="true" bindtap="gototest1">
+      <image class='img2' mode='widthFix' src='../../../image/lyq/starttest.png' style="width: 250rpx; "></image>
+    </button>
+  </view>
+
+</view>

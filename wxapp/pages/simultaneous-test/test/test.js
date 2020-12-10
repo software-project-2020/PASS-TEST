@@ -1,10 +1,5 @@
 const app = getApp()
-
-// 测试环境
-// const domain = 'https://ltc-cloud-test.leapstack.cn/';
-// 生产环境
-// const domain = 'https://ltc-cloud.leapstack.cn/';
-
+var util = require('../../../utils/util.js')
 Page({
   data: {
     ctx: '',
@@ -18,6 +13,8 @@ Page({
   },
   onLoad: function () {
     this.initCanvas()
+    // util.initCountDown(this,30,1)
+    
   },
 
   // 笔迹开始
@@ -114,6 +111,7 @@ Page({
         })
       }
     }, this)
+    this.clearDraw()
   },
 
   // 清除画布
