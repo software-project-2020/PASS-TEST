@@ -11,6 +11,7 @@ Page({
     chess_index: [],
     chess_move: [],
     chess_start: [],
+    chess_zindex: [],
     chess_size: 50
   },
 
@@ -31,6 +32,7 @@ Page({
         "left": 0,
         "top": 0
       });
+      tar.chess_zindex.push(100);
     });
     tar.chess_index = fillter_board(tar.board_num);
     // console.log(tar.board_num);
@@ -41,7 +43,8 @@ Page({
       board_num: tar.board_num,
       board_img_url: tar.board_img_url,
       chess_index: tar.chess_index,
-      chess_move: tar.chess_move
+      chess_move: tar.chess_move,
+      chess_zindex: tar.chess_zindex
     });
   },
 
@@ -89,9 +92,10 @@ Page({
     let param = {};
     if (chess_start[who].left == 0 && chess_start[who].top == 0) {
       param["chess_start[" + who + "]"] = {
-        "left": event.currentTarget.offsetLeft + this.data.chess_size / 2, 
+        "left": event.currentTarget.offsetLeft + this.data.chess_size / 2,
         "top": event.currentTarget.offsetTop - this.data.chess_size / 4
       };
+      param["chess_zindex[" + who + "]"] = 200;
       this.setData(param);
       // console.log(param);
     }
@@ -101,9 +105,6 @@ Page({
   handleMove: function (event) {
     let who = "chess_move[" + event.currentTarget.dataset.who + "]";
     let start = this.data.chess_start[event.currentTarget.dataset.who];
-    if (event.currentTarget.offsetLeft <= 10 || event.currentTarget.offsetLeft >= 300 || event.currentTarget.offsetTop <= 10 || event.currentTarget.offsetTop >= 500) {
-      return;
-    }
     let move = {
       "left": event.changedTouches[0].pageX - start["left"],
       "top": event.changedTouches[0].pageY - start["top"]
@@ -112,11 +113,24 @@ Page({
     let param = {};
     param[who] = move;
     this.setData(param);
-    console.log(param[who]);
-    console.log(event.changedTouches[0], event.currentTarget);
+    // console.log(param[who]);
+    // console.log(event.changedTouches[0], event.currentTarget);
   },
   moveEnd: function (event) {
-    console.log("触摸结束", this.data.chess_move[event.currentTarget.dataset.who]);
+    let desc = this.data.chess_size;
+    /* 如果发现位置超出界限则放回原地 */
+    let who = event.currentTarget.dataset.who;
+    let param = {};
+    if (event.currentTarget.offsetLeft <= -desc / 2 || event.currentTarget.offsetLeft >= 320 + desc / 2 || event.currentTarget.offsetTop <= -desc / 2 || event.currentTarget.offsetTop >= 500 + desc / 2) {
+      param["chess_move[" + who + "]"] = {
+        "left": 0,
+        "top": 0
+      };
+    }
+    param["chess_zindex[" + who + "]"] = 100;
+    // console.log(param);
+    this.setData(param);
+    // console.log("触摸结束", this.data.chess_move[event.currentTarget.dataset.who]);
   }
 });
 
