@@ -121,7 +121,7 @@ Page({
     /* 如果发现位置超出界限则放回原地 */
     let who = event.currentTarget.dataset.who;
     let param = {};
-    if (event.currentTarget.offsetLeft <= -desc / 2 || event.currentTarget.offsetLeft >= 320 + desc / 2 || event.currentTarget.offsetTop <= -desc / 2 || event.currentTarget.offsetTop >= 500 + desc / 2) {
+    if (event.currentTarget.offsetLeft <= -desc / 2 || event.currentTarget.offsetLeft >= 320-desc/2 || event.currentTarget.offsetTop <= -desc / 2 || event.currentTarget.offsetTop >= 500 - desc / 2) {
       param["chess_move[" + who + "]"] = {
         "left": 0,
         "top": 0
