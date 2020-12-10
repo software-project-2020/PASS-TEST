@@ -4,8 +4,8 @@
   </view>
 </view>
 <view class="chess_below">
-<view wx:for="{{chess_index}}" wx:key="item" catchtouchmove="handleMove" id="chess_{{board_num[item]}}"
-  data-who="{{item}}" style="position: relative;left:{{chess_move[item].left}}px;top:{{chess_move[item].top}}px;">
-  <image src='{{board_img_url[item]}}' style="width:40px;height:40px" />
-</view>
+  <view class="chess_drag" wx:for="{{chess_index}}" wx:key="item" catchtouchmove="handleMove" id="chess_{{board_num[item]}}"
+    data-who="{{item}}" style="position: relative;left:{{chess_move[item].left}}px;top:{{chess_move[item].top}}px;">
+    <image src='{{board_img_url[item]}}' style="width:40px;height:40px" />
+  </view>
 </view>
