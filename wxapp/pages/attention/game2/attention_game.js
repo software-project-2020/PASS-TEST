@@ -77,11 +77,12 @@ Page({
       5: "../../../image/attention/fruit/strawberry.png",
     },
     age1_question: Math.floor(Math.random() * 26),
+    age2_question: Math.floor(Math.random() * 26),
     age0_question: ["动物", "水果"],
     oneButton: [{
       text: '确定'
     }],
-    write: ["练习结束，测试正式开始", "请继续完成下一题", "本游戏结束，开始下一个游戏"]
+    write: ["练习结束，测试正式开始", "请继续完成下一题", "本游戏结束，开始下一个测试"]
   },
   onReady: function () {
     this.init()
@@ -116,11 +117,11 @@ Page({
     var i = 0;
     var j = 0;
     var k = 0;
-    var a;
+    var a,a2;
     var l = this.data.l;
     //保证至少有一个答案
     var place = [];
-    var size = Math.floor((Math.random() * 5) + 1);
+    var size = Math.floor((Math.random() * 5) + 2);
     for (i = 0; i < size; i++) {
       place[i] = Math.floor(((Math.random() * (this.data.line[this.data.number] * this.data.column[this.data.number]))));
     }
@@ -172,7 +173,7 @@ Page({
                     "index": i * this.data.line[this.data.number] + j,
                     "value": this.data.age1_question,
                     "add": this.data.list_small_letter[this.data.age1_question],
-                    "number": ""
+                    "number": this.data.age1_question_number
                   }
                   flag = true;
                 }
@@ -182,8 +183,9 @@ Page({
                   var item = {
                     "index": i * this.data.line[this.data.number] + j,
                     "value": this.data.age1_question,
-                    "add": this.data.list_small_letter[this.data.age1_question],
-                    "number": this.data.age1_question_number
+                    "add": this.data.list_big_letter[this.data.age1_question],
+                    "value2" : this.data.age2_question,
+                    "number": this.data.list_small_letter[this.data.age2_question],
                   }
                   flag = true;
                 }
@@ -205,11 +207,13 @@ Page({
             }
           } else if (this.data.age == 1) {
             a = Math.floor(Math.random() * 26);
+            a2 = Math.floor(Math.random() * 26);
             if (this.data.number == 0) {
               var item = {
                 "index": i * this.data.line[this.data.number] + j,
                 "value": a,
                 "add": this.data.list_big_letter[a],
+                "value2" :"",
                 "number": ""
               }
             } else if (this.data.number == 1) {
@@ -217,14 +221,16 @@ Page({
                 "index": i * this.data.line[this.data.number] + j,
                 "value": a,
                 "add": this.data.list_small_letter[a],
-                "number": ""
+                "value2" :"",
+                "number": Math.floor(Math.random() * 10)
               }
             } else if (this.data.number == 2) {
               var item = {
                 "index": i * this.data.line[this.data.number] + j,
                 "value": a,
-                "add": this.data.list_small_letter[a],
-                "number": Math.floor(Math.random() * 10)
+                "add": this.data.list_big_letter[a],
+                "value2" : a2,
+                "number": this.data.list_small_letter[a2],
               }
             }
           }
@@ -250,6 +256,7 @@ Page({
       grade: 0,
       dialogShow: false,
       age1_question: Math.floor(Math.random() * 26),
+      age2_question: Math.floor(Math.random() * 26),
       age1_question_number: Math.floor(Math.random() * 10),
     })
 
@@ -283,11 +290,11 @@ Page({
         })
       } else if (this.data.number == 1) {
         this.setData({
-          word: this.data.list_big_letter[this.data.age1_question] + " 对应的小写字母"
+          word: this.data.list_big_letter[this.data.age1_question] + " 对应的小写字母和数字 " + this.data.age1_question_number + " 的组合"
         })
       } else if (this.data.number == 2) {
         this.setData({
-          word: this.data.list_big_letter[this.data.age1_question] + " 对应的小写字母和数字 " + this.data.age1_question_number + " 的组合"
+          word: this.data.list_small_letter[this.data.age1_question] + " 对应的大写字母和 " + this.data.list_big_letter[this.data.age2_question] + " 对应的小写字母的组合"
         })
       }
     }
@@ -312,12 +319,14 @@ Page({
   },
 
   timeout: function () {
+    this.sum();
     this.setData({
       dialogShow: true
     })
   },
 
   tapDialogButton: function () {
+    
     util.closeCountDown(this)
     console.log("下一题")
     var Num = this.data.number;
@@ -350,12 +359,18 @@ Page({
       let index = "num[" + i + "]";
       let count = "ans_num[" + i + "]";
       var value = l[Math.floor(i / this.data.line[this.data.number])][i % this.data.column[this.data.number]].value;
-      var value_num = l[Math.floor(i / this.data.line[this.data.number])][i % this.data.column[this.data.number]].number;
+      if (this.data.age == 1 && this.data.number == 2){
+        var value_num = l[Math.floor(i / this.data.line[this.data.number])][i % this.data.column[this.data.number]].value2;
+      }
+      else{
+        var value_num = l[Math.floor(i / this.data.line[this.data.number])][i % this.data.column[this.data.number]].number;
+      }
       that.setData({
         [index]: value,
         [count]: value_num,
       });
     }
+  
     for (i = 0; i < this.data.line[this.data.number] * this.data.column[this.data.number]; i++) {
       if (this.data.age == 0) {
         if (this.data.number == 2) {
@@ -372,14 +387,20 @@ Page({
           }
         }
       } else if (this.data.age == 1) {
-        if (this.data.number == 0 || this.data.number == 1) {
+        if (this.data.number == 0 ) {
           if (Number(this.data.num[i]) == Number(this.data.age1_question)) {
             that.setData({
               count: this.data.count + 1,
             });
           }
-        } else if (this.data.number == 2) {
-          if ((Number(this.data.num[i]) == Number(this.data.age1_question)) && Number(this.data.ans_num[i] == Number(this.data.age1_question_number))) {
+        } else if (this.data.number == 1) {
+          if ((Number(this.data.num[i]) == Number(this.data.age1_question)) && (Number(this.data.ans_num[i]) == Number(this.data.age1_question_number))) {
+            that.setData({
+              count: this.data.count + 1,
+            });
+          }
+        }else if (this.data.number == 2) {
+          if ((Number(this.data.num[i]) == Number(this.data.age1_question)) && (Number(this.data.ans_num[i]) == Number(this.data.age2_question))) {
             that.setData({
               count: this.data.count + 1,
             });
@@ -432,7 +453,7 @@ Page({
       }
     } else if (this.data.age == 1) {
 
-      if (this.data.number == 0 || this.data.number == 1) {
+      if (this.data.number == 0 ) {
         if (Number(this.data.num[i]) == Number(this.data.age1_question)) {
           if (this.data.flag[i] <= 1) { //如果flag[i]是2，说明已经圈过，nowcount不能再加了
             that.setData({
@@ -440,8 +461,17 @@ Page({
             })
           }
         }
-      } else if (this.data.number == 2) {
-        if ((Number(this.data.num[i]) == Number(this.data.age1_question)) && Number(this.data.ans_num[i] == Number(this.data.age1_question_number))) {
+      } else if (this.data.number == 1) {
+        if ((Number(this.data.num[i]) == Number(this.data.age1_question)) && (Number(this.data.ans_num[i]) == Number(this.data.age1_question_number))) {
+          if (this.data.flag[i] <= 1) { //如果flag[i]是2，说明已经圈过，nowcount不能再加了
+            that.setData({
+              rightcount: rightcount + 1,
+            })
+          }
+        }
+      }
+      else if (this.data.number == 2) {
+        if ((Number(this.data.num[i]) == Number(this.data.age1_question)) && (Number(this.data.ans_num[i]) == Number(this.data.age2_question))) {
           if (this.data.flag[i] <= 1) { //如果flag[i]是2，说明已经圈过，nowcount不能再加了
             that.setData({
               rightcount: rightcount + 1,

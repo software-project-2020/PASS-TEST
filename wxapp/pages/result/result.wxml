@@ -6,16 +6,83 @@
 
 <view class="back">
   <scroll-view scroll-y class="result">
-  <view wx:for="{{arr}}" style="display: flex; height: 100px;">
-    <image src="https://images.unsplash.com/photo-1565699894576-1710004524ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1832&q=80"></image>
-    <image src="https://images.unsplash.com/photo-1566402441483-c959946717ed?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=80"></image>
-    <image src="https://images.unsplash.com/photo-1566378955258-7633cb5c823e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"></image>
-    <image src="https://images.unsplash.com/photo-1566404394190-cda8c6209208?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=630&q=80"></image>
-    <image src="https://images.unsplash.com/photo-1566490595448-be523b4d2914?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=958&q=80"></image>
+    <view>
+      <text class="text1">雷达图</text>
+      <canvas class="radarCanvas" canvas-id="radarCanvas" style="height:280px;"></canvas>
+      <view class="tr">
+        <view class="color" style="background-color: #475CB1;"></view>
+        <view class="td1">我的成绩</view>
+        <view class="color" style="background-color: #F7991F;"></view>
+        <view class="td1">平均成绩</view>
+      </view>
     </view>
-</scroll-view>
+    <view>
+      <text class="text1">排名</text>
+      <view class="table">
+        <view class="tr bg-w">
+          <view class="th">计划</view>
+          <view class="th">注意</view>
+          <view class="th ">同时性</view>
+          <view class="th ">继时性</view>
+        </view>
+        <block>
+          <view class="tr bg-g">
+            <view class="td">{{plan}}/{{people}}</view>
+            <view class="td">{{attention}}/{{people}}</view>
+            <view class="td">{{simultaneous}}/{{people}}</view>
+            <view class="td">{{successive}}/{{people}}</view>
+          </view>
+        </block>
+      </view>
+    </view>
+    <view>
+      <text class="{{show?'text1':'text2'}}" bindtap="show">点击查看做题详情</text>
+      <view class="table" wx:if="{{show}}">
+        <view class="tr bg-w">
+          <view class="th">题目</view>
+          <view class="th">做题详情</view>
+        </view>
+        <block >
+          <view class="tr bg-g">
+            <view class="td">舒尔特方块</view>
+            <view class="td">{{plan_time}} s</view>
+          </view>
+          <view class="tr" >
+            <view class="td">寻找数字</view>
+            <view class="td">{{attention1_right}} / {{attention1_sum}}</view>
+          </view>
+          <view class="tr bg-g">
+            <view class="td">接受性注意</view>
+            <view class="td">{{attention2_right}} / {{attention2_sum}}</view>
+          </view>
+        </block>
+      </view>
+    </view>
+    <view class="text1">
+      <text>分析与建议</text>
+      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;根据上述排名，你的<text
+          class="text_thick">(计划，注意，同时性，继时性)</text>加工能力比较好，你的<text
+          class="text_thick">(计划，注意，同时性，继时性)</text>加工能力比较差。</text>
+      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;在同龄人中，你的计划加工能力达到了<text
+          class="text_thick">(非常优秀，优秀，良好，合格)</text>水平，约有<text class="text_thick">(百分数（个人排名 /
+          总人数*100）)%</text>的人处于这一水平。计划加工能力是为解决问题、达到目标而使用和修改的一组决策或策略，它是指向某个目标的行动过程的预先决定。</text>
+      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;你的注意加工能力达到了<text
+          class="text_thick">(非常优秀，优秀，良好，合格)</text>水平，约有<text class="text_thick">(百分数（个人排名 / 总人数 *
+          100）)%</text>的人处于这一水平。维持性注意是对单一信息源在连续的一段时间内的注意保持，但是对注意的评估不包括集中和分配时间的能力。</text>
+      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;你的同时性加工能力达到了<text
+          class="text_thick">(非常优秀，优秀，良好，合格)</text>水平，约有<text class="text_thick">(百分数（个人排名 / 总人数 *
+          100）)%</text>的人处于这一水平。评估同时性编码的目标是要测量人们联结和整合离散的片断信息的能力——即把两个或两个以上的信息片断加工为一个片断。</text>
+      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;你的继时性加工能力达到了<text
+          class="text_thick">(非常优秀，优秀，良好，合格)</text>水平，约有<text class="text_thick">(百分数（个人排名 / 总人数 *
+          100）)%</text>的人处于这一水平。测试继时性编码的目的是为了评价人们以特定的顺序保持信息的技能。</text>
+      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;建议：可以适当提高<text
+          class="text_thick">(计划，注意，同时性，继时性)</text>的能力，更加有助于孩子的成长。</text>
+    </view>
+  </scroll-view>
 </view>
+
 <view class="button">
   <button class="save" bindtap="save" style="width: 280rpx;height: 80rpx;">保存图片</button>
   <button class="share" bindtap="share" style="width: 280rpx;height: 80rpx;">分享结果</button>
 </view>
+<canvas canvas-id="myCanvas" class="{{isOpacity?'topScroll canvas':'canvas'}}"></canvas>
