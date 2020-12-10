@@ -76,6 +76,7 @@ func main() {
 	r.POST("/api/test/detail", getDetail)
 
 	r.POST("/api/user/login", userLogin)
+	
 
 	r.Run(":23333")
 }
@@ -260,12 +261,13 @@ func userLogin(c *gin.Context) {
 		c.JSON(200, string(mapJson))
 		panic("gender" + "字段为空")
 	}
-	url := "https://api.weixin.qq.com/sns/jscode2session?appid={" + appid + "}&secret={" + appSecret +
-		"}&js_code={" + code + "}&grant_type=authorization_code"
+	url := "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid + "&secret=" + appSecret +
+		"&js_code=" + code + "&grant_type=authorization_code"
 	resp, err := http.Get(url)
 	checkErr(err)
 	body, err := ioutil.ReadAll(resp.Body)
 	checkErr(err)
+	//fmt.Println(string(body))
 	if strings.Contains(string(body), "openid") {
 		user := models.User{}
 		requestBody := make(map[string]interface{})
@@ -287,28 +289,41 @@ func userLogin(c *gin.Context) {
 			res, err := Db.Exec(sqlForRun, requestBody["openid"], requestBody["session_key"],
 				c.PostForm("gender"), time.Now(), time.Now(), c.PostForm("nickname"))
 			checkErr(err)
-			fmt.Println(res.LastInsertId())
+			id,_ := res.LastInsertId()
+			c.JSON(200, gin.H{
+				"id":id,
+				"flag":true,
+			})
 		}else{
 			sqlForRun = "update user set last_login_time = ? where openid = ?"
 			stmt2, err := Db.Prepare(sqlForRun)
 			checkErr(err)
 			defer stmt2.Close()
-			row = stmt2.QueryRow(1)
-			err = row.Scan(&user.Id, &user.Openid, &user.SessionKey, &user.Age, &user.Gender, &registerTime,
-				&lastLoginTime, &user.NickName, &birthday)
-			if err == sql.ErrNoRows{
-				panic("不存在这个用户")
-			}
-			user.RegisterTime, _ = time.Parse("2006-01-02 15:04:05", registerTime)
-			user.LastLoginTime, _ = time.Parse("2006-01-02 15:04:05", lastLoginTime)
-			user.Birthday, _ = time.Parse("2006-01-02", birthday)
+			_, err = stmt2.Exec(time.Now(), requestBody["openid"])
+			checkErr(err)
+			user.LastLoginTime = time.Now()
+			c.JSON(200, gin.H{
+				"id":            user.Id,
+				"openid":        user.Openid,
+				"session_key":   user.SessionKey,
+				"age":           user.Age,
+				"gender":        user.Gender,
+				"register_time": user.RegisterTime,
+				"lastLoginTime": user.LastLoginTime,
+				"nickname":      user.NickName,
+				"birthday":      user.Birthday,
+			})
 		}
 	} else {
 		result["error_code"] = 10003
 		mapJson, err := json.Marshal(result)
 		checkErr(err)
 		c.JSON(200, string(mapJson))
-		panic("code 无效")
+		panic(string(body))
 	}
+
+}
+
+func userInfo(c *gin.Context){
 
 }
