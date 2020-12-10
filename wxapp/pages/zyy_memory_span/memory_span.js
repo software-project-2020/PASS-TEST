@@ -12,7 +12,8 @@ Page({
     chess_move: [],
     chess_start: [],
     chess_zindex: [],
-    chess_size: 50
+    chess_size: 50,
+    game_state:"等待中",/* 等待中 游戏中 */
   },
 
   /**                                                                        
@@ -131,6 +132,12 @@ Page({
     // console.log(param);
     this.setData(param);
     // console.log("触摸结束", this.data.chess_move[event.currentTarget.dataset.who]);
+  },
+  gameStart:function () {
+    gameStart(this);
+  },
+  gameReStart:function () {
+    gameReStart(this);
   }
 });
 
@@ -293,4 +300,21 @@ function fillter_board(board) {
     }
   });
   return out;
+}
+
+/**
+ * 开始游戏
+ * @param {Page} that 传递进来的this
+ */
+function gameStart(that) {
+  that.setData({
+    game_state:"游戏中"
+  });
+}
+/**
+ * 重新开始一把新游戏
+ * @param {Page} that 传递进来的this
+ */
+function gameReStart(that) {
+  
 }

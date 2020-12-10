@@ -1,6 +1,6 @@
 <view class="chess_map">
   <view class="chess_box" style="width:72px;height:72px;" wx:for="{{board_num}}" wx:key="item">
-    <view class="chess_content" style="background-image: url('{{board_img_url[index]}}');" />
+    <view class="chess_content" style='background-image: url({{(game_state=="游戏中" && item!=-1) ? "../../image/zyy/empty.png" : board_img_url[index]}});' />
   </view>
 </view>
 <view class="chess_below">
@@ -9,3 +9,7 @@
     <image src='{{board_img_url[item]}}' style="width:{{chess_size}}px;height:{{chess_size}}px" />
   </view>
 </view>
+<view style="margin:10px;"/>
+<button catchtap="gameStart">开始游戏</button>
+<view style="margin:10px;"/>
+<button catchtap="gameReStart">重置游戏</button>
