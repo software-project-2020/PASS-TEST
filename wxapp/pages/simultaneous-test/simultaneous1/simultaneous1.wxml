@@ -3,7 +3,7 @@
 <view class="container">
   <view class="top" style="flex-direction:row;">
     <view class="eyu">
-      <image class='img1' mode='widthFix' src='../../../image/lyq/animal/eyu.png' style="width: 175rpx; "></image>
+      <image class='img1' mode='widthFix' src='../../../image/lyq/animal/fog.png' style="width: 175rpx; "></image>
     </view>
     <view class="jindu">
       
@@ -65,10 +65,10 @@
       </view>
     </view>
     <view class="buttonline">
-      <button wx:if="{{now==0}}" class="submit buttonword" style="width:250rpx;" bindtap="start">开始测试</button>
-      <button wx:if="{{now>1}}" class="submit buttonword" style="width:250rpx;" bindtap="preQuestion">上一题</button>
-      <button wx:if="{{now<qnum-1&&now>0}}" class="submit buttonword" style="width:250rpx;" bindtap="nextQuestion">下一题</button> 
-      <button wx:if="{{now==qnum-1}}" class="submit buttonword" style="width:250rpx;" bindtap="submitAnswer">提交</button> 
+      <button wx:if="{{now==0}}" class="submit buttonword" style="width:240rpx;" bindtap="start">开始测试</button>
+      <button wx:if="{{now>1}}" class="submit buttonword" style="width:240rpx;" bindtap="preQuestion">上一题</button>
+      <button wx:if="{{now<qnum-1&&now>0}}" class="submit buttonword" style="width:240rpx;" bindtap="nextQuestion">下一题</button> 
+      <button wx:if="{{now==qnum-1}}" class="submit buttonword" style="width:240rpx;" bindtap="submitAnswer">提交</button> 
     </view>
   </view>
   

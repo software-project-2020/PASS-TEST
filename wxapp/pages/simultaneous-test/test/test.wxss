@@ -23,7 +23,7 @@ page {
 
 .handWriting {
   width: 95%;
-  height: 350px;
+  height: 250px;
   border: 2rpx green solid;
 }
 
@@ -109,13 +109,20 @@ page {
 }
 
 .submit {
-  border: 4rpx solid #2BB31C;
-  border-radius: 50rpx;
-  width: 20rpx;
+  /* border: 4rpx solid #2BB31C; */
+  border-radius: 25rpx;
+  background-color: green;
 }
 
 .clear {
-  display: inline-block;
-  /* float: right; */
-  width: 180rpx;
+  display: flex;
+  float: right;
+  /* width: 180rpx; */
+}
+.buttonword{
+  color:white;
+  font-size: 32rpx;
+  font-weight: 550;
+  line-height: 53rpx;
+  padding-bottom: 20rpx;
 }

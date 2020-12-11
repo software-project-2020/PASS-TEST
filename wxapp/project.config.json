@@ -99,6 +99,12 @@
           "pathName": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/simultaneous-test/test/test",
+          "pathName": "pages/simultaneous-test/test/test",
+          "query": "",
+          "scene": null
         }
       ]
     }

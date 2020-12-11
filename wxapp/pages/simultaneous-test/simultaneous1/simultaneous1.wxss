@@ -21,15 +21,12 @@ page{
   flex-direction: column;
 }
 .border1{
-  /* height: 160rpx; */
-  /* width: 75%; */
   border: 5rpx solid #2BB31C;
   border-radius: 30rpx;
-  /* padding: 1rpx; */
 }
 .img1{
   display: flex;
-  bottom:0; 
+  bottom:0;
 }
 .top{
   width: 100%;
@@ -102,7 +99,7 @@ page{
 }
 .line{
   display: flex;
-  height:120rpx;
+  height:110rpx;
 }
 .submit{
   /* border: 4rpx solid #2BB31C; */
@@ -121,5 +118,4 @@ page{
 }
 .buttonline{
   display: flex;
-
 }
