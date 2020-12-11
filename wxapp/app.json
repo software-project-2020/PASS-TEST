@@ -1,5 +1,6 @@
 {
-  "pages":["pages/Planning/rule1/rule1",
+  "pages":[
+    "pages/zyy_memory_span/memory_span",
     "pages/index/index",
     "pages/start/start",
     "pages/Planning/rule1/rule1",
@@ -20,7 +21,7 @@
     "pages/logs/logs",
     "pages/S2/successive/successive",
     "pages/S2/successive-rules/successive-rules",
-    "pages/rank/rank"
+    "pages/rank/rank",
     "pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2"
   ],
   "window":{
