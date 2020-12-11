@@ -1,20 +1,16 @@
 const app = getApp()
-
-// 测试环境
-// const domain = 'https://ltc-cloud-test.leapstack.cn/';
-// 生产环境
-// const domain = 'https://ltc-cloud.leapstack.cn/';
-
 Page({
   data: {
     ctx: '',
     canvasWidth: 0,
     canvasHeight: 0,
-    lineColor: '#6c6c6c', // 颜色
-    lineWidth: 2,
+    lineColor: 'black', // 颜色
+    lineWidth: 3,
     currentPoint: {},
     currentLine: [],  // 当前线条
-    pic: ''
+    pic: '',
+    now:0,
+    qnum:3
   },
   onLoad: function () {
     this.initCanvas()
@@ -114,6 +110,7 @@ Page({
         })
       }
     }, this)
+    this.clearDraw()
   },
 
   // 清除画布

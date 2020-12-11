@@ -1,17 +1,28 @@
-// pages/rule1/rule1.js
+// pages/simultaneous-test/simultaneous-rule/simultaneous-rule.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+  },
+  gototest1: function (e) {
 
+    wx.showModal({
+      title: '开始练习',
+      content: '在开始测试之前，你有一次练习的机会，快去熟悉一下题目吧!',
+      cancelText:'取消',
+      confirmText:'开始练习',
+      success: function (res) {
+        if (res.confirm) {//这里是点击了确定以后
+          wx.navigateTo({
+            url: '/pages/simultaneous-test/test/test',
+          })
+        }
+      }
+    })
   },
-  gototest1:function(e){
-    wx.navigateTo({
-      url: '/pages/Planning/test1easy/test1easy',
-      })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */

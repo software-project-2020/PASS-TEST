@@ -1,0 +1,23 @@
+<!--pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2.wxml-->
+<view class="container">
+  <view class="top" style="flex-direction:row;">
+    <view class="sheep">
+      <image class='img1' mode='widthFix' src='../../../image/lyq/animal/sheep.png' style="width: 170rpx; "></image>
+    </view>
+  </view>
+  <view class="border">
+    <view class="introduction">
+      <text class="rules">接下来，你会看到一句描述的文字，你需要根据文字来画出指定图案.
+      注意：为避免误判，请尽量将图形画的标准一些哦
+      请看下面的示例：</text>
+    </view>
+    <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/S11-rule.gif' style="width: 400rpx; "></image>
+
+  </view>
+  <view class="bottom">
+    <button class="btn" plain="true" bindtap="gototest1">
+      <image class='img2' mode='widthFix' src='../../../image/lyq/starttest.png' style="width: 250rpx; "></image>
+    </button>
+  </view>
+
+</view>

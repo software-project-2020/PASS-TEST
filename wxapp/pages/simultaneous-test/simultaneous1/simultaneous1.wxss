@@ -21,15 +21,12 @@ page{
   flex-direction: column;
 }
 .border1{
-  /* height: 160rpx; */
-  width: 75%;
-  border: 4rpx solid #2BB31C;
+  border: 5rpx solid #2BB31C;
   border-radius: 30rpx;
-  /* padding: 1rpx; */
 }
 .img1{
   display: flex;
-  bottom:0; 
+  bottom:0;
 }
 .top{
   width: 100%;
@@ -89,19 +86,36 @@ page{
   border-radius:20rpx;
 }
 .choice{
-  width: 200rpx;
-  height: 100rpx;
-  padding: 20rpx;
+  width: 180rpx;
+  height: 80rpx;
+  padding: 10rpx 30rpx;
 }
 .choose{
   display: flex;
   flex-direction: column;
+  width:100%;
+  align-items:center;
+  justify-content:center;
 }
 .line{
   display: flex;
+  height:110rpx;
 }
 .submit{
-  border: 4rpx solid #2BB31C;
-  border-radius: 50rpx;
-  width: 20rpx;
+  /* border: 4rpx solid #2BB31C; */
+  border-radius: 25rpx;
+  background-color: green;
+}
+.block{
+  width: 80%;
+}
+.buttonword{
+  color:white;
+  font-size: 32rpx;
+  font-weight: 550;
+  line-height: 53rpx;
+  padding-bottom: 20rpx;
+}
+.buttonline{
+  display: flex;
 }

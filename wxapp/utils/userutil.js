@@ -13,7 +13,7 @@ function userlogin(userInfo){
         wx.request({
           method: 'POST',
           dataType: 'json',
-          url: 'https://app.morii.top/login',
+          url: 'https://api.zghy.xyz/api/user/login',
           header: {
             'content-type': 'application/x-www-form-urlencoded'
           },

@@ -47,18 +47,66 @@
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "condition": {
-    "search": {
-      "list": []
-    },
-    "conversation": {
+    "plugin": {
       "list": []
     },
     "game": {
-      "currentL": -1,
+      "list": []
+    },
+    "gamePlugin": {
       "list": []
     },
     "miniprogram": {
-      "list": []
+      "list": [
+        {
+          "name": "pages/simultaneous-test/test/test",
+          "pathName": "pages/simultaneous-test/test/test",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/simultaneous-test/simultaneous1/simultaneous1",
+          "pathName": "pages/simultaneous-test/simultaneous1/simultaneous1",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/Planning/rule1/rule1",
+          "pathName": "pages/Planning/rule1/rule1",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+          "pathName": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/Planning/test4.1/test4.1",
+          "pathName": "pages/Planning/test4.1/test4.1",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+          "pathName": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/simultaneous-test/test/test",
+          "pathName": "pages/simultaneous-test/test/test",
+          "query": "",
+          "scene": null
+        }
+      ]
     }
   }
 }

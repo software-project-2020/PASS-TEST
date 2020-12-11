@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    age: 5,
+    age: 15,
     isLowage:true,
     level: 1,//当前游戏难度
     Alltime: 30,//规定最长完成时间
