@@ -47,6 +47,14 @@
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
     "plugin": {
       "list": []
     },
@@ -59,45 +67,9 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/simultaneous-test/test/test",
-          "pathName": "pages/simultaneous-test/test/test",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/simultaneous-test/simultaneous1/simultaneous1",
-          "pathName": "pages/simultaneous-test/simultaneous1/simultaneous1",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/Planning/rule1/rule1",
-          "pathName": "pages/Planning/rule1/rule1",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
-          "pathName": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/Planning/test4.1/test4.1",
-          "pathName": "pages/Planning/test4.1/test4.1",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/index/index",
-          "pathName": "pages/index/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
-          "pathName": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
-          "query": "",
+          "id": -1,
+          "name": "pages/S2/successive-rules/successive-rules",
+          "pathName": "pages/S2/successive-rules/successive-rules",
           "scene": null
         },
         {
