@@ -5,9 +5,9 @@ page {
   background-size: 100% 100%;
 }
 .top{
-  width: 100%;
+  width:25%;
   display: flex;
-  justify-content: center;
+  margin-left: 65%;
 }
 .clock{
   margin:12% 0% 0% 5%;
@@ -15,9 +15,9 @@ page {
 .time{
   margin: 13% 0% 1% 0%;
   height: 50rpx;
-  width: 10%;
+  width: 100%;
   display: flex;
-  background-color: #ffffff;
+  background-color: #ffffffcc;
   opacity: 0.8;
   border: 4rpx solid #edbf40d5;
   border-radius: 15rpx;
@@ -31,6 +31,11 @@ page {
   width: 250rpx;
   display: flex;
 }
+.question{
+  height: 2rem;
+  width: 2rem;
+  margin-left: 20rpx;
+}
 
 .back {
   background-color: #ffffffd5;
@@ -39,12 +44,79 @@ page {
   border-style: solid;
   height: 100%;
   width: 80%;
-  margin: 5% 10%;
+  margin: 3% 10%;
   border-radius: 20rpx;
   text-align: center;
   align-items: center;
   justify-content: center;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+.back1 {
+  background-color: #ffffffd5;
+  border-color:  #edbf40d5;
+  border-width: 5rpx;
+  border-style: solid;
+  height: 500rpx;
+  width: 80%;
+  margin: 3% 10%;
+  border-radius: 20rpx;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding-top: 25%;
+}
+.Num_text{
+  color: #000000;
+  font-size: 100px;
+  font-weight: 1000;
 }
 .text{
   width: 50px;
+}
+.t1{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 4rem;
+  align-items: center;
+}
+.t2{
+  width: 40%;
+  justify-content: center;
+  color: #edbf40;
+  display: flex;
+  height: 4rem;
+  width: 4rem;
+  align-items: center;
+}
+.button{
+  margin-left: 10%;
+  margin-top: 5%;
+}
+.right{
+  width: 150rpx;
+  height: 150rpx;
+  margin-right: 15%;
+  margin-left: 10%;
+}
+.right2{
+  width: 150rpx;
+  height: 150rpx;
+  margin-right: 15%;
+  margin-left: 10%;
+  opacity: 0.6;
+}
+.wrong{
+  width: 150rpx;
+  height: 150rpx;
+  margin-right: 15%;
+  margin-left: 10%;
+}
+.wrong2{
+  width: 150rpx;
+  height: 150rpx;
+  margin-right: 15%;
+  margin-left: 10%;
+  opacity: 0.6;
 }

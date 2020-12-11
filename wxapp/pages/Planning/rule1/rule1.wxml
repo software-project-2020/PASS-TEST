@@ -7,7 +7,7 @@
   </view>
   <view class="border">
     <view class="introduction">
-      <text class="rules">接下来，在游戏方框里会显示杂乱的数字，界面下方显示目标数字，你需要在规定时间内找到所有目标数字，用时越短越好。
+      <text class="rules">接下来，在游戏方框里会出现数字1~16，均匀打乱分布在4*4的表格里，你需要在规定的时间内按从小到大的顺序依次点击数字，完成一题后难度会上升哦！
         请看下面的示例：</text>
     </view>
     <image class='img1' mode='widthFix' src='../../../image/lyq/guize.gif' style="width: 400rpx; "></image>

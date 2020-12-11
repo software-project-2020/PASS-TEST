@@ -1,0 +1,8 @@
+<!--pages/attention/attention.wxml-->
+<view class="rule">
+<text class="rule_text" decode="{{true}}" space="{{true}}">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;接下来，你会看到一个题目，和一些图片或者英文字母，根据题目所给出的要求，在最快的时间内，选择是否符合要求。你需要完成2题这样的题目。
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;请看下面的示例：
+</text>
+<image class="rule_gif" src="../../../image/attention/demo.gif"></image>
+<button class="rule_start" bindtap = "button_start">开始练习</button>
+</view>

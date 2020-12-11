@@ -8,8 +8,8 @@ page{
   padding: 0rpx;
 }
 .border{
-  height: 750rpx;
-  width: 70%;
+  height: 760rpx;
+  width: 65%;
   display: flex;
   justify-content: center;  /*水平*/
   align-items: center; /*垂直*/
@@ -19,7 +19,7 @@ page{
   border-radius: 30rpx;
   padding: 20rpx;
   flex-direction: column;
-  margin-bottom: 7%;
+  margin-bottom: 3%;
 }
 
 .img1{
@@ -28,6 +28,7 @@ page{
 }
 .top{
   width: 100%;
+  margin-top: 5%;
   display: flex;
   justify-content: center;
 }
@@ -38,12 +39,13 @@ page{
   justify-content: center;
 }
 .img2{
-  margin-right: 20% 40% 0% 40%;
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
 .rules{
-  color: #2BB31C;
+  color: #1d7913;
   font-size: 32rpx;
-  font-weight: 550;
+  font-weight: 544;
   line-height: 53rpx;
 }
 .introduction{

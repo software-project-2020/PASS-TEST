@@ -8,15 +8,16 @@ Page({
   data: {
     isSign : true,
     age : 7,
-    nickname : wx.getStorageInfoSync('userInfo').nickname
+    // nickname : wx.getStorageInfoSync('userInfo').nickname
+    nickname:"昵称"
   },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    wx.setNavigationBarTitle({
-      title: '首页'
-    })
+    // wx.setNavigationBarTitle({
+    //   title: '首页'
+    // })
   },
   myinformation:function(){
     wx.navigateTo({
@@ -30,17 +31,12 @@ Page({
   },
   huizhang_list:function(){
     wx.navigateTo({
-      url: '../index/index'
+      url: '/pages/Planning/rule1/rule1'
     })
   },
   test:function(){
     wx.navigateTo({
-      url: '../index/index'
-    })
-  },
-  confirm:function(){
-    wx.navigateTo({
-      url: '../zyy_memory_span/memory_span',
+      url: '/pages/Planning/rule1/rule1'
     })
   }
 })

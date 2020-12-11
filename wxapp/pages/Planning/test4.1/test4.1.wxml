@@ -1,0 +1,29 @@
+<!--pages/Planning/test1/test1.wxml-->
+<view class="container">
+  <view class="jindu"><image class='img1' mode='widthFix' src='../../../image/lyq/lyq1.png' style="width: 600rpx; "></image></view>
+  <view class="top" style="flex-direction:row;" style="visibility:{{showover?'visible':'hidden'}};">
+  <view class="clock" >
+      <image class='img1' mode='widthFix' src='../../../image/lyq/clock.png' style="width: 90rpx;"></image>
+    </view>
+    <view class="time" >
+      <text style='color:#9f9fdf' >{{displayTime}}s</text>
+    </view>
+  </view>
+  <view class="border">
+    <view class="text" wx:if="{{!showover}}">
+      <text class="show" wx:if="{{isLowage==false}}" >{{mixlist[shownum].value}}</text>
+      <image wx:if="{{isLowage==true}}" class='img_test' mode='widthFix' src='{{mixlist[shownum].value}}' style="width: 200rpx;"></image>
+    </view>
+    <view class="choose" wx:if="{{showover}}">{{mixlist_mix[index].isClick}}
+    <view class="t1" wx:for="{{mixlist_mix}}"  style="margin-left:{{mixlist_mix[index].marginleft}}rpx"><text class="no" style="visibility:{{mixlist_mix[index].isClick?'visible':'hidden'}};">{{mixlist_mix[index].clicknum}}</text>
+      <text class="mix" hidden="{{isLowage}}" wx:if="{{!item.isEmpty}}" bindtap="order" data-name="{{item.index}}" >{{mixlist_mix[index].value}}</text>
+    <view wx:if="{{isLowage==true}}">
+      <image  class='img_test' mode='widthFix' wx:if="{{!item.isEmpty}}" bindtap="order" data-name="{{item.index}}" src='{{mixlist_mix[index].value}}' style="width: 100rpx;" hidden="{{!isLowage}}"></image>
+    </view></view>
+    </view>
+  </view>
+  <view class="btn" wx:if="{{showover}}">
+  <button class="button" style="width:100%;" bindtap="submit" ><text>确定</text></button>
+  </view>
+</view>
+

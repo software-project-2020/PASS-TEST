@@ -1,0 +1,51 @@
+<view class="container">
+  <view class="top" style="flex-direction:row;">
+    <view class="proflag" wx:if="{{!test}}">
+      <image class='img2' mode='widthFix' src='../../../image/successive/flag.png' style="width: 88rpx;"></image>
+    </view>
+    <view class="process" wx:if="{{!test}}">
+      <text wx:if="{{now==1}}" style='color:#B1AFE6'>练习</text>
+      <text wx:else style='color:#B1AFE6'>进度：{{now-1}}/{{total-1}}</text>
+    </view>
+    <view class="clock" wx:if="{{!test}}">
+      <image class='img1' mode='widthFix' src='../../../image/successive/clock.png' style="width: 70rpx;"></image>
+    </view>
+    <view class="time" wx:if="{{!test}}">
+      <text style='color:#B1AFE6'>{{displayTime}}s</text>
+    </view>
+  </view>
+  <view class="exercise">
+    <view class="exercise-show" wx:if="{{exeshow}}">
+      <text class="exercise-txt">{{qa[now-1].sentence}}</text>
+    </view>
+    <view class="question" wx:if="{{!exeshow}}">
+      <view class="question-show">
+        <text class="question-txt">{{qa[now-1].question}}</text>
+      </view>
+      <view class="option">
+        <button class="{{choosed[0] ? 'option-a': 'option-ab'}}" style="width: 45%" bindtap="choose" data-index="0">
+          <text class="a">{{qa[now-1].option[0]}}</text>
+        </button>
+        <button class="{{choosed[1] ? 'option-b': 'option-bb'}}" style="width: 45%" bindtap="choose" data-index="1">
+          <text class="b">{{qa[now-1].option[1]}}</text>
+        </button>
+      </view>
+      <view class="option">
+        <button class="{{choosed[2] ? 'option-c': 'option-cb'}}" style="width: 45%" bindtap="choose" data-index="2">
+          <text class="c">{{qa[now-1].option[2]}}</text>
+        </button>
+        <button class="{{choosed[3] ? 'option-d': 'option-db'}}" style="width: 45%" bindtap="choose" data-index="3">
+          <text class="d">{{qa[now-1].option[3]}}</text>
+        </button>
+      </view>
+    </view>
+  </view>
+  <view class="btn">
+    <button class="button" style="width:100%;" bindtap="sure"  wx:if="{{!exeshow}}">
+      <text>确定</text>
+    </button>
+  </view>
+  <mp-dialog title="提交答案" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{oneButton}}">
+    <text>请继续完成下一题！</text>
+  </mp-dialog>
+</view>

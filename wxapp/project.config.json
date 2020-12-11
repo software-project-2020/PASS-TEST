@@ -4,7 +4,7 @@
     "ignore": []
   },
   "setting": {
-    "urlCheck": false,
+    "urlCheck": true,
     "es6": true,
     "enhance": false,
     "postcss": true,
@@ -18,7 +18,7 @@
     "scopeDataCheck": false,
     "uglifyFileName": false,
     "checkInvalidKey": true,
-    "checkSiteMap": false,
+    "checkSiteMap": true,
     "uploadWithSourceMap": true,
     "compileHotReLoad": false,
     "useMultiFrameRuntime": false,
@@ -28,19 +28,17 @@
       "disablePlugins": [],
       "outputPath": ""
     },
-    "enableEngineNative": false,
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
-    "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
     "packNpmRelationList": [],
-    "minifyWXSS": true,
-    "bundle": false
+    "enableEngineNative": false,
+    "minifyWXSS": true
   },
   "compileType": "game",
   "libVersion": "2.14.0",
-  "appid": "wxd35aa4e9e9f7a7c7",
+  "appid": "wxbe7e6a8c236b2b8c",
   "projectname": "wxapp",
   "debugOptions": {
     "hidedInDevtools": []
@@ -50,17 +48,37 @@
   "simulatorPluginLibVersion": {},
   "condition": {
     "search": {
+      "current": -1,
       "list": []
     },
     "conversation": {
+      "current": -1,
+      "list": []
+    },
+    "plugin": {
       "list": []
     },
     "game": {
-      "currentL": -1,
+      "list": []
+    },
+    "gamePlugin": {
       "list": []
     },
     "miniprogram": {
-      "list": []
+      "list": [
+        {
+          "id": -1,
+          "name": "pages/S2/successive-rules/successive-rules",
+          "pathName": "pages/S2/successive-rules/successive-rules",
+          "scene": null
+        },
+        {
+          "name": "pages/simultaneous-test/test/test",
+          "pathName": "pages/simultaneous-test/test/test",
+          "query": "",
+          "scene": null
+        }
+      ]
     }
   }
 }

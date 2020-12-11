@@ -9,9 +9,10 @@ Page({
   },
   gototest1:function(e){
     wx.navigateTo({
-      url: '/pages/Planning/test1easy/test1easy',
+      url: '/pages/Planning/test1/test1',
       })
   },
+  
   /**
    * 生命周期函数--监听页面加载
    */

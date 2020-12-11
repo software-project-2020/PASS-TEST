@@ -1,0 +1,44 @@
+<view class="container">
+  <view class="top" style="flex-direction:row;">
+    <view class="eyu">
+      <image class='img1' mode='widthFix' src='../../../image/lyq/animal/eyu.png' style="width: 175rpx; "></image>
+    </view>
+    <view class="jindu">
+      <text wx:if="{{now==0}}" class="text-jindu" style="color:#2BB31C">练习</text>
+      <text wx:else class="text-jindu" style="color:#2BB31C">进度：{{now}}/{{qnum-1}}</text>
+    </view>
+    <view wx:if="{{!now==0}}" class="clock">
+      <image class='img1' mode='widthFix' src='../../../image/lyq/clock.png' style="width: 70rpx;"></image>
+    </view>
+    <view wx:if="{{!now==0}}" class="time">
+      <text style='color:#2BB31C'>{{displayTime}}s</text>
+    </view>
+  </view>
+  <view class="border">
+    <view class="timu">
+      <text class="word">题目：请在下面的方框中画出圆形上有一个三角形。</text>
+    </view>
+    <view class="intro">
+      <view class="huabu"><canvas class="handWriting" disable-scroll="true" bindtouchstart="uploadScaleStart"
+          bindtouchmove="uploadScaleMove" bindtouchend="uploadScaleEnd" bindtap="mouseDown" canvas-id="handWriting" disable-scroll='true'>
+        </canvas></view>
+        
+      <view class="clear">
+        <view style="padding:20rpx;color:green;font-size:28rpx;">如果不小心画错了可以点击右边的橡皮擦清除画布</view>
+        <button class='btn-default' bindtap='clearDraw'
+          style="width:90px;background-color:white;color:white;float:right;border-radius:80rpx;">
+          <image mode='widthFix' src='../../../image/zlx/erase.png' style="width: 40px;height:40px; "></image>
+        </button>
+      </view>
+    </view>
+
+  </view>
+  <!-- <button class='submit word' bindtap='saveCanvas'>确定</button> -->
+  <view class="buttonline">
+    <button wx:if="{{now==0}}" class="submit buttonword" style="width:240rpx;" bindtap="start">开始测试</button>
+    <button wx:if="{{now>1}}" class="submit buttonword" style="width:240rpx;" bindtap="preQuestion">上一题</button>
+    <button wx:if="{{now<qnum-1&&now>0}}" class="submit buttonword" style="width:240rpx;"
+      bindtap="nextQuestion">下一题</button>
+    <button wx:if="{{now==qnum-1}}" class="submit buttonword" style="width:240rpx;" bindtap="submitAnswer">提交</button>
+  </view>
+</view>
