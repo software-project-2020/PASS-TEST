@@ -35,7 +35,7 @@ Page({
       });
       tar.chess_zindex.push(100);
     });
-    tar.chess_index = fillter_board(tar.board_num);
+    tar.chess_index = randArr(fillter_board(tar.board_num));
     // console.log(tar.board_num);
     // console.log(tar.board_img_url);
     console.log(tar.chess_index);
@@ -118,7 +118,6 @@ Page({
     // console.log(event.changedTouches[0], event.currentTarget);
   },
   moveEnd: function (event) {
-    let desc = this.data.chess_size;
     let who = event.currentTarget.dataset.who;
     let start = this.data.chess_start[who];
     let pos=this.data.chess_move[who];
@@ -172,6 +171,7 @@ function randArr(arr) {
     var iRand = parseInt(arr.length * Math.random());
     [arr[i], arr[iRand]] = [arr[iRand], arr[i]]
   }
+  return arr;
 }
 
 /**                                                                        
