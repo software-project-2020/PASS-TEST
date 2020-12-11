@@ -87,7 +87,7 @@ Page({
   get_num_img: function (num) {
     get_num_img(num);
   },
-  handleStart: function (event) {
+  moveStart: function (event) {
     let who = event.currentTarget.dataset.who;
     let chess_start = this.data.chess_start;
     let param = {};
@@ -119,10 +119,14 @@ Page({
   },
   moveEnd: function (event) {
     let desc = this.data.chess_size;
-    /* 如果发现位置超出界限则放回原地 */
     let who = event.currentTarget.dataset.who;
+    let start = this.data.chess_start[who];
+    let pos=this.data.chess_move[who];
+    pos["left"]+=start["left"];
+    pos["top"]+=start["top"];
     let param = {};
-    if (event.currentTarget.offsetLeft <= -desc / 2 || event.currentTarget.offsetLeft >= 320-desc/2 || event.currentTarget.offsetTop <= -desc / 2 || event.currentTarget.offsetTop >= 500 - desc / 2) {
+    /* 如果发现位置超出界限则放回原地 */
+    if (pos["left"] <= 0 || pos["left"] >= 320 || pos["top"] <= 0 || pos["top"] >= 320) {
       param["chess_move[" + who + "]"] = {
         "left": 0,
         "top": 0
@@ -131,7 +135,7 @@ Page({
     param["chess_zindex[" + who + "]"] = 100;
     // console.log(param);
     this.setData(param);
-    // console.log("触摸结束", this.data.chess_move[event.currentTarget.dataset.who]);
+    // console.log("触摸结束", who,pos);
   },
   gameStart:function () {
     gameStart(this);
