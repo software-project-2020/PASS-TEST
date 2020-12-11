@@ -96,10 +96,10 @@ Page({
         "left": event.currentTarget.offsetLeft + this.data.chess_size / 2,
         "top": event.currentTarget.offsetTop - this.data.chess_size / 4
       };
-      param["chess_zindex[" + who + "]"] = 200;
-      this.setData(param);
-      // console.log(param);
     }
+    param["chess_zindex[" + who + "]"] = 200;
+    this.setData(param);
+    // console.log(param);
     // console.log("触摸开始 who",who);
     // console.log("触摸开始 chess_start",chess_start);
   },
@@ -135,7 +135,7 @@ Page({
     param["chess_zindex[" + who + "]"] = 100;
     // console.log(param);
     this.setData(param);
-    // console.log("触摸结束", who,pos);
+    console.log("触摸结束", who,pos);
   },
   gameStart:function () {
     gameStart(this);
