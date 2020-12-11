@@ -1,0 +1,17 @@
+<view class="container">
+  <!-- <view class="process">
+    <image src = "../../image/successive/2020_11_20/ln.png" class="process-img"></image>
+  </view> -->
+  <view class="rules">
+    <view class="tittle">
+      <image class="rule-tittle" src="../../../image/successive/规则.png"></image>
+    </view>
+    <view class="rule-detail">
+      接下来你将会看到一句由多个词组组成的句子，句子只出现一次，你需要回答一个有关句子的问题，有四个选项供你选择。请尽快选择你的答案。然后点击确定按钮提交你的答案。请看下面的例子：
+    </view>
+    <image class="rule-img" src="../../../image/successive/句子提问.gif"></image>
+  </view>
+  <button class="sure-btn" style="width: 30%" bindtap="start">
+    <image class="sure" src="../../../image/successive/开始.png"></image>
+  </button>
+</view>
