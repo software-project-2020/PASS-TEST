@@ -7,12 +7,13 @@ Page({
   data: {
     level_flow: [5, 5, 6, 6, 7, 7],
     // level_time: [5, 5, 10, 10, 15, 15],
-    level_time: [5, 5, 5, 5, 5, 5],
+    level_time: [5, 5, 5, 5, 5, 1],
     level_index: 5,
     board_num: [] /* board.length = board_size */ ,
     board_img_url: [],
     chess_index: [],
     chess_move: [],
+    chess_float:[] /* 左右方向上的浮动变量 */ ,
     chess_start: [],
     chess_zindex: [],
     chess_isOK: [],
@@ -176,8 +177,10 @@ Page({
       return;
     }
     let who = event.currentTarget.dataset.who;
+    let ord = event.currentTarget.dataset.i;
     let start = this.data.chess_start[who];
     let pos = this.data.chess_move[who];
+    let ords = this.data.chess_index;
     let pos_table = this.data.pos_table;
     pos["left"] += start["left"];
     pos["top"] += start["top"];
@@ -190,6 +193,10 @@ Page({
         "left": pos_table[where].left - start["left"],
         "top": pos_table[where].top - start["top"]
       };
+      /* 当前棋子右边的所有棋子，向左挪动一个棋子的大小 */
+      for (let i=ord+1;i<ords.length;i++){
+        param["chess_float["+ords[i]+"]"]=this.data.chess_float[ords[i]]-this.data.chess_size;
+      }
     } else {
       param["chess_move[" + who + "]"] = {
         "left": 0,
@@ -198,7 +205,7 @@ Page({
     }
     param["chess_isOK[" + who + "]"] = (where == who);
     param["chess_zindex[" + who + "]"] = 100;
-    // console.log(param);
+    console.log(param);
     this.setData(param);
     let endAnswer = true;
     for (let i = 0; i < this.data.chess_index.length; i++) {
@@ -497,6 +504,7 @@ function initChessBoard(that, mode) {
   tar.chess_isOK = [];
   tar.chess_zindex = [];
   tar.chess_index = [];
+  tar.chess_float=[];
   tar.board_num.forEach((e) => {
     tar.board_img_url.push(get_num_img(e));
     tar.chess_move.push({
@@ -509,6 +517,7 @@ function initChessBoard(that, mode) {
     });
     tar.chess_isOK.push(false);
     tar.chess_zindex.push(100);
+    tar.chess_float.push(0);
   });
   if (mode) {
     tar.chess_index = randArr(fillter_board(tar.board_num));
@@ -526,6 +535,7 @@ function initChessBoard(that, mode) {
     chess_move: tar.chess_move,
     chess_zindex: tar.chess_zindex,
     chess_isOK: tar.chess_isOK,
+    chess_float:tar.chess_float,
   });
 }
 /**

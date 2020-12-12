@@ -6,7 +6,7 @@
 </view>
 <view class="chess_below">
   <view class="chess_drag" wx:for="{{chess_index}}" wx:key="item" catchtouchstart="moveStart" catchtouchmove="handleMove" catchtouchend="moveEnd" id="chess_{{board_num[item]}}"
-    data-who="{{item}}" style="z-index:{{chess_zindex[item]}};left:{{chess_move[item].left}}px;top:{{chess_move[item].top}}px;">
+    data-who="{{item}}" data-i="{{index}}" style="z-index:{{chess_zindex[item]}};left:{{chess_move[item].left+chess_float[item]}}px;top:{{chess_move[item].top}}px;">
     <image src='{{board_img_url[item]}}' style="width:{{chess_size}}px;height:{{chess_size}}px" />
   </view>
 </view>
