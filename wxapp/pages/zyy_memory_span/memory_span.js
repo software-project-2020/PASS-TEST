@@ -14,7 +14,7 @@ Page({
     chess_zindex: [],
     chess_isOK: [],
     chess_size: 50,
-    game_state: "等待中" /* 等待中 游戏中 */ ,
+    game_state: "等待中" /* 练习中 等待中 游戏中 游戏结束 */ ,
     pos_table: [{
         "left": 52,
         "top": 45
@@ -80,7 +80,8 @@ Page({
         "top": 262
       },
     ],
-    time_second:30,
+    time_limit: 30,
+    time_second: 30,
     time_str: "30秒",
     // time_begin: null /* new Date() */ ,
     time_add_er: null,
@@ -90,35 +91,7 @@ Page({
    * 生命周期函数--监听页面加载                                                                        
    */
   onLoad: function (options) {
-    let tar = this.data;
-    tar.board_num = get_Random_board(tar.difficulty, board_size);
-    tar.board_img_url = [];
-    tar.board_num.forEach((e) => {
-      tar.board_img_url.push(get_num_img(e));
-      tar.chess_move.push({
-        "left": 0,
-        "top": 0
-      });
-      tar.chess_start.push({
-        "left": 0,
-        "top": 0
-      });
-      tar.chess_isOK.push(false);
-      tar.chess_zindex.push(100);
-    });
-    tar.chess_index = randArr(fillter_board(tar.board_num));
-    // console.log(tar.board_num);
-    // console.log(tar.board_img_url);
-    console.log(tar.chess_index);
-    // console.log(tar.chess_move);
-    this.setData({
-      board_num: tar.board_num,
-      board_img_url: tar.board_img_url,
-      chess_index: tar.chess_index,
-      chess_move: tar.chess_move,
-      chess_zindex: tar.chess_zindex,
-      chess_isOK: tar.chess_isOK,
-    });
+    initChessBoard(this, false);
   },
 
   /**                                                                        
@@ -160,6 +133,9 @@ Page({
     get_num_img(num);
   },
   moveStart: function (event) {
+    if (this.data.game_state != "游戏中") {
+      return;
+    }
     let who = event.currentTarget.dataset.who;
     let chess_start = this.data.chess_start;
     let param = {};
@@ -176,6 +152,9 @@ Page({
     // console.log("触摸开始 chess_start",chess_start);
   },
   handleMove: function (event) {
+    if (this.data.game_state != "游戏中") {
+      return;
+    }
     let who = "chess_move[" + event.currentTarget.dataset.who + "]";
     let start = this.data.chess_start[event.currentTarget.dataset.who];
     let move = {
@@ -190,6 +169,9 @@ Page({
     // console.log(event.changedTouches[0], event.currentTarget);
   },
   moveEnd: function (event) {
+    if (this.data.game_state != "游戏中") {
+      return;
+    }
     let who = event.currentTarget.dataset.who;
     let start = this.data.chess_start[who];
     let pos = this.data.chess_move[who];
@@ -228,9 +210,10 @@ Page({
     for (let i = 0; i < this.data.chess_index.length; i++) {
       endAnswer = endAnswer && this.data.chess_isOK[this.data.chess_index[i]];
     }
+    let that = this;
     if (endAnswer) {
       wx.showToast({
-        title: '成功',
+        title: '成功\n' + getScore(that),
         duration: 1000,
         icon: 'succes',
         mask: true,
@@ -421,42 +404,77 @@ function fillter_board(board) {
  * @param {Page} that 传递进来的this
  */
 function gameStart(that) {
-  that.setData({
-    game_state: "游戏中",
-    // time_begin: new Date()
-  });
-  checkTime(that);
+  if (that.data.game_state != '等待中') {
+    that.setData({
+      game_state: '等待中'
+    });
+  }
+  initTime(that, that.data.time_limit);
+  initChessBoard(that, true);
+  wx.showToast({
+    title: '五秒内记住棋盘',
+    icon: 'succes',
+    duration: 1000,
+    complete: () => {
+      setTimeout(() => {
+        checkTime(that);
+        that.setData({
+          game_state: "游戏中",
+          // time_begin: new Date()
+        });
+      }, 6000)
+    },
+  })
 }
 
 function checkTime(that) {
-  if (that.time_add_er != null) {
+  if (that.data.time_add_er != null) {
     clearTimeout(that.data.time_add_er);
   }
   that.data.time_add_er = setTimeout(function () {
-    let sec=that.data.time_second-1;
-    if(sec>=0){
-      let str= sec+"秒";
+    let sec = that.data.time_second - 1;
+    if (sec >= 0) {
+      let str = sec + "秒";
       that.setData({
-        time_second:sec,
-        time_str:str,
+        time_second: sec,
+        time_str: str,
       });
       checkTime(that);
-    }else{
+    } else {
       wx.showToast({
         title: '时间到',
         duration: 1000,
         icon: 'succes',
         mask: true,
-      })
+      });
+      setTimeout(() => {
+        wx.showToast({
+          title: '再试一次吧',
+          duration: 1000,
+          icon: 'succes',
+          mask: true,
+        })
+        setTimeout(() => {
+          gameStart(that);
+        }, 1000);
+      }, 1000);
     }
   }, 1000);
 }
-/**
- * 重新开始一把新游戏
- * @param {Page} that 传递进来的this
- */
-function gameReStart(that) {
 
+/**
+ * 初始化时间设置
+ * @param {Page} that 传递进来的this
+ * @param {Number} time_limit_in_second 倒计时 单位`秒`
+ */
+function initTime(that, time_limit_in_second) {
+  if (that.data.time_add_er != null) {
+    clearTimeout(that.data.time_add_er);
+  }
+  that.setData({
+    time_second: time_limit_in_second,
+    time_str: time_limit_in_second + "秒"
+  })
 }
 
 /**
@@ -477,4 +495,62 @@ function chessAt(pos, table) {
     }
   }
   return where;
+}
+
+/**
+ * 建立一个新的棋盘
+ * @param {Page} that 传递进来的this
+ * @param {Boolean} mode 待选棋子是否乱序
+ */
+function initChessBoard(that, mode) {
+  let tar = that.data;
+  tar.board_num = get_Random_board(tar.difficulty, board_size);
+  tar.board_img_url = [];
+  tar.chess_move = [];
+  tar.chess_start = [];
+  tar.chess_isOK = [];
+  tar.chess_zindex = [];
+  tar.chess_index = [];
+  tar.board_num.forEach((e) => {
+    tar.board_img_url.push(get_num_img(e));
+    tar.chess_move.push({
+      "left": 0,
+      "top": 0
+    });
+    tar.chess_start.push({
+      "left": 0,
+      "top": 0
+    });
+    tar.chess_isOK.push(false);
+    tar.chess_zindex.push(100);
+  });
+  if (mode) {
+    tar.chess_index = randArr(fillter_board(tar.board_num));
+  } else {
+    tar.chess_index = fillter_board(tar.board_num);
+  }
+  // console.log(tar.board_num);
+  // console.log(tar.board_img_url);
+  console.log(tar.chess_index);
+  // console.log(tar.chess_move);
+  that.setData({
+    board_num: tar.board_num,
+    board_img_url: tar.board_img_url,
+    chess_index: tar.chess_index,
+    chess_move: tar.chess_move,
+    chess_zindex: tar.chess_zindex,
+    chess_isOK: tar.chess_isOK,
+  });
+}
+/**
+ * 计算总耗时
+ * @param {Page} that 传递进来的this
+ * @returns {String} 总耗时字符串 含单位
+ */
+function getScore(that) {
+  clearTimeout(that.data.time_add_er);
+  that.setData({
+    game_state: '游戏结束'
+  })
+  return (that.data.time_limit - that.data.time_second) + "秒";
 }
