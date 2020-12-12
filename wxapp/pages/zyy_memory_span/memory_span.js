@@ -12,8 +12,75 @@ Page({
     chess_move: [],
     chess_start: [],
     chess_zindex: [],
+    chess_isOK: [],
     chess_size: 50,
-    game_state:"等待中",/* 等待中 游戏中 */
+    game_state: "等待中",
+    /* 等待中 游戏中 */
+    pos_table: [{
+        "left": 52,
+        "top": 45
+      },
+      {
+        "left": 123,
+        "top": 45
+      },
+      {
+        "left": 197,
+        "top": 45
+      },
+      {
+        "left": 269,
+        "top": 45
+      },
+      {
+        "left": 52,
+        "top": 119
+      },
+      {
+        "left": 123,
+        "top": 119
+      },
+      {
+        "left": 197,
+        "top": 119
+      },
+      {
+        "left": 269,
+        "top": 119
+      },
+      {
+        "left": 52,
+        "top": 189
+      },
+      {
+        "left": 123,
+        "top": 189
+      },
+      {
+        "left": 197,
+        "top": 189
+      },
+      {
+        "left": 269,
+        "top": 189
+      },
+      {
+        "left": 52,
+        "top": 262
+      },
+      {
+        "left": 123,
+        "top": 262
+      },
+      {
+        "left": 197,
+        "top": 262
+      },
+      {
+        "left": 269,
+        "top": 262
+      },
+    ]
   },
 
   /**                                                                        
@@ -33,6 +100,7 @@ Page({
         "left": 0,
         "top": 0
       });
+      tar.chess_isOK.push(false);
       tar.chess_zindex.push(100);
     });
     tar.chess_index = randArr(fillter_board(tar.board_num));
@@ -45,7 +113,8 @@ Page({
       board_img_url: tar.board_img_url,
       chess_index: tar.chess_index,
       chess_move: tar.chess_move,
-      chess_zindex: tar.chess_zindex
+      chess_zindex: tar.chess_zindex,
+      chess_isOK: tar.chess_isOK,
     });
   },
 
@@ -120,26 +189,64 @@ Page({
   moveEnd: function (event) {
     let who = event.currentTarget.dataset.who;
     let start = this.data.chess_start[who];
-    let pos=this.data.chess_move[who];
-    pos["left"]+=start["left"];
-    pos["top"]+=start["top"];
+    let pos = this.data.chess_move[who];
+    let pos_table = this.data.pos_table;
+    pos["left"] += start["left"];
+    pos["top"] += start["top"];
     let param = {};
     /* 如果发现位置超出界限则放回原地 */
-    if (pos["left"] <= 0 || pos["left"] >= 320 || pos["top"] <= 0 || pos["top"] >= 320) {
+    // if (pos["left"] <= 0 || pos["left"] >= 320 || pos["top"] <= 0 || pos["top"] >= 320) {
+    // param["chess_move[" + who + "]"] = {
+    // "left": 0,
+    // "top": 0
+    // };
+    // }
+    /* 检查当前棋子所在位置的索引 */
+    let where = chessAt(pos, pos_table);
+    if (where >= 0 && where < board_size) {
+      // console.log(pos_table[where]);
+      param["chess_move[" + who + "]"] = {
+        "left": pos_table[where].left - start["left"],
+        "top": pos_table[where].top - start["top"]
+        // "left": 0,
+        // "top": 0,
+      };
+    } else {
       param["chess_move[" + who + "]"] = {
         "left": 0,
-        "top": 0
+        "top": 0,
       };
     }
+    param["chess_isOK[" + who + "]"] = (where == who);
     param["chess_zindex[" + who + "]"] = 100;
     // console.log(param);
     this.setData(param);
-    console.log("触摸结束", who,pos);
+    let endAnswer=true;
+    for (let i=0;i<this.data.chess_index.length;i++){
+      endAnswer= endAnswer&&this.data.chess_isOK[this.data.chess_index[i]];
+    }
+    if(endAnswer){
+      wx.showToast({
+        title: '成功',
+        duration: 1000,
+        icon: 'succes',
+        mask: true,
+      })
+    }
+    // else{
+    //   wx.showToast({
+    //     title: '未成功',
+    //     duration: 200,
+    //     icon: 'loading',
+    //     mask: true,
+    //   })
+    // }
+    console.log("触摸结束", who, where);
   },
-  gameStart:function () {
+  gameStart: function () {
     gameStart(this);
   },
-  gameReStart:function () {
+  gameReStart: function () {
     gameReStart(this);
   }
 });
@@ -312,7 +419,7 @@ function fillter_board(board) {
  */
 function gameStart(that) {
   that.setData({
-    game_state:"游戏中"
+    game_state: "游戏中"
   });
 }
 /**
@@ -320,5 +427,25 @@ function gameStart(that) {
  * @param {Page} that 传递进来的this
  */
 function gameReStart(that) {
-  
+
+}
+
+/**
+ * 返回当前棋子位置所在的索引值
+ * @param {JSON}  pos 带检测棋子的位置
+ * @param {JSON[]} table 存有棋子坐标的一维数组
+ * @returns {Number} `where` `[0,15] | -1` 
+ */
+function chessAt(pos, table) {
+  function comp(pos, tar) {
+    return pos > (tar - 30) && pos < (tar + 30);
+  }
+  let where = -1;
+  for (let i = 0; i < table.length; i++) {
+    if (comp(pos.left, table[i].left) && comp(pos.top, table[i].top)) {
+      where = i;
+      break;
+    }
+  }
+  return where;
 }

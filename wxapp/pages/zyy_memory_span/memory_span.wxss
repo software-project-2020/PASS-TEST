@@ -64,6 +64,7 @@ page {
 }
 
 .chess_drag{
+  /* opacity: 0.4; */
   position: relative;
   display: inline;
 }
