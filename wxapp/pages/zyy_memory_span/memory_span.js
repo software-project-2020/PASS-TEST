@@ -14,8 +14,7 @@ Page({
     chess_zindex: [],
     chess_isOK: [],
     chess_size: 50,
-    game_state: "等待中",
-    /* 等待中 游戏中 */
+    game_state: "等待中" /* 等待中 游戏中 */ ,
     pos_table: [{
         "left": 52,
         "top": 45
@@ -80,7 +79,11 @@ Page({
         "left": 269,
         "top": 262
       },
-    ]
+    ],
+    time_second:30,
+    time_str: "30秒",
+    // time_begin: null /* new Date() */ ,
+    time_add_er: null,
   },
 
   /**                                                                        
@@ -221,11 +224,11 @@ Page({
     param["chess_zindex[" + who + "]"] = 100;
     // console.log(param);
     this.setData(param);
-    let endAnswer=true;
-    for (let i=0;i<this.data.chess_index.length;i++){
-      endAnswer= endAnswer&&this.data.chess_isOK[this.data.chess_index[i]];
+    let endAnswer = true;
+    for (let i = 0; i < this.data.chess_index.length; i++) {
+      endAnswer = endAnswer && this.data.chess_isOK[this.data.chess_index[i]];
     }
-    if(endAnswer){
+    if (endAnswer) {
       wx.showToast({
         title: '成功',
         duration: 1000,
@@ -419,8 +422,34 @@ function fillter_board(board) {
  */
 function gameStart(that) {
   that.setData({
-    game_state: "游戏中"
+    game_state: "游戏中",
+    // time_begin: new Date()
   });
+  checkTime(that);
+}
+
+function checkTime(that) {
+  if (that.time_add_er != null) {
+    clearTimeout(that.data.time_add_er);
+  }
+  that.data.time_add_er = setTimeout(function () {
+    let sec=that.data.time_second-1;
+    if(sec>=0){
+      let str= sec+"秒";
+      that.setData({
+        time_second:sec,
+        time_str:str,
+      });
+      checkTime(that);
+    }else{
+      wx.showToast({
+        title: '时间到',
+        duration: 1000,
+        icon: 'succes',
+        mask: true,
+      })
+    }
+  }, 1000);
 }
 /**
  * 重新开始一把新游戏

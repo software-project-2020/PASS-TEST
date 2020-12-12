@@ -10,7 +10,8 @@
     <image src='{{board_img_url[item]}}' style="width:{{chess_size}}px;height:{{chess_size}}px" />
   </view>
 </view>
+
 <view style="margin:10px;"/>
 <button catchtap="gameStart">开始游戏</button>
 <view style="margin:10px;"/>
-<button catchtap="gameReStart">重置游戏</button>
+<text class="f_center">剩余时间: {{time_str}}</text>
