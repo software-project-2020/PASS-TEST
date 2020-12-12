@@ -5,10 +5,11 @@ Page({
    * 页面的初始数据                                                                        
    */
   data: {
+    chess_size: 40,
     level_flow: [5, 5, 6, 6, 7, 7],
-    // level_time: [5, 5, 10, 10, 15, 15],
-    level_time: [5, 5, 5, 5, 5, 1],
-    level_index: 0,
+    level_time: [5, 5, 10, 10, 15, 15],
+    // level_time: [5, 5, 5, 5, 5, 1],
+    level_index: 5,
     board_num: [] /* board.length = board_size */ ,
     board_img_url: [],
     chess_index: [],
@@ -17,7 +18,6 @@ Page({
     chess_start: [],
     chess_zindex: [],
     chess_nowAt: [],
-    chess_size: 50,
     game_state: "等待中" /* 练习中 等待中 游戏中 游戏结束 */ ,
     pos_table: [{
         "left": 52,
@@ -168,21 +168,15 @@ Page({
       "top": event.changedTouches[0].pageY
     }
     let nowAt = chessAt(pos, table);
-    let lastAt = this.data.chess_nowAt[who];
-    let tar_float = this.data.chess_float[who];
     let move = {};
     if (nowAt >= 0) {
       move = {
         "left": table[nowAt].left - start["left"],
         "top": table[nowAt].top - start["top"]
       }
-      if (lastAt < 0) {
-        move.left += tar_float;
-      }
     } else {
       move = {
-        "left": event.changedTouches[0].pageX + tar_float - start["left"],
-        // "left": event.changedTouches[0].pageX - start["left"],
+        "left": event.changedTouches[0].pageX - start["left"],
         "top": event.changedTouches[0].pageY - start["top"]
       };
     }
@@ -200,52 +194,28 @@ Page({
     //   return;
     // }
     let who = event.currentTarget.dataset.who;
-    let start = this.data.chess_start[who];
-    let ords = this.data.chess_index;
     let pos_table = this.data.pos_table;
     let pos = {
       "left": event.changedTouches[0].pageX,
       "top": event.changedTouches[0].pageY
     }
-    let where = chessAt(pos, pos_table);
+    let nowAt = chessAt(pos, pos_table);
     let param = {};
-    let nowAt = this.data.chess_nowAt;
-    nowAt[who] = where;
-    let now_float = this.data.chess_float;
+    let lastAt = this.data.chess_nowAt;
+    lastAt[who] = nowAt;
     let now_move = this.data.chess_move;
-    /* 待选区棋子的左右浮动值计算 */
-    for (let i = 0; i < ords.length; i++) {
-      now_float[ords[i]] = 0;
-      for (let j = i - 1; j >= 0; j--) {
-        if (nowAt[ords[j]] != -1) {
-          now_float[ords[i]] -= this.data.chess_size;
-        }
-      }
-    }
+
 
     /* 检查当前棋子所在位置的索引 */
-    if (where >= 0 && where < board_size) {
-      // console.log(pos_table[where]);
-    } else {
+    if (nowAt >= 0 && nowAt < board_size) {} else {
       now_move[who] = {
         "left": 0,
         "top": 0,
       };
     }
 
-    /* 应用浮动值，使待选区棋子向左偏移 */
-    for (let i = 0; i < ords.length; i++) {
-      if (nowAt[ords[i]] < 0) {
-        now_move[ords[i]].left = now_float[ords[i]];
-        console.log(this.data.board_num[ords[i]], '->', now_float[ords[i]]);
-      } else {
-        console.log(this.data.board_num[ords[i]], '->', 0);
-      }
-    }
-
-    param["chess_float"] = now_float;
     param["chess_move"] = now_move;
-    param["chess_nowAt[" + who + "]"] = where;
+    param["chess_nowAt[" + who + "]"] = nowAt;
     param["chess_zindex[" + who + "]"] = 100;
     this.setData(param);
     let endAnswer = true;
@@ -261,7 +231,7 @@ Page({
         mask: true,
       });
     }
-    console.log("触摸结束", who, where);
+    console.log("触摸结束", who, nowAt);
   },
   gameStart: function () {
     gameStart(this);

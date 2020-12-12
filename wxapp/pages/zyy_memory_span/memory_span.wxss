@@ -55,7 +55,6 @@ page {
 }
 
 .chess_below {
-  float: left;
   overflow: visible;
   white-space: nowrap;
   justify-content: center;
