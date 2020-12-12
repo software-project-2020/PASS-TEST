@@ -10,6 +10,7 @@ page {
 }
 
 .chess_map {
+  width: 80%;
   display: flex;
   overflow: hidden;
   flex-direction: row;

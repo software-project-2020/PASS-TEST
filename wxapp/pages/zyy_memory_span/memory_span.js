@@ -9,7 +9,7 @@ Page({
     level_flow: [5, 5, 6, 6, 7, 7],
     level_time: [5, 5, 10, 10, 15, 15],
     // level_time: [5, 5, 5, 5, 5, 1],
-    level_index: 5,
+    level_index: 0,
     board_num: [] /* board.length = board_size */ ,
     board_img_url: [],
     chess_index: [],
@@ -20,73 +20,61 @@ Page({
     chess_nowAt: [],
     game_state: "等待中" /* 练习中 等待中 游戏中 游戏结束 */ ,
     pos_table: [{
-        "left": 52,
-        "top": 45
+        "left": 70,
+        "top": 38
+      }, {
+        "left": 131,
+        "top": 38
+      }, {
+        "left": 190,
+        "top": 38
+      }, {
+        "left": 250,
+        "top": 38
       },
       {
-        "left": 123,
-        "top": 45
+        "left": 70,
+        "top": 98
+      }, {
+        "left": 131,
+        "top": 98
+      }, {
+        "left": 190,
+        "top": 98
+      }, {
+        "left": 250,
+        "top": 98
       },
       {
-        "left": 197,
-        "top": 45
+        "left": 70,
+        "top": 157
+      }, {
+        "left": 131,
+        "top": 157
+      }, {
+        "left": 190,
+        "top": 157
+      }, {
+        "left": 250,
+        "top": 157
       },
       {
-        "left": 269,
-        "top": 45
-      },
-      {
-        "left": 52,
-        "top": 119
-      },
-      {
-        "left": 123,
-        "top": 119
-      },
-      {
-        "left": 197,
-        "top": 119
-      },
-      {
-        "left": 269,
-        "top": 119
-      },
-      {
-        "left": 52,
-        "top": 189
-      },
-      {
-        "left": 123,
-        "top": 189
-      },
-      {
-        "left": 197,
-        "top": 189
-      },
-      {
-        "left": 269,
-        "top": 189
-      },
-      {
-        "left": 52,
-        "top": 262
-      },
-      {
-        "left": 123,
-        "top": 262
-      },
-      {
-        "left": 197,
-        "top": 262
-      },
-      {
-        "left": 269,
-        "top": 262
-      },
+        "left": 70,
+        "top": 217
+      }, {
+        "left": 131,
+        "top": 217
+      }, {
+        "left": 190,
+        "top": 217
+      }, {
+        "left": 250,
+        "top": 217
+      }
     ],
-    time_limit: 3000,
-    time_second: 3000,
-    time_str: "3000秒",
+    time_limit: 30,
+    time_second: 30,
+    time_str: "30秒",
     // time_begin: null /* new Date() */ ,
     time_add_er: null,
   },
@@ -194,27 +182,24 @@ Page({
     //   return;
     // }
     let who = event.currentTarget.dataset.who;
-    let pos_table = this.data.pos_table;
     let pos = {
       "left": event.changedTouches[0].pageX,
       "top": event.changedTouches[0].pageY
     }
-    let nowAt = chessAt(pos, pos_table);
+    let nowAt = chessAt(pos, this.data.pos_table);
+    let move = {};
     let param = {};
-    let lastAt = this.data.chess_nowAt;
-    lastAt[who] = nowAt;
-    let now_move = this.data.chess_move;
-
 
     /* 检查当前棋子所在位置的索引 */
-    if (nowAt >= 0 && nowAt < board_size) {} else {
-      now_move[who] = {
+    if (nowAt < 0 || nowAt >= board_size) {
+      // console.log("back");
+      move = {
         "left": 0,
         "top": 0,
       };
+      param["chess_move[" + who + "]"] = move;
     }
 
-    param["chess_move"] = now_move;
     param["chess_nowAt[" + who + "]"] = nowAt;
     param["chess_zindex[" + who + "]"] = 100;
     this.setData(param);
@@ -231,7 +216,7 @@ Page({
         mask: true,
       });
     }
-    console.log("触摸结束", who, nowAt);
+    console.log("触摸结束", who, nowAt, this.data.board_num[who]);
   },
   gameStart: function () {
     gameStart(this);
@@ -408,6 +393,12 @@ function fillter_board(board) {
  * @param {Page} that 传递进来的this
  */
 function gameStart(that) {
+  if (that.data.level_index >= 6) {
+    gameOver(that);
+    initTime(that, that.data.time_limit);
+    initChessBoard(that, false);
+    return;
+  }
   if (that.data.game_state != '等待中') {
     that.setData({
       game_state: '等待中'
@@ -453,13 +444,13 @@ function checkTime(that) {
       });
       setTimeout(() => {
         wx.showToast({
-          title: '再试一次吧',
+          title: 'Game Over',
           duration: 1000,
           icon: 'succes',
           mask: true,
         })
         setTimeout(() => {
-          gameStart(that);
+          gameOver(that);
         }, 1000);
       }, 1000);
     }
@@ -573,4 +564,14 @@ function getScore(that) {
     })
   }
   return "第 " + tar.level_index + " 关成功"
+}
+
+/**
+ * 结束比赛
+ * @param {Page} that 传递进来的this
+ */
+function gameOver(that) {
+  wx.showToast({
+    title: '游戏结束',
+  })
 }

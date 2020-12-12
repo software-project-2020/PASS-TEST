@@ -1,17 +1,21 @@
 <view class="chess_map">
-  <view class="chess_box" style="width:72px;height:72px;" wx:for="{{board_num}}" wx:key="item">
-    <view class="chess_content" style='background-image: url({{(game_state=="游戏中" && item!=-1) ? "../../image/zyy/empty.png" : board_img_url[index]}});' />
+  <view class="chess_box" style="width:60px;height:60px;" wx:for="{{board_num}}" wx:key="item">
+    <view class="chess_content"
+      style='background-image: url({{(game_state=="游戏中" && item!=-1) ? "../../image/zyy/empty.png" : board_img_url[index]}});' />
     <!-- <view class="chess_content" style='background-image: url("/image/zyy/base_circle.png");' /> -->
   </view>
 </view>
 <view class="chess_below">
-  <view class="chess_drag" wx:for="{{chess_index}}" wx:key="item" catchtouchstart="moveStart" catchtouchmove="handleMove" catchtouchend="moveEnd" id="chess_{{board_num[item]}}"
-    data-who="{{item}}" data-i="{{index}}" style="z-index:{{chess_zindex[item]}};left:{{chess_move[item].left}}px;top:{{chess_move[item].top}}px;">
+  <view class="chess_drag" wx:for="{{chess_index}}" wx:key="item" catchtouchstart="moveStart"
+    catchtouchmove="handleMove" catchtouchend="moveEnd" id="chess_{{board_num[item]}}" data-who="{{item}}"
+    data-i="{{index}}"
+    style="z-index:{{chess_zindex[item]}};left:{{chess_move[item].left}}px;top:{{chess_move[item].top}}px;">
     <image src='{{board_img_url[item]}}' style="width:{{chess_size}}px;height:{{chess_size}}px" />
   </view>
 </view>
 
-<view style="margin:10px;"/>
+<view style="margin:10px;" />
 <button catchtap="gameStart">开始游戏</button>
-<view style="margin:10px;"/>
+<view style="margin:10px;" />
 <text class="f_center">剩余时间: {{time_str}}</text>
+<text class="f_center">{{game_state=="游戏结束" ? "最终得分: "+level_index : ""}}</text>
