@@ -5,7 +5,10 @@ Page({
    * 页面的初始数据                                                                        
    */
   data: {
-    difficulty: 5 /* [ 5、6、7 ] */ ,
+    level_flow: [5, 5, 6, 6, 7, 7],
+    // level_time: [5, 5, 10, 10, 15, 15],
+    level_time: [5, 5, 5, 5, 5, 5],
+    level_index: 5,
     board_num: [] /* board.length = board_size */ ,
     board_img_url: [],
     chess_index: [],
@@ -179,13 +182,6 @@ Page({
     pos["left"] += start["left"];
     pos["top"] += start["top"];
     let param = {};
-    /* 如果发现位置超出界限则放回原地 */
-    // if (pos["left"] <= 0 || pos["left"] >= 320 || pos["top"] <= 0 || pos["top"] >= 320) {
-    // param["chess_move[" + who + "]"] = {
-    // "left": 0,
-    // "top": 0
-    // };
-    // }
     /* 检查当前棋子所在位置的索引 */
     let where = chessAt(pos, pos_table);
     if (where >= 0 && where < board_size) {
@@ -193,8 +189,6 @@ Page({
       param["chess_move[" + who + "]"] = {
         "left": pos_table[where].left - start["left"],
         "top": pos_table[where].top - start["top"]
-        // "left": 0,
-        // "top": 0,
       };
     } else {
       param["chess_move[" + who + "]"] = {
@@ -213,20 +207,12 @@ Page({
     let that = this;
     if (endAnswer) {
       wx.showToast({
-        title: '成功\n' + getScore(that),
+        title: getScore(that),
         duration: 1000,
         icon: 'succes',
         mask: true,
-      })
+      });
     }
-    // else{
-    //   wx.showToast({
-    //     title: '未成功',
-    //     duration: 200,
-    //     icon: 'loading',
-    //     mask: true,
-    //   })
-    // }
     console.log("触摸结束", who, where);
   },
   gameStart: function () {
@@ -412,7 +398,7 @@ function gameStart(that) {
   initTime(that, that.data.time_limit);
   initChessBoard(that, true);
   wx.showToast({
-    title: '五秒内记住棋盘',
+    title: '请记住棋盘',
     icon: 'succes',
     duration: 1000,
     complete: () => {
@@ -422,7 +408,7 @@ function gameStart(that) {
           game_state: "游戏中",
           // time_begin: new Date()
         });
-      }, 6000)
+      }, that.data.level_time[that.data.level_index] * 1000 + 1000);
     },
   })
 }
@@ -504,7 +490,7 @@ function chessAt(pos, table) {
  */
 function initChessBoard(that, mode) {
   let tar = that.data;
-  tar.board_num = get_Random_board(tar.difficulty, board_size);
+  tar.board_num = get_Random_board(tar.level_flow[tar.level_index], board_size);
   tar.board_img_url = [];
   tar.chess_move = [];
   tar.chess_start = [];
@@ -543,14 +529,27 @@ function initChessBoard(that, mode) {
   });
 }
 /**
- * 计算总耗时
+ * 计算得分
  * @param {Page} that 传递进来的this
- * @returns {String} 总耗时字符串 含单位
+ * @returns {String} 第 ? 关成功
  */
 function getScore(that) {
   clearTimeout(that.data.time_add_er);
-  that.setData({
-    game_state: '游戏结束'
-  })
-  return (that.data.time_limit - that.data.time_second) + "秒";
+  let tar = that.data;
+  tar.level_index += 1;
+  if (tar.level_index < 6) {
+    that.setData({
+      game_state: '下一轮',
+      level_index: tar.level_index
+    });
+    setTimeout(() => {
+      gameStart(that);
+    }, 1000);
+  } else {
+    that.setData({
+      game_state: '游戏结束',
+      level_index: tar.level_index
+    })
+  }
+  return "第 " + tar.level_index + " 关成功"
 }

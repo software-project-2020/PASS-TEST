@@ -50,6 +50,7 @@ page {
   z-index: 10;
 }
 .chess_below{
+  float: left;
   overflow: visible;
   white-space: nowrap;
   justify-content: center;
