@@ -1,1 +1,5 @@
 /* pages/zyy_memory_span/rule/rule.wxss */
+page {
+  background-image: url('https://picture.morii.top/renzhixuetang/background/10.jpg');
+  background-size: 100% 100%;
+}

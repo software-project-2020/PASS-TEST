@@ -21,55 +21,55 @@ Page({
     game_state: "等待中" /* 练习中 等待中 游戏中 游戏结束 */ ,
     pos_table: [{
         "left": 70,
-        "top": 38
+        "top": 78
       }, {
         "left": 131,
-        "top": 38
+        "top": 78
       }, {
         "left": 190,
-        "top": 38
+        "top": 78
       }, {
         "left": 250,
-        "top": 38
+        "top": 78
       },
       {
         "left": 70,
-        "top": 98
+        "top": 138
       }, {
         "left": 131,
-        "top": 98
+        "top": 138
       }, {
         "left": 190,
-        "top": 98
+        "top": 138
       }, {
         "left": 250,
-        "top": 98
+        "top": 138
       },
       {
         "left": 70,
-        "top": 157
+        "top": 197
       }, {
         "left": 131,
-        "top": 157
+        "top": 197
       }, {
         "left": 190,
-        "top": 157
+        "top": 197
       }, {
         "left": 250,
-        "top": 157
+        "top": 197
       },
       {
         "left": 70,
-        "top": 217
+        "top": 257
       }, {
         "left": 131,
-        "top": 217
+        "top": 257
       }, {
         "left": 190,
-        "top": 217
+        "top": 257
       }, {
         "left": 250,
-        "top": 217
+        "top": 257
       }
     ],
     time_limit: 30,
@@ -216,7 +216,7 @@ Page({
         mask: true,
       });
     }
-    console.log("触摸结束", who, nowAt, this.data.board_num[who]);
+    console.log("触摸结束", who, nowAt, this.data.board_num[who], pos);
   },
   gameStart: function () {
     gameStart(this);

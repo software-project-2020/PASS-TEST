@@ -26,7 +26,8 @@
       </view>
       <view wx:else>
         <text wx:if="{{!item.isEmpty}}" class="kuai {{bg[item.index]?'text1':'text2'}}" bindtap="change"
-          data-name="{{item.index}}" style="width: 70rpx; height: 70rpx;" mode='widthFix'>{{item.add}}{{item.number}}</text>
+          data-name="{{item.index}}" style="width: 70rpx; height: 70rpx;"
+          mode='widthFix'>{{item.add}}{{item.number}}</text>
       </view>
     </view>
   </view>
