@@ -84,9 +84,9 @@ Page({
         "top": 262
       },
     ],
-    time_limit: 300,
-    time_second: 300,
-    time_str: "300秒",
+    time_limit: 3000,
+    time_second: 3000,
+    time_str: "3000秒",
     // time_begin: null /* new Date() */ ,
     time_add_er: null,
   },
@@ -137,9 +137,9 @@ Page({
     get_num_img(num);
   },
   moveStart: function (event) {
-    if (this.data.game_state != "游戏中") {
-      return;
-    }
+    // if (this.data.game_state != "游戏中") {
+    //   return;
+    // }
     let who = event.currentTarget.dataset.who;
     let chess_start = this.data.chess_start;
     let param = {};
@@ -151,33 +151,36 @@ Page({
     }
     param["chess_zindex[" + who + "]"] = 200;
     this.setData(param);
+    // console.log(event.changedTouches[0].pageX);
     // console.log(param);
     // console.log("触摸开始 who",who);
     // console.log("触摸开始 chess_start",chess_start);
   },
   handleMove: function (event) {
-    if (this.data.game_state != "游戏中") {
-      return;
-    }
-    let who = "chess_move[" + event.currentTarget.dataset.who + "]";
-    let start = this.data.chess_start[event.currentTarget.dataset.who];
+    // if (this.data.game_state != "游戏中") {
+    //   return;
+    // }
+    let who = event.currentTarget.dataset.who;
+    let start = this.data.chess_start[who];
+    // let tar_float = this.data.chess_float[who];
     let move = {
       "left": event.changedTouches[0].pageX - start["left"],
       "top": event.changedTouches[0].pageY - start["top"]
     };
 
     let param = {};
-    param[who] = move;
+    param["chess_move[" + who + "]"] = move;
     this.setData(param);
-    // console.log(param[who]);
-    // console.log(event.changedTouches[0], event.currentTarget);
+    // console.log("tar_float",who,tar_float);
+    // console.log("event",event);
+    // console.log("event..pageX",event.changedTouches[0].pageX)
+    // console.log(param["chess_move[" + who + "]"].left, param["chess_float[" + who + "]"]);
   },
   moveEnd: function (event) {
-    if (this.data.game_state != "游戏中") {
-      return;
-    }
+    // if (this.data.game_state != "游戏中") {
+    //   return;
+    // }
     let who = event.currentTarget.dataset.who;
-    let ord = event.currentTarget.dataset.i;
     let start = this.data.chess_start[who];
     let pos = this.data.chess_move[who];
     let ords = this.data.chess_index;
@@ -206,16 +209,12 @@ Page({
     nowAt[who] = where;
     let now_float = this.data.chess_float;
     for (let i = 0; i < ords.length; i++) {
-      console.log(ords[i], nowAt[ords[i]]);
-      let out_cnt = 0 /* 统计不在待选区的棋子数目 */ ;
-      if (nowAt[ords[i]] == -1) {
-        for (let j = i - 1; j >= 0; j--) {
-          if (nowAt[ords[j]] != -1) {
-            out_cnt++;
-          }
+      now_float[ords[i]] = 0;
+      for (let j = i - 1; j >= 0; j--) {
+        if (nowAt[ords[j]] != -1) {
+          // now_float[ords[i]] -= this.data.chess_size; 
         }
       }
-      now_float[ords[i]] = -out_cnt * this.data.chess_size;
     }
     param["chess_float"] = now_float;
     console.log(param);
