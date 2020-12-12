@@ -8,15 +8,15 @@ Page({
     level_flow: [5, 5, 6, 6, 7, 7],
     // level_time: [5, 5, 10, 10, 15, 15],
     level_time: [5, 5, 5, 5, 5, 1],
-    level_index: 5,
+    level_index: 0,
     board_num: [] /* board.length = board_size */ ,
     board_img_url: [],
     chess_index: [],
     chess_move: [],
-    chess_float:[] /* 左右方向上的浮动变量 */ ,
+    chess_float: [] /* 左右方向上的浮动变量 */ ,
     chess_start: [],
     chess_zindex: [],
-    chess_isOK: [],
+    chess_nowAt: [],
     chess_size: 50,
     game_state: "等待中" /* 练习中 等待中 游戏中 游戏结束 */ ,
     pos_table: [{
@@ -84,9 +84,9 @@ Page({
         "top": 262
       },
     ],
-    time_limit: 30,
-    time_second: 30,
-    time_str: "30秒",
+    time_limit: 300,
+    time_second: 300,
+    time_str: "300秒",
     // time_begin: null /* new Date() */ ,
     time_add_er: null,
   },
@@ -193,23 +193,36 @@ Page({
         "left": pos_table[where].left - start["left"],
         "top": pos_table[where].top - start["top"]
       };
-      /* 当前棋子右边的所有棋子，向左挪动一个棋子的大小 */
-      for (let i=ord+1;i<ords.length;i++){
-        param["chess_float["+ords[i]+"]"]=this.data.chess_float[ords[i]]-this.data.chess_size;
-      }
     } else {
       param["chess_move[" + who + "]"] = {
         "left": 0,
         "top": 0,
       };
     }
-    param["chess_isOK[" + who + "]"] = (where == who);
+    param["chess_nowAt[" + who + "]"] = where;
     param["chess_zindex[" + who + "]"] = 100;
+    /* 待选区棋子的左右浮动管理 */
+    let nowAt = this.data.chess_nowAt;
+    nowAt[who] = where;
+    let now_float = this.data.chess_float;
+    for (let i = 0; i < ords.length; i++) {
+      console.log(ords[i], nowAt[ords[i]]);
+      let out_cnt = 0 /* 统计不在待选区的棋子数目 */ ;
+      if (nowAt[ords[i]] == -1) {
+        for (let j = i - 1; j >= 0; j--) {
+          if (nowAt[ords[j]] != -1) {
+            out_cnt++;
+          }
+        }
+      }
+      now_float[ords[i]] = -out_cnt * this.data.chess_size;
+    }
+    param["chess_float"] = now_float;
     console.log(param);
     this.setData(param);
     let endAnswer = true;
     for (let i = 0; i < this.data.chess_index.length; i++) {
-      endAnswer = endAnswer && this.data.chess_isOK[this.data.chess_index[i]];
+      endAnswer = endAnswer && (this.data.chess_nowAt[this.data.chess_index[i]] == this.data.chess_index[i]);
     }
     let that = this;
     if (endAnswer) {
@@ -501,10 +514,10 @@ function initChessBoard(that, mode) {
   tar.board_img_url = [];
   tar.chess_move = [];
   tar.chess_start = [];
-  tar.chess_isOK = [];
+  tar.chess_nowAt = [];
   tar.chess_zindex = [];
   tar.chess_index = [];
-  tar.chess_float=[];
+  tar.chess_float = [];
   tar.board_num.forEach((e) => {
     tar.board_img_url.push(get_num_img(e));
     tar.chess_move.push({
@@ -515,7 +528,7 @@ function initChessBoard(that, mode) {
       "left": 0,
       "top": 0
     });
-    tar.chess_isOK.push(false);
+    tar.chess_nowAt.push(-1);
     tar.chess_zindex.push(100);
     tar.chess_float.push(0);
   });
@@ -534,8 +547,8 @@ function initChessBoard(that, mode) {
     chess_index: tar.chess_index,
     chess_move: tar.chess_move,
     chess_zindex: tar.chess_zindex,
-    chess_isOK: tar.chess_isOK,
-    chess_float:tar.chess_float,
+    chess_nowAt: tar.chess_nowAt,
+    chess_float: tar.chess_float,
   });
 }
 /**
