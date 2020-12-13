@@ -71,6 +71,9 @@ Page({
         }
       }
     }else{
+      this.setData({
+        userInfo: wx.getStorageSync('userInfo')
+      })
       wx.redirectTo({
         url: '../start/start'
       })
