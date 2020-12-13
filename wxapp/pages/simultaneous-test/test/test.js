@@ -1,4 +1,5 @@
 const app = getApp()
+var testutil = require('../../../utils/testutil.js')
 Page({
   data: {
     ctx: '',
@@ -7,13 +8,21 @@ Page({
     lineColor: 'black', // 颜色
     lineWidth: 3,
     currentPoint: {},
-    currentLine: [],  // 当前线条
+    currentLine: [], // 当前线条
     pic: '',
-    now:0,
-    qnum:3
+    now: 0,
+    score:0
   },
   onLoad: function () {
     this.initCanvas()
+    testutil.getS11(0, (res) => {
+      // console.log(res)
+      this.setData({
+        qnum: res.qnum,
+        qlist: res.qlist
+      })
+      console.log(res.qlist)
+    })
   },
 
   // 笔迹开始
@@ -46,7 +55,6 @@ Page({
       x: e.touches[0].x,
       y: e.touches[0].y
     }
-
     this.setData({
       currentPoint: point
     })
@@ -76,9 +84,7 @@ Page({
   },
 
   // 保存画布
-  saveCanvas: function () {
-    //生成图片
-    // const appId = wx.getStorageSync("appId");
+  saveCanvas: function (callback) {
     wx.canvasToTempFilePath({
       canvasId: 'handWriting',
       fileType: 'jpg',
@@ -88,23 +94,19 @@ Page({
         })
         console.log(res.tempFilePath);
         wx.uploadFile({
-          url: 'http://localhost:5000/test' ,
+          url: 'http://localhost:5000/test',
           filePath: res.tempFilePath,
           fileType: 'jpg',
           name: 'file',
           formData: {
             fileDir: 'order_apply',
+            rules:JSON.stringify(this.data.qlist[this.data.now])
           },
           success: res => {
-            console.log(res)
-            // const result = JSON.parse(res.data);
-            // if (result.errorCode === 0) {
-            //   this.setData({
-            //     pic: result.file,
-            //   })
-            // }
+            callback && callback(res)
           },
           complete: res => {
+            callback && callback(res)
             wx.hideLoading()
           }
         })
@@ -132,4 +134,35 @@ Page({
       })
     }).exec();
   },
+  start: function () { //练习页面点击开始测试
+    this.saveCanvas( (res) => {
+      console.log(res)
+      this.setData({
+        now: this.data.now + 1
+      })
+      this.clearDraw()
+    })
+  
+  },
+  next: function () {//提交然后进入下一题
+    this.saveCanvas( (res) => {
+      if(res.data=='true') this.addscore()
+      this.setData({
+        now: this.data.now + 1
+      })
+    })
+    this.clearDraw()
+    
+  },
+  finish:function(){ //提交最后一题，结算分数
+    this.saveCanvas()
+    this.clearDraw()
+    //展示一个提示框，点击确定后进入下一项测试
+  },
+  addscore:function(){
+    this.setData({
+      score :this.data.score +1
+    })
+  }
+
 })
