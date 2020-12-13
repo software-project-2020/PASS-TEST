@@ -3,26 +3,26 @@
   <!-- 两个按钮 -->
   <view class="head">
     <button class="back_btn" plain="true" bindtap="goback" style="width: 80rpx; ">
-    <image class='back_img' mode='widthFix' src='../../../image/lyq/btn/back.png' style="width: 80rpx; "></image>
+    <image class='back_img' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/btn/back.png' style="width: 80rpx; "></image>
   </button>
   <button class="music_btn" plain="true" bindtap="changemusic" style="width: 80rpx; ">
-    <image class='back_img' mode='widthFix' src='../../../image/lyq/music.png' style="width: 80rpx; "></image>
+    <image class='back_img' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/music.png' style="width: 80rpx; "></image>
   </button>
 </view>
-  <image class="headimg" mode='widthFix' src='../../../image/lyq/imghead.jpg' style="width: 120rpx;"></image>
+  <image class="headimg" mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/imghead.jpg' style="width: 120rpx;"></image>
   <text class="name">昵称</text>
   <view class="border">
   <view class="btnv">
     <button class="btn" plain="true" bindtap="gotoHistoryTest" style="width: 400rpx;">
-    <image class='imgbtn' mode='widthFix' src='../../../image/lyq/btn/historybtn.png' style="width: 400rpx; "></image>
+    <image class='imgbtn' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/btn/historybtn.png' style="width: 400rpx; "></image>
   </button></view>
 <view class="btnv">
   <button class="btn" plain="true" bindtap="gotoSuggestions" style="width: 400rpx; ">
-    <image class='imgbtn' mode='widthFix' src='../../../image/lyq/btn/suggestionbtn.png' style="width: 400rpx; "></image>
+    <image class='imgbtn' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/btn/suggestionbtn.png' style="width: 400rpx; "></image>
   </button></view>
   <view class="btnv">
   <button class="btn" plain="true" bindtap="gotoAboutUs" style="width: 400rpx; ">
-    <image class='imgbtn' mode='widthFix' src='../../../image/lyq/btn/aboutusbtn.png' style="width: 400rpx; "></image>
+    <image class='imgbtn' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/btn/aboutusbtn.png' style="width: 400rpx; "></image>
   </button></view>
   </view>
 </view>

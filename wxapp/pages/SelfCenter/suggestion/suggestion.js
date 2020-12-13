@@ -1,6 +1,6 @@
 // pages/SelfCenter/suggestion/suggestion.js
+var userutil = require('../../../utils/userutil.js')
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -8,14 +8,10 @@ Page({
       uploaderList: [],
       uploaderNum:0,
       showUpload:true,
-      // show:false,//控制下拉列表的显示隐藏，false隐藏、true显示
-      // selectData:['时间问题','题目问题','其他问题'],//下拉列表的数据
-      // index:0,//选择的下拉列表下标
       imagelist:[],
       feedback_type:null,
       contact_info:null,
       feedback_content:null,
-      //
       selectList: [{"text": "时间问题"}, {"text": "难度问题"}, {"text": "其他问题"}],
       select: false,
       select_value1: {
@@ -36,7 +32,6 @@ Page({
     })
     console.log(this.data.feedback_content)
   },
-  //index.js
     // 删除图片
     clearImg:function(e){
         var nowList = [];//新数据
@@ -95,27 +90,24 @@ Page({
                   }
                 })
                 }
-                console.log(that.data.imagelist)
+                // console.log(that.data.imagelist)
             }
         })
     },
-   // 点击下拉显示框
-//  selectTap(){
-//   this.setData({
-//    show: !this.data.show
-//   });
-//   },
-//   // 点击下拉列表
-//   optionTap(e){
-//     var selectData = this.data.selectData
-//   let Index=e.currentTarget.dataset.index;//获取点击的下拉列表的下标
-//   this.setData({
-//    index:Index,
-//    show:!this.data.show,
-//    feedback_type:selectData[e.currentTarget.dataset.index]
-//   });
-//   console.log(this.data.feedback_type)
-//   },
+
+    submit(){
+      // console.log(getApp().globalData.userInfo.id)
+      // console.log(getApp().globalData.userInfo['id'])
+      var feedbackdata={
+        id:getApp().globalData.userInfo.id,
+        feedback_type:this.data.feedback_type,
+        feedback_content:this.data.feedback_content,
+        imagelist:this.data.imagelist,
+        contact_info:this.data.contact_info,
+      }
+      console.log(JSON.stringify(feedbackdata))
+      userutil.feedbackInfo(feedbackdata)
+    },
 
 m_select_touch(e) {
   let that = this;
@@ -128,59 +120,4 @@ m_select_touch(e) {
     // console.log(this.data.feedback_type)
 },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

@@ -12,6 +12,20 @@ page{
   margin-bottom: 3%;
   margin-top: 5%;
 }
+.xjindu{
+  /* 上右下左 */
+  margin:5% 0% 0% 3%;
+  height: 60rpx;
+  width: 21%;
+  display: flex;
+  background-color: #ffffff;
+  opacity: 0.8;
+  border: 6rpx solid #9f9fdf;
+  border-radius: 15rpx;
+  text-align:center;
+  align-items:center;
+  justify-content: center;
+}
 .t1{
   display: flex;
   align-items: center;
@@ -29,20 +43,20 @@ page{
   border-radius: 30rpx;
   padding: 25rpx;
   flex-direction: column;
-  margin-top: 4%;
 }
-
 .img1{
   display: flex;
   bottom:0; 
 }
 .top{
+  margin-top: 5%;
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center; /*垂直*/
 }
 .clock{
-    margin:3% 1% 0% 52%;
+    margin:3% 1% 0% 3%;
 }
 .time{
   margin: 5% 0% 0% 0%;
@@ -76,7 +90,7 @@ page{
   font-weight: 600;
 }
 .btn{
-  margin-top: 10%;
+  margin-top: 5%;
 }
 .button{
   border: #9f9fdf 7rpx solid;

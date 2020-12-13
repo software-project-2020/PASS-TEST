@@ -6,11 +6,35 @@ page{
 }
 .container{
   padding: 0rpx;
+  display: flex;
+  justify-content: center;  /*水平*/
+  align-items: center; /*垂直*/
 }
 .jindu{
   height: 15%;
-  margin-bottom: 5%;
   margin-top: 5%;
+}
+.xjindu{
+    /* 上右下左 */
+    margin:12% 3% 1% 2%;
+    height: 60rpx;
+    width: 37%;
+    display: flex;
+    background-color: #ffffff;
+    opacity: 0.8;
+    border: 4rpx solid #2BB31C;
+    border-radius: 15rpx;
+    text-align:center;
+    align-items:center;
+    justify-content: center;
+}
+.rightbottom{
+  width: 100%;
+  height: 80rpx;
+  display: flex;
+  justify-content: left;  /*水平*/
+  align-items: flex-end; /*垂直*/
+  margin-bottom: 2%;
 }
 .border{
   height: 600rpx;
@@ -26,7 +50,9 @@ page{
   flex-direction: column;
   margin-bottom: 4% ;
 }
-
+.eyu{
+  margin-left: 10%;
+}
 .border1{
   height: 160rpx;
   width: 75%;
@@ -44,17 +70,19 @@ page{
   bottom:0; 
 }
 .top{
+  margin-top: 0%;
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: flex-end; /*垂直*/
 }
 .clock{
-  margin:12% 0% 0% 1%;
+  margin:0% 0% 0% 2%;
 }
 .time{
-  margin: 13% 0% 1% 0%;
-  height: 50rpx;
-  width: 10%;
+  margin: 0% 0% 1% 0%;
+  height: 55rpx;
+  width:25%;
   display: flex;
   background-color: #ffffff;
   opacity: 0.8;
@@ -63,6 +91,17 @@ page{
   text-align:center;
   align-items:center;
   justify-content: center;
+}
+.displaytime{
+  display: flex;
+  justify-content: center;  /*水平*/
+  
+}
+.rightup{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; /*垂直*/
 }
 .bottom{
   width: 100%;

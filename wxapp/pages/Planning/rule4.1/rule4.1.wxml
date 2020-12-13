@@ -2,7 +2,7 @@
 <view class="container">
   <view class="top" style="flex-direction:row;">
     <view class="sheep">
-      <image class='img1' mode='widthFix' src='../../../image/lyq/animal/sheep.png' style="width: 170rpx; "></image>
+      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/sheep.png' style="width: 170rpx; "></image>
     </view>
   </view>
   <view class="border">
@@ -10,12 +10,12 @@
       <text class="rules">接下来，你会依次看到几个词组或者图片，每个词组或者图片只出现一次，展示完毕后请按照出现的顺序点击词组，再次点击可取消选中，全部排序并确定答案后点击提交按钮,隔一次速度会变快哦！
         请看下面的示例：</text>
     </view>
-    <image class='img1' mode='widthFix' src='../../../image/lyq/rule4.1.gif' style="width: 400rpx; "></image>
+    <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/rule4.1.gif' style="width: 400rpx; "></image>
 
   </view>
   <view class="bottom">
     <button class="btn" plain="true" bindtap="gototest1" >
-    <image class='img2' mode='widthFix' src='../../../image/lyq/starttest.png' style="width: 250rpx; "></image>
+    <image class='img2' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/starttest.png' style="width: 250rpx; "></image>
   </button>
 </view>
 </view>

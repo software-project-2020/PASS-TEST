@@ -38,5 +38,10 @@ Page({
     wx.navigateTo({
       url: '../index/index'
     })
+  },
+  bindViewTap(){
+    wx.navigateTo({
+      url: "/pages/SelfCenter/my/my",
+    })
   }
 })
