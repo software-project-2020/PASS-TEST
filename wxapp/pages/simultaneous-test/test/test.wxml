@@ -16,7 +16,7 @@
   </view>
   <view class="border">
     <view class="timu">
-      <text class="word">题目：请在下面的方框中画出圆形上有一个三角形。</text>
+      <text class="word">题目：请在下面的方框中画出"{{qlist[now].q}}"。</text>
     </view>
     <view class="intro">
       <view class="huabu"><canvas class="handWriting" disable-scroll="true" bindtouchstart="uploadScaleStart"
@@ -31,14 +31,12 @@
         </button>
       </view>
     </view>
-
   </view>
-  <!-- <button class='submit word' bindtap='saveCanvas'>确定</button> -->
   <view class="buttonline">
+    <!-- <button class='submit word' bindtap='saveCanvas'>确定</button> -->
     <button wx:if="{{now==0}}" class="submit buttonword" style="width:240rpx;" bindtap="start">开始测试</button>
-    <button wx:if="{{now>1}}" class="submit buttonword" style="width:240rpx;" bindtap="preQuestion">上一题</button>
     <button wx:if="{{now<qnum-1&&now>0}}" class="submit buttonword" style="width:240rpx;"
-      bindtap="nextQuestion">下一题</button>
-    <button wx:if="{{now==qnum-1}}" class="submit buttonword" style="width:240rpx;" bindtap="submitAnswer">提交</button>
+      bindtap="next">下一题</button>
+    <button wx:if="{{now==qnum-1}}" class="submit buttonword" style="width:240rpx;" bindtap="finish">提交</button>
   </view>
 </view>
