@@ -77,6 +77,12 @@
           "pathName": "pages/simultaneous-test/test/test",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2",
+          "pathName": "pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2",
+          "query": "",
+          "scene": null
         }
       ]
     }

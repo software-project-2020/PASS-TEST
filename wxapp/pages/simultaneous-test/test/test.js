@@ -1,5 +1,6 @@
 const app = getApp()
 var testutil = require('../../../utils/testutil.js')
+var util = require('../../../utils/util.js')
 Page({
   data: {
     ctx: '',
@@ -11,7 +12,7 @@ Page({
     currentLine: [], // 当前线条
     pic: '',
     now: 0,
-    score:0
+    score: 0
   },
   onLoad: function () {
     this.initCanvas()
@@ -100,11 +101,11 @@ Page({
           name: 'file',
           formData: {
             fileDir: 'order_apply',
-            rules:JSON.stringify(this.data.qlist[this.data.now])
+            rules: JSON.stringify(this.data.qlist[this.data.now])
           },
-          success: res => {
-            callback && callback(res)
-          },
+          // success: res => {
+          //   callback && callback(res)
+          // },
           complete: res => {
             callback && callback(res)
             wx.hideLoading()
@@ -135,34 +136,62 @@ Page({
     }).exec();
   },
   start: function () { //练习页面点击开始测试
-    this.saveCanvas( (res) => {
+    this.saveCanvas((res) => {
       console.log(res)
+      var text
+      if (res.data == 'true')
+        text = "恭喜你答对啦，你有充足的时间来完成这项测试，现在就请点击确定按钮开始吧！"
+      else
+        text = "做错了，不要着急，请尝试将图形画的更加规则一些，可以点击取消重新试一下。如果你准备好了，接下来你会有充足的时间来完成这项测试，现在就请点击确定按钮开始吧！"
+      var that = this
+      wx.showModal({
+        title: '练习结束',
+        content: text,
+        cancelText: '再次尝试',
+        confirmText: '开始测试',
+        success: function (res) {
+          if (res.confirm) { //这里是点击了确定以后
+            util.initCountDown(that, 100, 1)
+            that.setData({
+              now: that.data.now + 1
+            })
+            that.clearDraw()
+          }
+        }
+      })
+    })
+
+  },
+  next: function () { //提交然后进入下一题
+    this.saveCanvas((res) => {
+      console.log(res)
+      if (res.data == 'true') this.addscore()
       this.setData({
         now: this.data.now + 1
       })
       this.clearDraw()
     })
-  
-  },
-  next: function () {//提交然后进入下一题
-    this.saveCanvas( (res) => {
-      if(res.data=='true') this.addscore()
-      this.setData({
-        now: this.data.now + 1
-      })
-    })
-    this.clearDraw()
     
+
   },
-  finish:function(){ //提交最后一题，结算分数
-    this.saveCanvas()
-    this.clearDraw()
+  finish: function () { //提交最后一题，结算分数
+    this.saveCanvas((res) => {
+      console.log(res)
+      if (res.data == 'true') this.addscore()
+      console.log(this.data.score)
+    })
+    wx.navigateTo({
+      url: "/pages/attention/rule1/attention",
+    })
     //展示一个提示框，点击确定后进入下一项测试
   },
-  addscore:function(){
+  addscore: function () {
     this.setData({
-      score :this.data.score +1
+      score: this.data.score + 1
     })
-  }
+  },
+  timeout: function () {
+    // submitAnswer()
+  },
 
 })
