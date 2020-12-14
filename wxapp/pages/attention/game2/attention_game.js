@@ -8,7 +8,6 @@ Page({
    */
   data: {
     number: 0,
-    age: 1,
     question_text: ["选出下列图片中的 ", "选出下列字母中的 "],
     list_big_letter: {
       0: "A",
@@ -67,12 +66,12 @@ Page({
       25: "z",
     },
     list: {
-      0: "../../../image/attention/animals/cat.png",
-      1: "../../../image/attention/animals/mouse.png",
-      2: "../../../image/attention/animals/rabbit.png",
-      3: "../../../image/attention/fruit/apple.png",
-      4: "../../../image/attention/fruit/orange.png",
-      5: "../../../image/attention/fruit/strawberry.png",
+      0: "https://picture.morii.top/renzhixuetang/attention/animals/cat.png",
+      1: "https://picture.morii.top/renzhixuetang/attention/animals/mouse.png",
+      2: "https://picture.morii.top/renzhixuetang/attention/animals/rabbit.png",
+      3: "https://picture.morii.top/renzhixuetang/attention/fruit/apple.png",
+      4: "https://picture.morii.top/renzhixuetang/attention/fruit/orange.png",
+      5: "https://picture.morii.top/renzhixuetang/attention/fruit/strawberry.png",
     },
     age1_question: Math.floor(Math.random() * 26),
     age2_question: Math.floor(Math.random() * 26),
@@ -83,15 +82,17 @@ Page({
     write: ["练习结束，测试正式开始", "请继续完成下一题", "本游戏结束，开始下一个测试"],
     text: ["练习", "测试：1/2", "测试：2/2"]
   },
-  onReady: function () {
-  },
+  onReady: function () {},
   onShow: function () {
     wx.setNavigationBarTitle({
       title: '注意'
     })
   },
   onLoad: function () {
-    testutil.getconfiguration(this.data.age, 'A2', (res) => {
+    //年龄暂时为写死为1
+    // var age = getApp().globalData.userInfo.ageGroup
+    var age = 1
+    testutil.getconfiguration(age, 'A2', (res) => {
       console.log(res)
       var line = []
       var column = []
@@ -106,10 +107,10 @@ Page({
       this.setData({
         line: line,
         column: column,
-        time: time
+        time: time,
+        age: age
       })
       this.init()
-      this.initnum()
     })
 
     var that = this;
@@ -288,6 +289,7 @@ Page({
       age1_question: Math.floor(Math.random() * 26),
       age2_question: Math.floor(Math.random() * 26),
       age1_question_number: Math.floor(Math.random() * 10),
+      finishClick: false
     })
 
     if (this.data.number == 2 && this.data.age == 0) {
@@ -328,7 +330,18 @@ Page({
         })
       }
     }
-
+    if (this.data.number == 0) {
+      var that = this
+      wx.showModal({
+        title: '注意',
+        content: '此次为尝试机会，不计入测试成绩',
+        confirmText: '开始尝试',
+        showCancel: false,
+        success: function (res) {
+          that.initnum()
+        }
+      })
+    }
   },
   //计算成绩
   sum() {
@@ -346,34 +359,95 @@ Page({
     // console.log(count);
     this.data.grade = answer;
     console.log("grade : " + this.data.grade);
+    if (this.data.number == 1) {
+      var rightcount = this.data.rightcount;
+      var sumcount = this.data.count;
+      this.setData({
+        sumRight: rightcount,
+        sumCount: sumcount,
+        sumGrade: answer
+      })
+      console.log("sumGrade : " + this.data.sumGrade)
+    }
+    if (this.data.number == 2) {
+      var sumGrade = this.data.sumGrade + answer;
+      var sumRight = this.data.sumRight + this.data.rightcount;
+      var sumCount = this.data.sumCount + this.data.count;
+      var sum = getApp().globalData.score[2] + this.data.sumGrade;
+      var scoreDetail = [];
+      var item = {
+        "sumRight": sumRight,
+        "sumCount": sumCount
+      }
+      scoreDetail.push(item)
+      getApp().globalData.score[2] = Math.round(sum);
+      getApp().globalData.scoreDetail[2][1] = scoreDetail;
+      console.log(getApp().globalData.score[2])
+      console.log(getApp().globalData.scoreDetail[2][1])
+      console.log(getApp().globalData.scoreDetail[2])
+    }
   },
 
   timeout: function () {
     this.sum();
-    this.setData({
-      dialogShow: true
-    })
-  },
-
-  tapDialogButton: function () {
-
     util.closeCountDown(this)
     console.log("下一题")
-    var Num = this.data.number;
-    Num = Num + 1;
-    this.setData({
-      dialogShow: false,
-      number: Num,
-    })
-    if (Num == 3) {
-      wx.navigateTo({
-        url: '../../attention/rule2/attention'
+    var that = this;
+    if (this.data.number == 0) {
+      var title = '糟糕';
+      var content = '时间花光了';
+      if (that.data.finishClick == true) {
+        title = '成功';
+        content = '完成啦'
+      }
+      wx.showModal({
+        title: title,
+        content: content,
+        confirmText: '开始测试',
+        cancelText: '再次尝试',
+        success: function (res) {
+          if (res.confirm) { //这里是点击了确定以后
+            console.log('用户点击确定')
+            var Num = that.data.number;
+            Num = Num + 1;
+            that.setData({
+              number: Num,
+            })
+            that.init()
+            that.initnum()
+          } else if (res.cancel) {
+            that.init()
+          }
+        }
       })
     } else {
-      this.init();
-      this.initnum()
+      var Num = this.data.number;
+      Num = Num + 1;
+      this.setData({
+        number: Num,
+      })
+      wx.showModal({
+        title: '糟糕',
+        content: '时间花光了',
+        confirmText: '下一题',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) { //这里是点击了确定以后
+            console.log('用户点击确定')
+            if (that.data.number == 3) {
+              wx.redirectTo({
+                url: '../../Planning/rule4.1/rule4.1'
+              })
+            } else {
+              that.init()
+              that.initnum()
+            }
+          }
+        }
+      })
     }
   },
+
   //判断一共有几个是正确的
   choicenum: function (e) {
     var that = this;
@@ -388,7 +462,7 @@ Page({
     for (i = 0; i < this.data.line[this.data.number] * this.data.column[this.data.number]; i++) {
       let index = "num[" + i + "]";
       let count = "ans_num[" + i + "]";
-      var value = l[Math.floor(i / this.data.line[this.data.number])][i % this.data.column[this.data.number]].value;
+      let value = l[Math.floor(i / this.data.line[this.data.number])][i % this.data.column[this.data.number]].value;
       if (this.data.age == 1 && this.data.number == 2) {
         var value_num = l[Math.floor(i / this.data.line[this.data.number])][i % this.data.column[this.data.number]].value2;
       } else {
@@ -524,6 +598,9 @@ Page({
 
   finish: function (e) {
     this.sum();
+    this.setData({
+      finishClick: true
+    })
     util.closeCountDown(this)
     this.timeout();
   },

@@ -10,8 +10,8 @@
     "pages/simultaneous-test/test/test",
     "pages/attention/rule1/attention",
     "pages/attention/game1/attention_game",
-    "pages/attention/game2/attention_game",
     "pages/attention/rule2/attention",
+    "pages/attention/game2/attention_game",
     "pages/result/result",
     "pages/SelfCenter/my/my",
     "pages/SelfCenter/aboutus/aboutus",
@@ -20,7 +20,7 @@
     "pages/S2/successive-rules/successive-rules",
     "pages/Planning/test4.1/test4.1",
     "pages/Planning/rule4.1/rule4.1",
-    "pages/rank/rank"
+    "pages/rank/rank",
     "pages/history/history"
   ],
   "window":{

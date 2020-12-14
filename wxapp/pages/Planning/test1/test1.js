@@ -265,10 +265,11 @@ Page({
       console.log(this.data.PassScore)
       getApp().globalData.score[0]=Math.round(this.data.PassScore);
       getApp().globalData.scoreDetail[0]=this.data.score_detail;
+       console.log(getApp().globalData.score[0])
+    console.log(getApp().globalData.scoreDetail[0])
     }
     // console.log(this.data.PassScore)
-    console.log(getApp().globalData.score[0])
-    console.log(getApp().globalData.scoreDetail[0])
+   
   },
   change: function (e) {
     var that = this;

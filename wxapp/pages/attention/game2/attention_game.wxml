@@ -4,7 +4,7 @@
     <text>{{text[number]}}</text>
   </view>
   <view class="clock">
-    <image class='img1' mode='widthFix' src='../../../image/lyq/clock.png' style="width: 70rpx;"></image>
+    <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/clock.png' style="width: 70rpx;"></image>
   </view>
   <view class="time">
     <text style='color:#edbf40'>{{displayTime}}s</text>
@@ -38,7 +38,3 @@
 <view>
   <button class="finish" bindtap="finish">完成</button>
 </view>
-
-<mp-dialog title="提示" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{oneButton}}">
-  <text>{{write[number]}}</text>
-</mp-dialog>
