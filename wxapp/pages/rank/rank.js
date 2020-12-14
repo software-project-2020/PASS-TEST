@@ -1,9 +1,5 @@
-// pages/rank/rank.js
+const app = getApp()
 Page({
-  
-  /**
-   * 页面的初始数据
-   */
   data: {
     options: [{
       city_id: '001',
@@ -18,9 +14,70 @@ Page({
       city_id: '004',
       city_name: '继时性加工排行'
     }],
-    selected: {}
+    all_number: 2,
+    my_score : 80,
+    my_rank: 10,
+    ranklist: [{
+      "rank":1,
+      "nick_name":"用户1",
+      "score": 100
+    }, {
+      "rank":2,
+      "nick_name":"用户2",
+      "score": 90
+    }, {
+      "rank":3,
+      "nick_name":"用户3",
+      "score": 86
+    }, {
+      "rank":4,
+      "nick_name":"用户4",
+      "score": 77
+    }, {
+      "rank":5,
+      "nick_name":"用户5",
+      "score": 98
+    }, {
+      "rank":6,
+      "nick_name":"用户6",
+      "score": 45
+    }, 
+    // {
+    //   "rank":7,
+    //   "nick_name":"用户7",
+    //   "score": 87
+    // }, {
+    //   "rank":8,
+    //   "nick_name":"用户8",
+    //   "score": 80
+    // }, {
+    //   "rank":9,
+    //   "nick_name":"用户9",
+    //   "score": 17
+    // }, {
+    //   "rank":10,
+    //   "nick_name":"用户10",
+    //   "score": 100
+    // }, {
+    //   "rank":11,
+    //   "nick_name":"用户11",
+    //   "score": 120
+    // }, {
+    //   "rank":12,
+    //   "nick_name":"用户12",
+    //   "score": 234
+    // }
+  ],
+    selected: {},
+    userInfo: {},
+    hasUserInfo: false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    userrank: 0,
+    userscore: 0,
+    pagenum: 1,
+    allpages: 0
   },
-  change (e) {
+  change(e) {
     this.setData({
       selected: { ...e.detail }
     })
@@ -30,64 +87,90 @@ Page({
       duration: 1000
     })
   },
-  close () {
+  close() {
     // 关闭select
     this.selectComponent('#select').close()
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
+      })
+    } else if (this.data.canIUse) {
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    } else {
+      // 在没有 open-type=getUserInfo 版本的兼容处理
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+        }
+      })
+    }
+    var that = this
+    wx.request({
+      url: 'https://app.morii.top/login',
+      method: 'GET',
+      data: {
+        pages: this.data.pagenum
+      },
+      success: function (res) {
+        // success
+        console.log('submit success');
+        that.setData({
+          ranklist: res.data.ranks,
+          allpages: res.data.allpages
+        })
+      }
+    })
+    wx.request({
+      url: 'https://app.morii.top/userRank',
+      method: 'GET',
+      data: {
+        username: this.data.userInfo.nickName
+      },
+      success: function (res) {
+        console.log('submit success');
+        that.setData({
+          userrank: res.data.rank,
+          userscore: res.data.score
+        })
+        wx.setStorageSync('endlessScore', res.data.score)
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  pre: function () {
+    this.setData({
+      pagenum: this.data.pagenum - 1
+    })
+    this.onLoad();
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  next: function () {
+    this.setData({
+      pagenum: this.data.pagenum + 1
+    })
+    this.onLoad();
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  getUserInfo: function (e) {
+    console.log(e)
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
+    })
   }
+
 })

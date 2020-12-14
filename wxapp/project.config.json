@@ -31,10 +31,11 @@
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
+    "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
     "packNpmRelationList": [],
-    "enableEngineNative": false,
-    "minifyWXSS": true
+    "minifyWXSS": true,
+    "bundle": false
   },
   "compileType": "game",
   "libVersion": "2.14.0",
@@ -48,11 +49,9 @@
   "simulatorPluginLibVersion": {},
   "condition": {
     "search": {
-      "current": -1,
       "list": []
     },
     "conversation": {
-      "current": -1,
       "list": []
     },
     "plugin": {
@@ -67,9 +66,17 @@
     "miniprogram": {
       "list": [
         {
+          "id": 0,
+          "name": "pages/rank/rank",
+          "pathName": "pages/rank/rank",
+          "query": "",
+          "scene": null
+        },
+        {
           "id": -1,
-          "name": "pages/S2/successive-rules/successive-rules",
-          "pathName": "pages/S2/successive-rules/successive-rules",
+          "name": "pages/simultaneous-test/simultaneous1/simultaneous1",
+          "pathName": "pages/simultaneous-test/simultaneous1/simultaneous1",
+          "query": "",
           "scene": null
         }
       ]

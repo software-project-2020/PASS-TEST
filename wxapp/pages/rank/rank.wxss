@@ -27,37 +27,98 @@ page{
 .head{
   height: 10%;
   width: 100%;
-  display:flex;                    
-  /* justify-content: center; */
+  display:flex;
 }
 
 .rankimg{
   width: 36%;
   height: 100%;
   margin: 0 18%;
-  margin-top: 24px;
+  margin-top: 4%;
 }
 
 .body{
-  height: 80%;
+  height: 83%;
   width: 80%;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 5%;
   position: relative;
 }
 
 .combobox{
   width: 100%;
   height: 10%;
-  display: flex;
 }
 
 .select-wrap {
   width: 280rpx;
+  height: 100%;
+  float: right;
+  margin-top: 10px;
+  margin-right: 20px;
 }
 
-/* .selected {
-  margin-top: 50%; 
-  flex-direction: right;
-} */
+.table {
+  border: 0px solid darkgray;
+  padding-left:5%;
+  padding-right:5%;
+  height: 60%;
+}
+.tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 14%;
+  align-items: center;
+}
+.td {
+    width:40%;
+    justify-content: center;
+    text-align: center;
+}
+.bg-w{
+  background: snow;
+}
+.bg-g{
+  background: rgb(90, 146, 90);
+  color: #fff;
+}
+.th {
+  width: 40%;
+  justify-content: center;
+  background: rgb(73, 167, 73);
+  color: #fff;
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.pages{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 12%;
+  margin: 1%;
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 16%;
+}
+
+.userinfo-avatar {
+  width: 24%;
+  margin: 4%;
+  border-radius: 50%;
+}
+
+.userrank{
+  margin: 5px;
+}
+
+.button-text{
+  font-size: small;
+}
