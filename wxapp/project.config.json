@@ -4,7 +4,7 @@
     "ignore": []
   },
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": true,
     "enhance": false,
     "postcss": true,
@@ -28,12 +28,12 @@
       "disablePlugins": [],
       "outputPath": ""
     },
+    "enableEngineNative": false,
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
     "packNpmManually": false,
     "packNpmRelationList": [],
-    "enableEngineNative": false,
     "minifyWXSS": true
   },
   "compileType": "game",
@@ -56,10 +56,6 @@
     "gamePlugin": {
       "list": []
     },
-    "gamePlugin": {
-      "current": -1,
-      "list": []
-    },
     "miniprogram": {
       "list": [
         {
@@ -76,8 +72,8 @@
           "scene": null
         },
         {
-          "name": "pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2",
-          "pathName": "pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2",
+          "name": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+          "pathName": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
           "query": "",
           "scene": null
         },
@@ -90,6 +86,31 @@
         {
           "name": "pages/index/index",
           "pathName": "pages/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/S2/successive-rules/successive-rules",
+          "pathName": "pages/S2/successive-rules/successive-rules",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/Planning/test1/test1",
+          "pathName": "pages/Planning/test1/test1",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/Planning/rule4.1/rule4.1",
+          "pathName": "pages/Planning/rule4.1/rule4.1",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+          "pathName": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+          "query": "",
           "scene": null
         }
       ]

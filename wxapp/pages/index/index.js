@@ -81,6 +81,7 @@ Page({
         }
       }
     } else {
+      app.globalData.userInfo = wx.getStorageSync('userInfo')
       wx.navigateTo({
         url: '../start/start'
       })

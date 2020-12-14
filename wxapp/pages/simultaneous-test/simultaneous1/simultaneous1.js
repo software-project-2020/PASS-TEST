@@ -80,9 +80,10 @@ Page({
               score++
           }
           //S12占测试总数的0.6
-          app.globalData.score_detail[1][0]={score:score,qnum:that.data.qnum-1}
+          app.globalData.scoreDetail[1][0]={score:score,qnum:that.data.qnum-1}
+          console.log(app.globalData.scoreDetail[1][0])
           app.globalData.score[1]=score/(that.data.qnum-1)*100*0.6
-          console.log(app.globalData.score_detail[1],app.globalData.score[1])
+          console.log(app.globalData.scoreDetail[1],app.globalData.score[1])
           wx.navigateTo({
             url: '/pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2',
           })

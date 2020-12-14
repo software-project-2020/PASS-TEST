@@ -37,7 +37,7 @@ App({
     timer:'',//计时器
     userInfo: null,
     score :[],//每一项能力得分
-    score_detail:[[],[],[],[]]
+    scoreDetail:[[],[],[],[]],
     time:0 //用于记录用户测试耗费的时间
   }
 })
