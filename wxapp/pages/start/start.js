@@ -6,7 +6,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isSign : true,
     age : 7,
     // nickname : wx.getStorageInfoSync('userInfo').nickname
     nickname:"昵称"
@@ -22,11 +21,6 @@ Page({
   myinformation:function(){
     wx.navigateTo({
       url: '../index/index'
-    })
-  },
-  no_sign:function(){
-    this.setData({
-      isSign:false
     })
   },
   huizhang_list:function(){

@@ -1,10 +1,8 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/start/start",
     "pages/Planning/rule1/rule1",
-    
-    
     "pages/attention/game2/attention_game",
     "pages/attention/rule2/attention",
     "pages/result/result",
@@ -19,10 +17,9 @@
     "pages/SelfCenter/History/History",
     "pages/SelfCenter/my/my",
     "pages/SelfCenter/aboutus/aboutus",
-    "pages/SelfCenter/suggestion/suggestion"
-  
+    "pages/SelfCenter/suggestion/suggestion",
+    "pages/history/history"
   ],
-
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
