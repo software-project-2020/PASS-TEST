@@ -79,7 +79,7 @@ func main() {
 
 	r.POST("/api/user/info", userInfo)
 
-	r.POST("/api/user/feedback",userFeedback)
+	r.POST("/api/user/feedback", userFeedback)
 
 	r.Run(":23333")
 }
@@ -294,8 +294,8 @@ func userLogin(c *gin.Context) {
 			checkErr(err)
 			_, _ = res.LastInsertId()
 			c.JSON(200, gin.H{
-				"openid":  requestBody["openid"],
-				"flag": true,
+				"openid": requestBody["openid"],
+				"flag":   true,
 			})
 		} else {
 			sqlForRun = "update user set last_login_time = ? where openid = ?"
@@ -361,16 +361,16 @@ func userInfo(c *gin.Context) {
 	stmt2, err := Db.Prepare(sqlForRun)
 	checkErr(err)
 	defer stmt2.Close()
-	_, err = stmt2.Exec(age,birthday,gender, openId)
-	if err !=nil{
+	_, err = stmt2.Exec(age, birthday, gender, openId)
+	if err != nil {
 		result["error_code"] = 10004
 		mapJson, err := json.Marshal(result)
 		checkErr(err)
 		c.JSON(200, string(mapJson))
 		panic("未知错误")
-	}else {
+	} else {
 		result["error_code"] = 0
-		var list =  make(map[string]interface{})
+		var list = make(map[string]interface{})
 		list["age"] = age
 		result["data"] = list
 		mapJson, err := json.Marshal(result)
@@ -379,20 +379,29 @@ func userInfo(c *gin.Context) {
 	}
 }
 
-func userFeedback(c *gin.Context){
+func userFeedback(c *gin.Context) {
 	defer recoverErr()
 	result := make(map[string]interface{})
 	result["error_code"] = 0
-	//openid := c.PostForm("openid")
-	//feedback_type:=c.PostForm("feedback_type")
-	//contact_info:=c.PostForm("contact_info")
-	//feedback_content := c.PostForm("feedback_content")
-	imagelist :=c.PostForm("imagelist")
+	openid := c.PostForm("openid")
+	feedback_type := c.PostForm("feedback_type")
+	contact_info := c.PostForm("contact_info")
+	feedback_content := c.PostForm("feedback_content")
+	imagelist := c.PostForm("imagelist")
 	var requestBody []string
 	err := json.Unmarshal([]byte(imagelist), &requestBody)
 	fmt.Println(requestBody)
-
-	//sqlForRun := ""
+	sqlForRun := "insert into feedback(feedback_type,user_id,contact_info,feedback_content" +
+		",img_url,feedback_time) values(?,?,?,?,?,?)"
+	_, err = Db.Exec(sqlForRun, feedback_type, openid,
+		contact_info, feedback_content, imagelist, time.Now())
+	if err != nil {
+		result["error_code"] = 10001
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("sql 异常")
+	}
 	mapJson, err := json.Marshal(result)
 	checkErr(err)
 	c.JSON(200, string(mapJson))
