@@ -1,6 +1,7 @@
 // pages/Planning/test1/test1.js
 var util = require('../../../utils/util.js')
 var testutil = require('../../../utils/testutil.js')
+const app = getApp()
 Page({
   /**
    * 页面的初始数据
@@ -13,7 +14,7 @@ Page({
     noworder: [],
     showTime: false,
     PassScore:0,
-    score_detail:[]
+    scoreDetail:[]
   },
 
   /**
@@ -246,7 +247,7 @@ Page({
     console.log("总得分")
     console.log(FinalScore)
     var PassScore = this.data.PassScore
-    var score_detail = this.data.score_detail
+    var scoreDetail = this.data.scoreDetail
     if(this.data.nowdifficulty==4||this.data.nowdifficulty==5){
       PassScore=PassScore+FinalScore
       this.setData({
@@ -256,19 +257,20 @@ Page({
         "difficulty":this.data.nowdifficulty,
         "score":Math.round(FinalScore)
       }
-      score_detail.push(item)
+      scoreDetail.push(item)
     }
     if(this.data.nowdifficulty==5){
       this.setData({
         PassScore:(PassScore/2).toFixed(1)
       })
-      console.log(this.data.PassScore)
+      console.log(app.globalData.scoreDetail)
       getApp().globalData.score[0]=Math.round(this.data.PassScore);
-      getApp().globalData.scoreDetail[0]=this.data.score_detail;
+      getApp().globalData.scoreDetail[0]=this.data.scoreDetail;
+      console.log(getApp().globalData.score[0])
+      console.log(getApp().globalData.scoreDetail[0])
     }
     // console.log(this.data.PassScore)
-    console.log(getApp().globalData.score[0])
-    console.log(getApp().globalData.scoreDetail[0])
+    
   },
   change: function (e) {
     var that = this;
@@ -345,7 +347,7 @@ Page({
               })
               if (that.data.nowdifficulty == 6) {
                 wx.navigateTo({
-                  url: '/pages/Planning/rule4.1/rule4.1',
+                  url: '/pages/simultaneous-test/simultaneous-rule/simultaneous-rule',
                 })
               }
               else
