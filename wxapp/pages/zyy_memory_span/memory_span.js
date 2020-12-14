@@ -264,9 +264,9 @@ function randArr(arr) {
 function get_num_img(num) {
   // console.log("get num", num);
   if (num >= 0) {
-    return "../../image/zyy/" + num + ".png";
+    return "/image/zyy/" + num + ".png";
   } else {
-    return "../../image/zyy/base.png";
+    return "/image/zyy/base.png";
   }
 }
 

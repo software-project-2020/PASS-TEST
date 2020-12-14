@@ -1,5 +1,10 @@
 // pages/zyy_memory_span/rule/rule.js
 Page({
+  onShow: function () {
+    wx.setNavigationBarTitle({
+      title: '注意'
+    })
+  },
   goTest: function (e) {
     wx.showModal({
       title: '开始练习',
