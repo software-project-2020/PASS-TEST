@@ -7,17 +7,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-    age: 5,
+    age: 0,
     level: 1,//当前游戏难度
-    Alltime: 30,//规定最长完成时间
-    startdifficulty: 3,//当前游戏连续词语个数
+    Alltime: [0,0,0],//规定最长完成时间
+    startdifficulty: [0,0,0],//当前游戏连续词语个数
     testcount: 0,//当前难度测试题数
     list_pic: ["../../../image/lyq/animal/dog.png", "../../../image/lyq/animal/eyu.png", "../../../image/lyq/animal/fog.png", "../../../image/lyq/animal/sheep.png",
       "../../../image/lyq/animal/bear.png", "../../../image/lyq/animal/ciwei.png", "../../../image/lyq/animal/elephant.jpg", "../../../image/lyq/animal/duck.png"],
     list_complex: ["苹果", "香蕉", "橘子", "香梨", "葡萄", "冬枣", "啤酒", "汉堡", "可乐"],//所有词语
     mixlist: [],//随机抽取nowdifficulty个字，显示的序列(正确序列)
     mixlist_mix: [],//打乱之后的字词，排序界面的序列
-    intervaltime: 1800,//毫秒
+    intervaltime: [0,0,0],//毫秒
+    nowintervaltime:0,
     order: [],//测试者排的序列
     wrongnum: 0,//连续错误题数
     score: 0,//得分
@@ -28,10 +29,33 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    testutil.getconfiguration(0, 'S21', (res) => {
-      console.log(res)
+    this.setData({
+      age:getApp().globalData.userInfo.age
     })
-    this.intinum()
+    testutil.getconfiguration(getApp().globalData.userInfo.ageGroup, 'S21', (res) => {
+      console.log(res)
+      var timelist=[]
+      var intervaltimelist=[]
+      var startdifficultylist=[];
+      for (var i = 0; i < res.length; i++) {
+        var temp = JSON.parse(res[i].parameter_info)
+        // console.log(temp)
+        timelist[i] = temp.time
+        intervaltimelist[i]=temp.intervaltime
+        startdifficultylist[i]=temp.startdifficulty
+      }
+      // console.log(timelist)
+      // console.log(intervaltimelist)
+      this.setData({
+        Alltime:timelist,
+        intervaltime:intervaltimelist,
+        startdifficulty:startdifficultylist
+      })
+      // console.log(this.data.startdifficulty)
+      // console.log(this.data.intervaltime)
+      this.intinum()
+    })
+    
   },
   intinum() {
     var mixlist = this.data.mixlist;
@@ -44,12 +68,12 @@ Page({
     if (age <= 10)
       this.setData({
         isLowage: true,
-        startdifficulty:3
+        startdifficulty:this.data.startdifficulty
       })
     else {
       this.setData({
         isLowage: false,
-        startdifficulty:5
+        startdifficulty:this.data.startdifficulty
       })
     }
     if (this.data.isTry == true) {
@@ -73,51 +97,58 @@ Page({
       if (this.data.isLowage == true) {
         list = list_pic.slice()
         this.setData({
-          nowdifficulty: this.data.startdifficulty,//当前游戏难度，连续几个词
+          nowdifficulty: this.data.startdifficulty[0],//当前游戏难度，连续几个词
         })
       }
       else {
         list = list_complex.slice()
         this.setData({
-          nowdifficulty: this.data.startdifficulty,//当前游戏难度，连续几个词
+          nowdifficulty: this.data.startdifficulty[0],//当前游戏难度，连续几个词
         })
       }
     } else if (this.data.level == 2) {
       if (this.data.isLowage == true) {
         list = list_pic.slice()
         this.setData({
-          nowdifficulty: this.data.startdifficulty+1,//当前游戏难度，连续几个词
+          nowdifficulty: this.data.startdifficulty[0]+1,//当前游戏难度，连续几个词
         })
       }
       else {
         list = list_complex.slice()
         this.setData({
-          nowdifficulty: this.data.startdifficulty+1,//当前游戏难度，连续几个词
+          nowdifficulty: this.data.startdifficulty[0]+1,//当前游戏难度，连续几个词
         })
       }
     } else if (this.data.level == 3) {
       if (this.data.isLowage == true) {
         list = list_pic.slice()
         this.setData({
-          nowdifficulty: this.data.startdifficulty+2,//当前游戏难度，连续几个词
+          nowdifficulty: this.data.startdifficulty[0]+2,//当前游戏难度，连续几个词
         })
       }
       else {
         list = list_complex.slice()
         this.setData({
-          nowdifficulty: this.data.startdifficulty+2,//当前游戏难度，连续几个词
+          nowdifficulty: this.data.startdifficulty[0]+2,//当前游戏难度，连续几个词
         })
       }
     }
-    if (this.data.testcount % 2 == 1) {
+    if(this.data.isTry == true){
       this.setData({
-        intervaltime: 600
+        nowintervaltime: this.data.intervaltime[0]
       })
-    } else {
+    }else{
+      if (this.data.testcount % 2 == 1) {
       this.setData({
-        intervaltime: 1800
+        nowintervaltime: this.data.intervaltime[2]
+      })
+    } else{
+      this.setData({
+        nowintervaltime: this.data.intervaltime[1]
       })
     }
+    }
+    
     this.setData({
       Costtime: 0,//提交时花费的时间
       showover: false,//字词是否全部显示完毕
@@ -178,9 +209,10 @@ Page({
         that.setData({
           showover: true
         })
-        util.initCountDown(that, that.data.Alltime, 0.1)
+        // console.log('nandu',that.data.level)
+        util.initCountDown(that, that.data.Alltime[that.data.level-1], 0.1)
       }
-    }, that.data.intervaltime) //循环时间 这里是5秒
+    }, that.data.nowintervaltime) //循环时间 这里是5秒
 
   },
   timeout: function () {
@@ -421,7 +453,7 @@ Page({
       }
       this.setData({
         isSubmit: true,
-        Costtime: (this.data.Alltime - this.data.countDownNum).toFixed(1)
+        Costtime: (this.data.Alltime[this.data.level-1] - this.data.countDownNum).toFixed(1)
       })
       // console.log(this.data.Costtime)
       console.log(this.data.score)

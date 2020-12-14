@@ -92,6 +92,34 @@
           "id": -1,
           "name": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
           "pathName": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/SelfCenter/my/my",
+          "pathName": "pages/SelfCenter/my/my",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/SelfCenter/History/History",
+          "pathName": "pages/SelfCenter/History/History",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/SelfCenter/suggestion/suggestion",
+          "pathName": "pages/SelfCenter/suggestion/suggestion",
           "scene": null
         }
       ]

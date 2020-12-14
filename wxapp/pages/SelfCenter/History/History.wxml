@@ -2,9 +2,9 @@
 <view class="container">
   <!-- 两个按钮 -->
   <view class="head">
-    <button class="back_btn" plain="true" bindtap="goback" style="width: 80rpx; ">
+    <!-- <button class="back_btn" plain="true" bindtap="goback" style="width: 80rpx; ">
     <image class='back_img' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/btn/back.png' style="width: 80rpx; "></image>
-  </button>
+  </button> -->
   <button class="music_btn" plain="true" bindtap="changemusic" style="width: 80rpx; ">
     <image class='back_img' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/music.png' style="width: 80rpx; "></image>
   </button>

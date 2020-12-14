@@ -7,9 +7,9 @@ Page({
    */
   data: {
     l: [{}],
-    age: 16,
+    age: 0,
     nowdifficulty: 3,
-    Alltime: 100,
+    Alltime: [0,0,0],
     complex: [{}],
     noworder: [],
     showTime: false,
@@ -21,6 +21,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
+    this.setData({
+      age:getApp().globalData.userInfo.age
+    })
     testutil.getconfiguration(0, 'P', (res) => {
       console.log(res)
       var qnumlist=[]
@@ -35,10 +38,11 @@ Page({
       console.log(difficultylist)
       this.setData({
         nowdifficulty:difficultylist[0],
-        Alltime:qnumlist[0]
+        Alltime:qnumlist
       })
+      this.initnum(this.data.nowdifficulty)
     })
-    this.initnum(this.data.nowdifficulty)
+    
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -113,7 +117,7 @@ Page({
           that.setData({
             showTime: true
           })
-          util.initCountDown(that, that.data.Alltime, 0.1)
+          util.initCountDown(that, that.data.Alltime[that.data.nowdifficulty-3], 0.1)
         }
       })
     }
@@ -121,7 +125,7 @@ Page({
       this.setData({
         istry: false
       })
-      util.initCountDown(this, this.data.Alltime, 0.1)
+      util.initCountDown(this, this.data.Alltime[this.data.nowdifficulty-3], 0.1)
     }
   },
   recolor(i) {
@@ -152,7 +156,7 @@ Page({
     })
     this.setData({
       isPass: true,
-      Passtime: this.data.Alltime
+      Passtime: this.data.Alltime[this.data.nowdifficulty-3]
     })
     this.CountSore()
     var nowdifficulty = this.data.nowdifficulty
@@ -200,12 +204,12 @@ Page({
     }
   },
   CountSore() {
-    var RightScore;
+    if(this.data.nowdifficulty!=3){
+      var RightScore;
     RightScore = this.data.noworder.length / (this.data.nowdifficulty * this.data.nowdifficulty) * 100
     var Passtime = this.data.Passtime
     var TimeScore = 0;
-
-    if (this.data.nowdifficulty == 4 && (this.data.age == 5 || this.data.age == 6)) {
+    if (this.data.nowdifficulty == 4 && (this.data.age >= 0 && this.data.age <= 6)) {
       var score4_6 = [{ "age": 6, "costtime": 16, "score": 100 }, { "age": 6, "costtime": 19, "score": 90 }, { "age": 6, "costtime": 21, "score": 80 }, { "age": 6, "costtime": 24, "score": 70 }, { "age": 6, "costtime": 28, "score": 60 }, { "age": 6, "costtime": 32, "score": 50 }, { "age": 6, "costtime": 38, "score": 40 }, { "age": 6, "costtime": 44, "score": 30 }, { "age": 6, "costtime": 46, "score": 20 }, { "age": 6, "costtime": 48, "score": 10 }];
       for (var i = 0; i < score4_6.length; i++) {
         if (Passtime <= score4_6[i].costtime) {
@@ -229,7 +233,7 @@ Page({
         }
       }
     }
-    else if (this.data.nowdifficulty == 5 && (this.data.age == 5 || this.data.age == 6)) {
+    else if (this.data.nowdifficulty == 5 && (this.data.age >=0 && this.data.age <= 6)) {
       var score5_6 = [{ "age": 6, "costtime": 26, "score": 100 }, { "age": 6, "costtime": 30, "score": 90 }, { "age": 6, "costtime": 40, "score": 80 }, { "age": 6, "costtime": 48, "score": 70 }, { "age": 6, "costtime": 55, "score": 60 }, { "age": 6, "costtime": 61, "score": 50 }, { "age": 6, "costtime": 66, "score": 40 }, { "age": 6, "costtime": 70, "score": 30 }, { "age": 6, "costtime": 73, "score": 20 }, { "age": 6, "costtime": 75, "score": 10 }];
       for (var i = 0; i < score5_6.length; i++) {
         if (Passtime <= score5_6[i].costtime) {
@@ -259,7 +263,8 @@ Page({
     console.log(this.data.SeriesAdd)
     var FinalScore;
     FinalScore = (TimeScore + this.data.SeriesAdd * 0.5) * 0.8 + RightScore * 0.2
-    console.log("总得分")
+    if(FinalScore>100)
+    FinalScore=100
     console.log(FinalScore)
     var PassScore = this.data.PassScore
     var score_detail = this.data.score_detail
@@ -285,7 +290,7 @@ Page({
       console.log(getApp().globalData.scoreDetail[0])
     }
     // console.log(this.data.PassScore)
-    
+    }
   },
   change: function (e) {
     var that = this;
@@ -346,7 +351,7 @@ Page({
       var nowdifficulty = this.data.nowdifficulty
       this.setData({
         isPass: true,
-        Passtime: (this.data.Alltime - this.data.countDownNum).toFixed(1)
+        Passtime: (this.data.Alltime[this.data.nowdifficulty-3] - this.data.countDownNum).toFixed(1)
       })
       this.CountSore();
       if (this.data.nowdifficulty != 3) {
