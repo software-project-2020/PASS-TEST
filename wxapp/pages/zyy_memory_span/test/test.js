@@ -217,7 +217,7 @@ function fillter_board(board) {
  */
 function gameStart(that) {
   if (that.data.level_index >= 1) {
-    gameOver(that);
+    testOver(that);
     initTime(that, that.data.time_limit);
     initChessBoard(that, false);
     return;
@@ -273,7 +273,7 @@ function checkTime(that) {
           mask: true,
         })
         setTimeout(() => {
-          gameOver(that);
+          testOver(that);
         }, 1000);
       }, 1000);
     }
@@ -400,8 +400,18 @@ function getScore(that) {
  * 结束比赛
  * @param {Page} that 传递进来的this
  */
-function gameOver(that) {
-  wx.showToast({
-    title: '游戏结束',
-  })
+function testOver(that) {
+  wx.showModal({
+    title: '超时',
+    content: '很可惜～ 练习已经超时了',
+    cancelText: '我再看看',
+    confirmText: '再练一遍',
+    success: function (res) {
+      if (res.confirm) {
+        wx.navigateBack({
+          delta: 0,
+        })
+      }
+    }
+  });
 }

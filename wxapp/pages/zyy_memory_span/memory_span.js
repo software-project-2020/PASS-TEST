@@ -208,7 +208,7 @@ Page({
       endAnswer = endAnswer && (this.data.chess_nowAt[this.data.chess_index[i]] == this.data.chess_index[i]);
     }
     let that = this;
-    if (endAnswer) {
+    if (endAnswer && that.data.game_state == '游戏中') {
       wx.showToast({
         title: getScore(that),
         duration: 1000,
@@ -538,6 +538,7 @@ function initChessBoard(that, mode) {
     chess_zindex: tar.chess_zindex,
     chess_nowAt: tar.chess_nowAt,
     chess_float: tar.chess_float,
+    level_index: 0,
   });
 }
 /**
