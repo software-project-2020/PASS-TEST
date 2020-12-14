@@ -47,6 +47,14 @@
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
     "plugin": {
       "list": []
     },
@@ -64,32 +72,105 @@
       "list": [
         {
           "id": -1,
+<<<<<<< HEAD
           "name": "pages/S2/successive-rules/successive-rules",
           "pathName": "pages/S2/successive-rules/successive-rules",
+=======
+          "name": "pages/result/result",
+          "pathName": "pages/result/result",
           "query": "",
           "scene": null
         },
         {
+          "id": -1,
+          "name": "pages/attention/game2/attention_game",
+          "pathName": "pages/attention/game2/attention_game",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/attention/rule2/attention",
+          "pathName": "pages/attention/rule2/attention",
+>>>>>>> attention-test
+          "query": "",
+          "scene": null
+        },
+        {
+<<<<<<< HEAD
           "name": "pages/simultaneous-test/test/test",
           "pathName": "pages/simultaneous-test/test/test",
+=======
+          "id": -1,
+          "name": "pages/history/history",
+          "pathName": "pages/history/history",
           "query": "",
           "scene": null
         },
         {
+          "id": -1,
+          "name": "pages/Planning/rule1/rule1",
+          "pathName": "pages/Planning/rule1/rule1",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/attention/rule1/attention",
+          "pathName": "pages/attention/rule1/attention",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/attention/game1/attention_game",
+          "pathName": "pages/attention/game1/attention_game",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+          "pathName": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+>>>>>>> attention-test
+          "query": "",
+          "scene": null
+        },
+        {
+<<<<<<< HEAD
           "name": "pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2",
           "pathName": "pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2",
+=======
+          "id": -1,
+          "name": "pages/simultaneous-test/test/test",
+          "pathName": "pages/simultaneous-test/test/test",
+>>>>>>> attention-test
           "query": "",
           "scene": null
         },
         {
-          "name": "pages/index/index",
-          "pathName": "pages/index/index",
+          "id": -1,
+          "name": "pages/simultaneous-test/simultaneous1/simultaneous1",
+          "pathName": "pages/simultaneous-test/simultaneous1/simultaneous1",
           "query": "",
           "scene": null
         },
         {
+<<<<<<< HEAD
           "name": "pages/index/index",
           "pathName": "pages/index/index",
+=======
+          "id": -1,
+          "name": "pages/start/start",
+          "pathName": "pages/start/start",
+          "query": "",
+>>>>>>> attention-test
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/simultaneous-test/simultaneous1/simultaneous1",
+          "pathName": "pages/simultaneous-test/simultaneous1/simultaneous1",
           "scene": null
         }
       ]

@@ -1,5 +1,6 @@
 // pages/attention/attention_game.js
 var util = require('../../../utils/util')
+var testutil = require('../../../utils/testutil.js')
 Page({
 
   /**
@@ -7,9 +8,6 @@ Page({
    */
   data: {
     number: 0,
-    line: [4, 5, 5],
-    column: [4, 5, 5],
-    time: [8, 12, 12],
     age: 1,
     question_text: ["选出下列图片中的 ", "选出下列字母中的 "],
     list_big_letter: {
@@ -82,16 +80,52 @@ Page({
     oneButton: [{
       text: '确定'
     }],
-    write: ["练习结束，测试正式开始", "请继续完成下一题", "本游戏结束，开始下一个测试"]
+    write: ["练习结束，测试正式开始", "请继续完成下一题", "本游戏结束，开始下一个测试"],
+    text: ["练习", "测试：1/2", "测试：2/2"]
   },
   onReady: function () {
-    this.init()
-    this.initnum()
   },
   onShow: function () {
     wx.setNavigationBarTitle({
       title: '注意'
     })
+  },
+  onLoad: function () {
+    testutil.getconfiguration(this.data.age, 'A2', (res) => {
+      console.log(res)
+      var line = []
+      var column = []
+      var time = []
+      for (var i = 0; i < res.length; i++) {
+        var temp = JSON.parse(res[i].parameter_info)
+        console.log(temp)
+        line[i] = temp.line
+        column[i] = temp.column
+        time[i] = temp.time
+      }
+      this.setData({
+        line: line,
+        column: column,
+        time: time
+      })
+      this.init()
+      this.initnum()
+    })
+
+    var that = this;
+    wx.getSystemInfo({
+      success(res) {
+        console.log(res);
+        console.log(res.windowWidth);
+        console.log(res.windowHeight);
+        that.setData({
+          deviceWidth: res.windowWidth,
+          deviceHeight: res.windowHeight,
+          deviceHeightTop: res.windowHeight * 0.01,
+        })
+      }
+    })
+
   },
   //初始化表格
   initnum() {
@@ -117,7 +151,7 @@ Page({
     var i = 0;
     var j = 0;
     var k = 0;
-    var a,a2;
+    var a, a2;
     var l = this.data.l;
     //保证至少有一个答案
     var place = [];
@@ -184,7 +218,7 @@ Page({
                     "index": i * this.data.line[this.data.number] + j,
                     "value": this.data.age1_question,
                     "add": this.data.list_big_letter[this.data.age1_question],
-                    "value2" : this.data.age2_question,
+                    "value2": this.data.age2_question,
                     "number": this.data.list_small_letter[this.data.age2_question],
                   }
                   flag = true;
@@ -195,11 +229,7 @@ Page({
         }
         if (flag == false) {
           if (this.data.age == 0) {
-            if (this.data.number == 0 || this.data.number == 1) {
-              a = Math.floor(Math.random() * 3);
-            } else if (this.data.number == 2) {
-              a = Math.floor(Math.random() * 6);
-            }
+            a = Math.floor(Math.random() * Object.keys(this.data.list).length);
             var item = {
               "index": i * this.data.line[this.data.number] + j,
               "value": a,
@@ -213,7 +243,7 @@ Page({
                 "index": i * this.data.line[this.data.number] + j,
                 "value": a,
                 "add": this.data.list_big_letter[a],
-                "value2" :"",
+                "value2": "",
                 "number": ""
               }
             } else if (this.data.number == 1) {
@@ -221,7 +251,7 @@ Page({
                 "index": i * this.data.line[this.data.number] + j,
                 "value": a,
                 "add": this.data.list_small_letter[a],
-                "value2" :"",
+                "value2": "",
                 "number": Math.floor(Math.random() * 10)
               }
             } else if (this.data.number == 2) {
@@ -229,16 +259,16 @@ Page({
                 "index": i * this.data.line[this.data.number] + j,
                 "value": a,
                 "add": this.data.list_big_letter[a],
-                "value2" : a2,
+                "value2": a2,
                 "number": this.data.list_small_letter[a2],
               }
             }
           }
-        
-        } 
+
+        }
         l[i].push(item)
       }
-       
+
     }
     this.setData({
       l: l
@@ -298,7 +328,7 @@ Page({
         })
       }
     }
-  
+
   },
   //计算成绩
   sum() {
@@ -326,7 +356,7 @@ Page({
   },
 
   tapDialogButton: function () {
-    
+
     util.closeCountDown(this)
     console.log("下一题")
     var Num = this.data.number;
@@ -344,7 +374,7 @@ Page({
       this.initnum()
     }
   },
-//判断一共有几个是正确的
+  //判断一共有几个是正确的
   choicenum: function (e) {
     var that = this;
     let l = this.data.l;
@@ -359,10 +389,9 @@ Page({
       let index = "num[" + i + "]";
       let count = "ans_num[" + i + "]";
       var value = l[Math.floor(i / this.data.line[this.data.number])][i % this.data.column[this.data.number]].value;
-      if (this.data.age == 1 && this.data.number == 2){
+      if (this.data.age == 1 && this.data.number == 2) {
         var value_num = l[Math.floor(i / this.data.line[this.data.number])][i % this.data.column[this.data.number]].value2;
-      }
-      else{
+      } else {
         var value_num = l[Math.floor(i / this.data.line[this.data.number])][i % this.data.column[this.data.number]].number;
       }
       that.setData({
@@ -370,7 +399,7 @@ Page({
         [count]: value_num,
       });
     }
-  
+
     for (i = 0; i < this.data.line[this.data.number] * this.data.column[this.data.number]; i++) {
       if (this.data.age == 0) {
         if (this.data.number == 2) {
@@ -387,7 +416,7 @@ Page({
           }
         }
       } else if (this.data.age == 1) {
-        if (this.data.number == 0 ) {
+        if (this.data.number == 0) {
           if (Number(this.data.num[i]) == Number(this.data.age1_question)) {
             that.setData({
               count: this.data.count + 1,
@@ -399,7 +428,7 @@ Page({
               count: this.data.count + 1,
             });
           }
-        }else if (this.data.number == 2) {
+        } else if (this.data.number == 2) {
           if ((Number(this.data.num[i]) == Number(this.data.age1_question)) && (Number(this.data.ans_num[i]) == Number(this.data.age2_question))) {
             that.setData({
               count: this.data.count + 1,
@@ -411,7 +440,7 @@ Page({
     }
     console.log("count : " + this.data.count)
   },
-//选择图片
+  //选择图片
   change: function (e) {
     var that = this;
     var rightcount = this.data.rightcount;
@@ -453,7 +482,7 @@ Page({
       }
     } else if (this.data.age == 1) {
 
-      if (this.data.number == 0 ) {
+      if (this.data.number == 0) {
         if (Number(this.data.num[i]) == Number(this.data.age1_question)) {
           if (this.data.flag[i] <= 1) { //如果flag[i]是2，说明已经圈过，nowcount不能再加了
             that.setData({
@@ -469,8 +498,7 @@ Page({
             })
           }
         }
-      }
-      else if (this.data.number == 2) {
+      } else if (this.data.number == 2) {
         if ((Number(this.data.num[i]) == Number(this.data.age1_question)) && (Number(this.data.ans_num[i]) == Number(this.data.age2_question))) {
           if (this.data.flag[i] <= 1) { //如果flag[i]是2，说明已经圈过，nowcount不能再加了
             that.setData({

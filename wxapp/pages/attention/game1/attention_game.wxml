@@ -1,13 +1,10 @@
 <!--pages/attention/attention_game.wxml-->
-<view class="top">
-  <view class="clock">
-  </view>
-</view>
+<view class="jindu">
+      <text>{{text[number]}}</text>
+    </view>
 
-<view class="back">
-  <text>判断下列数字是否为 {{answer1}} ， {{answer2}} ， {{answer3}}</text>
-</view>
-<view class="back1">
+<view class="back1" style="width : {{deviceWidthLook}}px ; height : {{deviceHeightLook}}px">
+  <text class="back">判断下列数字是否为 {{answer1}} ， {{answer2}} ， {{answer3}}</text>
   <text class="Num_text">{{Num}}</text>
 </view>
 <view class="button">

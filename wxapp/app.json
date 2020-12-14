@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/start/start",
     "pages/Planning/rule1/rule1",
@@ -21,6 +21,7 @@
     "pages/Planning/test4.1/test4.1",
     "pages/Planning/rule4.1/rule4.1",
     "pages/rank/rank"
+    "pages/history/history"
   ],
   "window":{
     "backgroundTextStyle":"light",
