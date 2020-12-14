@@ -79,6 +79,8 @@ func main() {
 
 	r.POST("/api/user/info", userInfo)
 
+	r.POST("/api/user/feedback",userFeedback)
+
 	r.Run(":23333")
 }
 
@@ -290,9 +292,9 @@ func userLogin(c *gin.Context) {
 			res, err := Db.Exec(sqlForRun, requestBody["openid"], requestBody["session_key"],
 				c.PostForm("gender"), time.Now(), time.Now(), c.PostForm("nickname"))
 			checkErr(err)
-			id, _ := res.LastInsertId()
+			_, _ = res.LastInsertId()
 			c.JSON(200, gin.H{
-				"id":   id,
+				"openid":  requestBody["openid"],
 				"flag": true,
 			})
 		} else {
@@ -376,3 +378,5 @@ func userInfo(c *gin.Context) {
 		c.JSON(200, string(mapJson))
 	}
 }
+
+func userFeedback(c *gin.Context){}
