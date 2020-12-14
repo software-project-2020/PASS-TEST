@@ -31,6 +31,7 @@
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
+    "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
     "packNpmRelationList": []
   },
@@ -47,14 +48,6 @@
   },
   "scripts": {},
   "condition": {
-    "search": {
-      "current": -1,
-      "list": []
-    },
-    "conversation": {
-      "current": -1,
-      "list": []
-    },
     "plugin": {
       "current": -1,
       "list": []
@@ -70,6 +63,13 @@
     "miniprogram": {
       "current": 1,
       "list": [
+        {
+          "id": 0,
+          "name": "pages/rank/rank",
+          "pathName": "pages/rank/rank",
+          "query": "",
+          "scene": null
+        },
         {
           "id": -1,
           "name": "pages/result/result",
