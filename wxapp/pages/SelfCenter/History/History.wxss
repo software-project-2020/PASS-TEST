@@ -139,7 +139,7 @@ page{
 .recorditem{
   color: #1c6315;
   font-size: 27rpx;
-  margin-right: 50%;
+  margin-right: 30%;
   margin-bottom: 10rpx;
 }
 .scoretext{

@@ -86,7 +86,7 @@ Page({
                   encoding: 'base64', //编码格式
                   success: res => { //成功的回调
                     // console.log('data:image/png;base64,' + res.data)
-                    imagelist.push(res.data)
+                    imagelist.push('data:image/png;base64,' +res.data)
                   }
                 })
                 }
