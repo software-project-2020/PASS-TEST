@@ -56,6 +56,10 @@
     "gamePlugin": {
       "list": []
     },
+    "gamePlugin": {
+      "current": -1,
+      "list": []
+    },
     "miniprogram": {
       "list": [
         {

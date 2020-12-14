@@ -1,6 +1,7 @@
 module.exports = {
   userlogin: userlogin,
-  personalInfo: personalInfo
+  personalInfo: personalInfo,
+  feedbackInfo:feedbackInfo
 }
 function userlogin(userInfo){
   const d = wx.getStorageSync('userInfo')
@@ -53,6 +54,27 @@ function personalInfo(userdata,callback) {
     success: function (res) {
       console.log(JSON.parse(res.data))
       callback && callback(JSON.parse(res.data));
+      // wx.setStorageSync('userInfo', res.data)
+    }
+  })
+}
+//上传反馈信息
+function feedbackInfo(feedbackdata) {
+  wx.request({
+    method: 'POST',
+    dataType: 'json',
+    url: 'https://app.morii.top/personalInfo',
+    header: {
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    data: {
+      id:feedbackdata['id'],
+      feedback_type:feedbackdata['feedback_type'],
+      feedback_content:feedbackdata['feedback_content'],
+      imagelist:feedbackdata['imagelist'],
+      contact_info:feedbackdata['contact_info'],
+    },
+    success: function (res) {
       // wx.setStorageSync('userInfo', res.data)
     }
   })

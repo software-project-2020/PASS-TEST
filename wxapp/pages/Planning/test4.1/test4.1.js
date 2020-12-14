@@ -6,10 +6,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    age: 5,
+    age: 15,
     level: 1,//当前游戏难度
     Alltime: 30,//规定最长完成时间
-    nowdifficulty: 5,//当前游戏连续词语个数
+    startdifficulty: 3,//当前游戏连续词语个数
     testcount: 0,//当前难度测试题数
     list_pic: ["../../../image/lyq/animal/dog.png", "../../../image/lyq/animal/eyu.png", "../../../image/lyq/animal/fog.png", "../../../image/lyq/animal/sheep.png",
       "../../../image/lyq/animal/bear.png", "../../../image/lyq/animal/ciwei.png", "../../../image/lyq/animal/elephant.jpg", "../../../image/lyq/animal/duck.png"],
@@ -39,11 +39,13 @@ Page({
     var list_pic = this.data.list_pic
     if (age <= 10)
       this.setData({
-        isLowage: true
+        isLowage: true,
+        startdifficulty:3
       })
     else {
       this.setData({
-        isLowage: false
+        isLowage: false,
+        startdifficulty:5
       })
     }
     if (this.data.isTry == true) {
@@ -67,45 +69,45 @@ Page({
       if (this.data.isLowage == true) {
         list = list_pic.slice()
         this.setData({
-          nowdifficulty: 3,//当前游戏难度，连续几个词
+          nowdifficulty: this.data.startdifficulty,//当前游戏难度，连续几个词
         })
       }
       else {
         list = list_complex.slice()
         this.setData({
-          nowdifficulty: 5,//当前游戏难度，连续几个词
+          nowdifficulty: this.data.startdifficulty,//当前游戏难度，连续几个词
         })
       }
     } else if (this.data.level == 2) {
       if (this.data.isLowage == true) {
         list = list_pic.slice()
         this.setData({
-          nowdifficulty: 4,//当前游戏难度，连续几个词
+          nowdifficulty: this.data.startdifficulty+1,//当前游戏难度，连续几个词
         })
       }
       else {
         list = list_complex.slice()
         this.setData({
-          nowdifficulty: 6,//当前游戏难度，连续几个词
+          nowdifficulty: this.data.startdifficulty+1,//当前游戏难度，连续几个词
         })
       }
     } else if (this.data.level == 3) {
       if (this.data.isLowage == true) {
         list = list_pic.slice()
         this.setData({
-          nowdifficulty: 5,//当前游戏难度，连续几个词
+          nowdifficulty: this.data.startdifficulty+2,//当前游戏难度，连续几个词
         })
       }
       else {
         list = list_complex.slice()
         this.setData({
-          nowdifficulty: 7,//当前游戏难度，连续几个词
+          nowdifficulty: this.data.startdifficulty+2,//当前游戏难度，连续几个词
         })
       }
     }
     if (this.data.testcount % 2 == 1) {
       this.setData({
-        intervaltime: 500
+        intervaltime: 600
       })
     } else {
       this.setData({

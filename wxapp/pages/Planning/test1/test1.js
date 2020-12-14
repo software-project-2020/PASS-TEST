@@ -12,6 +12,7 @@ Page({
     noworder: [],
     showTime: false,
     PassScore:0,
+    score_detail:[]
   },
 
   /**
@@ -34,7 +35,7 @@ Page({
       Lasttime: 0,
       SeriesCount: 0,
       SeriesAdd: 0,
-      GoodTime: 5,
+      GoodTime: 0.8,
       LastIsCorrect: 1,
       isHide: true,
       istry: true,
@@ -243,18 +244,29 @@ Page({
     console.log("总得分")
     console.log(FinalScore)
     var PassScore = this.data.PassScore
+    var score_detail = this.data.score_detail
     if(this.data.nowdifficulty==4||this.data.nowdifficulty==5){
       PassScore=PassScore+FinalScore
       this.setData({
         PassScore:PassScore
       })
+      var item={
+        "difficulty":this.data.nowdifficulty,
+        "score":Math.round(FinalScore)
+      }
+      score_detail.push(item)
     }
     if(this.data.nowdifficulty==5){
       this.setData({
         PassScore:(PassScore/2).toFixed(1)
       })
+      console.log(this.data.PassScore)
+      getApp().globalData.score[0]=Math.round(this.data.PassScore);
+      getApp().globalData.scoreDetail[0]=this.data.score_detail;
     }
-    console.log(this.data.PassScore)
+    // console.log(this.data.PassScore)
+    console.log(getApp().globalData.score[0])
+    console.log(getApp().globalData.scoreDetail[0])
   },
   change: function (e) {
     var that = this;
