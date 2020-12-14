@@ -55,7 +55,7 @@ func main() {
 	//post = {
 	//	  "userid": 7
 	//}
-	r.POST("/api/user/getbyid", getUserById)
+	//r.POST("/api/user/getbyid", getUserById)
 	// 用户注册  注册时间和上次登录时间直接用time.Now()
 	//post = {
 	//    "openid": "",
@@ -65,7 +65,7 @@ func main() {
 	//    "nickname": "用户名",
 	//    "birthday": "2020-01-01",
 	//}
-	r.POST("/api/user/register", registerUser)
+	//r.POST("/api/user/register", registerUser)
 	// 获取题目单个题目的信息
 	//post = {
 	//    "test_id": "S11",
@@ -76,7 +76,8 @@ func main() {
 	r.POST("/api/test/detail", getDetail)
 
 	r.POST("/api/user/login", userLogin)
-	
+
+	r.POST("/api/user/info", userInfo)
 
 	r.Run(":23333")
 }
@@ -95,7 +96,7 @@ func getUserById(c *gin.Context) {
 	var birthday string
 	err = row.Scan(&user.Id, &user.Openid, &user.SessionKey, &user.Age, &user.Gender, &registerTime,
 		&lastLoginTime, &user.NickName, &birthday)
-	if err == sql.ErrNoRows{
+	if err == sql.ErrNoRows {
 		panic("不存在这个用户")
 	}
 	user.RegisterTime, _ = time.Parse("2006-01-02 15:04:05", registerTime)
@@ -283,18 +284,18 @@ func userLogin(c *gin.Context) {
 		var birthday string
 		err = row.Scan(&user.Id, &user.Openid, &user.SessionKey, &user.Age, &user.Gender, &registerTime,
 			&lastLoginTime, &user.NickName, &birthday)
-		if err == sql.ErrNoRows{
+		if err == sql.ErrNoRows {
 			sqlForRun = "insert into user(openid,session_key,gender,register_time,last_login_time,nickname)" +
 				" values(?,?,?,?,?,?)"
 			res, err := Db.Exec(sqlForRun, requestBody["openid"], requestBody["session_key"],
 				c.PostForm("gender"), time.Now(), time.Now(), c.PostForm("nickname"))
 			checkErr(err)
-			id,_ := res.LastInsertId()
+			id, _ := res.LastInsertId()
 			c.JSON(200, gin.H{
-				"id":id,
-				"flag":true,
+				"id":   id,
+				"flag": true,
 			})
-		}else{
+		} else {
 			sqlForRun = "update user set last_login_time = ? where openid = ?"
 			stmt2, err := Db.Prepare(sqlForRun)
 			checkErr(err)
@@ -324,6 +325,54 @@ func userLogin(c *gin.Context) {
 
 }
 
-func userInfo(c *gin.Context){
-
+func userInfo(c *gin.Context) {
+	defer recoverErr()
+	result := make(map[string]interface{})
+	openId := c.PostForm("openid")
+	if openId == "" {
+		result["error_code"] = 10001
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("openid" + "字段为空")
+	}
+	//checkEmpty(testId, "test_id",10001,c)
+	birthday := c.PostForm("birthday")
+	if birthday == "" {
+		result["error_code"] = 10002
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("birthday" + "字段为空")
+	}
+	gender := c.PostForm("gender")
+	if gender == "" {
+		result["error_code"] = 10003
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("gender" + "字段为空")
+	}
+	birthdayDate, _ := time.Parse("2006-01-02", birthday)
+	age := time.Now().Year() - birthdayDate.Year()
+	sqlForRun := "update user set age = ?, birthday = ?, gender = ? where openid = ?"
+	stmt2, err := Db.Prepare(sqlForRun)
+	checkErr(err)
+	defer stmt2.Close()
+	_, err = stmt2.Exec(age,birthday,gender, openId)
+	if err !=nil{
+		result["error_code"] = 10004
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("未知错误")
+	}else {
+		result["error_code"] = 0
+		var list =  make(map[string]interface{})
+		list["age"] = age
+		result["data"] = list
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+	}
 }
