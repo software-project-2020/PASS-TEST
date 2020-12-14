@@ -125,9 +125,9 @@ Page({
     get_num_img(num);
   },
   moveStart: function (event) {
-    // if (this.data.game_state != "游戏中") {
-    //   return;
-    // }
+    if (this.data.game_state != "游戏中") {
+      return;
+    }
     let who = event.currentTarget.dataset.who;
     let chess_start = this.data.chess_start;
     let param = {};
@@ -145,9 +145,9 @@ Page({
     // console.log("触摸开始 chess_start",chess_start);
   },
   handleMove: function (event) {
-    // if (this.data.game_state != "游戏中") {
-    //   return;
-    // }
+    if (this.data.game_state != "游戏中") {
+      return;
+    }
     let who = event.currentTarget.dataset.who;
     let start = this.data.chess_start[who];
     let table = this.data.pos_table;
@@ -178,9 +178,9 @@ Page({
     // console.log(param["chess_move[" + who + "]"].left, param["chess_float[" + who + "]"]);
   },
   moveEnd: function (event) {
-    // if (this.data.game_state != "游戏中") {
-    //   return;
-    // }
+    if (this.data.game_state != "游戏中") {
+      return;
+    }
     let who = event.currentTarget.dataset.who;
     let pos = {
       "left": event.changedTouches[0].pageX,
