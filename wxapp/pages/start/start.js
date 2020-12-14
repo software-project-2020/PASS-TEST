@@ -11,6 +11,8 @@ Page({
     this.setData({
       userInfo:app.globalData.userInfo
     })
+    if(app.globalData.userInfo.age>10) app.globalData.userInfo['ageGroup']=1
+    else app.globalData.userInfo['ageGroup']=0
   },
   /**
    * 生命周期函数--监听页面显示
@@ -50,12 +52,6 @@ Page({
         }
       }
     })
-    if(app.globalData.userInfo.age>10) app.globalData.userInfo['ageGroup']=1
-    else app.globalData.userInfo['ageGroup']=0
-  },
-  list:function(){
-    wx.navigateTo({
-      url: '/pages/rank/rank'
-    })
+   
   }
 })

@@ -1,6 +1,6 @@
 <!--pages/result/result.wxml-->
 <view class="top">
-  <image class="return" src="../../image/return.png" bindtap="return"></image>
+  <image class="return" src="https://picture.morii.top/renzhixuetang/return.png" bindtap="return"></image>
   <text class="text">测试结果</text>
 </view>
 

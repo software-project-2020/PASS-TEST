@@ -51,15 +51,18 @@
   "simulatorPluginLibVersion": {},
   "condition": {
     "plugin": {
+      "current": -1,
       "list": []
     },
     "game": {
+      "current": -1,
       "list": []
     },
     "gamePlugin": {
       "list": []
     },
     "miniprogram": {
+      "current": 1,
       "list": [
         {
           "id": -1,

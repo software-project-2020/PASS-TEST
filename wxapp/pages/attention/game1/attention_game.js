@@ -12,7 +12,7 @@ Page({
     wrongcount: 0,
     rightflag: false,
     wrongflag: false,
-    flag : false,
+    flag: false,
     answer1: Math.floor(Math.random() * 10),
     answer2: Math.floor(Math.random() * 10),
     answer3: Math.floor(Math.random() * 10),
@@ -24,10 +24,7 @@ Page({
     }],
     NumCount: 0, //当前题数
     letter: ["练习结束，测试正式开始", "本游戏结束，开始下一个游戏"],
-    text:["练习","测试"]
-  },
-  onReady: function () {
-   
+    text: ["练习", "测试"]
   },
   onShow: function () {
     wx.setNavigationBarTitle({
@@ -56,14 +53,11 @@ Page({
       this.setData({
         number_count: number_count, // 总题数 //参数
         longestTime: longestTime, //参数
-        shortestTime: shortestTime,  //参数
-        intervalTime: intervalTime,  //参数
+        shortestTime: shortestTime, //参数
+        intervalTime: intervalTime, //参数
       })
       this.init()
-      this.initnum()
     })
-
-
     var that = this;
     wx.getSystemInfo({
       success(res) {
@@ -73,22 +67,21 @@ Page({
         that.setData({
           deviceWidth: res.windowWidth,
           deviceHeight: res.windowHeight,
-          deviceWidthLook: res.windowWidth*0.9,
-          deviceHeightLook: res.windowHeight*0.7
+          deviceWidthLook: res.windowWidth * 0.9,
+          deviceHeightLook: res.windowHeight * 0.7
         })
       }
     })
 
   },
   initnum() {
-
     var OldNum = this.data.Num;
     var Num = Math.floor(Math.random() * 10);
     while (Num == OldNum) {
       Num = Math.floor(Math.random() * 10);
     }
     this.setData({
-      flag : false,
+      flag: false,
       Num: Num,
     })
     util.initCountDown(this, this.data.time[this.data.NumCount], 0.1)
@@ -96,7 +89,6 @@ Page({
     console.log("新数字：" + Num)
     console.log("上一个数字：" + OldNum)
     console.log("题数：" + this.data.NumCount)
-
   },
   init() {
     this.setData({
@@ -104,7 +96,7 @@ Page({
       wrongcount: 0,
       rightflag: false,
       wrongflag: false,
-      flag : false,
+      flag: false,
       answer1: Math.floor(Math.random() * 10),
       answer2: Math.floor(Math.random() * 10),
       answer3: Math.floor(Math.random() * 10),
@@ -135,6 +127,18 @@ Page({
       time: time,
     })
     console.log(time);
+    if (this.data.number == 0) {
+      var that = this
+      wx.showModal({
+        title: '注意',
+        content: '此次为尝试机会，不计入测试成绩',
+        confirmText: '开始尝试',
+        showCancel: false,
+        success: function (res) {
+          that.initnum()
+        }
+      })
+    }
   },
   sum() {
     console.log("错误题数：" + this.data.wrongcount);
@@ -145,6 +149,18 @@ Page({
       grade: grade,
     })
     console.log("成绩：" + grade)
+    if (this.data.number == 1){
+      var scoreDetail = [];
+      var item={
+        "rightcount":this.data.rightcount,
+        "number_count":this.data.number_count[this.data.number]
+      }
+      scoreDetail.push(item)
+      getApp().globalData.score[2]=Math.round(this.data.grade);
+      getApp().globalData.scoreDetail[2][0]=scoreDetail;
+       console.log(getApp().globalData.score[2])
+    console.log(getApp().globalData.scoreDetail[2][0])
+    }
   },
 
   timeout: function () {
@@ -187,51 +203,83 @@ Page({
         finish: true
       })
     }
-
-  },
-
-  tapDialogButton: function () {
-    util.closeCountDown(this)
-    console.log("下一题")
-    this.setData({
-      dialogShow: false,
-    })
-    var Num = this.data.number;
-    Num = Num + 1;
-    this.setData({
-      number: Num,
-      NumCount: 0,
-      finish: false
-    })
-    if (this.data.number == 2) {
-      wx.redirectTo({
-        url: '../../attention/rule2/attention'
+    if (this.data.finish == true) {
+      util.closeCountDown(this)
+      console.log("下一题")
+      this.setData({
+        NumCount: 0,
+        finish: false
       })
-    } else {
-      this.init()
-      this.initnum()
+      var that = this;
+      if (this.data.number == 0) {
+        wx.showModal({
+          title: '糟糕',
+          content: '时间花光了',
+          confirmText: '开始测试',
+          cancelText: '再次尝试',
+          success: function (res) {
+            if (res.confirm) { //这里是点击了确定以后
+              console.log('用户点击确定')
+              var Num = that.data.number;
+              Num = Num + 1;
+              that.setData({
+                number: Num,
+              })
+              that.init()
+              that.initnum()
+            } else if (res.cancel) {
+              that.init()
+            }
+          }
+        })
+      } else {
+        var Num = this.data.number;
+        Num = Num + 1;
+        this.setData({
+          number: Num,
+        })
+        wx.showModal({
+          title: '糟糕',
+          content: '时间花光了',
+          confirmText: '下一题',
+          showCancel: false,
+          success: function (res) {
+            if (res.confirm) { //这里是点击了确定以后
+              console.log('用户点击确定')
+              if (that.data.number == 2) {
+                wx.redirectTo({
+                  url: '../../attention/rule2/attention'
+                })
+              } else {
+                that.init()
+                that.initnum()
+              }
+            }
+          }
+        })
+      }
     }
-
   },
+
 
   right: function (e) {
-    if (this.data.flag != true){
+    if (this.data.flag != true) {
       this.setData({
         rightflag: true,
-        flag : true
+        flag: true
       })
     }
-    console.log("rightflag : "+this.data.rightflag)
-      
+    console.log("rightflag : " + this.data.rightflag)
+
   },
   wrong: function (e) {
-    if (this.data.flag != true){
+    if (this.data.flag != true) {
       this.setData({
         wrongflag: true,
-        flag : true
+        flag: true
       })
     }
-    console.log("wrongflag : "+this.data.wrongflag)
+    console.log("wrongflag : " + this.data.wrongflag)
 
   },
 
