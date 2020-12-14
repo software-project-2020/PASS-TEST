@@ -6,21 +6,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    age : 7,
   },
   onLoad:function(){
     this.setData({
-      userInfo:app.globalData.userInfo,
-      nickname:app.globalData.userInfo.nickName
+      userInfo:app.globalData.userInfo
     })
   },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // wx.setNavigationBarTitle({
-    //   title: '首页'
-    // })
+    wx.setNavigationBarTitle({
+      title: '主页'
+    })
     console.log(app.globalData.userInfo)
   },
   myinformation:function(){
@@ -28,7 +26,11 @@ Page({
       url: '../index/index'
     })
   },
-
+  bindViewTap:function(){
+    wx.navigateTo({
+      url: '/pages/SelfCenter/my/my'
+    })
+  },
 
   test:function(){
     //说明测试
