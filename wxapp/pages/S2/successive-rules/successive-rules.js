@@ -8,7 +8,7 @@ Page({
   },
 
   start: function(){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../../S2/successive/successive',
     })
   },

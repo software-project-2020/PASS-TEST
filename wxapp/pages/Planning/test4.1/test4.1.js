@@ -230,7 +230,7 @@ Page({
   },
   ChangeNavigate() {
     if (this.data.level == 4 || this.data.wrongnum == 2) {
-      wx.navigateTo({
+      wx.redirectTo({
         url: '/pages/Planning/test1/test1',//跳转下个测试，待修改
       })
     }

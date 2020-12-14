@@ -366,7 +366,7 @@ Page({
       number: Num,
     })
     if (Num == 3) {
-      wx.navigateTo({
+      wx.redirectTo({
         url: '../../attention/rule2/attention'
       })
     } else {

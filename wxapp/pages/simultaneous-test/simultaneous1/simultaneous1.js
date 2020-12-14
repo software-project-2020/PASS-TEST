@@ -84,7 +84,7 @@ Page({
           console.log(app.globalData.scoreDetail[1][0])
           app.globalData.score[1]=score/(that.data.qnum-1)*100*0.6
           console.log(app.globalData.scoreDetail[1],app.globalData.score[1])
-          wx.navigateTo({
+          wx.redirectTo({
             url: '/pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2',
           })
         } else if (res.cancel) {//继续

@@ -204,7 +204,7 @@ Page({
       finish: false
     })
     if (this.data.number == 2) {
-      wx.navigateTo({
+      wx.redirectTo({
         url: '../../attention/rule2/attention'
       })
     } else {
