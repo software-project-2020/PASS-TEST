@@ -103,9 +103,6 @@ Page({
             fileDir: 'order_apply',
             rules: JSON.stringify(this.data.qlist[this.data.now])
           },
-          // success: res => {
-          //   callback && callback(res)
-          // },
           complete: res => {
             callback && callback(res)
             wx.hideLoading()
@@ -171,18 +168,25 @@ Page({
       })
       this.clearDraw()
     })
-    
+
 
   },
   finish: function () { //提交最后一题，结算分数
+    var that = this
     this.saveCanvas((res) => {
       console.log(res)
       if (res.data == 'true') this.addscore()
       console.log(this.data.score)
+      app.globalData.score_detail[1][1] = {
+        score: that.data.score,
+        qnum: that.data.qnum - 1
+      }
+      app.globalData.score[1] =parseInt(app.globalData.score[1] + that.data.score / (that.data.qnum - 1)*100 * 0.4) 
+      wx.navigateTo({
+        url: "/pages/attention/rule1/attention",
+      })
     })
-    wx.navigateTo({
-      url: "/pages/attention/rule1/attention",
-    })
+    
     //展示一个提示框，点击确定后进入下一项测试
   },
   addscore: function () {
@@ -191,7 +195,7 @@ Page({
     })
   },
   timeout: function () {
-    // submitAnswer()
+    this.next()
   },
 
 })
