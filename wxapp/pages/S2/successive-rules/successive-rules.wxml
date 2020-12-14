@@ -1,7 +1,4 @@
 <view class="container">
-  <!-- <view class="process">
-    <image src = "../../image/successive/2020_11_20/ln.png" class="process-img"></image>
-  </view> -->
   <view class="rules">
     <view class="tittle">
       <image class="rule-tittle" src="../../../image/successive/规则.png"></image>
@@ -11,7 +8,9 @@
     </view>
     <image class="rule-img" src="../../../image/successive/句子提问.gif"></image>
   </view>
-  <button class="sure-btn" style="width: 30%" bindtap="start">
-    <image class="sure" src="../../../image/successive/开始.png"></image>
-  </button>
+  <view class="btn">
+    <button class="button" style="width:100%;" bindtap="start"  wx:if="{{!exeshow}}">
+      <text>开始</text>
+    </button>
+  </view>
 </view>

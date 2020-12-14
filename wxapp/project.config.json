@@ -48,12 +48,6 @@
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "condition": {
-    "search": {
-      "list": []
-    },
-    "conversation": {
-      "list": []
-    },
     "plugin": {
       "list": []
     },
@@ -77,6 +71,17 @@
           "name": "pages/simultaneous-test/simultaneous1/simultaneous1",
           "pathName": "pages/simultaneous-test/simultaneous1/simultaneous1",
           "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/S2/successive/successive",
+          "pathName": "pages/S2/successive/successive",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/S2/successive-rules/successive-rules",
+          "pathName": "pages/S2/successive-rules/successive-rules",
           "scene": null
         }
       ]

@@ -28,7 +28,9 @@ page{
   height: 80%;
   margin-top: 2rem;
   border-radius: 2rem;
-  background-color: #B1AFE6;
+  background-color: #ffffff;
+  border: 11rpx solid #9f9fdf;
+  opacity: 0.9;
 }
 
 .tittle{
@@ -60,17 +62,19 @@ page{
   margin-bottom: 1rem;
 }
 
-.sure-btn{
-  height: 20%;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 2rem;
-  background-color: #B1AFE6;
-}
-
-.sure{
-  width: 80%;
-  height: 90%;
-  display: block;
+.btn{
   margin: auto;
 }
+
+.button{
+  border: #9f9fdf 7rpx solid;
+  border-radius: 60rpx;
+  background-color: #cdcdfc;
+}
+
+.button text{
+  font-size: 50rpx;
+  color: #5c5ca3;
+}
+
+

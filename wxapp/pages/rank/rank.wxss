@@ -115,6 +115,11 @@ page{
   border-radius: 50%;
 }
 
+.userself{
+  display: flex;
+  flex-direction: column;
+}
+
 .userrank{
   margin: 5px;
 }

@@ -216,10 +216,6 @@ Page({
         this.setData({
           exeshow: false
         })
-        // this.setData({
-        //   testtime: parseInt(this.data.qa[this.data.now].question.length / 2) + this.data.qa[this.data.now].right_answer.length * 2
-        // })
-        // util.initCountDown(this, this.data.testtime, 1)
       } else {
         var that = this
         wx.showModal({
@@ -240,16 +236,6 @@ Page({
           }
         })
       }
-      // if (this.data.exeshow == true) {
-      //   util.closeCountDown(this)
-      // } else if (this.data.dialogShow == true) {
-      //   util.closeCountDown(this)
-      // } else {
-      //   this.setData({
-      //     testtime: parseInt(this.data.qa[this.data.now].question.length / 2) + this.data.qa[this.data.now].right_answer.length * 2
-      //   })
-      //   util.initCountDown(this, this.data.testtime, 1)
-      // }
     }
   },
 
@@ -275,6 +261,7 @@ Page({
           })
         }
       })
+      console.log("得分：",this.data.score)
     } else {
       this.setData({
         now: this.data.now + 1,//进入下一个游戏

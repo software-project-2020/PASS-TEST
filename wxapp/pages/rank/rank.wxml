@@ -39,17 +39,13 @@
       <button wx:else bindtap="next" style="width:30%"><text class="button-text">下一页</text></button>
     </view>
     <view class="userinfo">
-      <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="width=1%"> <text class="button-text">获取头像昵称</text>
-      </button>
-      <block wx:else>
+      <block>
         <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="widthFix"></image>
       </block>
-      <block class="">
-        <text class="userrank">我的排名：</text>
-        <text class="userrank">{{my_rank}}</text>
-        <text class="userrank">我的成绩：</text>
-        <text class="userrank">{{my_score}}</text>
-      </block>
+      <view class="userself">
+        <text class="userrank">我的排名：{{my_rank}}</text>
+        <text class="userrank">我的成绩：{{my_score}}</text>
+      </view>
     </view>
   </view>
 </view>
