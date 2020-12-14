@@ -26,6 +26,7 @@ function userlogin(userInfo){
             if (this.userloginCallback) {
               this.userloginCallback(res)
             }
+            console.log(res)
             wx.setStorageSync('userInfo', res.data)
           }
         })
@@ -37,6 +38,7 @@ function userlogin(userInfo){
 }
 // 上传个人信息
 function personalInfo(userdata) {
+  console.log(userdata)
   wx.request({
     method: 'POST',
     dataType: 'json',

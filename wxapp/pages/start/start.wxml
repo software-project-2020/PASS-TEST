@@ -4,8 +4,8 @@
   <block>
     <view class="tr">
       <view class="td">  
-        <!-- <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image> -->
-        <image bindtap="bindViewTap" class="userinfo-avatar" src="../../image/attention/animals/cat.png" mode="cover"></image>
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+        <!-- <image bindtap="bindViewTap" class="userinfo-avatar" src="../../image/attention/animals/cat.png" mode="cover"></image> -->
       </view>
       <view class="td">
         <view class="tr1">
