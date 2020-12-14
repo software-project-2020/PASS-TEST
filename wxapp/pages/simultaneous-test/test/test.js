@@ -95,7 +95,7 @@ Page({
         })
         console.log(res.tempFilePath);
         wx.uploadFile({
-          url: 'http://localhost:5000/test',
+          url: 'https://app.morii.top/test',
           filePath: res.tempFilePath,
           fileType: 'jpg',
           name: 'file',

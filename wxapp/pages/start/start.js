@@ -8,8 +8,12 @@ Page({
   data: {
     isSign : true,
     age : 7,
-    // nickname : wx.getStorageInfoSync('userInfo').nickname
-    nickname:"昵称"
+  },
+  onLoad:function(){
+    this.setData({
+      userInfo:app.globalData.userInfo,
+      nickname:app.globalData.userInfo.nickName
+    })
   },
   /**
    * 生命周期函数--监听页面显示
@@ -18,6 +22,7 @@ Page({
     // wx.setNavigationBarTitle({
     //   title: '首页'
     // })
+    console.log(app.globalData.userInfo)
   },
   myinformation:function(){
     wx.navigateTo({

@@ -9,14 +9,22 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     dialogShow: false,
-    oneButton: [{ text: '确定' }],
-    items: [
-      { name: '1', value: '男', checked: 'true'},
-      { name: '2', value: '女' }
+    oneButton: [{
+      text: '确定'
+    }],
+    items: [{
+        name: '1',
+        value: '男',
+        checked: 'true'
+      },
+      {
+        name: '2',
+        value: '女'
+      }
     ],
     date: '2016-09-01',
-    gender :1,
-    
+    gender: 1,
+
   },
   onLoad: function () {
     if (app.globalData.userInfo) {
@@ -24,7 +32,7 @@ Page({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
-    } else if (this.data.canIUse){
+    } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
@@ -51,13 +59,13 @@ Page({
       dialogShow: true
     })
   },
-  getUserInfo: function(e) {
+  getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
-    if(!wx.getStorageSync('userInfo')){
+    if (!wx.getStorageSync('userInfo')) {
       userutil.userlogin(app.globalData.userInfo)
       userutil.userloginCallback = res => {
         console.log(res.data)
@@ -70,7 +78,10 @@ Page({
           })
         }
       }
-    }else{
+    } else {
+      this.setData({
+        userInfo: wx.getStorageSync('userInfo')
+      })
       wx.redirectTo({
         url: '../start/start'
       })
@@ -78,9 +89,13 @@ Page({
   },
   tapDialogButton(e) {
     this.setData({
-      showOneButtonDialog: true
-    }),
-      wx.setStorageSync('userInfo', Object.assign(wx.getStorageSync('userInfo'), { 'birthday': this.data.date, 'gender': this.data.gender, 'avatarUrl':this.data.userInfo.avatarUrl, 'avatarUrl':this.data.userInfo.avatarUrl}))
+        showOneButtonDialog: true
+      }),
+      wx.setStorageSync('userInfo', Object.assign(wx.getStorageSync('userInfo'), {
+        'birthday': this.data.date,
+        'gender': this.data.gender,
+        'avatarUrl': this.data.userInfo.avatarUrl
+      }))
     userutil.personalInfo(wx.getStorageSync('userInfo'))
     wx.redirectTo({
       url: '../start/start'

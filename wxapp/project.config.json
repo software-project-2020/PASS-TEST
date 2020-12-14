@@ -83,6 +83,11 @@
           "pathName": "pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
+          "scene": null
         }
       ]
     }
