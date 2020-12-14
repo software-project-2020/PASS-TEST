@@ -2,7 +2,8 @@ module.exports = {
   getQuestions: getQuestions,
   getconfiguration: getconfiguration,
   getS12: getS12,
-  getS11: getS11
+  getS11: getS11,
+  submitResult:submitResult
 }
 // 获得题目数据
 function getQuestions(testId, category, num, callback) {
@@ -89,6 +90,7 @@ function getS12(ageGroup, callback) {
                 'qnum': allnum,
                 'qlist': alllist
               }
+              callback && callback(res)
             })
           })
         })
@@ -148,5 +150,47 @@ function getS11(ageGroup, callback) {
         })
       })
     })
+  })
+}
+// 在生成结果页面的onload上传分数到服务器
+function submitResult(userid,score,costtime,callback){
+  var avg_score=(score[0]+score[1]+score[2]+score[3])/4
+  score[4] = avg_score
+  wx.request({
+    method: 'POST',
+    dataType: 'json',
+    url: 'xxxxx',
+    header: {
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    data: {
+      user_id:userid,
+      score: score,
+      cost_time:costtime
+    },
+    success: function (res) {
+      callback && callback(JSON.parse(res.data).data);
+    }
+  })
+}
+// 获得排行榜
+function getRanklist(listnum,score,costtime,callback){
+  var avg_score=(score[0]+score[1]+score[2]+score[3])/4
+  score[4] = avg_score
+  wx.request({
+    method: 'POST',
+    dataType: 'json',
+    url: 'xxxxx',
+    header: {
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    data: {
+      user_id:userid,
+      score: score,
+      cost_time:costtime
+    },
+    success: function (res) {
+      callback && callback(JSON.parse(res.data).data);
+    }
   })
 }

@@ -36,6 +36,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    score :[]
+    score :[],
+    score_detail:[[],[],[],[]]
   }
 })
