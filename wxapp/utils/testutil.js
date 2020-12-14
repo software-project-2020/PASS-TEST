@@ -89,6 +89,7 @@ function getS12(ageGroup, callback) {
                 'qnum': allnum,
                 'qlist': alllist
               }
+              callback && callback(res);
             })
           })
         })

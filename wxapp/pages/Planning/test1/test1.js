@@ -1,5 +1,6 @@
 // pages/Planning/test1/test1.js
 var util = require('../../../utils/util.js')
+var testutil = require('../../../utils/testutil.js')
 Page({
   /**
    * 页面的初始数据
@@ -8,6 +9,7 @@ Page({
     l: [{}],
     age: 16,
     nowdifficulty: 3,
+    Alltime: 100,
     complex: [{}],
     noworder: [],
     showTime: false,
@@ -18,7 +20,24 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function () {
+    testutil.getconfiguration(0, 'P', (res) => {
+      console.log(res)
+      var qnumlist=[]
+      var difficultylist=[]
+      for (var i = 0; i < res.length; i++) {
+        var temp = JSON.parse(res[i].parameter_info)
+        // console.log(temp)
+        qnumlist[i] = temp.time
+        difficultylist[i]=JSON.parse(res[i].difficulty)
+      }
+      console.log(qnumlist)
+      console.log(difficultylist)
+      this.setData({
+        nowdifficulty:difficultylist[0],
+        Alltime:qnumlist[0]
+      })
+    })
     this.initnum(this.data.nowdifficulty)
   },
   /**
@@ -30,7 +49,6 @@ Page({
     this.setData({
       nowdifficulty: size,
       isPass: false,
-      Alltime: 100,
       Passtime: 0,
       Lasttime: 0,
       SeriesCount: 0,
@@ -263,10 +281,11 @@ Page({
       console.log(this.data.PassScore)
       getApp().globalData.score[0]=Math.round(this.data.PassScore);
       getApp().globalData.scoreDetail[0]=this.data.score_detail;
+      console.log(getApp().globalData.score[0])
+      console.log(getApp().globalData.scoreDetail[0])
     }
     // console.log(this.data.PassScore)
-    console.log(getApp().globalData.score[0])
-    console.log(getApp().globalData.scoreDetail[0])
+    
   },
   change: function (e) {
     var that = this;

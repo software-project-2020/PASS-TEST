@@ -1,12 +1,13 @@
 // pages/Planning/test4.1/test4.1.js
 // util.closeCountDown(this)//关闭计时器
 var util = require('../../../utils/util.js')
+var testutil = require('../../../utils/testutil.js')
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    age: 15,
+    age: 5,
     level: 1,//当前游戏难度
     Alltime: 30,//规定最长完成时间
     startdifficulty: 3,//当前游戏连续词语个数
@@ -27,6 +28,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    testutil.getconfiguration(0, 'S21', (res) => {
+      console.log(res)
+    })
     this.intinum()
   },
   intinum() {
