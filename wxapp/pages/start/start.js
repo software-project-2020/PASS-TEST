@@ -50,6 +50,7 @@ Page({
         }
       }
     })
-    
+    if(app.globalData.userInfo.age>10) app.globalData.userInfo['ageGroup']=1
+    else app.globalData.userInfo['ageGroup']=0
   }
 })

@@ -2,7 +2,6 @@ module.exports = {
   userlogin: userlogin,
   personalInfo: personalInfo
 }
-const app = getApp()
 function userlogin(userInfo){
   const d = wx.getStorageSync('userInfo')
   if(!d){
@@ -26,32 +25,34 @@ function userlogin(userInfo){
             if (this.userloginCallback) {
               this.userloginCallback(res)
             }
-            console.log(res)
-            wx.setStorageSync('userInfo', res.data)
+            wx.setStorageSync('userInfo', Object.assign(wx.getStorageSync('userInfo'), {
+              'openid':res.data.openid
+            }))
           }
         })
-        
       }
     })
   }
   
 }
 // 上传个人信息
-function personalInfo(userdata) {
+function personalInfo(userdata,callback) {
   console.log(userdata)
   wx.request({
     method: 'POST',
     dataType: 'json',
-    url: 'https://app.morii.top/personalInfo',
+    url: 'https://api.zghy.xyz/api/user/info',
     header: {
       'content-type': 'application/x-www-form-urlencoded'
     },
     data: {
-      id : userdata['id'],
+      openid : userdata['openid'],
       birthday :userdata['birthday'],
       gender: userdata['gender']
     },
     success: function (res) {
+      console.log(JSON.parse(res.data))
+      callback && callback(JSON.parse(res.data));
       // wx.setStorageSync('userInfo', res.data)
     }
   })
