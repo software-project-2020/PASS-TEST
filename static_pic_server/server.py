@@ -10,8 +10,8 @@ import base64
 import json
 import os
 
-feedBackPostUrl = "http://localhost:8080/api/user/feedback"
-url = "xxxx/xxx/"
+feedBackPostUrl = "http://localhost:23333/api/user/feedback"
+url = "http://47.103.31.240:23333/"
 
 app = Flask(__name__)
 
@@ -38,9 +38,9 @@ def addnote():
         image = base64.b64decode(image)
         size += 1
         locate = str(size) + ".jpg"
-        f = open("./images/" + locate, 'wb')
-        f.write(image)
-        f.close()
+        # f = open("./images/" + locate, 'wb')
+        # f.write(image)
+        # f.close()
         sendlist.append(url + locate)
     postData = {
         "openid":openid,
@@ -49,8 +49,8 @@ def addnote():
         "feedback_content":feedback_content,
         "imagelist":json.dumps(sendlist)
     }
-    res = requests.post(url,postData)
-    return "d"
+    res = requests.post(feedBackPostUrl,postData)
+    return res.text
 
 
 if __name__ == '__main__':

@@ -379,4 +379,21 @@ func userInfo(c *gin.Context) {
 	}
 }
 
-func userFeedback(c *gin.Context){}
+func userFeedback(c *gin.Context){
+	defer recoverErr()
+	result := make(map[string]interface{})
+	result["error_code"] = 0
+	//openid := c.PostForm("openid")
+	//feedback_type:=c.PostForm("feedback_type")
+	//contact_info:=c.PostForm("contact_info")
+	//feedback_content := c.PostForm("feedback_content")
+	imagelist :=c.PostForm("imagelist")
+	var requestBody []string
+	err := json.Unmarshal([]byte(imagelist), &requestBody)
+	fmt.Println(requestBody)
+
+	//sqlForRun := ""
+	mapJson, err := json.Marshal(result)
+	checkErr(err)
+	c.JSON(200, string(mapJson))
+}
