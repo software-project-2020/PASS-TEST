@@ -1,12 +1,12 @@
 <view class="container">
   <view class="rules">
     <view class="tittle">
-      <image class="rule-tittle" src="../../../image/successive/规则.png"></image>
+      <image class="rule-tittle" src="https://picture.morii.top/renzhixuetang/successive/规则.png"></image>
     </view>
     <view class="rule-detail">
       接下来你将会看到一句由多个词组组成的句子，句子只出现一次，你需要回答一个有关句子的问题，有四个选项供你选择。请尽快选择你的答案。然后点击确定按钮提交你的答案。请看下面的例子：
     </view>
-    <image class="rule-img" src="../../../image/successive/1.gif"></image>
+    <image class="rule-img" src="https://picture.morii.top/renzhixuetang/successive/1.gif"></image>
   </view>
   <view class="btn">
     <button class="button" style="width:100%;" bindtap="start"  wx:if="{{!exeshow}}">
