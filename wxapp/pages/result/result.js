@@ -174,11 +174,16 @@ Page({
           deviceWidth: res.windowWidth,
           deviceHeight: res.windowHeight,
           deviceWidthLook: res.windowWidth * 0.9,
-          deviceHeightLook: res.windowHeight * 0.78
+          deviceHeightLook: res.windowHeight * 0.88
         })
       }
     })
 
+  },
+  onShow: function () {
+    wx.setNavigationBarTitle({
+      title: '测试结果'
+    })
   },
   /**
    * 用户点击右上角分享
