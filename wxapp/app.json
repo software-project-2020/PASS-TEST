@@ -1,10 +1,10 @@
 {
   "pages": [
+    "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
     "pages/index/index",
     "pages/start/start",
     "pages/Planning/rule1/rule1",
     "pages/Planning/test1/test1",
-    "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
     "pages/simultaneous-test/simultaneous1/simultaneous1",
     "pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2",
     "pages/simultaneous-test/test/test",
@@ -26,8 +26,8 @@
     "pages/zyy_memory_span/test/test",
     "pages/zyy_memory_span/memory_span"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "Weixin",
     "navigationBarTextStyle": "black"
