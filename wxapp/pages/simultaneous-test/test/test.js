@@ -182,7 +182,7 @@ Page({
         qnum: that.data.qnum - 1
       }
       app.globalData.score[1] =parseInt(app.globalData.score[1] + that.data.score / (that.data.qnum - 1)*100 * 0.4) 
-      wx.navigateTo({
+      wx.redirectTo({
         url: "/pages/attention/rule1/attention",
       })
     })

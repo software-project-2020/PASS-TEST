@@ -1,5 +1,6 @@
 // pages/attention/attention_game.js
 var util = require('../../../utils/util')
+var testutil = require('../../../utils/testutil.js')
 Page({
 
   /**
@@ -22,22 +23,62 @@ Page({
       text: '确定'
     }],
     NumCount: 0, //当前题数
-    letter: ["练习结束，测试正式开始", "本游戏结束，开始下一个游戏"]
+    letter: ["练习结束，测试正式开始", "本游戏结束，开始下一个游戏"],
+    text:["练习","测试"]
   },
   onReady: function () {
-    this.setData({
-      number_count: [10, 20], // 总题数 //参数
-      longestTime: [4, 2], //参数
-      shortestTime: [2, 0.5],  //参数
-      intervalTime: [0.2, 0.1],  //参数
-    })
-    this.init()
-    this.initnum()
+   
   },
   onShow: function () {
     wx.setNavigationBarTitle({
       title: '注意'
     })
+  },
+  onLoad: function () {
+    testutil.getconfiguration(0, 'A1', (res) => {
+      console.log(res)
+      var longestTime = []
+      var shortestTime = []
+      var intervalTime = []
+      var number_count = []
+      for (var i = 0; i < res.length; i++) {
+        var temp = JSON.parse(res[i].parameter_info)
+        console.log(temp)
+        longestTime[i] = temp.longestTime
+        shortestTime[i] = temp.shortestTime
+        intervalTime[i] = temp.intervalTime
+        number_count[i] = temp.number_count
+      }
+      console.log("longestTime : " + longestTime)
+      console.log("shortestTime : " + shortestTime)
+      console.log("intervalTime : " + intervalTime)
+      console.log("number_count : " + number_count)
+      this.setData({
+        number_count: number_count, // 总题数 //参数
+        longestTime: longestTime, //参数
+        shortestTime: shortestTime,  //参数
+        intervalTime: intervalTime,  //参数
+      })
+      this.init()
+      this.initnum()
+    })
+
+
+    var that = this;
+    wx.getSystemInfo({
+      success(res) {
+        console.log(res);
+        console.log(res.windowWidth);
+        console.log(res.windowHeight);
+        that.setData({
+          deviceWidth: res.windowWidth,
+          deviceHeight: res.windowHeight,
+          deviceWidthLook: res.windowWidth*0.9,
+          deviceHeightLook: res.windowHeight*0.7
+        })
+      }
+    })
+
   },
   initnum() {
 
@@ -163,7 +204,7 @@ Page({
       finish: false
     })
     if (this.data.number == 2) {
-      wx.navigateTo({
+      wx.redirectTo({
         url: '../../attention/rule2/attention'
       })
     } else {

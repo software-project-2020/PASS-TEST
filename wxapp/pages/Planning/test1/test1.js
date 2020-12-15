@@ -1,5 +1,6 @@
 // pages/Planning/test1/test1.js
 var util = require('../../../utils/util.js')
+var testutil = require('../../../utils/testutil.js')
 const app = getApp()
 Page({
   /**
@@ -20,6 +21,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
     this.initnum(this.data.nowdifficulty)
   },
   /**
@@ -172,7 +174,7 @@ Page({
               nowdifficulty: nowdifficulty + 1
             })
             if (that.data.nowdifficulty == 6) {
-              wx.navigateTo({
+              wx.redirectTo({
                 url: '/pages/Planning/rule4.1/rule4.1',
               })
             }else
@@ -344,7 +346,7 @@ Page({
                 nowdifficulty: nowdifficulty + 1
               })
               if (that.data.nowdifficulty == 6) {
-                wx.navigateTo({
+                wx.redirectTo({
                   url: '/pages/simultaneous-test/simultaneous-rule/simultaneous-rule',
                 })
               }

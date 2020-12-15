@@ -33,17 +33,20 @@
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
     "packNpmManually": false,
-    "packNpmRelationList": [],
-    "minifyWXSS": true
+    "packNpmRelationList": []
   },
-  "compileType": "game",
+  "compileType": "miniprogram",
   "libVersion": "2.14.0",
   "appid": "wxbe7e6a8c236b2b8c",
   "projectname": "wxapp",
+  "cloudfunctionTemplateRoot": "",
+  "watchOptions": {
+    "ignore": []
+  },
   "debugOptions": {
     "hidedInDevtools": []
   },
-  "isGameTourist": false,
+  "scripts": {},
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "condition": {
@@ -60,32 +63,85 @@
       "list": [
         {
           "id": -1,
-          "name": "pages/S2/successive-rules/successive-rules",
-          "pathName": "pages/S2/successive-rules/successive-rules",
+          "name": "pages/result/result",
+          "pathName": "pages/result/result",
           "query": "",
           "scene": null
         },
         {
-          "name": "pages/simultaneous-test/test/test",
-          "pathName": "pages/simultaneous-test/test/test",
+          "id": -1,
+          "name": "pages/attention/game2/attention_game",
+          "pathName": "pages/attention/game2/attention_game",
           "query": "",
           "scene": null
         },
         {
+          "id": -1,
+          "name": "pages/attention/rule2/attention",
+          "pathName": "pages/attention/rule2/attention",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/history/history",
+          "pathName": "pages/history/history",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/Planning/rule1/rule1",
+          "pathName": "pages/Planning/rule1/rule1",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/attention/rule1/attention",
+          "pathName": "pages/attention/rule1/attention",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/attention/game1/attention_game",
+          "pathName": "pages/attention/game1/attention_game",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
           "name": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
           "pathName": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
           "query": "",
           "scene": null
         },
         {
-          "name": "pages/index/index",
-          "pathName": "pages/index/index",
+          "id": -1,
+          "name": "pages/simultaneous-test/test/test",
+          "pathName": "pages/simultaneous-test/test/test",
           "query": "",
           "scene": null
         },
         {
-          "name": "pages/index/index",
-          "pathName": "pages/index/index",
+          "id": -1,
+          "name": "pages/simultaneous-test/simultaneous1/simultaneous1",
+          "pathName": "pages/simultaneous-test/simultaneous1/simultaneous1",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/start/start",
+          "pathName": "pages/start/start",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/simultaneous-test/simultaneous1/simultaneous1",
+          "pathName": "pages/simultaneous-test/simultaneous1/simultaneous1",
           "query": "",
           "scene": null
         },
@@ -110,6 +166,12 @@
         {
           "name": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
           "pathName": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
           "query": "",
           "scene": null
         }
