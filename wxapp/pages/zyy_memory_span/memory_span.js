@@ -10,17 +10,16 @@ Page({
     level_time: [5, 5, 10, 10, 15, 15],
     // level_time: [5, 5, 5, 5, 5, 1],
     level_index: 0,
-    board_num: [] /* board.length = board_size */,
+    board_num: [] /* board.length = board_size */ ,
     board_img_url: [],
     chess_index: [],
     chess_move: [],
-    chess_float: [] /* 左右方向上的浮动变量 */,
+    chess_float: [] /* 左右方向上的浮动变量 */ ,
     chess_start: [],
     chess_zindex: [],
     chess_nowAt: [],
-    game_state: "等待中" /* 练习中 等待中 游戏中 游戏结束 */,
-    pos_table: [
-      {
+    game_state: "等待中" /* 练习中 等待中 游戏中 游戏结束 */ ,
+    pos_table: [{
         left: 70,
         top: 78,
       },
@@ -221,7 +220,7 @@ Page({
       endAnswer =
         endAnswer &&
         this.data.chess_nowAt[this.data.chess_index[i]] ==
-          this.data.chess_index[i];
+        this.data.chess_index[i];
     }
     let that = this;
     if (endAnswer && that.data.game_state == "游戏中") {
@@ -236,9 +235,6 @@ Page({
   },
   gameStart: function () {
     gameStart(this);
-  },
-  gameReStart: function () {
-    gameReStart(this);
   },
 });
 
@@ -357,19 +353,19 @@ function prettyBoard(board) {
         [board[i], board[i + 1]] = [board[i + 1], board[i]];
       }
     } else if (i % 4 == 3) {
-    /* 如果 是第4列 */
+      /* 如果 是第4列 */
       /* 则 向左 挪动一格 */
       if (board[i - 1] == -1) {
         [board[i], board[i - 1]] = [board[i - 1], board[i]];
       }
     } else if (i / 4 < 1) {
-    /* 如果 是第1行 */
+      /* 如果 是第1行 */
       /* 则 向下 挪动一格 */
       if (board[i + 4] == -1) {
         [board[i], board[i + 4]] = [board[i + 4], board[i]];
       }
     } else if (i / 4 >= 3) {
-    /* 如果 是第4行 */
+      /* 如果 是第4行 */
       /* 则 向上 挪动一格 */
       if (board[i - 4] == -1) {
         [board[i], board[i - 4]] = [board[i - 4], board[i]];
@@ -407,8 +403,9 @@ function fillter_board(board) {
 /**
  * 开始游戏
  * @param {Page} that 传递进来的this
+ * @param {String} newGame_or_nextLevel 是新游戏还是下一关
  */
-function gameStart(that) {
+function gameStart(that, newGame_or_nextLevel = 'newGame') {
   if (that.data.level_index >= 6) {
     gameOver(that);
     initTime(that, that.data.time_limit);
@@ -422,6 +419,16 @@ function gameStart(that) {
   }
   initTime(that, that.data.time_limit);
   initChessBoard(that, true);
+  switch (newGame_or_nextLevel) {
+    case 'newGame':
+      that.setData({
+        level_index: 0
+      })
+      break;
+    case 'nextLevel':
+    default:
+  }
+
   wx.showToast({
     title: "请记住棋盘",
     icon: "succes",
@@ -511,9 +518,9 @@ function chessAt(pos, table) {
 /**
  * 建立一个新的棋盘
  * @param {Page} that 传递进来的this
- * @param {Boolean} mode 待选棋子是否乱序
+ * @param {Boolean} isRandom 待选棋子是否乱序
  */
-function initChessBoard(that, mode) {
+function initChessBoard(that, isRandom) {
   let tar = that.data;
   tar.board_num = get_Random_board(tar.level_flow[tar.level_index], board_size);
   tar.board_img_url = [];
@@ -537,7 +544,7 @@ function initChessBoard(that, mode) {
     tar.chess_zindex.push(100);
     tar.chess_float.push(0);
   });
-  if (mode) {
+  if (isRandom) {
     tar.chess_index = randArr(fillter_board(tar.board_num));
   } else {
     tar.chess_index = fillter_board(tar.board_num);
@@ -554,7 +561,6 @@ function initChessBoard(that, mode) {
     chess_zindex: tar.chess_zindex,
     chess_nowAt: tar.chess_nowAt,
     chess_float: tar.chess_float,
-    level_index: 0,
   });
 }
 /**
@@ -572,13 +578,8 @@ function getScore(that) {
       level_index: tar.level_index,
     });
     setTimeout(() => {
-      gameStart(that);
+      gameStart(that, 'nextLevel');
     }, 1000);
-  } else {
-    that.setData({
-      game_state: "游戏结束",
-      level_index: tar.level_index,
-    });
   }
   return "第 " + tar.level_index + " 关成功";
 }
