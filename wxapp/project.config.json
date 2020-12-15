@@ -32,8 +32,11 @@
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
+    "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
-    "packNpmRelationList": []
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "bundle": false
   },
   "compileType": "miniprogram",
   "libVersion": "2.14.0",
@@ -50,14 +53,6 @@
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "condition": {
-    "search": {
-      "current": -1,
-      "list": []
-    },
-    "conversation": {
-      "current": -1,
-      "list": []
-    },
     "plugin": {
       "current": -1,
       "list": []
@@ -73,65 +68,9 @@
       "current": 1,
       "list": [
         {
-          "id": -1,
-          "name": "pages/result/result",
-          "pathName": "pages/result/result",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "pages/attention/game2/attention_game",
-          "pathName": "pages/attention/game2/attention_game",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "pages/attention/rule2/attention",
-          "pathName": "pages/attention/rule2/attention",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "pages/history/history",
-          "pathName": "pages/history/history",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "pages/Planning/rule1/rule1",
-          "pathName": "pages/Planning/rule1/rule1",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "pages/attention/rule1/attention",
-          "pathName": "pages/attention/rule1/attention",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "pages/attention/game1/attention_game",
-          "pathName": "pages/attention/game1/attention_game",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
-          "pathName": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "pages/simultaneous-test/test/test",
-          "pathName": "pages/simultaneous-test/test/test",
+          "id": 0,
+          "name": "pages/rank/rank",
+          "pathName": "pages/rank/rank",
           "query": "",
           "scene": null
         },
@@ -143,16 +82,8 @@
           "scene": null
         },
         {
-          "id": -1,
-          "name": "pages/start/start",
-          "pathName": "pages/start/start",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "pages/simultaneous-test/simultaneous1/simultaneous1",
-          "pathName": "pages/simultaneous-test/simultaneous1/simultaneous1",
+          "name": "pages/S2/successive/successive",
+          "pathName": "pages/S2/successive/successive",
           "query": "",
           "scene": null
         },

@@ -79,14 +79,8 @@ Page({
             if(that.data.answer[i]==that.data.qlist[i].answer)
               score++
           }
-          //S12占测试总数的0.6
-          app.globalData.scoreDetail[1][0]={score:score,qnum:that.data.qnum-1}
-          console.log(app.globalData.scoreDetail[1][0])
-          app.globalData.score[1]=score/(that.data.qnum-1)*100*0.6
-          console.log(app.globalData.scoreDetail[1],app.globalData.score[1])
-          wx.redirectTo({
-            url: '/pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2',
-          })
+          console.log(score)
+          app.globalData.score[1]={score:score,qnum:that.data.qnum-1}
         } else if (res.cancel) {//继续
           util.initCountDown(that, that.data.displayTime, 1)
         }
