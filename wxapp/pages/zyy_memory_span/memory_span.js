@@ -19,71 +19,7 @@ Page({
     chess_zindex: [],
     chess_nowAt: [],
     game_state: "等待中" /* 练习中 等待中 游戏中 游戏结束 */ ,
-    pos_table: [{
-        left: 70,
-        top: 78,
-      },
-      {
-        left: 131,
-        top: 78,
-      },
-      {
-        left: 190,
-        top: 78,
-      },
-      {
-        left: 250,
-        top: 78,
-      },
-      {
-        left: 70,
-        top: 138,
-      },
-      {
-        left: 131,
-        top: 138,
-      },
-      {
-        left: 190,
-        top: 138,
-      },
-      {
-        left: 250,
-        top: 138,
-      },
-      {
-        left: 70,
-        top: 197,
-      },
-      {
-        left: 131,
-        top: 197,
-      },
-      {
-        left: 190,
-        top: 197,
-      },
-      {
-        left: 250,
-        top: 197,
-      },
-      {
-        left: 70,
-        top: 257,
-      },
-      {
-        left: 131,
-        top: 257,
-      },
-      {
-        left: 190,
-        top: 257,
-      },
-      {
-        left: 250,
-        top: 257,
-      },
-    ],
+    pos_table: [],
     time_limit: 30,
     time_second: 30,
     time_str: "30秒",
@@ -137,9 +73,9 @@ Page({
     get_num_img(num);
   },
   moveStart: function (event) {
-    if (this.data.game_state != "游戏中") {
-      return;
-    }
+    // if (this.data.game_state != "游戏中") {
+    // return;
+    // }
     let who = event.currentTarget.dataset.who;
     let chess_start = this.data.chess_start;
     let param = {};
@@ -151,15 +87,11 @@ Page({
     }
     param["chess_zindex[" + who + "]"] = 200;
     this.setData(param);
-    // console.log(event.changedTouches[0].pageX);
-    // console.log(param);
-    // console.log("触摸开始 who",who);
-    // console.log("触摸开始 chess_start",chess_start);
   },
   handleMove: function (event) {
-    if (this.data.game_state != "游戏中") {
-      return;
-    }
+    // if (this.data.game_state != "游戏中") {
+    // return;
+    // }
     let who = event.currentTarget.dataset.who;
     let start = this.data.chess_start[who];
     let table = this.data.pos_table;
@@ -170,6 +102,7 @@ Page({
     let nowAt = chessAt(pos, table);
     let move = {};
     if (nowAt >= 0) {
+      console.log("now at ", nowAt);
       move = {
         left: table[nowAt].left - start["left"],
         top: table[nowAt].top - start["top"],
@@ -190,9 +123,9 @@ Page({
     // console.log(param["chess_move[" + who + "]"].left, param["chess_float[" + who + "]"]);
   },
   moveEnd: function (event) {
-    if (this.data.game_state != "游戏中") {
-      return;
-    }
+    // if (this.data.game_state != "游戏中") {
+    // return;
+    // }
     let who = event.currentTarget.dataset.who;
     let pos = {
       left: event.changedTouches[0].pageX,
@@ -236,6 +169,9 @@ Page({
   gameStart: function () {
     gameStart(this);
   },
+  domTest: function (event) {
+    domTest(event);
+  }
 });
 
 /**
@@ -505,6 +441,7 @@ function chessAt(pos, table) {
   }
   let where = -1;
   for (let i = 0; i < table.length; i++) {
+    console.log("compare ", pos, table[i], comp(pos.left, table[i].left) && comp(pos.top, table[i].top));
     if (comp(pos.left, table[i].left) && comp(pos.top, table[i].top)) {
       where = i;
       break;
@@ -528,6 +465,7 @@ function initChessBoard(that, isRandom) {
   tar.chess_zindex = [];
   tar.chess_index = [];
   tar.chess_float = [];
+  tar.pos_table = [];
   tar.board_num.forEach((e) => {
     tar.board_img_url.push(get_num_img(e));
     tar.chess_move.push({
@@ -561,6 +499,31 @@ function initChessBoard(that, isRandom) {
     chess_float: tar.chess_float,
     game_state: '等待中',
   });
+
+  /* 延迟两秒后再更新棋盘位置表，避免出现错误 */
+  setTimeout(() => {
+    let query = wx.createSelectorQuery();
+    query.selectAll('.chess_map > .chess_box').boundingClientRect();
+    query.exec((res) => {
+      let pos_table = [];
+      res[0].forEach((e) => {
+        pos_table[parseInt(e.id)] = {
+          // left: e.left,
+          // right: e.right,
+          // top: e.top,
+          // bottom: e.bottom,
+          // centerX: (e.left + e.right) / 2,
+          // centerY: (e.top + e.bottom) / 2,
+          left: (e.left + e.right) / 2,
+          top: (e.top + e.bottom) / 2,
+        }
+      });
+      console.log(pos_table);
+      that.setData({
+        pos_table: pos_table
+      });
+    });
+  }, 2000);
 }
 /**
  * 计算得分

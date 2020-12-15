@@ -1,19 +1,24 @@
 <view class="top">
   <view class="clock">
-    <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/clock.png' style="width: 70rpx;"></image>
+    <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/clock.png'
+      style="width: 70rpx;"></image>
   </view>
   <view class="time">
     <text style='color:#edbf40'>{{time_str}}</text>
   </view>
 </view>
 <view class="chess_map">
-  <view class="chess_box" style="width:60px;height:60px;" wx:for="{{board_num}}" wx:key="item">
-    <view class="chess_content" style='background-image: url({{(game_state=="游戏中" && item!=-1) ? "../..https://picture.morii.top/renzhixuetang/zyy/empty.png" : board_img_url[index]}});' />
+  <view class="chess_box" style="width:60px;height:60px;" wx:for="{{board_num}}" wx:key="item" id="{{index}}">
+    <view class="chess_content"
+      style='background-image: url({{(game_state=="游戏中" && item!=-1) ? "../..https://picture.morii.top/renzhixuetang/zyy/empty.png" : board_img_url[index]}});' />
     <!-- <view class="chess_content" style='background-image: url("https://picture.morii.top/renzhixuetang/zyy/base_circle.png");' /> -->
   </view>
 </view>
 <view class="chess_below">
-  <view class="chess_drag" wx:for="{{chess_index}}" wx:key="item" catchtouchstart="moveStart" catchtouchmove="handleMove" catchtouchend="moveEnd" id="chess_{{board_num[item]}}" data-who="{{item}}" data-i="{{index}}" style="z-index:{{chess_zindex[item]}};left:{{chess_move[item].left}}px;top:{{chess_move[item].top}}px;">
+  <view class="chess_drag" wx:for="{{chess_index}}" wx:key="item" catchtouchstart="moveStart"
+    catchtouchmove="handleMove" catchtouchend="moveEnd" id="chess_{{board_num[item]}}" data-who="{{item}}"
+    data-i="{{index}}"
+    style="z-index:{{chess_zindex[item]}};left:{{chess_move[item].left}}px;top:{{chess_move[item].top}}px;">
     <image src='{{board_img_url[item]}}' style="width:{{chess_size}}px;height:{{chess_size}}px" />
   </view>
 </view>
