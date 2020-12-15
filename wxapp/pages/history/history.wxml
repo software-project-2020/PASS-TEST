@@ -1,6 +1,6 @@
 <!--pages/history/history.wxml-->
 <view class="top">
-  <image class="return" src="https://picture.morii.top/renzhixuetang/return.png" bindtap="return"></image>
+  <!-- <image class="return" src="https://picture.morii.top/renzhixuetang/return.png" bindtap="return"></image> -->
   <text class="text">历史测试结果</text>
 </view>
 <view class="time">
