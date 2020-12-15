@@ -1,0 +1,12 @@
+<view class="rule">
+  <text class="rule_text" decode="{{true}}" space="{{true}}">➔ 接下来，你会看到几个数字。
+    ➔ 请在有限的时间内记住
+    &nbsp;&nbsp;&nbsp;&nbsp;每个数字所在的位置。
+    ➔ 数字消失以后，在30s内，
+    &nbsp;&nbsp;&nbsp;&nbsp;从待选区拖动数字
+    &nbsp;&nbsp;&nbsp;&nbsp;到它之前的位置。
+    ➔ 请看下面的示例：↓↓↓
+  </text>
+  <image class="rule_gif" src="/image/zyy/rule.gif"></image>
+  <button class="rule_start" bindtap="goTest">开始测试</button>
+</view>

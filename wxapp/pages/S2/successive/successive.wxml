@@ -1,16 +1,16 @@
 <view class="container">
   <view class="top" style="flex-direction:row;">
     <view class="proflag" wx:if="{{!test}}">
-      <image class='img2' mode='widthFix' src='../../../image/successive/flag.png' style="width: 88rpx;"></image>
+      <image class='img2' mode='widthFix' src='https://picture.morii.top/renzhixuetang/successive/flag.png' style="width: 88rpx;"></image>
     </view>
     <view class="process" wx:if="{{!test}}">
       <text wx:if="{{now==1}}" style='color:#B1AFE6'>练习</text>
       <text wx:else style='color:#B1AFE6'>进度：{{now-1}}/{{total-1}}</text>
     </view>
-    <view class="clock" wx:if="{{!test}}">
-      <image class='img1' mode='widthFix' src='../../../image/successive/clock.png' style="width: 70rpx;"></image>
+    <view class="clock" wx:if="{{!test&&now!=1}}">
+      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/successive/clock.png' style="width: 70rpx;"></image>
     </view>
-    <view class="time" wx:if="{{!test}}">
+    <view class="time" wx:if="{{!test&&now!=1}}">
       <text style='color:#B1AFE6'>{{displayTime}}s</text>
     </view>
   </view>

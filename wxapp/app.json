@@ -21,7 +21,10 @@
     "pages/Planning/test4.1/test4.1",
     "pages/Planning/rule4.1/rule4.1",
     "pages/rank/rank",
-    "pages/history/history"
+    "pages/history/history",
+    "pages/zyy_memory_span/rule/rule",
+    "pages/zyy_memory_span/test/test",
+    "pages/zyy_memory_span/memory_span"
   ],
   "window":{
     "backgroundTextStyle":"light",

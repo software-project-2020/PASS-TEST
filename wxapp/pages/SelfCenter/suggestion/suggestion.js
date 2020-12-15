@@ -21,16 +21,18 @@ Page({
   bindblur:function(e){
     var value=e.detail.value;
      this.setData({
-      contact_info:value
+       feedback_content: value
     })
-    console.log(this.data.contact_info)
+    // console.log(this.data.feedback_content)
   },
 
   bindblur1: function (e) {
+    var value=e.detail.value;
     this.setData({
-      feedback_content: e.detail.value
+      contact_info:value
     })
-    console.log(this.data.feedback_content)
+    // console.log(value)
+    // console.log(this.data.contact_info)
   },
     // 删除图片
     clearImg:function(e){
@@ -86,7 +88,8 @@ Page({
                   encoding: 'base64', //编码格式
                   success: res => { //成功的回调
                     // console.log('data:image/png;base64,' + res.data)
-                    imagelist.push('data:image/png;base64,' +res.data)
+                    // imagelist.push('data:image/png;base64,' +res.data)
+                    imagelist.push(res.data)
                   }
                 })
                 }
@@ -96,17 +99,43 @@ Page({
     },
 
     submit(){
-      // console.log(getApp().globalData.userInfo.id)
-      // console.log(getApp().globalData.userInfo['id'])
-      var feedbackdata={
-        id:getApp().globalData.userInfo.id,
-        feedback_type:this.data.feedback_type,
-        feedback_content:this.data.feedback_content,
-        imagelist:this.data.imagelist,
-        contact_info:this.data.contact_info,
+      var that = this
+      setTimeout(function(){
+      if(that.data.feedback_type==null||that.data.feedback_content==null){
+        wx.showModal({
+          title: '抱歉',
+          content: '问题类型和反馈内容不能为空!',
+          confirmText: '返回',
+          showCancel:false,
+          success: function (res) {
+          }
+        })
+      }
+      else{
+        var feedbackdata={
+        openid:getApp().globalData.userInfo.openid,
+        feedback_type:that.data.feedback_type,
+        feedback_content:that.data.feedback_content,
+        imagelist:JSON.stringify(that.data.imagelist),
+        contact_info:that.data.contact_info,
       }
       console.log(JSON.stringify(feedbackdata))
       userutil.feedbackInfo(feedbackdata)
+      wx.showModal({
+        title: '提交成功',
+        content: '感谢您的配合!',
+        confirmText: '返回',
+        showCancel:false,
+        success: function (res) {
+          if (res.confirm) {
+            wx.navigateBack({
+            })
+          }
+        }
+      })
+      }
+      },500)
+      
     },
 
 m_select_touch(e) {
@@ -118,6 +147,8 @@ m_select_touch(e) {
       feedback_type:value1.text
     })
     // console.log(this.data.feedback_type)
+},
+onLoad: function () {
 },
 
 })

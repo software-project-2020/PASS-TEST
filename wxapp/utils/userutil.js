@@ -63,19 +63,19 @@ function feedbackInfo(feedbackdata) {
   wx.request({
     method: 'POST',
     dataType: 'json',
-    url: 'https://app.morii.top/personalInfo',
+    url: 'https://app.morii.top/feedback',
     header: {
       'content-type': 'application/x-www-form-urlencoded'
     },
     data: {
-      id:feedbackdata['id'],
+      openid:feedbackdata['openid'],
       feedback_type:feedbackdata['feedback_type'],
       feedback_content:feedbackdata['feedback_content'],
       imagelist:feedbackdata['imagelist'],
       contact_info:feedbackdata['contact_info'],
     },
     success: function (res) {
-      // wx.setStorageSync('userInfo', res.data)
+      console.log(res)
     }
   })
 }

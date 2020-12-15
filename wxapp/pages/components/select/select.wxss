@@ -9,7 +9,7 @@
   width: 100%;
   padding: 0 10rpx;
   line-height: 70rpx;
-  border: 1rpx solid #ddd;
+  border: 2rpx solid rgb(84, 148, 98);
   border-radius: 6rpx;
   box-sizing: border-box;
 }
@@ -23,7 +23,7 @@
   width: 0;
   height: 0;
   border: 10rpx solid transparent;
-  border-top: 10rpx solid #999;
+  border-top: 10rpx solid  rgb(84, 148, 98);
 }
 
 .current-name {
