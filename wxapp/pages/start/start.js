@@ -6,37 +6,51 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isSign : true,
-    age : 7,
-    // nickname : wx.getStorageInfoSync('userInfo').nickname
-    nickname:"昵称"
+  },
+  onLoad:function(){
+    this.setData({
+      userInfo:app.globalData.userInfo
+    })
   },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // wx.setNavigationBarTitle({
-    //   title: '首页'
-    // })
+    wx.setNavigationBarTitle({
+      title: '主页'
+    })
+    console.log(app.globalData.userInfo)
   },
   myinformation:function(){
     wx.navigateTo({
       url: '../index/index'
     })
   },
-  no_sign:function(){
-    this.setData({
-      isSign:false
-    })
-  },
-  huizhang_list:function(){
+  bindViewTap:function(){
     wx.navigateTo({
-      url: '/pages/Planning/rule1/rule1'
+      url: '/pages/SelfCenter/my/my'
     })
   },
+
   test:function(){
-    wx.navigateTo({
-      url: '/pages/Planning/rule1/rule1'
+    //说明测试
+    wx.showModal({
+      title: '测试PASS',
+      content: '欢迎你进入我们的测试，本次测试分为4个部分，分别考察了你的计划、同时性加工、注意和继时性加工能力，由8个小测试组成，大约需要12分钟完成。如果准备好了，就请点击进入测试吧！',
+      cancelText:'取消',
+      confirmText:'进入测试',
+      success: function (res) {
+        if (res.confirm) {//这里是点击了确定以后
+          app.globalData.timer=setInterval(function () { 
+            app.globalData.time+=1
+          }, 1000)
+          wx.navigateTo({
+            url: '/pages/Planning/rule1/rule1'
+          })
+        }
+      }
     })
+    if(app.globalData.userInfo.age>10) app.globalData.userInfo['ageGroup']=1
+    else app.globalData.userInfo['ageGroup']=0
   }
 })

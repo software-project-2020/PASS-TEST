@@ -1,18 +1,26 @@
 <!--pages/Planning/test1/test1.wxml-->
 <view class="container">
-  <view class="jindu"><image class='img1' mode='widthFix' src='../../../image/lyq/lyq.png' style="width: 600rpx; "></image></view>
+  <view class="jindu"><image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/lyq.png' style="width: 500rpx; "></image></view>
+  
   <view class="top" style="flex-direction:row;">
     <view class="eyu">
-      <image class='img1' mode='widthFix' src='../../../image/lyq/animal/eyu.png' style="width: 175rpx; "></image>
+      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/eyu.png' style="width: 250rpx; "></image>
     </view>
-    <view class="hide" style="visibility: {{isHide?'hidden':'visible'}}; width:40%">
-    <image class='img_pika' mode='widthFix' src='../../../image/lyq/pika.png' style="width: 170rpx;"></image>
+    <view class="rightup" style="flex-direction:column;">
+      <view class="hide" style="visibility: {{isHide?'hidden':'visible'}}; width:100%">
+    <image class='img_pika' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/pika.png' style="width: 30%;margin-left:20%"></image>
   <text class="Series">X  {{SeriesCount}}</text></view>
+  <view class="rightbottom" style="flex-direction:row;width:100%">
+    <view class="xjindu">
+      <text class="text-jindu" style="color:#2BB31C">进度：{{nowdifficulty-3}}/2</text>
+    </view>
     <view class="clock">
-      <image class='img1' mode='widthFix' src='../../../image/lyq/clock.png' style="width: 70rpx;"></image>
+      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/clock.png' style="width: 70rpx;"></image>
     </view>
     <view class="time" >
       <text style='color:#2BB31C' wx:if="{{showTime==true}}">{{displayTime}}s</text>
+    </view>
+  </view>
     </view>
   </view>
   
@@ -26,7 +34,7 @@
   </view>
 
   <view class="bottom">
-    <image class='img2' mode='widthFix' src='../../../image/lyq/animal/sheep.png' style="width: 220rpx;"></image>
+    <image class='img2' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/sheep.png' style="width: 220rpx;"></image>
     <view class="say"><text class="saytext">加油，认真仔细，你一定可以的！</text></view>
   </view>
   

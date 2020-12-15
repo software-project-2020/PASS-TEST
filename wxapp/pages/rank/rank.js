@@ -1,3 +1,4 @@
+var util = require('../../../utils/util')
 const app = getApp()
 Page({
   data: {
@@ -41,12 +42,13 @@ Page({
       "rank":6,
       "nick_name":"用户6",
       "score": 45
-    }, 
-    // {
+    },
+    //  {
     //   "rank":7,
     //   "nick_name":"用户7",
     //   "score": 87
-    // }, {
+    // }, 
+    // {
     //   "rank":8,
     //   "nick_name":"用户8",
     //   "score": 80
@@ -79,13 +81,15 @@ Page({
   },
   change(e) {
     this.setData({
-      selected: { ...e.detail }
+      selected: { ...e.detail },
+      ranklist: res.data.ranks,
     })
-    wx.showToast({
-      title: `${this.data.selected.id} - ${this.data.selected.name}`,
-      icon: 'success',
-      duration: 1000
-    })
+    // wx.showToast({
+    //   title: `${this.data.selected.id} - ${this.data.selected.name}`,
+    //   icon: 'success',
+    //   duration: 1000
+    // })
+    this.onLoad();
   },
   close() {
     // 关闭select
@@ -98,9 +102,8 @@ Page({
     }) 
     var that = this
     wx.request({
-      url: 'https://app.morii.top/login',
-      method: 'GET',
       data: {
+        all_number: 
         pages: this.data.pagenum
       },
       success: function (res) {

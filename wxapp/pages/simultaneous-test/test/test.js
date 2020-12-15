@@ -1,20 +1,29 @@
 const app = getApp()
+var testutil = require('../../../utils/testutil.js')
 var util = require('../../../utils/util.js')
 Page({
   data: {
     ctx: '',
     canvasWidth: 0,
     canvasHeight: 0,
-    lineColor: '#6c6c6c', // 颜色
-    lineWidth: 2,
+    lineColor: 'black', // 颜色
+    lineWidth: 3,
     currentPoint: {},
-    currentLine: [],  // 当前线条
-    pic: ''
+    currentLine: [], // 当前线条
+    pic: '',
+    now: 0,
+    score: 0
   },
   onLoad: function () {
     this.initCanvas()
-    // util.initCountDown(this,30,1)
-    
+    testutil.getS11(0, (res) => {
+      // console.log(res)
+      this.setData({
+        qnum: res.qnum,
+        qlist: res.qlist
+      })
+      console.log(res.qlist)
+    })
   },
 
   // 笔迹开始
@@ -47,7 +56,6 @@ Page({
       x: e.touches[0].x,
       y: e.touches[0].y
     }
-
     this.setData({
       currentPoint: point
     })
@@ -77,9 +85,7 @@ Page({
   },
 
   // 保存画布
-  saveCanvas: function () {
-    //生成图片
-    // const appId = wx.getStorageSync("appId");
+  saveCanvas: function (callback) {
     wx.canvasToTempFilePath({
       canvasId: 'handWriting',
       fileType: 'jpg',
@@ -89,23 +95,16 @@ Page({
         })
         console.log(res.tempFilePath);
         wx.uploadFile({
-          url: 'http://localhost:5000/test' ,
+          url: 'https://app.morii.top/test',
           filePath: res.tempFilePath,
           fileType: 'jpg',
           name: 'file',
           formData: {
             fileDir: 'order_apply',
-          },
-          success: res => {
-            console.log(res)
-            // const result = JSON.parse(res.data);
-            // if (result.errorCode === 0) {
-            //   this.setData({
-            //     pic: result.file,
-            //   })
-            // }
+            rules: JSON.stringify(this.data.qlist[this.data.now])
           },
           complete: res => {
+            callback && callback(res)
             wx.hideLoading()
           }
         })
@@ -133,4 +132,70 @@ Page({
       })
     }).exec();
   },
+  start: function () { //练习页面点击开始测试
+    this.saveCanvas((res) => {
+      console.log(res)
+      var text
+      if (res.data == 'true')
+        text = "恭喜你答对啦，你有充足的时间来完成这项测试，现在就请点击确定按钮开始吧！"
+      else
+        text = "做错了，不要着急，请尝试将图形画的更加规则一些，可以点击取消重新试一下。如果你准备好了，接下来你会有充足的时间来完成这项测试，现在就请点击确定按钮开始吧！"
+      var that = this
+      wx.showModal({
+        title: '练习结束',
+        content: text,
+        cancelText: '再次尝试',
+        confirmText: '开始测试',
+        success: function (res) {
+          if (res.confirm) { //这里是点击了确定以后
+            util.initCountDown(that, 100, 1)
+            that.setData({
+              now: that.data.now + 1
+            })
+            that.clearDraw()
+          }
+        }
+      })
+    })
+
+  },
+  next: function () { //提交然后进入下一题
+    this.saveCanvas((res) => {
+      console.log(res)
+      if (res.data == 'true') this.addscore()
+      this.setData({
+        now: this.data.now + 1
+      })
+      this.clearDraw()
+    })
+
+
+  },
+  finish: function () { //提交最后一题，结算分数
+    var that = this
+    this.saveCanvas((res) => {
+      console.log(res)
+      if (res.data == 'true') this.addscore()
+      console.log(this.data.score)
+      app.globalData.score_detail[1][1] = {
+        score: that.data.score,
+        qnum: that.data.qnum - 1
+      }
+      app.globalData.score[1] =parseInt(app.globalData.score[1] + that.data.score / (that.data.qnum - 1)*100 * 0.4) 
+      wx.navigateTo({
+        url: "/pages/attention/rule1/attention",
+      })
+    })
+    
+    //展示一个提示框，点击确定后进入下一项测试
+  },
+  addscore: function () {
+    this.setData({
+      score: this.data.score + 1
+    })
+  },
+  timeout: function () {
+    this.next()
+  },
+
 })
