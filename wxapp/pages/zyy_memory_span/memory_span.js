@@ -24,7 +24,7 @@ Page({
     pos_table: [],
     time_limit: 30,
     time_second: 30,
-    time_str: "30秒",
+    time_str: "30s",
     // time_begin: null /* new Date() */ ,
     time_add_er: null,
   },
@@ -86,7 +86,7 @@ Page({
     if (chess_start[who].left == 0 && chess_start[who].top == 0) {
       param["chess_start[" + who + "]"] = {
         left: event.currentTarget.offsetLeft + this.data.chess_size / 2,
-        top: event.currentTarget.offsetTop - this.data.chess_size / 4,
+        top: event.currentTarget.offsetTop,
       };
     }
     param["chess_zindex[" + who + "]"] = 200;
@@ -391,7 +391,7 @@ function checkTime(that) {
   that.data.time_add_er = setTimeout(function () {
     let sec = that.data.time_second - 1;
     if (sec >= 0) {
-      let str = sec + "秒";
+      let str = sec + "s";
       that.setData({
         time_second: sec,
         time_str: str,
@@ -430,7 +430,7 @@ function initTime(that, time_limit_in_second) {
   }
   that.setData({
     time_second: time_limit_in_second,
-    time_str: time_limit_in_second + "秒",
+    time_str: time_limit_in_second + "s",
   });
 }
 

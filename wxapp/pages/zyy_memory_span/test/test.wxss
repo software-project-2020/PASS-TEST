@@ -134,6 +134,7 @@ page{
   background-color: #cdcdfc;
 }
 .button text{
+  padding: 20rpx 0;
   font-size: 40rpx;
   color: #5c5ca3;
 }

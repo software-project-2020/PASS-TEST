@@ -1,14 +1,19 @@
-<view class="top">
+<view class="top" style="flex-direction:row;">
+  <view class="proflag">
+    <image class='img2' mode='widthFix' src='https://picture.morii.top/renzhixuetang/successive/flag.png' style="width: 88rpx;"></image>
+  </view>
+  <view class="process">
+    <text style='color:#B1AFE6'>进度: {{level_index+1+"/6"}}</text>
+  </view>
   <view class="clock">
-    <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/clock.png'
-      style="width: 70rpx;"></image>
+    <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/successive/clock.png' style="width: 70rpx;"></image>
   </view>
   <view class="time">
-    <text style='color:#edbf40'>{{time_str}}</text>
+    <text style='color:#B1AFE6'>{{time_str}}</text>
   </view>
 </view>
 <view class="chess_map">
-  <view class="chess_box" style="width:calc({{(windowWidth*0.8-20)/4}}px);height:calc({{(windowWidth*0.8-20)/4}}px );"
+  <view class="chess_box" style="width:calc({{(windowWidth*0.8)/4}}px);height:calc({{(windowWidth*0.8)/4}}px );"
     wx:for="{{board_num}}" wx:key="item" id="{{index}}">
     <view class="chess_content"
       style='background-image: url({{(game_state=="游戏中" && item!=-1) ? "https://picture.morii.top/renzhixuetang/zyy/empty.png" : board_img_url[index]}});' />
@@ -24,6 +29,9 @@
   </view>
 </view>
 <view style="margin:10px;" />
-<button catchtap="gameStart">开始游戏</button>
+<view class="f_center">
+  <view class="button f_center" catchtap="gameStart">
+    <text>开始游戏</text>
+  </view>
+</view>
 <view style="margin:10px;" />
-<text class="f_center">已经完成 {{level_index}} 关</text>
