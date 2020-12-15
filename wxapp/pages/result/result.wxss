@@ -145,10 +145,10 @@ page {
   left: 75rpx;
   top: 50%;
   margin-top: -1500rpx;
+  background-color: #fff;
 }
 /*控制canvas显示和隐藏 top值要大 要保证能溢出到屏幕外面*/
 .topScroll{
   position: absolute;
-  top: -2000rpx;
-  background-color: #fff;
+  top: -2000rpx; 
 } 
