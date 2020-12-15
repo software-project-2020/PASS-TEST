@@ -125,7 +125,8 @@ Page({
         console.log('submit success');
         that.setData({
           userrank: res.data.rank,
-          userscore: res.data.score
+          userscore: res.data
+
         })
         wx.setStorageSync('endlessScore', res.data.score)
       }
