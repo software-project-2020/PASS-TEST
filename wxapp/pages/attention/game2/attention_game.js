@@ -80,7 +80,7 @@ Page({
       text: '确定'
     }],
     write: ["练习结束，测试正式开始", "请继续完成下一题", "本游戏结束，开始下一个测试"],
-    text: ["练习", "测试：1/2", "测试：2/2"]
+    text: ["练习", "进度：1/2", "进度：2/2"]
   },
   onReady: function () {},
   onShow: function () {
@@ -122,7 +122,6 @@ Page({
         that.setData({
           deviceWidth: res.windowWidth,
           deviceHeight: res.windowHeight,
-          deviceHeightTop: res.windowHeight * 0.01,
         })
       }
     })

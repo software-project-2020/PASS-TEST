@@ -9,12 +9,12 @@ Page({
     l: [{}],
     age: 0,
     nowdifficulty: 3,
-    Alltime: [0,0,0],
+    Alltime: [0, 0, 0],
     complex: [{}],
     noworder: [],
     showTime: false,
-    PassScore:0,
-    scoreDetail:[]
+    PassScore: 0,
+    scoreDetail: []
   },
 
   /**
@@ -22,27 +22,27 @@ Page({
    */
   onLoad: function () {
     this.setData({
-      age:getApp().globalData.userInfo.age
+      age: getApp().globalData.userInfo.age
     })
     testutil.getconfiguration(0, 'P', (res) => {
       console.log(res)
-      var qnumlist=[]
-      var difficultylist=[]
+      var qnumlist = []
+      var difficultylist = []
       for (var i = 0; i < res.length; i++) {
         var temp = JSON.parse(res[i].parameter_info)
         // console.log(temp)
         qnumlist[i] = temp.time
-        difficultylist[i]=JSON.parse(res[i].difficulty)
+        difficultylist[i] = JSON.parse(res[i].difficulty)
       }
       console.log(qnumlist)
       console.log(difficultylist)
       this.setData({
-        nowdifficulty:difficultylist[0],
-        Alltime:qnumlist
+        nowdifficulty: difficultylist[0],
+        Alltime: qnumlist
       })
       this.initnum(this.data.nowdifficulty)
     })
-    
+
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -80,6 +80,7 @@ Page({
     this.setData({
       l: l,
     })
+
     function shuffle(arr) {
       var len = arr.length;
       for (var i = 0; i < len - 1; i++) {
@@ -117,15 +118,14 @@ Page({
           that.setData({
             showTime: true
           })
-          util.initCountDown(that, that.data.Alltime[that.data.nowdifficulty-3], 0.1)
+          util.initCountDown(that, that.data.Alltime[that.data.nowdifficulty - 3], 0.1)
         }
       })
-    }
-    else {
+    } else {
       this.setData({
         istry: false
       })
-      util.initCountDown(this, this.data.Alltime[this.data.nowdifficulty-3], 0.1)
+      util.initCountDown(this, this.data.Alltime[this.data.nowdifficulty - 3], 0.1)
     }
   },
   recolor(i) {
@@ -156,7 +156,7 @@ Page({
     })
     this.setData({
       isPass: true,
-      Passtime: this.data.Alltime[this.data.nowdifficulty-3]
+      Passtime: this.data.Alltime[this.data.nowdifficulty - 3]
     })
     this.CountSore()
     var nowdifficulty = this.data.nowdifficulty
@@ -168,14 +168,13 @@ Page({
         confirmText: '开始测试',
         cancelText: '再次尝试',
         success: function (res) {
-          if (res.confirm) {//这里是点击了确定以后
+          if (res.confirm) { //这里是点击了确定以后
             console.log('用户点击确定')
             that.setData({
               nowdifficulty: nowdifficulty + 1
             })
             that.initnum(that.data.nowdifficulty)
-          }
-          else if (res.cancel) {
+          } else if (res.cancel) {
             that.initnum(that.data.nowdifficulty)
           }
         }
@@ -187,112 +186,352 @@ Page({
         confirmText: '下一题',
         showCancel: false,
         success: function (res) {
-          if (res.confirm) {//这里是点击了确定以后
+          if (res.confirm) { //这里是点击了确定以后
             console.log('用户点击确定')
             that.setData({
               nowdifficulty: nowdifficulty + 1
             })
             if (that.data.nowdifficulty == 6) {
               that.setData({
-                nowdifficulty: that.data.nowdifficulty -1
+                nowdifficulty: that.data.nowdifficulty - 1
               })
               wx.navigateTo({
                 url: '/pages/Planning/rule4.1/rule4.1',
               })
-            }else
-            that.initnum(that.data.nowdifficulty)
+            } else
+              that.initnum(that.data.nowdifficulty)
           }
         }
       })
     }
   },
   CountSore() {
-    if(this.data.nowdifficulty!=3){
+    if (this.data.nowdifficulty != 3) {
       var RightScore;
-    RightScore = this.data.noworder.length / (this.data.nowdifficulty * this.data.nowdifficulty) * 100
-    var Passtime = this.data.Passtime
-    var TimeScore = 0;
-    if (this.data.nowdifficulty == 4 && (this.data.age >= 0 && this.data.age <= 6)) {
-      var score4_6 = [{ "age": 6, "costtime": 16, "score": 100 }, { "age": 6, "costtime": 19, "score": 90 }, { "age": 6, "costtime": 21, "score": 80 }, { "age": 6, "costtime": 24, "score": 70 }, { "age": 6, "costtime": 28, "score": 60 }, { "age": 6, "costtime": 32, "score": 50 }, { "age": 6, "costtime": 38, "score": 40 }, { "age": 6, "costtime": 44, "score": 30 }, { "age": 6, "costtime": 46, "score": 20 }, { "age": 6, "costtime": 48, "score": 10 }];
-      for (var i = 0; i < score4_6.length; i++) {
-        if (Passtime <= score4_6[i].costtime) {
-          TimeScore = score4_6[i].score; break;
+      RightScore = this.data.noworder.length / (this.data.nowdifficulty * this.data.nowdifficulty) * 100
+      var Passtime = this.data.Passtime
+      var TimeScore = 0;
+      if (this.data.nowdifficulty == 4 && (this.data.age >= 0 && this.data.age <= 6)) {
+        var score4_6 = [{
+          "age": 6,
+          "costtime": 16,
+          "score": 100
+        }, {
+          "age": 6,
+          "costtime": 19,
+          "score": 90
+        }, {
+          "age": 6,
+          "costtime": 21,
+          "score": 80
+        }, {
+          "age": 6,
+          "costtime": 24,
+          "score": 70
+        }, {
+          "age": 6,
+          "costtime": 28,
+          "score": 60
+        }, {
+          "age": 6,
+          "costtime": 32,
+          "score": 50
+        }, {
+          "age": 6,
+          "costtime": 38,
+          "score": 40
+        }, {
+          "age": 6,
+          "costtime": 44,
+          "score": 30
+        }, {
+          "age": 6,
+          "costtime": 46,
+          "score": 20
+        }, {
+          "age": 6,
+          "costtime": 48,
+          "score": 10
+        }];
+        for (var i = 0; i < score4_6.length; i++) {
+          if (Passtime <= score4_6[i].costtime) {
+            TimeScore = score4_6[i].score;
+            break;
+          }
+        }
+      } else if (this.data.nowdifficulty == 4 && (this.data.age >= 7 && this.data.age <= 11)) {
+        var score4_11 = [{
+          "age": 11,
+          "costtime": 10,
+          "score": 100
+        }, {
+          "age": 11,
+          "costtime": 16,
+          "score": 90
+        }, {
+          "age": 11,
+          "costtime": 20,
+          "score": 80
+        }, {
+          "age": 11,
+          "costtime": 25,
+          "score": 70
+        }, {
+          "age": 11,
+          "costtime": 28,
+          "score": 60
+        }, {
+          "age": 11,
+          "costtime": 32,
+          "score": 50
+        }, {
+          "age": 11,
+          "costtime": 34,
+          "score": 40
+        }, {
+          "age": 11,
+          "costtime": 38,
+          "score": 30
+        }, {
+          "age": 11,
+          "costtime": 41,
+          "score": 20
+        }, {
+          "age": 11,
+          "costtime": 43,
+          "score": 10
+        }];
+        for (var i = 0; i < score4_11.length; i++) {
+          if (Passtime <= score4_11[i].costtime) {
+            TimeScore = score4_11[i].score;
+            break;
+          }
+        }
+      } else if (this.data.nowdifficulty == 4 && (this.data.age >= 12 && this.data.age <= 17)) {
+        var score4_17 = score4_17 = [{
+          "age": 17,
+          "costtime": 7,
+          "score": 100
+        }, {
+          "age": 17,
+          "costtime": 10,
+          "score": 90
+        }, {
+          "age": 17,
+          "costtime": 11,
+          "score": 80
+        }, {
+          "age": 17,
+          "costtime": 14,
+          "score": 70
+        }, {
+          "age": 17,
+          "costtime": 15,
+          "score": 60
+        }, {
+          "age": 17,
+          "costtime": 16,
+          "score": 50
+        }, {
+          "age": 17,
+          "costtime": 18,
+          "score": 40
+        }, {
+          "age": 17,
+          "costtime": 19,
+          "score": 30
+        }, {
+          "age": 17,
+          "costtime": 21,
+          "score": 20
+        }, {
+          "age": 17,
+          "costtime": 23,
+          "score": 10
+        }];
+        for (var i = 0; i < score4_17.length; i++) {
+          if (Passtime <= score4_17[i].costtime) {
+            TimeScore = score4_17[i].score;
+            break;
+          }
+        }
+      } else if (this.data.nowdifficulty == 5 && (this.data.age >= 0 && this.data.age <= 6)) {
+        var score5_6 = [{
+          "age": 6,
+          "costtime": 26,
+          "score": 100
+        }, {
+          "age": 6,
+          "costtime": 30,
+          "score": 90
+        }, {
+          "age": 6,
+          "costtime": 40,
+          "score": 80
+        }, {
+          "age": 6,
+          "costtime": 48,
+          "score": 70
+        }, {
+          "age": 6,
+          "costtime": 55,
+          "score": 60
+        }, {
+          "age": 6,
+          "costtime": 61,
+          "score": 50
+        }, {
+          "age": 6,
+          "costtime": 66,
+          "score": 40
+        }, {
+          "age": 6,
+          "costtime": 70,
+          "score": 30
+        }, {
+          "age": 6,
+          "costtime": 73,
+          "score": 20
+        }, {
+          "age": 6,
+          "costtime": 75,
+          "score": 10
+        }];
+        for (var i = 0; i < score5_6.length; i++) {
+          if (Passtime <= score5_6[i].costtime) {
+            TimeScore = score5_6[i].score;
+            break;
+          }
+        }
+      } else if (this.data.nowdifficulty == 5 && (this.data.age >= 7 && this.data.age <= 11)) {
+        var score5_11 = [{
+          "age": 11,
+          "costtime": 16,
+          "score": 100
+        }, {
+          "age": 11,
+          "costtime": 26,
+          "score": 90
+        }, {
+          "age": 11,
+          "costtime": 32,
+          "score": 80
+        }, {
+          "age": 11,
+          "costtime": 40,
+          "score": 70
+        }, {
+          "age": 11,
+          "costtime": 45,
+          "score": 60
+        }, {
+          "age": 11,
+          "costtime": 50,
+          "score": 50
+        }, {
+          "age": 11,
+          "costtime": 55,
+          "score": 40
+        }, {
+          "age": 11,
+          "costtime": 60,
+          "score": 30
+        }, {
+          "age": 11,
+          "costtime": 65,
+          "score": 20
+        }, {
+          "age": 11,
+          "costtime": 68,
+          "score": 10
+        }];
+        for (var i = 0; i < score5_11.length; i++) {
+          if (Passtime <= score5_11[i].costtime) {
+            TimeScore = score5_11[i].score;
+            break;
+          }
+        }
+      } else if (this.data.nowdifficulty == 5 && (this.data.age >= 12 && this.data.age <= 17)) {
+        var score5_17 = [{
+          "age": 17,
+          "costtime": 12,
+          "score": 100
+        }, {
+          "age": 17,
+          "costtime": 16,
+          "score": 90
+        }, {
+          "age": 17,
+          "costtime": 18,
+          "score": 80
+        }, {
+          "age": 17,
+          "costtime": 23,
+          "score": 70
+        }, {
+          "age": 17,
+          "costtime": 24,
+          "score": 60
+        }, {
+          "age": 17,
+          "costtime": 26,
+          "score": 50
+        }, {
+          "age": 17,
+          "costtime": 28,
+          "score": 40
+        }, {
+          "age": 17,
+          "costtime": 30,
+          "score": 30
+        }, {
+          "age": 17,
+          "costtime": 33,
+          "score": 20
+        }, {
+          "age": 17,
+          "costtime": 36,
+          "score": 10
+        }];
+        for (var i = 0; i < score5_17.length; i++) {
+          if (Passtime <= score5_17[i].costtime) {
+            TimeScore = score5_17[i].score;
+            break;
+          }
         }
       }
-    }
-    else if (this.data.nowdifficulty == 4 && (this.data.age >= 7 && this.data.age <= 11)) {
-      var score4_11 = [{ "age": 11, "costtime": 10, "score": 100 }, { "age": 11, "costtime": 16, "score": 90 }, { "age": 11, "costtime": 20, "score": 80 }, { "age": 11, "costtime": 25, "score": 70 }, { "age": 11, "costtime": 28, "score": 60 }, { "age": 11, "costtime": 32, "score": 50 }, { "age": 11, "costtime": 34, "score": 40 }, { "age": 11, "costtime": 38, "score": 30 }, { "age": 11, "costtime": 41, "score": 20 }, { "age": 11, "costtime": 43, "score": 10 }];
-      for (var i = 0; i < score4_11.length; i++) {
-        if (Passtime <= score4_11[i].costtime) {
-          TimeScore = score4_11[i].score; break;
+      console.log("时间得分")
+      console.log(TimeScore)
+      console.log('连击加个数')
+      console.log(this.data.SeriesAdd)
+      var FinalScore;
+      FinalScore = (TimeScore + this.data.SeriesAdd * 0.5) * 0.8 + RightScore * 0.2
+      if (FinalScore > 100)
+        FinalScore = 100
+      console.log(FinalScore)
+      var PassScore = this.data.PassScore
+      var scoreDetail = this.data.scoreDetail
+      if (this.data.nowdifficulty == 4 || this.data.nowdifficulty == 5) {
+        PassScore = PassScore + FinalScore
+        this.setData({
+          PassScore: PassScore
+        })
+        var item = {
+          "difficulty": this.data.nowdifficulty,
+          "score": Math.round(FinalScore)
         }
+        scoreDetail.push(item)
       }
-    }
-    else if (this.data.nowdifficulty == 4 && (this.data.age >= 12 && this.data.age <= 17)) {
-      var score4_17 = score4_17 = [{ "age": 17, "costtime": 7, "score": 100 }, { "age": 17, "costtime": 10, "score": 90 }, { "age": 17, "costtime": 11, "score": 80 }, { "age": 17, "costtime": 14, "score": 70 }, { "age": 17, "costtime": 15, "score": 60 }, { "age": 17, "costtime": 16, "score": 50 }, { "age": 17, "costtime": 18, "score": 40 }, { "age": 17, "costtime": 19, "score": 30 }, { "age": 17, "costtime": 21, "score": 20 }, { "age": 17, "costtime": 23, "score": 10 }];
-      for (var i = 0; i < score4_17.length; i++) {
-        if (Passtime <= score4_17[i].costtime) {
-          TimeScore = score4_17[i].score; break;
-        }
+      if (this.data.nowdifficulty == 5) {
+        this.setData({
+          PassScore: (PassScore / 2).toFixed(1)
+        })
+        getApp().globalData.score[0] = Math.round(this.data.PassScore);
+        getApp().globalData.scoreDetail[0] = this.data.score_detail;
+        console.log(getApp().globalData.score[0])
+        console.log(getApp().globalData.scoreDetail[0])
       }
-    }
-    else if (this.data.nowdifficulty == 5 && (this.data.age >=0 && this.data.age <= 6)) {
-      var score5_6 = [{ "age": 6, "costtime": 26, "score": 100 }, { "age": 6, "costtime": 30, "score": 90 }, { "age": 6, "costtime": 40, "score": 80 }, { "age": 6, "costtime": 48, "score": 70 }, { "age": 6, "costtime": 55, "score": 60 }, { "age": 6, "costtime": 61, "score": 50 }, { "age": 6, "costtime": 66, "score": 40 }, { "age": 6, "costtime": 70, "score": 30 }, { "age": 6, "costtime": 73, "score": 20 }, { "age": 6, "costtime": 75, "score": 10 }];
-      for (var i = 0; i < score5_6.length; i++) {
-        if (Passtime <= score5_6[i].costtime) {
-          TimeScore = score5_6[i].score; break;
-        }
-      }
-    }
-    else if (this.data.nowdifficulty == 5 && (this.data.age >= 7 && this.data.age <= 11)) {
-      var score5_11 = [{ "age": 11, "costtime": 16, "score": 100 }, { "age": 11, "costtime": 26, "score": 90 }, { "age": 11, "costtime": 32, "score": 80 }, { "age": 11, "costtime": 40, "score": 70 }, { "age": 11, "costtime": 45, "score": 60 }, { "age": 11, "costtime": 50, "score": 50 }, { "age": 11, "costtime": 55, "score": 40 }, { "age": 11, "costtime": 60, "score": 30 }, { "age": 11, "costtime": 65, "score": 20 }, { "age": 11, "costtime": 68, "score": 10 }];
-      for (var i = 0; i < score5_11.length; i++) {
-        if (Passtime <= score5_11[i].costtime) {
-          TimeScore = score5_11[i].score; break;
-        }
-      }
-    }
-    else if (this.data.nowdifficulty == 5 && (this.data.age >= 12 && this.data.age <= 17)) {
-      var score5_17 = [{ "age": 17, "costtime": 12, "score": 100 }, { "age": 17, "costtime": 16, "score": 90 }, { "age": 17, "costtime": 18, "score": 80 }, { "age": 17, "costtime": 23, "score": 70 }, { "age": 17, "costtime": 24, "score": 60 }, { "age": 17, "costtime": 26, "score": 50 }, { "age": 17, "costtime": 28, "score": 40 }, { "age": 17, "costtime": 30, "score": 30 }, { "age": 17, "costtime": 33, "score": 20 }, { "age": 17, "costtime": 36, "score": 10 }];
-      for (var i = 0; i < score5_17.length; i++) {
-        if (Passtime <= score5_17[i].costtime) {
-          TimeScore = score5_17[i].score; break;
-        }
-      }
-    }
-    console.log("时间得分")
-    console.log(TimeScore)
-    console.log('连击加个数')
-    console.log(this.data.SeriesAdd)
-    var FinalScore;
-    FinalScore = (TimeScore + this.data.SeriesAdd * 0.5) * 0.8 + RightScore * 0.2
-    if(FinalScore>100)
-    FinalScore=100
-    console.log(FinalScore)
-    var PassScore = this.data.PassScore
-    var scoreDetail = this.data.scoreDetail
-    if(this.data.nowdifficulty==4||this.data.nowdifficulty==5){
-      PassScore=PassScore+FinalScore
-      this.setData({
-        PassScore:PassScore
-      })
-      var item={
-        "difficulty":this.data.nowdifficulty,
-        "score":Math.round(FinalScore)
-      }
-      scoreDetail.push(item)
-    }
-    if(this.data.nowdifficulty==5){
-      this.setData({
-        PassScore:(PassScore/2).toFixed(1)
-      })
-      console.log(app.globalData.scoreDetail)
-      getApp().globalData.score[0]=Math.round(this.data.PassScore);
-      getApp().globalData.scoreDetail[0]=this.data.score_detail;
-      console.log(getApp().globalData.score[0])
-      console.log(getApp().globalData.scoreDetail[0])
-    }
-    // console.log(this.data.PassScore)
+      // console.log(this.data.PassScore)
     }
   },
   change: function (e) {
@@ -334,7 +573,7 @@ Page({
           }
         }
         that.setData({
-          LastIsCorrect: 1//设置为正确
+          LastIsCorrect: 1 //设置为正确
         })
       } else {
         console.log("选择错误")
@@ -349,12 +588,12 @@ Page({
       })
     }
     if (this.data.noworder.length == this.data.nowdifficulty * this.data.nowdifficulty && this.data.isPass == false) {
-      util.closeCountDown(this)//关闭计时器
+      util.closeCountDown(this) //关闭计时器
       console.log("成功！");
       var nowdifficulty = this.data.nowdifficulty
       this.setData({
         isPass: true,
-        Passtime: (this.data.Alltime[this.data.nowdifficulty-3] - this.data.countDownNum).toFixed(1)
+        Passtime: (this.data.Alltime[this.data.nowdifficulty - 3] - this.data.countDownNum).toFixed(1)
       })
       this.CountSore();
       if (this.data.nowdifficulty != 3) {
@@ -363,40 +602,37 @@ Page({
           content: '作答正确',
           showCancel: false,
           success: function (res) {
-            if (res.confirm) {//这里是点击了确定以后
+            if (res.confirm) { //这里是点击了确定以后
               console.log('用户点击确定')
               that.setData({
                 nowdifficulty: nowdifficulty + 1
               })
               if (that.data.nowdifficulty == 6) {
                 that.setData({
-                  nowdifficulty: that.data.nowdifficulty -1
+                  nowdifficulty: that.data.nowdifficulty - 1
                 })
                 wx.navigateTo({
                   url: '/pages/Planning/rule4.1/rule4.1',
                 })
-              }
-              else
+              } else
                 that.initnum(that.data.nowdifficulty)
             }
           }
         })
-      }
-      else {
+      } else {
         wx.showModal({
           title: '恭喜',
           content: '作答正确',
           cancelText: '再次尝试',
           confirmText: '开始测试',
           success: function (res) {
-            if (res.confirm) {//这里是点击了确定以后
+            if (res.confirm) { //这里是点击了确定以后
               console.log('用户点击确定')
               that.setData({
                 nowdifficulty: nowdifficulty + 1
               })
               that.initnum(that.data.nowdifficulty)
-            }
-            else if (res.cancel) {
+            } else if (res.cancel) {
               that.initnum(that.data.nowdifficulty)
             }
           }

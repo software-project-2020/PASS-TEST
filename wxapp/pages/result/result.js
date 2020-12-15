@@ -1,6 +1,6 @@
 // pages/result/result.js
 var util = require('../../utils/util')
-
+var testutil = require('../../utils/testutil.js')
 var numCount = 4;
 var numSlot = 3;
 var mW = 800;
@@ -10,38 +10,11 @@ var mRadius = mCenter - 60; //半径(减去的值用于给绘制的文本留空�
 //获取Canvas
 var radCtx = wx.createCanvasContext("radarCanvas")
 var ctx = wx.createCanvasContext('myCanvas')
-//雷达图数据
-var plan_mygrade = 66;
-var plan_avggrade = 88;
-var attention_mygrade = 88;
-var attention_avggrade = 24;
-var simultaneous_mygrade = 90;
-var simultaneous_avggrade = 49;
-var successive_mygrade = 30;
-var successive_avggrade = 60;
 Page({
 
   data: {
 
     triggered: false,
-    stepText: 5,
-    my: [
-      ["注意", attention_mygrade],
-      ["继时性", successive_mygrade],
-      ["计划", plan_mygrade],
-      ["同时性", simultaneous_mygrade],
-    ],
-    avg: [
-      ["注意", attention_avggrade],
-      ["继时性", successive_avggrade],
-      ["计划", plan_avggrade],
-      ["同时性", simultaneous_avggrade],
-    ],
-    people: 100,
-    plan: 8,
-    attention: 28,
-    simultaneous: 58,
-    successive: 8,
 
     show: false,
     plan1_time: 9,
@@ -69,7 +42,90 @@ Page({
     successive3_sum: 20,
     isOpacity: true,
   },
-  onReady: function () {
+
+  onLoad: function () {
+    var userid = getApp().globalData.uesrInfo.openid;
+    var score = getApp().globalData.score;
+    var age = getApp().globalData.uesrInfo.age;
+    clearInterval(getApp().gloableData.timer);
+    var costtime = getApp().gloableData.time
+    // var userid = 'oAkCq5aL-90X9qhtwEDR8lx2TMZA';
+    // var score = [31, 90, 21, 80]
+    // var costtime = 600;
+    // var age = 10;
+    var plan_mygrade = score[0];
+    var attention_mygrade = score[1];
+    var simultaneous_mygrade = score[2];
+    var successive_mygrade = score[3];
+    testutil.submitResult(userid, score, costtime, age, (res) => {
+      console.log(res)
+      var plan_avggrade = JSON.parse(res.plan_avg_score);
+      var attention_avggrade = JSON.parse(res.attention_avg_score);
+      var simultaneous_avggrade = JSON.parse(res.simul_avg_score);
+      var successive_avggrade = JSON.parse(res.suc_avg_score);
+      var people = JSON.parse(res.sum_peoele);
+      var plan = JSON.parse(res.plan_rank);
+      var attention = JSON.parse(res.attention_rank);
+      var simultaneous = JSON.parse(res.simul_rank);
+      var successive = JSON.parse(res.suc_rank);
+      this.setData({
+        plan_mygrade: plan_mygrade,
+        attention_mygrade: attention_mygrade,
+        simultaneous_mygrade: simultaneous_mygrade,
+        successive_mygrade: successive_mygrade,
+        plan_avggrade: plan_avggrade,
+        attention_avggrade: attention_avggrade,
+        simultaneous_avggrade: simultaneous_avggrade,
+        successive_avggrade: successive_avggrade,
+        people: people,
+        plan: plan,
+        attention: attention,
+        simultaneous: simultaneous,
+        successive: successive,
+        my: [
+          ["注意", attention_mygrade],
+          ["继时性", successive_mygrade],
+          ["计划", plan_mygrade],
+          ["同时性", simultaneous_mygrade],
+        ],
+        avg: [
+          ["注意", attention_avggrade],
+          ["继时性", successive_avggrade],
+          ["计划", plan_avggrade],
+          ["同时性", simultaneous_avggrade],
+        ],
+      })
+      this.init()
+    })
+    var that = this;
+    wx.getSystemInfo({
+      success(res) {
+        console.log(res);
+        console.log(res.windowWidth);
+        console.log(res.windowHeight);
+        that.setData({
+          deviceWidth: res.windowWidth,
+          deviceHeight: res.windowHeight,
+          deviceWidthLook: res.windowWidth * 0.9,
+          deviceHeightLook: res.windowHeight * 0.88
+        })
+      }
+    })
+
+  },
+  onShow: function () {
+    wx.setNavigationBarTitle({
+      title: '测试结果'
+    })
+  },
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  },
+
+  init() {
     setTimeout(() => {
       this.setData({
         triggered: true,
@@ -162,34 +218,6 @@ Page({
       successive_grade: successive_grade,
       successive_percentage: Math.ceil(successive_percentage)
     })
-  },
-  onLoad: function () {
-    var that = this;
-    wx.getSystemInfo({
-      success(res) {
-        console.log(res);
-        console.log(res.windowWidth);
-        console.log(res.windowHeight);
-        that.setData({
-          deviceWidth: res.windowWidth,
-          deviceHeight: res.windowHeight,
-          deviceWidthLook: res.windowWidth * 0.9,
-          deviceHeightLook: res.windowHeight * 0.88
-        })
-      }
-    })
-
-  },
-  onShow: function () {
-    wx.setNavigationBarTitle({
-      title: '测试结果'
-    })
-  },
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
   },
 
   // 雷达图
@@ -726,11 +754,5 @@ Page({
       }
     })
   },
-
-  return: function (e) {
-    wx.navigateTo({
-      url: '../../pages/start/start'
-    })
-  }
 
 })

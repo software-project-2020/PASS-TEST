@@ -24,7 +24,7 @@ Page({
     }],
     NumCount: 0, //当前题数
     letter: ["练习结束，测试正式开始", "本游戏结束，开始下一个游戏"],
-    text: ["练习", "测试"]
+    text: ["练习", "进度：1/1"]
   },
   onShow: function () {
     wx.setNavigationBarTitle({
