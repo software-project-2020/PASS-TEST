@@ -7,87 +7,53 @@ Page({
    */
   onLoad: function () {
     initChessBoard(this, true);
+    setTimeout(() => {
+      gameStart(this);
+    }, 500);
+  },
+  onReady: function () {
+    /* 延迟两秒后再更新棋盘位置表，避免出现错误 */
+    setTimeout(() => {
+      let query = wx.createSelectorQuery();
+      query.selectAll('.chess_map > .chess_box').boundingClientRect();
+      query.exec((res) => {
+        let pos_table = [];
+        res[0].forEach((e) => {
+          pos_table[parseInt(e.id)] = {
+            // left: e.left,
+            // right: e.right,
+            // top: e.top,
+            // bottom: e.bottom,
+            // centerX: (e.left + e.right) / 2,
+            // centerY: (e.top + e.bottom) / 2,
+            left: (e.left + e.right) / 2,
+            top: (e.top + e.bottom) / 2,
+          }
+        });
+        console.log(pos_table);
+        that.setData({
+          pos_table: pos_table
+        });
+      });
+    }, 2000);
   },
   data: {
-    chess_size: 40,
+    windowWidth: app.windowWidth,
+    windowHeight: app.windowHeight,
+    chess_size: (app.windowWidth * 0.8) / 7,
     level_flow: [5],
     level_time: [5],
     level_index: 0,
-    board_num: [] /* board.length = board_size */,
+    board_num: [] /* board.length = board_size */ ,
     board_img_url: [],
     chess_index: [],
     chess_move: [],
-    chess_float: [] /* 左右方向上的浮动变量 */,
+    chess_float: [] /* 左右方向上的浮动变量 */ ,
     chess_start: [],
     chess_zindex: [],
     chess_nowAt: [],
-    game_state: "等待中" /* 练习中 等待中 游戏中 游戏结束 */,
-    pos_table: [
-      {
-        left: 70,
-        top: 78,
-      },
-      {
-        left: 131,
-        top: 78,
-      },
-      {
-        left: 190,
-        top: 78,
-      },
-      {
-        left: 250,
-        top: 78,
-      },
-      {
-        left: 70,
-        top: 138,
-      },
-      {
-        left: 131,
-        top: 138,
-      },
-      {
-        left: 190,
-        top: 138,
-      },
-      {
-        left: 250,
-        top: 138,
-      },
-      {
-        left: 70,
-        top: 197,
-      },
-      {
-        left: 131,
-        top: 197,
-      },
-      {
-        left: 190,
-        top: 197,
-      },
-      {
-        left: 250,
-        top: 197,
-      },
-      {
-        left: 70,
-        top: 257,
-      },
-      {
-        left: 131,
-        top: 257,
-      },
-      {
-        left: 190,
-        top: 257,
-      },
-      {
-        left: 250,
-        top: 257,
-      },
-    ],
+    game_state: "等待中" /* 练习中 等待中 游戏中 游戏结束 */ ,
+    pos_table: [],
     time_limit: 30,
     time_second: 30,
     time_str: "30秒",
@@ -177,7 +143,7 @@ Page({
       endAnswer =
         endAnswer &&
         this.data.chess_nowAt[this.data.chess_index[i]] ==
-          this.data.chess_index[i];
+        this.data.chess_index[i];
     }
     let that = this;
     if (endAnswer) {
@@ -192,9 +158,6 @@ Page({
   },
   gameStart: function () {
     gameStart(this);
-  },
-  gameReStart: function () {
-    gameReStart(this);
   },
 });
 

@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/zyy_memory_span/memory_span",
     "pages/zyy_memory_span/rule/rule",
+    "pages/zyy_memory_span/memory_span",
     "pages/zyy_memory_span/test/test"
   ],
   "window": {
