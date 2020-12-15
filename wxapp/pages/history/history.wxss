@@ -5,7 +5,7 @@ page {
   background-size: 100% 100%;
 }
 
-.top {
+/* .top {
   flex-direction: column;
   margin-bottom: 3%;
 }
@@ -25,13 +25,12 @@ page {
   font-weight: 800;
   letter-spacing: 5px;
   margin-left: 25%;
-}
+} */
 
 .time{
-  text-align: right;
-  align-items: right;
-  justify-content: right;
-  margin-right: 10%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
   color: black;
 }
 
@@ -42,7 +41,7 @@ page {
   align-items: center;
   justify-content: center;
   margin: 3% 4%;
-  opacity: 0.8;
+  opacity: 0.9;
   border-radius: 100rpx;
 }
 
