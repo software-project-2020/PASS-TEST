@@ -22,7 +22,7 @@ var successive_avggrade = 60;
 Page({
 
   data: {
-    
+
     triggered: false,
     stepText: 5,
     my: [
@@ -173,14 +173,19 @@ Page({
         that.setData({
           deviceWidth: res.windowWidth,
           deviceHeight: res.windowHeight,
-          deviceWidthLook: res.windowWidth*0.9,
-          deviceHeightLook: res.windowHeight*0.78
+          deviceWidthLook: res.windowWidth * 0.9,
+          deviceHeightLook: res.windowHeight * 0.88
         })
       }
     })
 
   },
-    /**
+  onShow: function () {
+    wx.setNavigationBarTitle({
+      title: '测试结果'
+    })
+  },
+  /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
@@ -319,317 +324,316 @@ Page({
 
   writeCanvas() {
     var that = this;
-    ctx.setFillStyle('white')
+    //加白色矩形当背景
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillRect(0, 0, 800, 3000);
+
 
     //雷达图
-    ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 22)
-    ctx.setFillStyle('#999999')
-    ctx.fillText('雷达图', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 50)
-
+    ctx.setFillStyle('white')
     this.drawRadar()
 
     //雷达图图标
-    ctx.setFontSize((that.data.deviceWidth / 750) * 22)
+    ctx.setFontSize(11)
     ctx.setFillStyle('#666666')
-    ctx.fillText('我的成绩', (that.data.deviceWidth / 750) * 210, (that.data.deviceHeight / 1334) * 650)
+    ctx.fillText('我的成绩', 105, 325)
     ctx.setFillStyle('#666666')
-    ctx.fillText('平均成绩', (that.data.deviceWidth / 750) * 410, (that.data.deviceHeight / 1334) * 650)
+    ctx.fillText('平均成绩', 205, 325)
     ctx.fillStyle = '#475CB1';
-    ctx.fillRect((that.data.deviceWidth / 750) * 170, (that.data.deviceHeight / 1334) * 630, 10, 10)
+    ctx.fillRect(85, 315, 10, 10)
     ctx.fillStyle = '#F7991F';
-    ctx.fillRect((that.data.deviceWidth / 750) * 370, (that.data.deviceHeight / 1334) * 630, 10, 10)
+    ctx.fillRect(185, 315, 10, 10)
     //排名
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 22)
+    ctx.setFontSize(11)
     ctx.setFillStyle('#666666')
-    ctx.fillText('排名', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 700)
+    ctx.fillText('排名', 15, 350)
 
     ctx.font = `bold 40px sans-serif`;
     ctx.setFontSize((that.data.deviceWidth / 750) * 25)
     ctx.setFillStyle('#000000')
-    ctx.fillText('计划', (that.data.deviceWidth / 750) * 85, (that.data.deviceHeight / 1334) * 780)
-    ctx.fillText('注意', (that.data.deviceWidth / 750) * 265, (that.data.deviceHeight / 1334) * 780)
-    ctx.fillText('同时性', (that.data.deviceWidth / 750) * 445, (that.data.deviceHeight / 1334) * 780)
-    ctx.fillText('继时性', (that.data.deviceWidth / 750) * 625, (that.data.deviceHeight / 1334) * 780)
+    ctx.fillText('计划', 42, 390)
+    ctx.fillText('注意', 132, 390)
+    ctx.fillText('同时性', 222, 390)
+    ctx.fillText('继时性', 312, 390)
 
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.plan + ' / ' + this.data.people, (that.data.deviceWidth / 750) * 75, (that.data.deviceHeight / 1334) * 880)
-    ctx.fillText(this.data.attention + ' / ' + this.data.people, (that.data.deviceWidth / 750) * 255, (that.data.deviceHeight / 1334) * 880)
-    ctx.fillText(this.data.simultaneous + ' / ' + this.data.people, (that.data.deviceWidth / 750) * 435, (that.data.deviceHeight / 1334) * 880)
-    ctx.fillText(this.data.successive + ' / ' + this.data.people, (that.data.deviceWidth / 750) * 615, (that.data.deviceHeight / 1334) * 880)
+    ctx.fillText(this.data.plan + ' / ' + this.data.people, 45, 440)
+    ctx.fillText(this.data.attention + ' / ' + this.data.people, 135, 440)
+    ctx.fillText(this.data.simultaneous + ' / ' + this.data.people, 225, 440)
+    ctx.fillText(this.data.successive + ' / ' + this.data.people, 315, 440)
 
     ctx.setStrokeStyle("#E5E5E5");
     //画横线
     for (var i = 0; i < 3; i++) {
       ctx.beginPath();
-      ctx.moveTo((that.data.deviceWidth / 750) * 30, that.data.deviceHeight / 1337 * (i * 100 + 720));
-      ctx.lineTo(that.data.deviceWidth, that.data.deviceHeight / 1337 * (i * 100 + 720));
+      ctx.moveTo(15, (i * 50 + 360));
+      ctx.lineTo(375, (i * 50 + 360));
       ctx.stroke();
     }
     //画竖线
     for (var i = 0; i < 5; i++) {
       ctx.beginPath();
-      ctx.moveTo(that.data.deviceWidth / 750 * (i * 180 + 30), (that.data.deviceHeight / 1334) * 720);
-      ctx.lineTo(that.data.deviceWidth / 750 * (i * 180 + 30), (that.data.deviceHeight / 1334) * 920);
+      ctx.moveTo((i * 90 + 15), 360);
+      ctx.lineTo((i * 90 + 15), 460);
       ctx.stroke();
     }
 
     //做题详情
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 22)
+    ctx.setFontSize(11)
     ctx.setFillStyle('#666666')
-    ctx.fillText('做题详情', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 1000)
+    ctx.fillText('做题详情', 15, 500)
 
     ctx.font = `bold 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('题目', (that.data.deviceWidth / 750) * 180, (that.data.deviceHeight / 1334) * 1115)
-    ctx.fillText('做题详情', (that.data.deviceWidth / 750) * 520, (that.data.deviceHeight / 1334) * 1115)
+    ctx.fillText('题目', 90, 557)
+    ctx.fillText('做题详情', 260, 557)
 
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('舒尔特方块', (that.data.deviceWidth / 750) * 160, (that.data.deviceHeight / 1334) * 1215)
-    ctx.fillText(this.data.plan2_count + " * " + this.data.plan2_count + " : " + this.data.plan2_time + " s", (that.data.deviceWidth / 750) * 510, (that.data.deviceHeight / 1334) * 1198)
-    ctx.fillText(this.data.plan3_count + " * " + this.data.plan3_count + " : " + this.data.plan3_time + " s", (that.data.deviceWidth / 750) * 510, (that.data.deviceHeight / 1334) * 1231)
-    ctx.fillText('寻找数字', (that.data.deviceWidth / 750) * 160, (that.data.deviceHeight / 1334) * 1315)
-    ctx.fillText(this.data.attention1_right + " / " + this.data.attention1_sum, (that.data.deviceWidth / 750) * 520, (that.data.deviceHeight / 1334) * 1315)
-    ctx.fillText('接受性注意', (that.data.deviceWidth / 750) * 160, (that.data.deviceHeight / 1334) * 1415)
-    ctx.fillText(this.data.attention2_right + " / " + this.data.attention2_sum, (that.data.deviceWidth / 750) * 520, (that.data.deviceHeight / 1334) * 1415)
-    ctx.fillText('言语加工', (that.data.deviceWidth / 750) * 160, (that.data.deviceHeight / 1334) * 1515)
-    ctx.fillText(this.data.simultaneous1_right + " / " + this.data.simultaneous1_sum, (that.data.deviceWidth / 750) * 520, (that.data.deviceHeight / 1334) * 1515)
-    ctx.fillText('渐进矩阵', (that.data.deviceWidth / 750) * 160, (that.data.deviceHeight / 1334) * 1615)
-    ctx.fillText(this.data.simultaneous2_right + " / " + this.data.simultaneous2_sum, (that.data.deviceWidth / 750) * 520, (that.data.deviceHeight / 1334) * 1615)
-    ctx.fillText('单词序列', (that.data.deviceWidth / 750) * 160, (that.data.deviceHeight / 1334) * 1715)
-    ctx.fillText(this.data.successive1_right + " / " + this.data.successive1_sum, (that.data.deviceWidth / 750) * 520, (that.data.deviceHeight / 1334) * 1715)
-    ctx.fillText('句子提问', (that.data.deviceWidth / 750) * 160, (that.data.deviceHeight / 1334) * 1815)
-    ctx.fillText(this.data.successive2_right + " / " + this.data.successive2_sum, (that.data.deviceWidth / 750) * 520, (that.data.deviceHeight / 1334) * 1815)
-    ctx.fillText('记忆广度', (that.data.deviceWidth / 750) * 160, (that.data.deviceHeight / 1334) * 1915)
-    ctx.fillText(this.data.successive3_right + " / " + this.data.successive3_sum, (that.data.deviceWidth / 750) * 520, (that.data.deviceHeight / 1334) * 1915)
+    ctx.fillText('舒尔特方块', 80, 607)
+    ctx.fillText(this.data.plan2_count + " * " + this.data.plan2_count + " : " + this.data.plan2_time + " s", 255, 599)
+    ctx.fillText(this.data.plan3_count + " * " + this.data.plan3_count + " : " + this.data.plan3_time + " s", 255, 615)
+    ctx.fillText('寻找数字', 80, 657)
+    ctx.fillText(this.data.attention1_right + " / " + this.data.attention1_sum, 260, 657)
+    ctx.fillText('接受性注意', 80, 707)
+    ctx.fillText(this.data.attention2_right + " / " + this.data.attention2_sum, 260, 707)
+    ctx.fillText('言语加工', 80, 757)
+    ctx.fillText(this.data.simultaneous1_right + " / " + this.data.simultaneous1_sum, 260, 757)
+    ctx.fillText('渐进矩阵', 80, 807)
+    ctx.fillText(this.data.simultaneous2_right + " / " + this.data.simultaneous2_sum, 260, 807)
+    ctx.fillText('单词序列', 80, 857)
+    ctx.fillText(this.data.successive1_right + " / " + this.data.successive1_sum, 260, 857)
+    ctx.fillText('句子提问', 80, 907)
+    ctx.fillText(this.data.successive2_right + " / " + this.data.successive2_sum, 260, 907)
+    ctx.fillText('记忆广度', 80, 957)
+    ctx.fillText(this.data.successive3_right + " / " + this.data.successive3_sum, 260, 957)
 
     //画横线
     for (var i = 0; i < 10; i++) {
       ctx.beginPath();
-      ctx.moveTo((that.data.deviceWidth / 750) * 30, that.data.deviceHeight / 1334 * (i * 100 + 1050));
-      ctx.lineTo(that.data.deviceWidth, that.data.deviceHeight / 1334 * (i * 100 + 1050));
+      ctx.moveTo(15, (i * 50 + 525));
+      ctx.lineTo(375, (i * 50 + 525));
       ctx.stroke();
     }
     //画竖线
     for (var i = 0; i < 3; i++) {
       ctx.beginPath();
-      ctx.moveTo(that.data.deviceWidth / 750 * (i * 358 + 30), (that.data.deviceHeight / 1334) * 1950);
-      ctx.lineTo(that.data.deviceWidth / 750 * (i * 358 + 30), (that.data.deviceHeight / 1334) * 1050);
+      ctx.moveTo((i * 179 + 15), 975);
+      ctx.lineTo((i * 179 + 15), 525);
       ctx.stroke();
     }
 
     //分析与建议
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 22)
+    ctx.setFontSize(11)
     ctx.setFillStyle('#666666')
-    ctx.fillText('分析与建议', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 2030)
+    ctx.fillText('分析与建议', 15, 1015)
 
     //第一段
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('根据上述排名，你的', (that.data.deviceWidth / 750) * 80, (that.data.deviceHeight / 1334) * 2100)
+    ctx.fillText('根据上述排名，你的', 40, 1050)
     ctx.font = `bold 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.max, (that.data.deviceWidth / 750) * 305, (that.data.deviceHeight / 1334) * 2100)
+    ctx.fillText(this.data.max, 149, 1050)
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('加工能力比较好，你的', (that.data.deviceWidth / 750) * (305 + 25 * this.data.max.length), (that.data.deviceHeight / 1334) * 2100)
+    ctx.fillText('加工能力比较好，你的', (150 + 12 * this.data.max.length), 1050)
     ctx.font = `bold 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.min, (that.data.deviceWidth / 750) * (555 + 25 * this.data.max.length), (that.data.deviceHeight / 1334) * 2100)
+    ctx.fillText(this.data.min, (272 + 12 * this.data.max.length), 1050)
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('加', (that.data.deviceWidth / 750) * (555 + 25 * this.data.max.length + 25 * this.data.min.length), (that.data.deviceHeight / 1334) * 2100)
+    ctx.fillText('加', (273 + 12 * this.data.max.length + 12 * this.data.min.length), 1050)
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('工能力比较差。', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 2150)
+    ctx.fillText('工能力比较差。', 15, 1075)
     //计划
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('同龄人中，你的计划加工能力达到了', (that.data.deviceWidth / 750) * 80, (that.data.deviceHeight / 1334) * 2200)
+    ctx.fillText('同龄人中，你的计划加工能力达到了', 40, 1100)
     ctx.font = `bold 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.plan_grade, (that.data.deviceWidth / 750) * 480, (that.data.deviceHeight / 1334) * 2200)
+    ctx.fillText(this.data.plan_grade, 235, 1100)
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('水平，约有', (that.data.deviceWidth / 750) * (480 + 25 * this.data.plan_grade.length), (that.data.deviceHeight / 1334) * 2200)
+    ctx.fillText('水平，约有', (238 + 12 * this.data.plan_grade.length), 1100)
     ctx.font = `bold 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.plan_percentage + '%', (that.data.deviceWidth / 750) * (605 + 25 * this.data.plan_grade.length), (that.data.deviceHeight / 1334) * 2200)
+    ctx.fillText(this.data.plan_percentage + '%', (300 + 12 * this.data.plan_grade.length), 1100)
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('的人处于这一水平。计划加工能力是为解决问题、达到目标而使', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 2240)
+    ctx.fillText('的人处于这一水平。计划加工能力是为解决问题、达到目标而使', 15, 1120)
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('用和修改的一组决策或策略，它是指向某个目标的行动过程的预', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 2280)
+    ctx.fillText('用和修改的一组决策或策略，它是指向某个目标的行动过程的预', 15, 1140)
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('先决定。', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 2320)
+    ctx.fillText('先决定。', 15, 1160)
     //注意
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('你的注意加工能力达到了', (that.data.deviceWidth / 750) * 80, (that.data.deviceHeight / 1334) * 2370)
+    ctx.fillText('你的注意加工能力达到了', 40, 1185)
     ctx.font = `bold 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.attention_grade, (that.data.deviceWidth / 750) * 355, (that.data.deviceHeight / 1334) * 2370)
+    ctx.fillText(this.data.attention_grade, 175, 1185)
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('水平，约有', (that.data.deviceWidth / 750) * (355 + 25 * this.data.attention_grade.length), (that.data.deviceHeight / 1334) * 2370)
+    ctx.fillText('水平，约有', (175 + 12 * this.data.attention_grade.length), 1185)
     ctx.font = `bold 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.attention_percentage + '%', (that.data.deviceWidth / 750) * (480 + 25 * this.data.attention_grade.length), (that.data.deviceHeight / 1334) * 2370)
+    ctx.fillText(this.data.attention_percentage + '%', (240 + 12 * this.data.attention_grade.length), 1185)
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
     if (this.data.attention_percentage < 10) {
-      ctx.fillText('的人处于这', (that.data.deviceWidth / 750) * (520 + 25 * this.data.attention_grade.length), (that.data.deviceHeight / 1334) * 2370)
+      ctx.fillText('的人处于这', (256 + 12 * this.data.attention_grade.length), 1185)
       ctx.font = `normal 40px sans-serif`;
-      ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+      ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('一水平。维持性注意是对单一信息源在连续的一段时间内的注意', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 2410)
+      ctx.fillText('一水平。维持性注意是对单一信息源在连续的一段时间内的注意', 15, 1205)
       ctx.font = `normal 40px sans-serif`;
-      ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+      ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('保持，但是对注意的评估不包括集中和分配时间的能力。', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 2450)
+      ctx.fillText('保持，但是对注意的评估不包括集中和分配时间的能力。', 15, 1225)
     } else {
-      ctx.fillText('的人处于这一', (that.data.deviceWidth / 750) * (535 + 25 * this.data.attention_grade.length), (that.data.deviceHeight / 1334) * 2370)
+      ctx.fillText('的人处于这一', (267 + 12 * this.data.attention_grade.length), 1185)
       ctx.font = `normal 40px sans-serif`;
-      ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+      ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('水平。维持性注意是对单一信息源在连续的一段时间内的注意保', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 2410)
+      ctx.fillText('水平。维持性注意是对单一信息源在连续的一段时间内的注意保', 15, 1205)
       ctx.font = `normal 40px sans-serif`;
-      ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+      ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('持，但是对注意的评估不包括集中和分配时间的能力。', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 2450)
+      ctx.fillText('持，但是对注意的评估不包括集中和分配时间的能力。', 15, 1225)
     }
     //同时性
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('你的同时性加工能力达到了', (that.data.deviceWidth / 750) * 80, (that.data.deviceHeight / 1334) * 2500)
+    ctx.fillText('你的同时性加工能力达到了', 40, 1250)
     ctx.font = `bold 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.simultaneous_grade, (that.data.deviceWidth / 750) * 380, (that.data.deviceHeight / 1334) * 2500)
+    ctx.fillText(this.data.simultaneous_grade, 188, 1250)
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('水平，约有', (that.data.deviceWidth / 750) * (380 + 25 * this.data.simultaneous_grade.length), (that.data.deviceHeight / 1334) * 2500)
+    ctx.fillText('水平，约有', (188 + 12 * this.data.simultaneous_grade.length), 1250)
     ctx.font = `bold 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.simultaneous_percentage + '%', (that.data.deviceWidth / 750) * (505 + 25 * this.data.simultaneous_grade.length), (that.data.deviceHeight / 1334) * 2500)
+    ctx.fillText(this.data.simultaneous_percentage + '%', (250 + 12 * this.data.simultaneous_grade.length), 1250)
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
     if (this.data.simultaneous_percentage < 10) {
-      ctx.fillText('的人处于', (that.data.deviceWidth / 750) * (545 + 25 * this.data.simultaneous_grade.length), (that.data.deviceHeight / 1334) * 2500)
+      ctx.fillText('的人处于', (270 + 12 * this.data.simultaneous_grade.length), 1250)
       ctx.font = `normal 40px sans-serif`;
-      ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+      ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('这一水平。评估同时性编码的目标是要测量人们联结和整合离散', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 2540)
+      ctx.fillText('这一水平。评估同时性编码的目标是要测量人们联结和整合离散', 15, 1270)
       ctx.font = `normal 40px sans-serif`;
-      ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+      ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('的片断信息的能力——即把两个或两个以上的信息片断加工为一', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 2580)
+      ctx.fillText('的片断信息的能力——即把两个或两个以上的信息片断加工为一', 15, 1290)
       ctx.font = `normal 40px sans-serif`;
-      ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+      ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('个片断。', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 2620)
+      ctx.fillText('个片断。', 15, 1310)
     } else {
-      ctx.fillText('的人处于这', (that.data.deviceWidth / 750) * (560 + 25 * this.data.simultaneous_grade.length), (that.data.deviceHeight / 1334) * 2500)
+      ctx.fillText('的人处于这', (280 + 12 * this.data.simultaneous_grade.length), 1250)
       ctx.font = `normal 40px sans-serif`;
-      ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+      ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('一水平。评估同时性编码的目标是要测量人们联结和整合离散的', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 2540)
+      ctx.fillText('一水平。评估同时性编码的目标是要测量人们联结和整合离散的', 15, 1270)
       ctx.font = `normal 40px sans-serif`;
-      ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+      ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('片断信息的能力——即把两个或两个以上的信息片断加工为一个', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 2580)
+      ctx.fillText('片断信息的能力——即把两个或两个以上的信息片断加工为一个', 15, 1290)
       ctx.font = `normal 40px sans-serif`;
-      ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+      ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('片断。', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 2620)
+      ctx.fillText('片断。', 15, 1310)
     }
     //继时性
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('你的继时性加工能力达到了', (that.data.deviceWidth / 750) * 80, (that.data.deviceHeight / 1334) * 2670)
+    ctx.fillText('你的继时性加工能力达到了', 40, 1335)
     ctx.font = `bold 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.successive_grade, (that.data.deviceWidth / 750) * 380, (that.data.deviceHeight / 1334) * 2670)
+    ctx.fillText(this.data.successive_grade, 188, 1335)
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('水平，约有', (that.data.deviceWidth / 750) * (380 + 25 * this.data.successive_grade.length), (that.data.deviceHeight / 1334) * 2670)
+    ctx.fillText('水平，约有', (188 + 12 * this.data.successive_grade.length), 1335)
     ctx.font = `bold 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.successive_percentage + '%', (that.data.deviceWidth / 750) * (505 + 25 * this.data.simultaneous_grade.length), (that.data.deviceHeight / 1334) * 2670)
+    ctx.fillText(this.data.successive_percentage + '%', (250 + 12 * this.data.successive_grade.length), 1335)
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
     if (this.data.successive_percentage < 10) {
-      ctx.fillText('的人处于', (that.data.deviceWidth / 750) * (545 + 25 * this.data.successive_grade.length), (that.data.deviceHeight / 1334) * 2670)
+      ctx.fillText('的人处于', (270 + 12 * this.data.successive_grade.length), 1335)
       ctx.font = `normal 40px sans-serif`;
-      ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+      ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('这一水平。测试继时性编码的目的是为了评价人们以特定的顺', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 2710)
+      ctx.fillText('这一水平。测试继时性编码的目的是为了评价人们以特定的顺', 15, 1355)
       ctx.font = `normal 40px sans-serif`;
-      ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+      ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('序保持信息的技能。', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 2750)
+      ctx.fillText('序保持信息的技能。', 15, 1375)
     } else {
-      ctx.fillText('的人处于这', (that.data.deviceWidth / 750) * (560 + 25 * this.data.successive_grade.length), (that.data.deviceHeight / 1334) * 2670)
+      ctx.fillText('的人处于这', (280 + 12 * this.data.successive_grade.length), 1335)
       ctx.font = `normal 40px sans-serif`;
-      ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+      ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('一水平。测试继时性编码的目的是为了评价人们以特定的顺序保', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 2710)
+      ctx.fillText('一水平。测试继时性编码的目的是为了评价人们以特定的顺序保', 15, 1355)
       ctx.font = `normal 40px sans-serif`;
-      ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+      ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('持信息的技能。', (that.data.deviceWidth / 750) * 30, (that.data.deviceHeight / 1334) * 2750)
+      ctx.fillText('持信息的技能。', 15, 1375)
     }
 
     //建议
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('建议：可以适当提高', (that.data.deviceWidth / 750) * 80, (that.data.deviceHeight / 1334) * 2800)
+    ctx.fillText('建议：可以适当提高', 40, 1400)
     ctx.font = `bold 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.min, (that.data.deviceWidth / 750) * 305, (that.data.deviceHeight / 1334) * 2800)
+    ctx.fillText(this.data.min, 150, 1400)
     ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize((that.data.deviceWidth / 750) * 25)
+    ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('加工能力，更加有助于孩子的成长。', (that.data.deviceWidth / 750) * 380, (that.data.deviceHeight / 1334) * 2800)
+    ctx.fillText('加工能力，更加有助于孩子的成长。', 188, 1400)
 
     //渲染
     ctx.draw(true, () => {
@@ -644,12 +648,10 @@ Page({
     var that = this;
     //需要把canvas转成图片后才能保存
     wx.canvasToTempFilePath({
-      x: 0,
-      y: 0,
-      width: 800,
-      height: 3000,
-      destWidth: 1600, //2倍关系
-      destHeight: 6000, //2倍关系
+      // width: 800,
+      // height: 3000,
+      // destWidth: 1600, //2倍关系
+      // destHeight: 6000, //2倍关系
       canvasId: 'myCanvas',
       success: function (res) {
         console.log(res.tempFilePath);
@@ -725,7 +727,7 @@ Page({
     })
   },
 
-  return:function(e){
+  return: function (e) {
     wx.navigateTo({
       url: '../../pages/start/start'
     })

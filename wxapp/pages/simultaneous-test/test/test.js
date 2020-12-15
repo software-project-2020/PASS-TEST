@@ -177,12 +177,12 @@ Page({
       console.log(res)
       if (res.data == 'true') this.addscore()
       console.log(this.data.score)
-      app.globalData.score_detail[1][1] = {
+      app.globalData.scoreDetail[1][1] = {
         score: that.data.score,
         qnum: that.data.qnum - 1
       }
       app.globalData.score[1] =parseInt(app.globalData.score[1] + that.data.score / (that.data.qnum - 1)*100 * 0.4) 
-      wx.navigateTo({
+      wx.redirectTo({
         url: "/pages/attention/rule1/attention",
       })
     })

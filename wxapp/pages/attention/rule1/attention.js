@@ -18,7 +18,7 @@ Page({
   },
 
   button_start:function(){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../game1/attention_game'
     })
   }

@@ -15,7 +15,7 @@ Page({
       confirmText:'开始练习',
       success: function (res) {
         if (res.confirm) {//这里是点击了确定以后
-          wx.navigateTo({
+          wx.redirectTo({
             url: '/pages/simultaneous-test/test/test',
           })
         }

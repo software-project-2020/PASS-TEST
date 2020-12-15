@@ -28,6 +28,7 @@
       "disablePlugins": [],
       "outputPath": ""
     },
+    "enableEngineNative": false,
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
@@ -150,6 +151,63 @@
           "name": "pages/simultaneous-test/simultaneous1/simultaneous1",
           "pathName": "pages/simultaneous-test/simultaneous1/simultaneous1",
           "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/S2/successive-rules/successive-rules",
+          "pathName": "pages/S2/successive-rules/successive-rules",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/Planning/test1/test1",
+          "pathName": "pages/Planning/test1/test1",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/Planning/rule4.1/rule4.1",
+          "pathName": "pages/Planning/rule4.1/rule4.1",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+          "pathName": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/SelfCenter/my/my",
+          "pathName": "pages/SelfCenter/my/my",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/SelfCenter/History/History",
+          "pathName": "pages/SelfCenter/History/History",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/SelfCenter/suggestion/suggestion",
+          "pathName": "pages/SelfCenter/suggestion/suggestion",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/result/result",
+          "pathName": "pages/result/result",
           "scene": null
         }
       ]

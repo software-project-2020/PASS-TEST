@@ -1,8 +1,8 @@
 <!--pages/result/result.wxml-->
-<view class="top">
-  <image class="return" src="../../image/return.png" bindtap="return"></image>
+<!-- <view class="top">
+  <image class="return" src="https://picture.morii.top/renzhixuetang/return.png" bindtap="return"></image>
   <text class="text">测试结果</text>
-</view>
+</view> -->
 
 <view class="back" style="width : {{deviceWidthLook}}px; height : {{deviceHeightLook}}px">
   <scroll-view scroll-y class="result">
@@ -41,12 +41,13 @@
           <view class="th">题目</view>
           <view class="th">做题详情</view>
         </view>
-        <block >
+        <block>
           <view class="tr bg-g">
             <view class="td">舒尔特方块</view>
-            <view class="td" style="white-space:pre-wrap">{{plan2_count}} * {{plan2_count}} : {{plan2_time}}s \n {{plan3_count}} * {{plan3_count}} : {{plan3_time}}s</view>
+            <view class="td" style="white-space:pre-wrap">{{plan2_count}} * {{plan2_count}} : {{plan2_time}}s \n
+              {{plan3_count}} * {{plan3_count}} : {{plan3_time}}s</view>
           </view>
-          <view class="tr" >
+          <view class="tr">
             <view class="td">寻找数字</view>
             <view class="td">{{attention1_right}} / {{attention1_sum}}</view>
           </view>
@@ -79,18 +80,21 @@
     </view>
     <view class="text4">
       <text class="text3">分析与建议</text>
-      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;根据上述排名，你的<text
-          class="text_thick">{{max}}</text>加工能力比较好，你的<text
-          class="text_thick">{{min}}</text>加工能力比较差。</text>
-      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;在同龄人中，你的计划加工能力达到了<text
-          class="text_thick">{{plan_grade}}</text>水平，约有<text class="text_thick">{{plan_percentage}}%</text>的人处于这一水平。计划加工能力是为解决问题、达到目标而使用和修改的一组决策或策略，它是指向某个目标的行动过程的预先决定。</text>
-      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;你的注意加工能力达到了<text
-          class="text_thick">{{attention_grade}}</text>水平，约有<text class="text_thick">{{attention_percentage}}%</text>的人处于这一水平。维持性注意是对单一信息源在连续的一段时间内的注意保持，但是对注意的评估不包括集中和分配时间的能力。</text>
-      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;你的同时性加工能力达到了<text
-          class="text_thick">{{simultaneous_grade}}</text>水平，约有<text class="text_thick">{{simultaneous_percentage}}%</text>的人处于这一水平。评估同时性编码的目标是要测量人们联结和整合离散的片断信息的能力——即把两个或两个以上的信息片断加工为一个片断。</text>
-      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;你的继时性加工能力达到了<text
-          class="text_thick">{{successive_grade}}</text>水平，约有<text class="text_thick">{{successive_percentage}}%</text>的人处于这一水平。测试继时性编码的目的是为了评价人们以特定的顺序保持信息的技能。</text>
-      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;建议：可以适当提高<text
+      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;根据上述排名，你的<text
+          class="text_thick">{{max}}</text>加工能力比较好，你的<text class="text_thick">{{min}}</text>加工能力比较差。</text>
+      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在同龄人中，你的计划加工能力达到了<text
+          class="text_thick">{{plan_grade}}</text>水平，约有<text
+          class="text_thick">{{plan_percentage}}%</text>的人处于这一水平。计划加工能力是为解决问题、达到目标而使用和修改的一组决策或策略，它是指向某个目标的行动过程的预先决定。</text>
+      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你的注意加工能力达到了<text
+          class="text_thick">{{attention_grade}}</text>水平，约有<text
+          class="text_thick">{{attention_percentage}}%</text>的人处于这一水平。维持性注意是对单一信息源在连续的一段时间内的注意保持，但是对注意的评估不包括集中和分配时间的能力。</text>
+      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你的同时性加工能力达到了<text
+          class="text_thick">{{simultaneous_grade}}</text>水平，约有<text
+          class="text_thick">{{simultaneous_percentage}}%</text>的人处于这一水平。评估同时性编码的目标是要测量人们联结和整合离散的片断信息的能力——即把两个或两个以上的信息片断加工为一个片断。</text>
+      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你的继时性加工能力达到了<text
+          class="text_thick">{{successive_grade}}</text>水平，约有<text
+          class="text_thick">{{successive_percentage}}%</text>的人处于这一水平。测试继时性编码的目的是为了评价人们以特定的顺序保持信息的技能。</text>
+      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;建议：可以适当提高<text
           class="text_thick">{{min}}</text>加工能力，更加有助于孩子的成长。</text>
     </view>
   </scroll-view>

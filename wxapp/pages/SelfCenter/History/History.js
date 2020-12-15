@@ -1,4 +1,5 @@
 // pages/SelfCenter/History/History.js
+var testutil = require('../../../utils/testutil.js')
 Page({
 
   /**
@@ -60,6 +61,14 @@ Page({
     this.setData({
       newrecord:newrecord
     })
+    if(this.data.TestYear!=null&&this.data.TestMonth!=null){
+      var recorddata={
+        TestYear:this.data.TestYear,
+        TestMonth:this.data.TestMonth
+      }
+      console.log(JSON.stringify(recorddata))
+      testutil.getrecordInfo(recorddata)
+    }
   }
   ,
   m_select_touch(e) {

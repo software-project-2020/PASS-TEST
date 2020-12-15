@@ -22,9 +22,9 @@
 </view>
 <view class="start">
   <button class="button_back_test" size="mini" bindtap = "test">
-    <image class="button_back_test_image" src="../../image/start/button_back_test.png" mode="scaleToFill" ></image>
+    <image class="button_back_test_image" src="https://picture.morii.top/renzhixuetang/start/button_back_test.png" mode="scaleToFill" ></image>
   </button>
   <button class="list_back" size="mini" bindtap = "list">
-    <image class="list_back_image" src="../../image/start/list_back.png" mode="scaleToFill" ></image>
+    <image class="list_back_image" src="https://picture.morii.top/renzhixuetang/start/list_back.png" mode="scaleToFill" ></image>
   </button>
 </view>
