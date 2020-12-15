@@ -14,6 +14,7 @@ import (
 	"math/rand"
 	"net/http"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -81,6 +82,8 @@ func main() {
 	r.POST("/api/user/info", userInfo)
 
 	r.POST("/api/user/feedback", userFeedback)
+
+	r.POST("/api/test/submit", userSubmit)
 
 	r.Run(":23333")
 }
@@ -407,4 +410,200 @@ func userFeedback(c *gin.Context) {
 	mapJson, err := json.Marshal(result)
 	checkErr(err)
 	c.JSON(200, string(mapJson))
+}
+
+func userSubmit(c *gin.Context) {
+	defer recoverErr()
+	result := make(map[string]interface{})
+	result["error_code"] = 0
+	openid := c.PostForm("openid")
+	if openid == "" {
+		result["error_code"] = 10001
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("openid" + "字段为空")
+	}
+	age := c.PostForm("age")
+	if age == "" {
+		result["error_code"] = 10002
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("age" + "字段为空")
+	}
+	score := c.PostForm("score")
+	if score == "" {
+		result["error_code"] = 10003
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("score" + "字段为空")
+	}
+	cost_time := c.PostForm("cost_time")
+	if cost_time == "" {
+		result["error_code"] = 10004
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("cost_time" + "字段为空")
+	}
+	var scoreList []float64
+	err := json.Unmarshal([]byte(score), &scoreList)
+	checkErr(err)
+	if len(scoreList) != 5 {
+		result["error_code"] = 20001
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("score" + "字段数据异常")
+	}
+	sqlForRun := "SELECT max(test_order) from test_result where openid = ?"
+	stmt, err := Db.Prepare(sqlForRun)
+	defer stmt.Close()
+	row := stmt.QueryRow(openid)
+	var test_order int
+	err = row.Scan(&test_order)
+	test_order += 1
+
+	sqlForRun = "SELECT openid, max( test_order ), plan_score, attention_score, simul_score, suc_score, total_score FROM test_result WHERE openid IN ( SELECT openid FROM `user` WHERE age = ? ) GROUP BY openid"
+	stmt2, err := Db.Prepare(sqlForRun)
+	defer stmt2.Close()
+	row2, _ := stmt2.Query(age)
+	var userTResultList []models.UserTestResult
+	for row2.Next() {
+		UTResult := new(models.UserTestResult)
+		err = row2.Scan(&UTResult.Openid, &UTResult.TestOrder, &UTResult.PlanScore, &UTResult.AttentionScore,
+			&UTResult.SimulScore, &UTResult.SucScore, &UTResult.TotalScore)
+		if UTResult.Openid == openid {
+			continue
+		} else {
+			userTResultList = append(userTResultList, *UTResult)
+		}
+	}
+	UTResult := new(models.UserTestResult)
+	UTResult.Openid = openid
+	UTResult.TestOrder = test_order
+	UTResult.PlanScore = scoreList[0]
+	UTResult.AttentionScore = scoreList[1]
+	UTResult.SimulScore = scoreList[2]
+	UTResult.SucScore = scoreList[3]
+	UTResult.TotalScore = scoreList[4]
+	UTResult.Flag = 1
+	userTResultList = append(userTResultList, *UTResult)
+	sumPeople := len(userTResultList)
+
+	var avgP float64
+	var avgA float64
+	var avgS1 float64
+	var avgS2 float64
+	TotalP := 0.0
+	TotalA := 0.0
+	TotalS1 := 0.0
+	TotalS2 := 0.0
+
+	for i := 0; i < sumPeople; i++ {
+		TotalP += userTResultList[i].PlanScore
+		TotalA += userTResultList[i].AttentionScore
+		TotalS1 += userTResultList[i].SimulScore
+		TotalS2 += userTResultList[i].SucScore
+	}
+	avgP = TotalP / float64(sumPeople)
+	avgA = TotalA / float64(sumPeople)
+	avgS1 = TotalS1 / float64(sumPeople)
+	avgS2 = TotalS2 / float64(sumPeople)
+	var insertPRank int
+	var insertARank int
+	var insertS1Rank int
+	var insertS2Rank int
+	var insertTRank int
+	sort.SliceStable(userTResultList, func(i, j int) bool {
+		if userTResultList[i].PlanScore > userTResultList[j].PlanScore {
+			return true
+		}
+		return false
+	})
+	for i := 0; i < sumPeople; i++ {
+		if userTResultList[i].Flag == 1 {
+			insertPRank = i+1
+			break
+		}
+	}
+	sort.SliceStable(userTResultList, func(i, j int) bool {
+		if userTResultList[i].AttentionScore > userTResultList[j].AttentionScore {
+			return true
+		}
+		return false
+	})
+	for i := 0; i < sumPeople; i++ {
+		if userTResultList[i].Flag == 1 {
+			insertARank = i+1
+			break
+		}
+	}
+	sort.SliceStable(userTResultList, func(i, j int) bool {
+		if userTResultList[i].SimulScore > userTResultList[j].SimulScore {
+			return true
+		}
+		return false
+	})
+	for i := 0; i < sumPeople; i++ {
+		if userTResultList[i].Flag == 1 {
+			insertS1Rank = i+1
+			break
+		}
+	}
+	sort.SliceStable(userTResultList, func(i, j int) bool {
+		if userTResultList[i].SucScore > userTResultList[j].SucScore {
+			return true
+		}
+		return false
+	})
+	for i := 0; i < sumPeople; i++ {
+		if userTResultList[i].Flag == 1 {
+			insertS2Rank = i+1
+			break
+		}
+	}
+	sort.SliceStable(userTResultList, func(i, j int) bool {
+		if userTResultList[i].TotalScore > userTResultList[j].TotalScore {
+			return true
+		}
+		return false
+	})
+	for i := 0; i < sumPeople; i++ {
+		if userTResultList[i].Flag == 1 {
+			insertTRank = i+1
+			break
+		}
+	}
+	sqlForRun = "insert into test_result(openid,test_order,plan_score,plan_rank" +
+		",attention_score,attention_rank,simul_score,simul_rank,suc_score,suc_rank,cost_time" +
+		",test_date,sum_people,total_score,total_rank) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+	_, err = Db.Exec(sqlForRun, openid, test_order, scoreList[0], insertPRank, scoreList[1], insertARank, scoreList[2],
+		insertS1Rank, scoreList[3], insertS2Rank, cost_time, time.Now(), sumPeople, scoreList[4], insertTRank)
+	if err != nil {
+		checkErr(err)
+		result["error_code"] = 30001
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("sql 异常")
+	}
+	reList := make(map[string]interface{})
+	reList["plan_rank"] = insertPRank
+	reList["plan_avg_score"] = avgP
+	reList["attention_rank"] = insertARank
+	reList["attention_avg_score"] = avgA
+	reList["simul_rank"] = insertS1Rank
+	reList["simul_avg_score"] = avgS1
+	reList["suc_rank"] = insertS2Rank
+	reList["suc_avg_score"] = avgS2
+	reList["total_rank"] = insertTRank
+	reList["sum_peoele"] = sumPeople
+	result["data"] = reList
+	mapJson, err := json.Marshal(result)
+	checkErr(err)
+	c.JSON(200, string(mapJson))
+
 }
