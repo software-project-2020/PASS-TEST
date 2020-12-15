@@ -1,10 +1,4 @@
 <view class="container">
-  <view class="head">
-    <image src="../../image/successive/back.png" class="backimg" bindtap="backtox">
-    </image>
-    <image src="../../image/successive/rank.png" class="rankimg">
-    </image>
-  </view>
   <view class="body">
     <view class="combobox">
       <view class="select-wrap">
@@ -32,19 +26,19 @@
       </block>
     </view>
     <view class="pages">
-      <button wx:if="{{pagenum==1}}" style="width:30%"> <text class="button-text">首页</text></button>
-      <button wx:else bindtap="pre" style="width:30%"><text class="button-text">上一页</text></button>
+      <button wx:if="{{pagenum==1}}" style="width:30%" class="btn"> <text class="button-text">首 页</text></button>
+      <button wx:else bindtap="pre" style="width:30%" class="btn"><text class="button-text">上一页</text></button>
       <text>{{pagenum}}/{{all_number}}</text>
-      <button wx:if="{{pagenum==all_number}}" style="width:30%"><text class="button-text">尾页</text></button>
-      <button wx:else bindtap="next" style="width:30%"><text class="button-text">下一页</text></button>
+      <button wx:if="{{pagenum==all_number}}" style="width:30%" class="btn"><text class="button-text">尾 页</text></button>
+      <button wx:else bindtap="next" style="width:30%" class="btn"><text class="button-text">下一页</text></button>
     </view>
     <view class="userinfo">
       <block>
         <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="widthFix"></image>
       </block>
       <view class="userself">
-        <text class="userrank">我的排名：{{my_rank}}</text>
-        <text class="userrank">我的成绩：{{my_score}}</text>
+        <view class="userrank">我的排名：{{my_rank}}</view>
+        <view class="userrank">我的成绩：{{my_score}}</view>
       </view>
     </view>
   </view>
