@@ -152,7 +152,7 @@ Page({
   },
 
   resultShow: function(){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../../S2/successive/successive',
     })
   },
@@ -251,7 +251,7 @@ Page({
         confirmText: '确定',
         showCancel: false,
         success: function (res) {
-          wx.navigateTo({
+          wx.redirectTo({
             url: '../../S2/successive-rules/successive-rules',
           })
         }

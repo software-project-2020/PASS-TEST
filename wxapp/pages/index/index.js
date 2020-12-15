@@ -81,7 +81,8 @@ Page({
         }
       }
     } else {
-      wx.navigateTo({
+      app.globalData.userInfo = wx.getStorageSync('userInfo')
+      wx.redirectTo({
         url: '../start/start'
       })
     }
@@ -97,7 +98,7 @@ Page({
         'birthday': this.data.date,
         'gender': this.data.gender,
       }))
-      wx.navigateTo({
+      wx.redirectTo({
         url: '../start/start'
       })
     })

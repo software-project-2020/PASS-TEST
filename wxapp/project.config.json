@@ -28,6 +28,7 @@
       "disablePlugins": [],
       "outputPath": ""
     },
+    "enableEngineNative": false,
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
@@ -49,14 +50,6 @@
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "condition": {
-    "search": {
-      "current": -1,
-      "list": []
-    },
-    "conversation": {
-      "current": -1,
-      "list": []
-    },
     "plugin": {
       "current": -1,
       "list": []
@@ -66,7 +59,6 @@
       "list": []
     },
     "gamePlugin": {
-      "current": -1,
       "list": []
     },
     "miniprogram": {
@@ -157,9 +149,33 @@
           "scene": null
         },
         {
-          "id": -1,
+          "name": "pages/S2/successive-rules/successive-rules",
+          "pathName": "pages/S2/successive-rules/successive-rules",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/Planning/test1/test1",
+          "pathName": "pages/Planning/test1/test1",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/Planning/rule4.1/rule4.1",
+          "pathName": "pages/Planning/rule4.1/rule4.1",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+          "pathName": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+          "query": "",
+          "scene": null
+        },
+        {
           "name": "pages/index/index",
           "pathName": "pages/index/index",
+          "query": "",
           "scene": null
         }
       ]

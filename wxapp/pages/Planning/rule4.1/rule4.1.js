@@ -8,7 +8,7 @@ Page({
 
   },
   gototest1:function(e){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/Planning/test4.1/test4.1',
       })
   },
