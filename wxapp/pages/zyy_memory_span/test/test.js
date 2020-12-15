@@ -2,14 +2,15 @@
 const app = getApp();
 const board_size = 16;
 Page({
-  /**
-   * 页面的初始数据
-   */
   onLoad: function () {
     initChessBoard(this, true);
     setTimeout(() => {
       gameStart(this);
     }, 500);
+  },
+  /* 离开时一定要删除计时器 */
+  onUnload: function () {
+    clearTimeout(this.data.time_add_er);
   },
   onReady: function () {
     /* 延迟两秒后再更新棋盘位置表，避免出现错误 */
@@ -31,12 +32,15 @@ Page({
           }
         });
         console.log(pos_table);
-        that.setData({
+        this.setData({
           pos_table: pos_table
         });
       });
     }, 2000);
   },
+  /**
+   * 页面的初始数据
+   */
   data: {
     windowWidth: app.windowWidth,
     windowHeight: app.windowHeight,
@@ -159,6 +163,11 @@ Page({
   gameStart: function () {
     gameStart(this);
   },
+  skip_练习: function () {
+    wx.navigateTo({
+      url: '/pages/zyy_memory_span/memory_span',
+    })
+  }
 });
 
 /**
@@ -194,9 +203,10 @@ function fillter_board(board) {
  * @param {Page} that 传递进来的this
  */
 function gameStart(that) {
+  let time_limit = that.data.time_limit + that.data.level_time[that.data.level_index];
   if (that.data.level_index >= 1) {
     testOver(that);
-    initTime(that, that.data.time_limit);
+    initTime(that, time_limit);
     initChessBoard(that, false);
     return;
   }
@@ -205,20 +215,20 @@ function gameStart(that) {
       game_state: "等待中",
     });
   }
-  initTime(that, that.data.time_limit);
+  initTime(that, time_limit);
   initChessBoard(that, true);
   wx.showToast({
     title: "请记住棋盘",
     icon: "succes",
     duration: 1000,
     complete: () => {
+      checkTime(that);
       setTimeout(() => {
-        checkTime(that);
         that.setData({
           game_state: "游戏中",
           // time_begin: new Date()
         });
-      }, that.data.level_time[that.data.level_index] * 1000 + 1000);
+      }, that.data.level_time[that.data.level_index] * 1000);
     },
   });
 }
@@ -354,7 +364,7 @@ function getScore(that) {
     title: "正式测试即将开始",
     content: "恭喜你～ 成功通过了练习，现在要开始测试么？",
     cancelText: "再练一遍",
-    confirmText: "开始测试",
+    confirmText: "去测试",
     success: function (res) {
       if (res.confirm) {
         //这里是点击了确定以后

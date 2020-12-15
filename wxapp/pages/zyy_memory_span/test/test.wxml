@@ -25,7 +25,10 @@
   </view>
 </view>
 <view style="margin:10px;" />
-<button catchtap="gameStart">开始练习</button>
+<view class="f_center">
+  <button catchtap="gameStart">开始练习</button>
+  <button catchtap="skip_练习">跳过练习</button>
+</view>
 <view style="margin:10px;" />
 <text class="f_center">只有五秒钟的时间来记住</text>
 <text class="f_center">这三个数字的位置哦</text>
