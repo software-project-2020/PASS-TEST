@@ -5,7 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    chess_size: 40,
+    windowWidth: app.windowWidth,
+    windowHeight: app.windowHeight,
+    chess_size: (app.windowWidth * 0.8) / 7,
     level_flow: [5, 5, 6, 6, 7, 7],
     level_time: [5, 5, 10, 10, 15, 15],
     // level_time: [5, 5, 5, 5, 5, 1],
