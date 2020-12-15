@@ -85,6 +85,10 @@ func main() {
 
 	r.POST("/api/test/submit", userSubmit)
 
+	r.POST("/api/test/getresult", getResult)
+
+	r.POST("/api/test/gethistory", getHistory)
+
 	r.Run(":23333")
 }
 
@@ -525,7 +529,7 @@ func userSubmit(c *gin.Context) {
 	})
 	for i := 0; i < sumPeople; i++ {
 		if userTResultList[i].Flag == 1 {
-			insertPRank = i+1
+			insertPRank = i + 1
 			break
 		}
 	}
@@ -537,7 +541,7 @@ func userSubmit(c *gin.Context) {
 	})
 	for i := 0; i < sumPeople; i++ {
 		if userTResultList[i].Flag == 1 {
-			insertARank = i+1
+			insertARank = i + 1
 			break
 		}
 	}
@@ -549,7 +553,7 @@ func userSubmit(c *gin.Context) {
 	})
 	for i := 0; i < sumPeople; i++ {
 		if userTResultList[i].Flag == 1 {
-			insertS1Rank = i+1
+			insertS1Rank = i + 1
 			break
 		}
 	}
@@ -561,7 +565,7 @@ func userSubmit(c *gin.Context) {
 	})
 	for i := 0; i < sumPeople; i++ {
 		if userTResultList[i].Flag == 1 {
-			insertS2Rank = i+1
+			insertS2Rank = i + 1
 			break
 		}
 	}
@@ -573,7 +577,7 @@ func userSubmit(c *gin.Context) {
 	})
 	for i := 0; i < sumPeople; i++ {
 		if userTResultList[i].Flag == 1 {
-			insertTRank = i+1
+			insertTRank = i + 1
 			break
 		}
 	}
@@ -606,4 +610,58 @@ func userSubmit(c *gin.Context) {
 	checkErr(err)
 	c.JSON(200, string(mapJson))
 
+}
+
+func getResult(c *gin.Context) {
+	defer recoverErr()
+	result := make(map[string]interface{})
+	result["error_code"] = 0
+	testid := c.PostForm("testid")
+	if testid == "" {
+		result["error_code"] = 10001
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("testid" + "字段为空")
+	}
+	var resultAndRank models.ResultAndRank
+	sqlForRun := "SELECT plan_rank,plan_avg_score,attention_rank,attention_avg_score,simul_rank,simul_avg_score" +
+		",suc_rank,suc_avg_score,total_rank,sum_peoele from test_result where test_id = ?"
+	stmt, err := Db.Prepare(sqlForRun)
+	checkErr(err)
+	defer stmt.Close()
+	row := stmt.QueryRow(testid)
+	row.Scan(&resultAndRank.PlanRank, &resultAndRank.PlanScore, &resultAndRank.AttentionRank, &resultAndRank.AttentionScore,
+		&resultAndRank.SimulRank, &resultAndRank.SimulScore)
+
+}
+
+func getHistory(c *gin.Context) {
+	defer recoverErr()
+	result := make(map[string]interface{})
+	result["error_code"] = 0
+	openid := c.PostForm("openid")
+	if openid == "" {
+		result["error_code"] = 10001
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("openid" + "字段为空")
+	}
+	testyear := c.PostForm("testyear")
+	if testyear == "" {
+		result["error_code"] = 10002
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("testyear" + "字段为空")
+	}
+	testmonth := c.PostForm("testmonth")
+	if testmonth == "" {
+		result["error_code"] = 10003
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("testmonth" + "字段为空")
+	}
 }
