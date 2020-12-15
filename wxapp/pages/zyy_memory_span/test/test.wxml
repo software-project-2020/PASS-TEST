@@ -12,7 +12,7 @@
   <view class="chess_box" style="width:calc({{(windowWidth*0.8-20)/4}}px);height:calc({{(windowWidth*0.8-20)/4}}px );"
     wx:for="{{board_num}}" wx:key="item" id="{{index}}">
     <view class="chess_content"
-      style='background-image: url({{(game_state=="游戏中" && item!=-1) ? "../..https://picture.morii.top/renzhixuetang/zyy/empty.png" : board_img_url[index]}});' />
+      style='background-image: url({{(game_state=="游戏中" && item!=-1) ? "https://picture.morii.top/renzhixuetang/zyy/empty.png" : board_img_url[index]}});' />
     <!-- <view class="chess_content" style='background-image: url("https://picture.morii.top/renzhixuetang/zyy/base_circle.png");' /> -->
   </view>
 </view>
