@@ -16,7 +16,7 @@ page{
   width: 80%;
   margin-left: 10%;
   border-radius:20rpx;
-  margin-top: 5%;
+  margin-top: 15%;
 }
 .rule_text{
   display: block;

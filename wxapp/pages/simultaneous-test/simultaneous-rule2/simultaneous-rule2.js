@@ -1,41 +1,33 @@
-// pages/SelfCenter/my/my.js
-const app = getApp()
+// pages/simultaneous-test/simultaneous-rule/simultaneous-rule.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+  },
+  gototest1: function (e) {
 
-  },
-  gotoHistoryTest:function(e){
-    wx.navigateTo({
-      url: '/pages/SelfCenter/History/History',
-      })
-  },
-  gotoSuggestions:function(e){
-    wx.navigateTo({
-      url: '/pages/SelfCenter/suggestion/suggestion',
-      })
-  },
-  gotoAboutUs:function(e){
-    wx.navigateTo({
-      url: '/pages/SelfCenter/aboutus/aboutus',
-      })
-  },
-  goback:function(e){
-    wx.navigateTo({
-      url: '/pages/SelfCenter/aboutus/aboutus',
-      })
+    wx.showModal({
+      title: '开始练习',
+      content: '在开始测试之前，你有一次练习的机会，练习将不会被计入成绩，快去熟悉一下题目吧!',
+      cancelText:'取消',
+      confirmText:'开始练习',
+      success: function (res) {
+        if (res.confirm) {//这里是点击了确定以后
+          wx.navigateTo({
+            url: '/pages/simultaneous-test/test/test',
+          })
+        }
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      userInfo:app.globalData.userInfo
-    })
+
   },
 
   /**

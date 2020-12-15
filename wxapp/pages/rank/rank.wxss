@@ -1,6 +1,6 @@
 page{
   overflow: hidden;
-  background-image: url('https://picture.morii.top/renzhixuetang/background/rankbg.jpg');
+  background-image: url('https://picture.morii.top/renzhixuetang/background/rankbg2.jpg');
   background-size: 100% 100%;
   height: 100%;
 }
@@ -12,37 +12,12 @@ page{
   padding: 0;
 }
 
-.back{
-  height: 10%;
-  width: 100%;
-}
-
-.backimg{
-  width: 12%;
-  height: 80%;
-  padding: 6px;
-  flex-direction: left;
-}
-
-.head{
-  height: 10%;
-  width: 100%;
-  display:flex;
-}
-
-.rankimg{
-  width: 36%;
-  height: 100%;
-  margin: 0 18%;
-  margin-top: 4%;
-}
-
 .body{
-  height: 83%;
-  width: 80%;
-  background-color: rgba(255, 255, 255, 0.5);
+  height: 95%;
+  width: 90%;
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 20px;
-  margin-bottom: 5%;
+  margin: 5%;
   position: relative;
 }
 
@@ -55,8 +30,8 @@ page{
   width: 280rpx;
   height: 100%;
   float: right;
-  margin-top: 10px;
-  margin-right: 20px;
+  margin-top: 4%;
+  margin-right: 5%;
 }
 
 .table {
@@ -83,11 +58,12 @@ page{
 .bg-g{
   background: rgb(90, 146, 90);
   color: #fff;
+  opacity: 0.9;
 }
 .th {
   width: 40%;
   justify-content: center;
-  background: rgb(73, 167, 73);
+  background: rgb(72, 124, 72);
   color: #fff;
   display: flex;
   height: 100%;
@@ -110,20 +86,29 @@ page{
 }
 
 .userinfo-avatar {
-  width: 24%;
-  margin: 4%;
+  width: 36%;
+  margin: 5%;
+  margin-left: 12%;
   border-radius: 50%;
 }
 
 .userself{
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .userrank{
-  margin: 5px;
+  width: 60%;
+  margin: 1%;
+  padding-left: 10%
+}
+
+.btn{
+  background-color: rgb(78, 126, 78);
 }
 
 .button-text{
   font-size: small;
+  color: #fff;
 }

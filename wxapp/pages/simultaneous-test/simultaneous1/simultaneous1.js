@@ -4,7 +4,6 @@ var testutil = require('../../../utils/testutil.js')
 const app = getApp()
 Page({
   data: {
-    timer: '', //定时器名字
     score: 0,
     choosed: [false, false, false, false, false, false, false, false],
     now: 0,
@@ -17,7 +16,7 @@ Page({
    */
   onLoad: function (options) {
     testutil.getS12(1, (res) => {
-      // console.log(res)
+      console.log(res)
       this.setData({
         qnum: res.qnum,
         qlist: res.qlist
@@ -30,16 +29,12 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
-
-
   },
 
   /**
@@ -66,7 +61,6 @@ Page({
         choosed: flag,
         answer: answer
       })
-      // console.log(i, flag, answer)
     }
 
   },
@@ -85,20 +79,21 @@ Page({
             if(that.data.answer[i]==that.data.qlist[i].answer)
               score++
           }
-          console.log(score)
-          app.globalData.score[1]={score:score,qnum:that.data.qnum-1}
+          //S12占测试总数的0.6
+          app.globalData.score_detail[1][0]={score:score,qnum:that.data.qnum-1}
+          app.globalData.score[1]=score/(that.data.qnum-1)*100*0.6
+          console.log(app.globalData.score_detail[1],app.globalData.score[1])
+          wx.navigateTo({
+            url: '/pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2',
+          })
         } else if (res.cancel) {//继续
           util.initCountDown(that, that.data.displayTime, 1)
         }
       }
     })
-
-
   },
   timeout: function () {
-    this.setData({
-      dialogShow: true
-    })
+    submitAnswer()
   },
   tapDialogButton: function () {
     this.setData({
@@ -117,8 +112,8 @@ Page({
           title: '未完成',
           content: '当前题目未完成，请点击确定按钮继续完成这一题',
           confirmText: '确定',
+          showCancel: false,
           success: function (res) {
-  // 
           }
         })
       }else{
@@ -131,7 +126,6 @@ Page({
         now: this.data.now + 1
       })
     }
-    
   },
   start: function () {
     var text
@@ -149,7 +143,6 @@ Page({
         if (res.confirm) { //这里是点击了确定以后
           that.nextQuestion();
           util.initCountDown(that, 300, 1)
-
         }
       }
     })
