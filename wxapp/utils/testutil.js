@@ -3,7 +3,8 @@ module.exports = {
   getconfiguration: getconfiguration,
   getS12: getS12,
   getS11: getS11,
-  submitResult:submitResult
+  submitResult:submitResult,
+  getrecordInfo:getrecordInfo
 }
 // 获得题目数据
 function getQuestions(testId, category, num, callback) {
@@ -191,6 +192,25 @@ function getRanklist(listnum,score,costtime,callback){
     },
     success: function (res) {
       callback && callback(JSON.parse(res.data).data);
+    }
+  })
+}
+//上传历史测试年月
+function getrecordInfo(recorddata,callback) {
+  wx.request({
+    method: 'POST',
+    dataType: 'json',
+    url: 'https://app.morii.top/personalInfo',
+    header: {
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    data: {
+      TestYear:recorddata['TestYear'],
+      TestMonth:recorddata['TestMonth']
+    },
+    success: function (res) {
+      console.log(JSON.parse(res.data))
+      callback && callback(JSON.parse(res.data));
     }
   })
 }
