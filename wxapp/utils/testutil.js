@@ -153,7 +153,7 @@ function getS11(ageGroup, callback) {
   })
 }
 //上传历史测试年月
-function getrecordInfo(recorddata) {
+function getrecordInfo(recorddata,callback) {
   wx.request({
     method: 'POST',
     dataType: 'json',
@@ -166,7 +166,8 @@ function getrecordInfo(recorddata) {
       TestMonth:recorddata['TestMonth']
     },
     success: function (res) {
-      // wx.setStorageSync('userInfo', res.data)
+      console.log(JSON.parse(res.data))
+      callback && callback(JSON.parse(res.data));
     }
   })
 }

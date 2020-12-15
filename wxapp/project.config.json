@@ -120,6 +120,13 @@
           "id": -1,
           "name": "pages/SelfCenter/suggestion/suggestion",
           "pathName": "pages/SelfCenter/suggestion/suggestion",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/result/result",
+          "pathName": "pages/result/result",
           "scene": null
         }
       ]

@@ -193,6 +193,9 @@ Page({
               nowdifficulty: nowdifficulty + 1
             })
             if (that.data.nowdifficulty == 6) {
+              that.setData({
+                nowdifficulty: that.data.nowdifficulty -1
+              })
               wx.navigateTo({
                 url: '/pages/Planning/rule4.1/rule4.1',
               })
@@ -366,6 +369,9 @@ Page({
                 nowdifficulty: nowdifficulty + 1
               })
               if (that.data.nowdifficulty == 6) {
+                that.setData({
+                  nowdifficulty: that.data.nowdifficulty -1
+                })
                 wx.navigateTo({
                   url: '/pages/Planning/rule4.1/rule4.1',
                 })

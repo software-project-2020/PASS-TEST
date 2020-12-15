@@ -9,11 +9,12 @@ Page({
   data: {
     age: 0,
     level: 1,//当前游戏难度
+    jindu:0,
     Alltime: [0,0,0],//规定最长完成时间
     startdifficulty: [0,0,0],//当前游戏连续词语个数
     testcount: 0,//当前难度测试题数
-    list_pic: ["../../../image/lyq/animal/dog.png", "../../../image/lyq/animal/eyu.png", "../../../image/lyq/animal/fog.png", "../../../image/lyq/animal/sheep.png",
-      "../../../image/lyq/animal/bear.png", "../../../image/lyq/animal/ciwei.png", "../../../image/lyq/animal/elephant.jpg", "../../../image/lyq/animal/duck.png"],
+    list_pic: ["https://picture.morii.top/renzhixuetang/lyq/animal/dog.png", "https://picture.morii.top/renzhixuetang/lyq/animal/eyu.png", "https://picture.morii.top/renzhixuetang/lyq/animal/fog.png", "https://picture.morii.top/renzhixuetang/lyq/animal/sheep.png",
+      "https://picture.morii.top/renzhixuetang/lyq/animal/bear.png", "https://picture.morii.top/renzhixuetang/lyq/animal/ciwei.png", "https://picture.morii.top/renzhixuetang/lyq/animal/elephant.jpg", "https://picture.morii.top/renzhixuetang/lyq/animal/duck.png"],
     list_complex: ["苹果", "香蕉", "橘子", "香梨", "葡萄", "冬枣", "啤酒", "汉堡", "可乐"],//所有词语
     mixlist: [],//随机抽取nowdifficulty个字，显示的序列(正确序列)
     mixlist_mix: [],//打乱之后的字词，排序界面的序列
@@ -30,9 +31,11 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
+      // age:5
       age:getApp().globalData.userInfo.age
     })
     testutil.getconfiguration(getApp().globalData.userInfo.ageGroup, 'S21', (res) => {
+      // testutil.getconfiguration(0, 'S21', (res) => {
       console.log(res)
       var timelist=[]
       var intervaltimelist=[]
@@ -230,7 +233,8 @@ Page({
           }
           else if (res.confirm) {
             that.setData({
-              isTry: false
+              isTry: false,
+              jindu:that.data.jindu+1
             })
             that.ChangeNavigate()
           }
@@ -259,6 +263,9 @@ Page({
         success: function (res) {
           if (res.confirm) {//这里是点击了确定以后
             that.ChangeNavigate()
+            that.setData({
+              jindu:that.data.jindu+1
+            })
           }
         }
       })
@@ -375,6 +382,9 @@ Page({
             showCancel: false,
             success: function (res) {
               if (res.confirm) {//这里是点击了确定以后
+                that.setData({
+                  jindu:that.data.jindu+1
+                })
                 that.ChangeNavigate()
               }
             }
@@ -392,7 +402,8 @@ Page({
               }
               else if (res.confirm) {
                 that.setData({
-                  isTry: false
+                  isTry: false,
+                  jindu:that.data.jindu+1
                 })
                 console.log(that.data.isTry)
                 that.ChangeNavigate()
@@ -423,6 +434,9 @@ Page({
           showCancel: false,
           success: function (res) {
             if (res.confirm) {//这里是点击了确定以后
+              that.setData({
+                jindu:that.data.jindu+1
+              })
               that.ChangeNavigate()
             }
           }
@@ -442,7 +456,8 @@ Page({
               }
               else if (res.confirm) {
                 that.setData({
-                  isTry: false
+                  isTry: false,
+                  jindu:that.data.jindu+1
                 })
                 console.log(that.data.isTry)
                 that.ChangeNavigate()
