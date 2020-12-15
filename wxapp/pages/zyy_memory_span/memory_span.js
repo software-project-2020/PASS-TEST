@@ -408,8 +408,6 @@ function fillter_board(board) {
 function gameStart(that, newGame_or_nextLevel = 'newGame') {
   if (that.data.level_index >= 6) {
     gameOver(that);
-    initTime(that, that.data.time_limit);
-    initChessBoard(that, false);
     return;
   }
   if (that.data.game_state != "等待中") {
@@ -561,6 +559,7 @@ function initChessBoard(that, isRandom) {
     chess_zindex: tar.chess_zindex,
     chess_nowAt: tar.chess_nowAt,
     chess_float: tar.chess_float,
+    game_state: '等待中',
   });
 }
 /**
@@ -592,4 +591,6 @@ function gameOver(that) {
   wx.showToast({
     title: "游戏结束",
   });
+  initTime(that, that.data.time_limit);
+  initChessBoard(that, false);
 }
