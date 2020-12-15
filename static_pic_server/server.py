@@ -9,8 +9,9 @@ import requests
 import base64
 import json
 import os
-
 feedBackPostUrl = "http://localhost:23333/api/user/feedback"
+
+# feedBackPostUrl = "https://api.zghy.xyz/api/user/feedback"
 url = "http://47.103.31.240:23333/"
 
 app = Flask(__name__)
@@ -49,6 +50,8 @@ def addnote():
         "feedback_content":feedback_content,
         "imagelist":json.dumps(sendlist)
     }
+    print(postData)
+    # return "d"
     res = requests.post(feedBackPostUrl,postData)
     return res.text
 

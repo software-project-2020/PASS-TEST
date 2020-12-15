@@ -27,6 +27,7 @@ func init() {
 
 func checkErr(err error) {
 	if err != nil {
+		fmt.Println(err)
 		log.Fatalln(err)
 	}
 }
@@ -396,6 +397,7 @@ func userFeedback(c *gin.Context) {
 	_, err = Db.Exec(sqlForRun, feedback_type, openid,
 		contact_info, feedback_content, imagelist, time.Now())
 	if err != nil {
+		checkErr(err)
 		result["error_code"] = 10001
 		mapJson, err := json.Marshal(result)
 		checkErr(err)
