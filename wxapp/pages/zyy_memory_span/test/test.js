@@ -228,7 +228,7 @@ function gameStart(that) {
           game_state: "游戏中",
           // time_begin: new Date()
         });
-      }, that.data.level_time[that.data.level_index] * 1000);
+      }, that.data.level_time[that.data.level_index] * 1000 + 1000);
     },
   });
 }
