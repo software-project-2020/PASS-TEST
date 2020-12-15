@@ -1,13 +1,7 @@
 /* pages/grid/grid.wxss */
 page {
-  background-image: url('https://picture.morii.top/renzhixuetang/background/10.jpg');
+  background-image: url('https://picture.morii.top/renzhixuetang/background/9.jpg');
   background-size: 100% 100%;
-}
-
-.background {
-  width: 750rpx;
-  height: 750rpx;
-  background-color: aqua;
 }
 
 .top {
