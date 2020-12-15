@@ -583,9 +583,11 @@ func userSubmit(c *gin.Context) {
 	}
 	sqlForRun = "insert into test_result(openid,test_order,plan_score,plan_rank" +
 		",attention_score,attention_rank,simul_score,simul_rank,suc_score,suc_rank,cost_time" +
-		",test_date,sum_people,total_score,total_rank) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+		",test_date,sum_people,total_score,total_rank,plan_avg_score,attention_avg_score,simul_avg_score,suc_avg_score)" +
+		" values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
 	_, err = Db.Exec(sqlForRun, openid, test_order, scoreList[0], insertPRank, scoreList[1], insertARank, scoreList[2],
-		insertS1Rank, scoreList[3], insertS2Rank, cost_time, time.Now(), sumPeople, scoreList[4], insertTRank)
+		insertS1Rank, scoreList[3], insertS2Rank, cost_time, time.Now(), sumPeople, scoreList[4], insertTRank,
+		avgP, avgA, avgS1, avgS2)
 	if err != nil {
 		checkErr(err)
 		result["error_code"] = 30001
@@ -626,13 +628,30 @@ func getResult(c *gin.Context) {
 	}
 	var resultAndRank models.ResultAndRank
 	sqlForRun := "SELECT plan_rank,plan_avg_score,attention_rank,attention_avg_score,simul_rank,simul_avg_score" +
-		",suc_rank,suc_avg_score,total_rank,sum_peoele from test_result where test_id = ?"
+		",suc_rank,suc_avg_score,total_rank,sum_people from test_result where test_id = ?"
 	stmt, err := Db.Prepare(sqlForRun)
 	checkErr(err)
 	defer stmt.Close()
 	row := stmt.QueryRow(testid)
-	row.Scan(&resultAndRank.PlanRank, &resultAndRank.PlanScore, &resultAndRank.AttentionRank, &resultAndRank.AttentionScore,
-		&resultAndRank.SimulRank, &resultAndRank.SimulScore)
+	err = row.Scan(&resultAndRank.PlanRank, &resultAndRank.PlanAvgScore, &resultAndRank.AttentionRank, &resultAndRank.AttentionAvgScore,
+		&resultAndRank.SimulRank, &resultAndRank.SimulAvgScore, &resultAndRank.SucRank, &resultAndRank.SucAvgScore,
+		&resultAndRank.TotalRank, &resultAndRank.SumPeople)
+	checkErr(err)
+	reList := make(map[string]interface{})
+	reList["plan_rank"] = resultAndRank.PlanRank
+	reList["plan_avg_score"] = resultAndRank.PlanAvgScore
+	reList["attention_rank"] = resultAndRank.AttentionRank
+	reList["attention_avg_score"] = resultAndRank.AttentionAvgScore
+	reList["simul_rank"] = resultAndRank.SimulRank
+	reList["simul_avg_score"] = resultAndRank.SimulAvgScore
+	reList["suc_rank"] = resultAndRank.SucRank
+	reList["suc_avg_score"] = resultAndRank.SucAvgScore
+	reList["total_rank"] = resultAndRank.TotalRank
+	reList["sum_peoele"] = resultAndRank.SumPeople
+	result["data"] = reList
+	mapJson, err := json.Marshal(result)
+	checkErr(err)
+	c.JSON(200, string(mapJson))
 
 }
 

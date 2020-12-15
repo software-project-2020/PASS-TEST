@@ -17,5 +17,10 @@ type ResultAndRank struct {
 	TestDate time.Time
 	SumPeople int
 	TotalScore float64
+	TotalRank int
 	TestId int
+	PlanAvgScore float64
+	AttentionAvgScore float64
+	SimulAvgScore float64
+	SucAvgScore float64
 }
