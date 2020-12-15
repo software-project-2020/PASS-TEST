@@ -77,7 +77,7 @@ Page({
     if (chess_start[who].left == 0 && chess_start[who].top == 0) {
       param["chess_start[" + who + "]"] = {
         left: event.currentTarget.offsetLeft + this.data.chess_size / 2,
-        top: event.currentTarget.offsetTop - this.data.chess_size / 4,
+        top: event.currentTarget.offsetTop,
       };
     }
     param["chess_zindex[" + who + "]"] = 200;
