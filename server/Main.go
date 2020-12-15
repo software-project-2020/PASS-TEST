@@ -57,7 +57,7 @@ func main() {
 	//post = {
 	//	  "userid": 7
 	//}
-	//r.POST("/api/user/getbyid", getUserById)
+	r.POST("/api/user/getbyid", getUserById)
 	// 用户注册  注册时间和上次登录时间直接用time.Now()
 	//post = {
 	//    "openid": "",
@@ -470,7 +470,7 @@ func userSubmit(c *gin.Context) {
 	err = row.Scan(&test_order)
 	test_order += 1
 
-	sqlForRun = "SELECT openid, max( test_order ), plan_score, attention_score, simul_score, suc_score, total_score FROM test_result WHERE openid IN ( SELECT openid FROM `user` WHERE age = ? ) GROUP BY openid"
+	sqlForRun = "select p.openid,m, plan_score, attention_score, simul_score, suc_score, total_score from  (SELECT max(test_order) m,openid from test_result  group by openid ) p , test_result where p.m = test_result.test_order and p.openid=test_result.openid and p.openid IN ( SELECT openid FROM `user` WHERE age = ? )"
 	stmt2, err := Db.Prepare(sqlForRun)
 	defer stmt2.Close()
 	row2, _ := stmt2.Query(age)
@@ -586,7 +586,7 @@ func userSubmit(c *gin.Context) {
 		",test_date,sum_people,total_score,total_rank,plan_avg_score,attention_avg_score,simul_avg_score,suc_avg_score)" +
 		" values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
 	_, err = Db.Exec(sqlForRun, openid, test_order, scoreList[0], insertPRank, scoreList[1], insertARank, scoreList[2],
-		insertS1Rank, scoreList[3], insertS2Rank, cost_time, time.Now(), sumPeople, scoreList[4], insertTRank,
+		insertS1Rank, scoreList[3], insertS2Rank, cost_time, time.Now().Format("2006-01-02 15:04:05"), sumPeople, scoreList[4], insertTRank,
 		avgP, avgA, avgS1, avgS2)
 	if err != nil {
 		checkErr(err)
@@ -675,6 +675,7 @@ func getHistory(c *gin.Context) {
 		c.JSON(200, string(mapJson))
 		panic("testyear" + "字段为空")
 	}
+	testyearNum, err := strconv.Atoi(testyear)
 	testmonth := c.PostForm("testmonth")
 	if testmonth == "" {
 		result["error_code"] = 10003
@@ -683,4 +684,30 @@ func getHistory(c *gin.Context) {
 		c.JSON(200, string(mapJson))
 		panic("testmonth" + "字段为空")
 	}
+	testmonthNum, err := strconv.Atoi(testmonth)
+
+	sqlForRun := "SELECT openid, test_id,total_score,test_date FROM test_result WHERE openid = ?"
+	stmt, err := Db.Prepare(sqlForRun)
+	checkErr(err)
+	defer stmt.Close()
+	row, _ := stmt.Query(openid)
+	var record []map[string]interface{}
+	for row.Next() {
+		history := new(models.History)
+		var date string
+		err = row.Scan(&history.Openid, &history.TestId, &history.TotalScore, &date)
+		checkErr(err)
+		history.TestDate, _ = time.Parse("2006-01-02 15:04:05", date)
+		if history.TestDate.Year() == testyearNum && int(history.TestDate.Month())==testmonthNum{
+			tmp :=make(map[string]interface{})
+			tmp["testtime"]=history.TestDate
+			tmp["testscore"]=history.TotalScore
+			tmp["testid"]=history.TestId
+			record = append(record,tmp)
+		}
+	}
+	result["data"] = record
+	mapJson, err := json.Marshal(result)
+	checkErr(err)
+	c.JSON(200, string(mapJson))
 }
