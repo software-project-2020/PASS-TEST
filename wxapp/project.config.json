@@ -127,6 +127,13 @@
           "id": -1,
           "name": "pages/result/result",
           "pathName": "pages/result/result",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/SelfCenter/aboutus/aboutus",
+          "pathName": "pages/SelfCenter/aboutus/aboutus",
           "scene": null
         }
       ]
