@@ -19,9 +19,6 @@ Page({
       rank_name: '继时性加工排行',
       type: 'S2'
     }],
-    all_number: 2,
-    my_score: 80,
-    my_rank: 10,
     ranklist: [{
       "rank": 1,
       "nick_name": "用户1",
@@ -74,6 +71,9 @@ Page({
       //   "score": 234
       // }
     ],
+    all_number: 2,
+    my_score: 80,
+    my_rank: 10,
     selected: {},
     userInfo: {},
     hasUserInfo: false,
@@ -81,12 +81,14 @@ Page({
     userrank: 0,
     userscore: 0,
     pagenum: 1,
-    allpages: 0
+    allpages: 0,
+    ranktype: null,
   },
   change(e) {
     this.setData({
       selected: { ...e.detail },
-      ranklist: res.data.ranks,
+      // ranklist: res.data.ranks,
+      ranktype: e.options.type
     })
     // wx.showToast({
     //   title: `${this.data.selected.id} - ${this.data.selected.name}`,
@@ -101,7 +103,14 @@ Page({
   },
 
   onLoad: function (options) {
-    rankutil.getRanklists(app.globalData.userInfo.openid, app.globalData.userInfo.age,)
+    rankutil.getRanklists(app.globalData.userInfo.openid, app.globalData.userInfo.age, this.data.ranktype, this.data.pagenum, 6, (res) => {
+      this.setdata({
+        all_number: res.all_number,
+        my_score: res.my_score,
+        my_rank: res.my_rank,
+        rank_list: res.rank_list
+      })
+    })
   },
 
   pre: function () {
