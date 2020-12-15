@@ -1,8 +1,8 @@
 const app = getApp();
 const board_size = 16;
 Page({
-  /**                                                                        
-   * 页面的初始数据                                                                        
+  /**
+   * 页面的初始数据
    */
   data: {
     chess_size: 40,
@@ -10,67 +10,80 @@ Page({
     level_time: [5, 5, 10, 10, 15, 15],
     // level_time: [5, 5, 5, 5, 5, 1],
     level_index: 0,
-    board_num: [] /* board.length = board_size */ ,
+    board_num: [] /* board.length = board_size */,
     board_img_url: [],
     chess_index: [],
     chess_move: [],
-    chess_float: [] /* 左右方向上的浮动变量 */ ,
+    chess_float: [] /* 左右方向上的浮动变量 */,
     chess_start: [],
     chess_zindex: [],
     chess_nowAt: [],
-    game_state: "等待中" /* 练习中 等待中 游戏中 游戏结束 */ ,
-    pos_table: [{
-        "left": 70,
-        "top": 78
-      }, {
-        "left": 131,
-        "top": 78
-      }, {
-        "left": 190,
-        "top": 78
-      }, {
-        "left": 250,
-        "top": 78
+    game_state: "等待中" /* 练习中 等待中 游戏中 游戏结束 */,
+    pos_table: [
+      {
+        left: 70,
+        top: 78,
       },
       {
-        "left": 70,
-        "top": 138
-      }, {
-        "left": 131,
-        "top": 138
-      }, {
-        "left": 190,
-        "top": 138
-      }, {
-        "left": 250,
-        "top": 138
+        left: 131,
+        top: 78,
       },
       {
-        "left": 70,
-        "top": 197
-      }, {
-        "left": 131,
-        "top": 197
-      }, {
-        "left": 190,
-        "top": 197
-      }, {
-        "left": 250,
-        "top": 197
+        left: 190,
+        top: 78,
       },
       {
-        "left": 70,
-        "top": 257
-      }, {
-        "left": 131,
-        "top": 257
-      }, {
-        "left": 190,
-        "top": 257
-      }, {
-        "left": 250,
-        "top": 257
-      }
+        left: 250,
+        top: 78,
+      },
+      {
+        left: 70,
+        top: 138,
+      },
+      {
+        left: 131,
+        top: 138,
+      },
+      {
+        left: 190,
+        top: 138,
+      },
+      {
+        left: 250,
+        top: 138,
+      },
+      {
+        left: 70,
+        top: 197,
+      },
+      {
+        left: 131,
+        top: 197,
+      },
+      {
+        left: 190,
+        top: 197,
+      },
+      {
+        left: 250,
+        top: 197,
+      },
+      {
+        left: 70,
+        top: 257,
+      },
+      {
+        left: 131,
+        top: 257,
+      },
+      {
+        left: 190,
+        top: 257,
+      },
+      {
+        left: 250,
+        top: 257,
+      },
     ],
     time_limit: 30,
     time_second: 30,
@@ -79,45 +92,45 @@ Page({
     time_add_er: null,
   },
 
-  /**                                                                        
-   * 生命周期函数--监听页面加载                                                                        
+  /**
+   * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     initChessBoard(this, false);
   },
 
-  /**                                                                        
-   * 生命周期函数--监听页面初次渲染完成                                                                        
+  /**
+   * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {},
 
-  /**                                                                        
-   * 生命周期函数--监听页面显示                                                                        
+  /**
+   * 生命周期函数--监听页面显示
    */
   onShow: function () {},
 
-  /**                                                                        
-   * 生命周期函数--监听页面隐藏                                                                        
+  /**
+   * 生命周期函数--监听页面隐藏
    */
   onHide: function () {},
 
-  /**                                                                        
-   * 生命周期函数--监听页面卸载                                                                        
+  /**
+   * 生命周期函数--监听页面卸载
    */
   onUnload: function () {},
 
-  /**                                                                        
-   * 页面相关事件处理函数--监听用户下拉动作                                                                        
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {},
 
-  /**                                                                        
-   * 页面上拉触底事件的处理函数                                                                        
+  /**
+   * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {},
 
-  /**                                                                        
-   * 用户点击右上角分享                                                                        
+  /**
+   * 用户点击右上角分享
    */
   onShareAppMessage: function () {},
 
@@ -133,8 +146,8 @@ Page({
     let param = {};
     if (chess_start[who].left == 0 && chess_start[who].top == 0) {
       param["chess_start[" + who + "]"] = {
-        "left": event.currentTarget.offsetLeft + this.data.chess_size / 2,
-        "top": event.currentTarget.offsetTop - this.data.chess_size / 4
+        left: event.currentTarget.offsetLeft + this.data.chess_size / 2,
+        top: event.currentTarget.offsetTop - this.data.chess_size / 4,
       };
     }
     param["chess_zindex[" + who + "]"] = 200;
@@ -152,20 +165,20 @@ Page({
     let start = this.data.chess_start[who];
     let table = this.data.pos_table;
     let pos = {
-      "left": event.changedTouches[0].pageX,
-      "top": event.changedTouches[0].pageY
-    }
+      left: event.changedTouches[0].pageX,
+      top: event.changedTouches[0].pageY,
+    };
     let nowAt = chessAt(pos, table);
     let move = {};
     if (nowAt >= 0) {
       move = {
-        "left": table[nowAt].left - start["left"],
-        "top": table[nowAt].top - start["top"]
-      }
+        left: table[nowAt].left - start["left"],
+        top: table[nowAt].top - start["top"],
+      };
     } else {
       move = {
-        "left": event.changedTouches[0].pageX - start["left"],
-        "top": event.changedTouches[0].pageY - start["top"]
+        left: event.changedTouches[0].pageX - start["left"],
+        top: event.changedTouches[0].pageY - start["top"],
       };
     }
 
@@ -183,9 +196,9 @@ Page({
     }
     let who = event.currentTarget.dataset.who;
     let pos = {
-      "left": event.changedTouches[0].pageX,
-      "top": event.changedTouches[0].pageY
-    }
+      left: event.changedTouches[0].pageX,
+      top: event.changedTouches[0].pageY,
+    };
     let nowAt = chessAt(pos, this.data.pos_table);
     let move = {};
     let param = {};
@@ -194,8 +207,8 @@ Page({
     if (nowAt < 0 || nowAt >= board_size) {
       // console.log("back");
       move = {
-        "left": 0,
-        "top": 0,
+        left: 0,
+        top: 0,
       };
       param["chess_move[" + who + "]"] = move;
     }
@@ -205,14 +218,17 @@ Page({
     this.setData(param);
     let endAnswer = true;
     for (let i = 0; i < this.data.chess_index.length; i++) {
-      endAnswer = endAnswer && (this.data.chess_nowAt[this.data.chess_index[i]] == this.data.chess_index[i]);
+      endAnswer =
+        endAnswer &&
+        this.data.chess_nowAt[this.data.chess_index[i]] ==
+          this.data.chess_index[i];
     }
     let that = this;
-    if (endAnswer && that.data.game_state == '游戏中') {
+    if (endAnswer && that.data.game_state == "游戏中") {
       wx.showToast({
         title: getScore(that),
         duration: 1000,
-        icon: 'succes',
+        icon: "succes",
         mask: true,
       });
     }
@@ -223,14 +239,14 @@ Page({
   },
   gameReStart: function () {
     gameReStart(this);
-  }
+  },
 });
 
-/**                                                                        
- * 建立随机的初始棋盘                                                                        
- * @param {Number} n 有 n 个有效的格子                                                                        
- * @param {Number} size 总共有 size 个格子                                                                        
- * @returns {Number[]} 包含`n`个不同的正整数和`size-n`个`-1`的一维数组                                                                        
+/**
+ * 建立随机的初始棋盘
+ * @param {Number} n 有 n 个有效的格子
+ * @param {Number} size 总共有 size 个格子
+ * @returns {Number[]} 包含`n`个不同的正整数和`size-n`个`-1`的一维数组
  */
 function get_Random_board(n, size) {
   let base = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -244,42 +260,41 @@ function get_Random_board(n, size) {
   return out;
 }
 
-/**                                                                        
- * 打乱一个数组（原地打乱）                                                                        
- * @param {Number[]} arr 需要被打乱的数组                                                                        
+/**
+ * 打乱一个数组（原地打乱）
+ * @param {Number[]} arr 需要被打乱的数组
  */
 function randArr(arr) {
   for (var i = 0; i < arr.length; i++) {
     var iRand = parseInt(arr.length * Math.random());
-    [arr[i], arr[iRand]] = [arr[iRand], arr[i]]
+    [arr[i], arr[iRand]] = [arr[iRand], arr[i]];
   }
   return arr;
 }
 
-/**                                                                        
- * 得到指定数字的图片路径                                                                        
- * @param {Number} num 需要图片的数字为`num`                                                                        
- * @returns {String} 返回图片的路径（相对路径）                                                                        
+/**
+ * 得到指定数字的图片路径
+ * @param {Number} num 需要图片的数字为`num`
+ * @returns {String} 返回图片的路径（相对路径）
  */
 function get_num_img(num) {
   // console.log("get num", num);
   if (num >= 0) {
-    return "/image/zyy/" + num + ".png";
+    return "https://picture.morii.top/renzhixuetang/zyy/" + num + ".png";
   } else {
-    return "/image/zyy/base.png";
+    return "https://picture.morii.top/renzhixuetang/zyy/base.png";
   }
 }
 
-/**                                                                        
- * 整理棋盘，使棋子聚拢向中间                                                                        
- * @param {Number[]} board 需要被聚拢的棋盘数组（原地聚拢）                                                                        
+/**
+ * 整理棋盘，使棋子聚拢向中间
+ * @param {Number[]} board 需要被聚拢的棋盘数组（原地聚拢）
  */
 function prettyBoard(board) {
-
-  /**                                                                        
-   * 检查棋盘数组是否足够聚拢                                                                        
-   * @param {Number[]} board 被检查的棋盘数组                                                                        
-   * @returns {Boolean} 返回`True` or `False`                                                                        
+  /**
+   * 检查棋盘数组是否足够聚拢
+   * @param {Number[]} board 被检查的棋盘数组
+   * @returns {Boolean} 返回`True` or `False`
    */
   function isOK(board) {
     let start = -1;
@@ -302,7 +317,12 @@ function prettyBoard(board) {
     stack.push(start);
     do {
       let x = stack.pop(); /* 取出并保存本次局部搜索的起点索引 */
-      let tars = [x - 1, x + 1, x - 4, x + 4]; /* 本次局部搜索四个方向上的索引 */
+      let tars = [
+        x - 1,
+        x + 1,
+        x - 4,
+        x + 4,
+      ]; /* 本次局部搜索四个方向上的索引 */
 
       tars.forEach((tar) => {
         /* 如果坐标未越界 */
@@ -314,15 +334,15 @@ function prettyBoard(board) {
             stack.push(tar); /* 当前位置标记为下一个起点 */
           } /* 否则（≤0），无需访问 */
         }
-      })
+      });
     } while (stack.length > 0);
     return step_cnt == totalCnt;
   }
 
-  /**                                                                        
-   * 调整`i`号位的棋子                            
-   * @param {Number[]} 待调整的棋盘数组                                    
-   * @param {Number} i 这一步想调整的棋子的索引值                                                                        
+  /**
+   * 调整`i`号位的棋子
+   * @param {Number[]} 待调整的棋盘数组
+   * @param {Number} i 这一步想调整的棋子的索引值
    */
   function step(board, i) {
     /* 如果 位置上没有数字 or i是在中间的那四个格子（索引分别是 5 6 9 10） */
@@ -336,30 +356,26 @@ function prettyBoard(board) {
       if (board[i + 1] == -1) {
         [board[i], board[i + 1]] = [board[i + 1], board[i]];
       }
-    }
+    } else if (i % 4 == 3) {
     /* 如果 是第4列 */
-    else if (i % 4 == 3) {
       /* 则 向左 挪动一格 */
       if (board[i - 1] == -1) {
         [board[i], board[i - 1]] = [board[i - 1], board[i]];
       }
-    }
+    } else if (i / 4 < 1) {
     /* 如果 是第1行 */
-    else if (i / 4 < 1) {
       /* 则 向下 挪动一格 */
       if (board[i + 4] == -1) {
         [board[i], board[i + 4]] = [board[i + 4], board[i]];
       }
-    }
+    } else if (i / 4 >= 3) {
     /* 如果 是第4行 */
-    else if (i / 4 >= 3) {
       /* 则 向上 挪动一格 */
       if (board[i - 4] == -1) {
         [board[i], board[i - 4]] = [board[i - 4], board[i]];
       }
     }
   }
-
 
   // console.log("调整前：", isOK(board));
   for (let k = 0; k < 5; k++) {
@@ -399,16 +415,16 @@ function gameStart(that) {
     initChessBoard(that, false);
     return;
   }
-  if (that.data.game_state != '等待中') {
+  if (that.data.game_state != "等待中") {
     that.setData({
-      game_state: '等待中'
+      game_state: "等待中",
     });
   }
   initTime(that, that.data.time_limit);
   initChessBoard(that, true);
   wx.showToast({
-    title: '请记住棋盘',
-    icon: 'succes',
+    title: "请记住棋盘",
+    icon: "succes",
     duration: 1000,
     complete: () => {
       setTimeout(() => {
@@ -419,7 +435,7 @@ function gameStart(that) {
         });
       }, that.data.level_time[that.data.level_index] * 1000 + 1000);
     },
-  })
+  });
 }
 
 function checkTime(that) {
@@ -437,18 +453,18 @@ function checkTime(that) {
       checkTime(that);
     } else {
       wx.showToast({
-        title: '时间到',
+        title: "时间到",
         duration: 1000,
-        icon: 'succes',
+        icon: "succes",
         mask: true,
       });
       setTimeout(() => {
         wx.showToast({
-          title: 'Game Over',
+          title: "Game Over",
           duration: 1000,
-          icon: 'succes',
+          icon: "succes",
           mask: true,
-        })
+        });
         setTimeout(() => {
           gameOver(that);
         }, 1000);
@@ -468,19 +484,19 @@ function initTime(that, time_limit_in_second) {
   }
   that.setData({
     time_second: time_limit_in_second,
-    time_str: time_limit_in_second + "秒"
-  })
+    time_str: time_limit_in_second + "秒",
+  });
 }
 
 /**
  * 返回当前棋子位置所在的索引值
  * @param {JSON}  pos 带检测棋子的位置
  * @param {JSON[]} table 存有棋子坐标的一维数组
- * @returns {Number} `where` `[0,15] | -1` 
+ * @returns {Number} `where` `[0,15] | -1`
  */
 function chessAt(pos, table) {
   function comp(pos, tar) {
-    return pos > (tar - 30) && pos < (tar + 30);
+    return pos > tar - 30 && pos < tar + 30;
   }
   let where = -1;
   for (let i = 0; i < table.length; i++) {
@@ -510,12 +526,12 @@ function initChessBoard(that, mode) {
   tar.board_num.forEach((e) => {
     tar.board_img_url.push(get_num_img(e));
     tar.chess_move.push({
-      "left": 0,
-      "top": 0
+      left: 0,
+      top: 0,
     });
     tar.chess_start.push({
-      "left": 0,
-      "top": 0
+      left: 0,
+      top: 0,
     });
     tar.chess_nowAt.push(-1);
     tar.chess_zindex.push(100);
@@ -552,19 +568,19 @@ function getScore(that) {
   tar.level_index += 1;
   if (tar.level_index < 6) {
     that.setData({
-      game_state: '下一轮',
-      level_index: tar.level_index
+      game_state: "下一轮",
+      level_index: tar.level_index,
     });
     setTimeout(() => {
       gameStart(that);
     }, 1000);
   } else {
     that.setData({
-      game_state: '游戏结束',
-      level_index: tar.level_index
-    })
+      game_state: "游戏结束",
+      level_index: tar.level_index,
+    });
   }
-  return "第 " + tar.level_index + " 关成功"
+  return "第 " + tar.level_index + " 关成功";
 }
 
 /**
@@ -573,6 +589,6 @@ function getScore(that) {
  */
 function gameOver(that) {
   wx.showToast({
-    title: '游戏结束',
-  })
+    title: "游戏结束",
+  });
 }
