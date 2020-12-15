@@ -11,6 +11,9 @@ Page({
   /* 离开时一定要删除计时器 */
   onUnload: function () {
     clearTimeout(this.data.time_add_er);
+    this.data.time_add_er = null;
+    console.log("zyy_test 计时器移除", this.data.time_add_er);
+    util.closeCountDown(this);
   },
   onReady: function () {
     /* 延迟两秒后再更新棋盘位置表，避免出现错误 */
@@ -164,6 +167,9 @@ Page({
     gameStart(this);
   },
   skip_练习: function () {
+    clearTimeout(this.data.time_add_er);
+    this.data.time_add_er = null;
+    console.log("zyy_test 计时器移除", this.data.time_add_er);
     wx.navigateTo({
       url: '/pages/zyy_memory_span/memory_span',
     })

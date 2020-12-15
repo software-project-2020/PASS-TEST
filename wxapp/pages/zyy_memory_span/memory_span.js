@@ -559,6 +559,10 @@ function gameOver(that) {
   wx.showToast({
     title: "游戏结束",
   });
+  app.globalData.scoreDetail[3, 2] = {
+    score: that.data.level_index,
+    qnum: that.data.level_index + 1
+  };
   initTime(that, that.data.time_limit);
   initChessBoard(that, false);
 }
