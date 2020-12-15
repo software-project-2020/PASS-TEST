@@ -2,14 +2,52 @@
 const app = getApp();
 const board_size = 16;
 Page({
-  /**                                                                        
-   * 页面的初始数据                                                                        
-   */
   onLoad: function () {
     initChessBoard(this, true);
+    setTimeout(() => {
+      gameStart(this);
+    }, 500);
   },
+  /* 离开时一定要删除计时器 */
+  onUnload: function () {
+    clearTimeout(this.data.time_add_er);
+    this.data.time_add_er = null;
+    console.log("zyy_test 计时器移除", this.data.time_add_er);
+    util.closeCountDown(this);
+  },
+  onReady: function () {
+    /* 延迟两秒后再更新棋盘位置表，避免出现错误 */
+    setTimeout(() => {
+      let query = wx.createSelectorQuery();
+      query.selectAll('.chess_map > .chess_box').boundingClientRect();
+      query.exec((res) => {
+        let pos_table = [];
+        res[0].forEach((e) => {
+          pos_table[parseInt(e.id)] = {
+            // left: e.left,
+            // right: e.right,
+            // top: e.top,
+            // bottom: e.bottom,
+            // centerX: (e.left + e.right) / 2,
+            // centerY: (e.top + e.bottom) / 2,
+            left: (e.left + e.right) / 2,
+            top: (e.top + e.bottom) / 2,
+          }
+        });
+        console.log(pos_table);
+        this.setData({
+          pos_table: pos_table
+        });
+      });
+    }, 2000);
+  },
+  /**
+   * 页面的初始数据
+   */
   data: {
-    chess_size: 40,
+    windowWidth: app.windowWidth,
+    windowHeight: app.windowHeight,
+    chess_size: (app.windowWidth * 0.8) / 7,
     level_flow: [5],
     level_time: [5],
     level_index: 0,
@@ -22,62 +60,10 @@ Page({
     chess_zindex: [],
     chess_nowAt: [],
     game_state: "等待中" /* 练习中 等待中 游戏中 游戏结束 */ ,
-    pos_table: [{
-        "left": 70,
-        "top": 78
-      }, {
-        "left": 131,
-        "top": 78
-      }, {
-        "left": 190,
-        "top": 78
-      }, {
-        "left": 250,
-        "top": 78
-      },
-      {
-        "left": 70,
-        "top": 138
-      }, {
-        "left": 131,
-        "top": 138
-      }, {
-        "left": 190,
-        "top": 138
-      }, {
-        "left": 250,
-        "top": 138
-      },
-      {
-        "left": 70,
-        "top": 197
-      }, {
-        "left": 131,
-        "top": 197
-      }, {
-        "left": 190,
-        "top": 197
-      }, {
-        "left": 250,
-        "top": 197
-      },
-      {
-        "left": 70,
-        "top": 257
-      }, {
-        "left": 131,
-        "top": 257
-      }, {
-        "left": 190,
-        "top": 257
-      }, {
-        "left": 250,
-        "top": 257
-      }
-    ],
+    pos_table: [],
     time_limit: 30,
     time_second: 30,
-    time_str: "30秒",
+    time_str: "30s",
     time_add_er: null,
   },
 
@@ -93,8 +79,8 @@ Page({
     let param = {};
     if (chess_start[who].left == 0 && chess_start[who].top == 0) {
       param["chess_start[" + who + "]"] = {
-        "left": event.currentTarget.offsetLeft + this.data.chess_size / 2,
-        "top": event.currentTarget.offsetTop - this.data.chess_size / 4
+        left: event.currentTarget.offsetLeft + this.data.chess_size / 2,
+        top: event.currentTarget.offsetTop,
       };
     }
     param["chess_zindex[" + who + "]"] = 200;
@@ -112,20 +98,20 @@ Page({
     let start = this.data.chess_start[who];
     let table = this.data.pos_table;
     let pos = {
-      "left": event.changedTouches[0].pageX,
-      "top": event.changedTouches[0].pageY
-    }
+      left: event.changedTouches[0].pageX,
+      top: event.changedTouches[0].pageY,
+    };
     let nowAt = chessAt(pos, table);
     let move = {};
     if (nowAt >= 0) {
       move = {
-        "left": table[nowAt].left - start["left"],
-        "top": table[nowAt].top - start["top"]
-      }
+        left: table[nowAt].left - start["left"],
+        top: table[nowAt].top - start["top"],
+      };
     } else {
       move = {
-        "left": event.changedTouches[0].pageX - start["left"],
-        "top": event.changedTouches[0].pageY - start["top"]
+        left: event.changedTouches[0].pageX - start["left"],
+        top: event.changedTouches[0].pageY - start["top"],
       };
     }
 
@@ -139,9 +125,9 @@ Page({
     }
     let who = event.currentTarget.dataset.who;
     let pos = {
-      "left": event.changedTouches[0].pageX,
-      "top": event.changedTouches[0].pageY
-    }
+      left: event.changedTouches[0].pageX,
+      top: event.changedTouches[0].pageY,
+    };
     let nowAt = chessAt(pos, this.data.pos_table);
     let move = {};
     let param = {};
@@ -150,8 +136,8 @@ Page({
     if (nowAt < 0 || nowAt >= board_size) {
       // console.log("back");
       move = {
-        "left": 0,
-        "top": 0,
+        left: 0,
+        top: 0,
       };
       param["chess_move[" + who + "]"] = move;
     }
@@ -161,14 +147,17 @@ Page({
     this.setData(param);
     let endAnswer = true;
     for (let i = 0; i < this.data.chess_index.length; i++) {
-      endAnswer = endAnswer && (this.data.chess_nowAt[this.data.chess_index[i]] == this.data.chess_index[i]);
+      endAnswer =
+        endAnswer &&
+        this.data.chess_nowAt[this.data.chess_index[i]] ==
+        this.data.chess_index[i];
     }
     let that = this;
     if (endAnswer) {
       wx.showToast({
         title: getScore(that),
         duration: 1000,
-        icon: 'succes',
+        icon: "succes",
         mask: true,
       });
     }
@@ -177,23 +166,27 @@ Page({
   gameStart: function () {
     gameStart(this);
   },
-  gameReStart: function () {
-    gameReStart(this);
+  skip_练习: function () {
+    clearTimeout(this.data.time_add_er);
+    this.data.time_add_er = null;
+    console.log("zyy_test 计时器移除", this.data.time_add_er);
+    wx.navigateTo({
+      url: '/pages/zyy_memory_span/memory_span',
+    })
   }
 });
 
-
-/**                                                                        
- * 得到指定数字的图片路径                                                                        
- * @param {Number} num 需要图片的数字为`num`                                                                        
- * @returns {String} 返回图片的路径（相对路径）                                                                        
+/**
+ * 得到指定数字的图片路径
+ * @param {Number} num 需要图片的数字为`num`
+ * @returns {String} 返回图片的路径（相对路径）
  */
 function get_num_img(num) {
   // console.log("get num", num);
   if (num >= 0) {
-    return "/image/zyy/" + num + ".png";
+    return "https://picture.morii.top/renzhixuetang/zyy/" + num + ".png";
   } else {
-    return "/image/zyy/base.png";
+    return "https://picture.morii.top/renzhixuetang/zyy/base.png";
   }
 }
 
@@ -216,33 +209,34 @@ function fillter_board(board) {
  * @param {Page} that 传递进来的this
  */
 function gameStart(that) {
+  let time_limit = that.data.time_limit + that.data.level_time[that.data.level_index];
   if (that.data.level_index >= 1) {
     testOver(that);
-    initTime(that, that.data.time_limit);
+    initTime(that, time_limit);
     initChessBoard(that, false);
     return;
   }
-  if (that.data.game_state != '等待中') {
+  if (that.data.game_state != "等待中") {
     that.setData({
-      game_state: '等待中'
+      game_state: "等待中",
     });
   }
-  initTime(that, that.data.time_limit);
+  initTime(that, time_limit);
   initChessBoard(that, true);
   wx.showToast({
-    title: '请记住棋盘',
-    icon: 'succes',
+    title: "请记住棋盘",
+    icon: "succes",
     duration: 1000,
     complete: () => {
+      checkTime(that);
       setTimeout(() => {
-        checkTime(that);
         that.setData({
           game_state: "游戏中",
           // time_begin: new Date()
         });
       }, that.data.level_time[that.data.level_index] * 1000 + 1000);
     },
-  })
+  });
 }
 
 function checkTime(that) {
@@ -252,7 +246,7 @@ function checkTime(that) {
   that.data.time_add_er = setTimeout(function () {
     let sec = that.data.time_second - 1;
     if (sec >= 0) {
-      let str = sec + "秒";
+      let str = sec + "s";
       that.setData({
         time_second: sec,
         time_str: str,
@@ -260,18 +254,18 @@ function checkTime(that) {
       checkTime(that);
     } else {
       wx.showToast({
-        title: '时间到',
+        title: "时间到",
         duration: 1000,
-        icon: 'succes',
+        icon: "succes",
         mask: true,
       });
       setTimeout(() => {
         wx.showToast({
-          title: 'Game Over',
+          title: "Game Over",
           duration: 1000,
-          icon: 'succes',
+          icon: "succes",
           mask: true,
-        })
+        });
         setTimeout(() => {
           testOver(that);
         }, 1000);
@@ -291,19 +285,19 @@ function initTime(that, time_limit_in_second) {
   }
   that.setData({
     time_second: time_limit_in_second,
-    time_str: time_limit_in_second + "秒"
-  })
+    time_str: time_limit_in_second + "s",
+  });
 }
 
 /**
  * 返回当前棋子位置所在的索引值
  * @param {JSON}  pos 带检测棋子的位置
  * @param {JSON[]} table 存有棋子坐标的一维数组
- * @returns {Number} `where` `[0,15] | -1` 
+ * @returns {Number} `where` `[0,15] | -1`
  */
 function chessAt(pos, table) {
   function comp(pos, tar) {
-    return pos > (tar - 30) && pos < (tar + 30);
+    return pos > tar - 30 && pos < tar + 30;
   }
   let where = -1;
   for (let i = 0; i < table.length; i++) {
@@ -322,12 +316,7 @@ function chessAt(pos, table) {
  */
 function initChessBoard(that, mode) {
   let tar = that.data;
-  tar.board_num = [
-    -1, -1, -1, -1,
-    -1, 1, -1, -1,
-    -1, -1, 3, 2,
-    -1, -1, -1, -1
-  ];
+  tar.board_num = [-1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 3, 2, -1, -1, -1, -1];
   tar.board_img_url = [];
   tar.chess_move = [];
   tar.chess_start = [];
@@ -338,12 +327,12 @@ function initChessBoard(that, mode) {
   tar.board_num.forEach((e) => {
     tar.board_img_url.push(get_num_img(e));
     tar.chess_move.push({
-      "left": 0,
-      "top": 0
+      left: 0,
+      top: 0,
     });
     tar.chess_start.push({
-      "left": 0,
-      "top": 0
+      left: 0,
+      top: 0,
     });
     tar.chess_nowAt.push(-1);
     tar.chess_zindex.push(100);
@@ -374,25 +363,26 @@ function getScore(that) {
   let tar = that.data;
   tar.level_index += 1;
   that.setData({
-    game_state: '游戏结束',
-    level_index: tar.level_index
+    game_state: "游戏结束",
+    level_index: tar.level_index,
   });
   wx.showModal({
-    title: '正式测试即将开始',
-    content: '恭喜你～ 成功通过了练习，现在要开始测试么？',
-    cancelText: '再练一遍',
-    confirmText: '开始测试',
+    title: "正式测试即将开始",
+    content: "恭喜你～ 成功通过了练习，现在要开始测试么？",
+    cancelText: "再练一遍",
+    confirmText: "去测试",
     success: function (res) {
-      if (res.confirm) { //这里是点击了确定以后
+      if (res.confirm) {
+        //这里是点击了确定以后
         wx.navigateTo({
-          url: '/pages/zyy_memory_span/memory_span',
-        })
+          url: "/pages/zyy_memory_span/memory_span",
+        });
       } else {
         wx.navigateBack({
           delta: 0,
-        })
+        });
       }
-    }
+    },
   });
 }
 
@@ -402,16 +392,16 @@ function getScore(that) {
  */
 function testOver(that) {
   wx.showModal({
-    title: '超时',
-    content: '很可惜～ 练习已经超时了',
-    cancelText: '我再看看',
-    confirmText: '再练一遍',
+    title: "超时",
+    content: "很可惜～ 练习已经超时了",
+    cancelText: "我再看看",
+    confirmText: "再练一遍",
     success: function (res) {
       if (res.confirm) {
         wx.navigateBack({
           delta: 0,
-        })
+        });
       }
-    }
+    },
   });
 }

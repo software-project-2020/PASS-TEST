@@ -273,6 +273,15 @@ Page({
   },
   ChangeNavigate() {
     if (this.data.level == 4 || this.data.wrongnum == 2) {
+      console.log('连错',this.data.wrongnum)
+      console.log('得分',this.data.score)
+      console.log('做题总数',this.data.jindu-1)
+      //存globalData
+      getApp().globalData.scoreDetail[3,0] = {
+        score: this.data.score,
+        qnum: this.data.jindu-1
+      }
+      console.log(getApp().globalData.scoreDetail[3,0])
       wx.redirectTo({
         url: '/pages/Planning/test1/test1',//跳转下个测试，待修改
       })
@@ -471,7 +480,8 @@ Page({
         Costtime: (this.data.Alltime[this.data.level-1] - this.data.countDownNum).toFixed(1)
       })
       // console.log(this.data.Costtime)
-      console.log(this.data.score)
+      // console.log('连错',this.data.wrongnum)
+      // console.log('得分',this.data.score)
     }
   },
 })
