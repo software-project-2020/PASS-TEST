@@ -14,7 +14,7 @@ page {
 
 .jindu {
   /* 上右下左 */
-  margin: 12% 0% 1% 20%;
+  margin: 8% 0% 1% 20%;
   height: 60rpx;
   width: 50%;
   display: flex;
@@ -32,11 +32,11 @@ page {
 }
 
 .clock {
-  margin: 12% 0% 0% 10%;
+  margin: 8% 0% 0% 10%;
 }
 
 .time {
-  margin: 13% 0% 1% 0%;
+  margin: 9% 0% 1% 0%;
   height: 50rpx;
   width: 20%;
   display: flex;
@@ -63,6 +63,10 @@ page {
   height: 2rem;
   width: 2rem;
   margin-left: 20rpx;
+}
+
+.questionText {
+  font-size: 40rpx;
 }
 
 .back {
@@ -97,13 +101,13 @@ page {
 
 .text1 {
   color: #000000;
-  font-size: 40rpx;
+  font-size: 60rpx;
   font-weight: 1000;
 }
 
 .text2 {
   color: #000000;
-  font-size: 40rpx;
+  font-size: 60rpx;
   font-weight: 1000;
   border: 10rpx solid #edbf40;
   border-radius: 100rpx;
@@ -119,6 +123,7 @@ page {
 }
 
 .t2 {
+  /* border: 10rpx solid #edbf40; */
   width: 40%;
   justify-content: center;
   color: #edbf40;
@@ -132,7 +137,7 @@ page {
   border: 3rpx solid #edbf40;
   border-radius: 20rpx;
   margin-top: 3%;
-  background-color: #edbf40a2;
+  background-color: #edbf40c5;
   color: #ffffff;
   letter-spacing: 5px;
   font-size: 40rpx;
