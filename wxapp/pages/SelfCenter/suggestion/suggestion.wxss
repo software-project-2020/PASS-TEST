@@ -4,7 +4,7 @@
 }
 .border{
   height: 250rpx;
-  width: 70%;
+  width: 75%;
   display: flex;
   justify-content: center;  /*水平*/
   align-items: center; /*垂直*/
@@ -17,7 +17,7 @@
 .border2{
   text-align: left;
   height: 150rpx;
-  width: 70%;
+  width: 75%;
   flex-direction: row;
   display: flex;
   justify-content:flex-start;
@@ -29,7 +29,7 @@
 }
 .border3{
   height: 50rpx;
-  width: 70%;
+  width: 75%;
   display: flex;
   justify-content: center;  /*水平*/
   align-items: center; /*垂直*/
@@ -104,6 +104,9 @@
   border-bottom: 1px solid #efefef;
   padding: 10rpx;
  } */
+ .textarea{
+   margin-left: 5%;
+ }
  .top{
   display: flex;
   justify-content: center;  /*水平*/

@@ -1,4 +1,5 @@
 // pages/SelfCenter/History/History.js
+var testutil = require('../../../utils/testutil.js')
 Page({
 
   /**
@@ -17,12 +18,13 @@ Page({
     select_value1: {
       "text": "未选择"
     },
-    record:[{"testyear":2021,"testmonth":1,"testday":22,"testtime":"13:45","testscore":90,"isBest":true},
-    {"testyear":2020,"testmonth":12,"testday":12,"testtime":"20:30","testscore":89,"isBest":false},
-    {"testyear":2020,"testmonth":12,"testday":8,"testtime":"19:50","testscore":87,"isBest":false},
-    {"testyear":2020,"testmonth":7,"testday":19,"testtime":"09:00","testscore":78,"isBest":false},
-    {"testyear":2020,"testmonth":6,"testday":29,"testtime":"17:50","testscore":70,"isBest":false}],
-    newrecord:[],
+    isBest:[],
+    record:[
+    {"testtime":"2021-01-31 12:15","testscore":95},
+    {"testtime":"2021-01-02 15:50","testscore":99},
+    {"testtime":"2021-01-02 12:45","testscore":89},
+    {"testtime":"2021-01-02 13:45","testscore":87},
+    {"testtime":"2021-01-02 13:45","testscore":77},],
     top : 0,
     now : ''
   },
@@ -47,22 +49,26 @@ Page({
   renew(){
     var record = this.data.record.slice()
     var newrecord = [];
+    if(this.data.TestYear==2021&&this.data.TestMonth==1)
     for(var i =0 ;i<record.length;i++){
-      if(record[i].testmonth==this.data.TestMonth&&record[i].testyear==this.data.TestYear){
         var item={
-          "testyear":record[i].testyear,
-          "testmonth":record[i].testmonth,
-          "testday":record[i].testday,
           "testtime":record[i].testtime,
           "testscore":record[i].testscore,
           "isBest":record[i].isBest
         }
         newrecord.push(item)
-      }
     }
     this.setData({
       newrecord:newrecord
     })
+    if(this.data.TestYear!=null&&this.data.TestMonth!=null){
+      var recorddata={
+        TestYear:this.data.TestYear,
+        TestMonth:this.data.TestMonth
+      }
+      console.log(JSON.stringify(recorddata))
+      testutil.getrecordInfo(recorddata)
+    }
   }
   ,
   m_select_touch(e) {
@@ -89,6 +95,20 @@ Page({
   },
   GotoRecord(){
 
-  }
+  },
+  onLoad: function () {
+    var record = this.data.record
+    var best=0;
+    for(var i=0;i<record.length;i++){
+      record[i].isBest=false
+      if(best<=record[i].testscore){
+        best=record[i].testscore
+      }
+    }
+    for(var i=0;i<record.length;i++)
+      if(best==record[i].testscore)
+      record[i].isBest=true
+    console.log(this.data.record)
+  },
 
 })

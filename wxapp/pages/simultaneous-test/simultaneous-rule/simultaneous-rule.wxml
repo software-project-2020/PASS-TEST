@@ -1,7 +1,7 @@
 <view class="container">
   <view class="top" style="flex-direction:row;">
     <view class="sheep">
-      <image class='img1' mode='widthFix' src='../../../image/lyq/animal/sheep.png' style="width: 170rpx; "></image>
+      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/sheep.png' style="width: 170rpx; "></image>
     </view>
   </view>
   <view class="border">
@@ -15,7 +15,7 @@
   </view>
   <view class="bottom">
     <button class="btn" plain="true" bindtap="gototest1">
-      <image class='img2' mode='widthFix' src='../../../image/lyq/starttest.png' style="width: 250rpx; "></image>
+      <image class='img2' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/starttest.png' style="width: 250rpx; "></image>
     </button>
   </view>
 

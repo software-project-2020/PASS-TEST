@@ -1,11 +1,14 @@
-<!--pages/result/result.wxml-->
-<!-- <view class="top">
-  <image class="return" src="https://picture.morii.top/renzhixuetang/return.png" bindtap="return"></image>
-  <text class="text">测试结果</text>
+<!--pages/history/history.wxml-->
+<!-- <view class="top"> -->
+<!-- <image class="return" src="https://picture.morii.top/renzhixuetang/return.png" bindtap="return"></image> -->
+<!-- <text class="text">历史测试结果</text>
 </view> -->
 
 <view class="back" style="width : {{deviceWidthLook}}px; height : {{deviceHeightLook}}px">
   <scroll-view scroll-y class="result">
+    <view class="time">
+      <text>测试时间 ： {{year}}-{{month}}-{{day}}</text>
+    </view>
     <view>
       <canvas class="radarCanvas" canvas-id="radarCanvas" style="height:280px;"></canvas>
       <view class="tr">
@@ -34,52 +37,8 @@
         </block>
       </view>
     </view>
-    <view>
-      <text class="{{show?'text1':'text2'}}" bindtap="show">点击查看做题详情</text>
-      <view class="table" wx:if="{{show}}">
-        <view class="tr bg-w">
-          <view class="th">题目</view>
-          <view class="th">做题详情</view>
-        </view>
-        <block>
-          <view class="tr bg-g">
-            <view class="td">舒尔特方块</view>
-            <view class="td" style="white-space:pre-wrap">{{plan2_count}} * {{plan2_count}} : {{plan2_time}}s \n
-              {{plan3_count}} * {{plan3_count}} : {{plan3_time}}s</view>
-          </view>
-          <view class="tr">
-            <view class="td">寻找数字</view>
-            <view class="td">{{attention1_right}} / {{attention1_sum}}</view>
-          </view>
-          <view class="tr bg-g">
-            <view class="td">接受性注意</view>
-            <view class="td">{{attention2_right}} / {{attention2_sum}}</view>
-          </view>
-          <view class="tr">
-            <view class="td">言语加工</view>
-            <view class="td">{{simultaneous1_right}} / {{simultaneous1_sum}}</view>
-          </view>
-          <view class="tr bg-g">
-            <view class="td">渐进矩阵</view>
-            <view class="td">{{simultaneous2_right}} / {{simultaneous2_sum}}</view>
-          </view>
-          <view class="tr">
-            <view class="td">单词序列</view>
-            <view class="td">{{successive1_right}} / {{successive1_sum}}</view>
-          </view>
-          <view class="tr bg-g">
-            <view class="td">句子提问</view>
-            <view class="td">{{successive2_right}} / {{successive2_sum}}</view>
-          </view>
-          <view class="tr">
-            <view class="td">记忆广度</view>
-            <view class="td">{{successive3_right}} / {{successive3_sum}}</view>
-          </view>
-        </block>
-      </view>
-    </view>
-    <view class="text4">
-      <text class="text3">分析与建议</text>
+    <view class="text3">
+      <text class="text2">分析与建议</text>
       <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;根据上述排名，你的<text
           class="text_thick">{{max}}</text>加工能力比较好，你的<text class="text_thick">{{min}}</text>加工能力比较差。</text>
       <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在同龄人中，你的计划加工能力达到了<text
@@ -99,8 +58,3 @@
     </view>
   </scroll-view>
 </view>
-
-<view class="button">
-  <button class="save" bindtap="save" style="width: 280rpx;height: 80rpx;">保存图片</button>
-</view>
-<canvas canvas-id="myCanvas" class="{{isOpacity?'topScroll canvas':'canvas'}}"></canvas>

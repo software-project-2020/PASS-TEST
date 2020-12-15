@@ -1,6 +1,6 @@
 // pages/SelfCenter/suggestion/suggestion.js
+var userutil = require('../../../utils/userutil.js')
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -8,14 +8,10 @@ Page({
       uploaderList: [],
       uploaderNum:0,
       showUpload:true,
-      // show:false,//控制下拉列表的显示隐藏，false隐藏、true显示
-      // selectData:['时间问题','题目问题','其他问题'],//下拉列表的数据
-      // index:0,//选择的下拉列表下标
       imagelist:[],
       feedback_type:null,
       contact_info:null,
       feedback_content:null,
-      //
       selectList: [{"text": "时间问题"}, {"text": "难度问题"}, {"text": "其他问题"}],
       select: false,
       select_value1: {
@@ -25,18 +21,19 @@ Page({
   bindblur:function(e){
     var value=e.detail.value;
      this.setData({
-      contact_info:value
+       feedback_content: value
     })
-    console.log(this.data.contact_info)
+    // console.log(this.data.feedback_content)
   },
 
   bindblur1: function (e) {
+    var value=e.detail.value;
     this.setData({
-      feedback_content: e.detail.value
+      contact_info:value
     })
-    console.log(this.data.feedback_content)
+    // console.log(value)
+    // console.log(this.data.contact_info)
   },
-  //index.js
     // 删除图片
     clearImg:function(e){
         var nowList = [];//新数据
@@ -91,31 +88,55 @@ Page({
                   encoding: 'base64', //编码格式
                   success: res => { //成功的回调
                     // console.log('data:image/png;base64,' + res.data)
+                    // imagelist.push('data:image/png;base64,' +res.data)
                     imagelist.push(res.data)
                   }
                 })
                 }
-                console.log(that.data.imagelist)
+                // console.log(that.data.imagelist)
             }
         })
     },
-   // 点击下拉显示框
-//  selectTap(){
-//   this.setData({
-//    show: !this.data.show
-//   });
-//   },
-//   // 点击下拉列表
-//   optionTap(e){
-//     var selectData = this.data.selectData
-//   let Index=e.currentTarget.dataset.index;//获取点击的下拉列表的下标
-//   this.setData({
-//    index:Index,
-//    show:!this.data.show,
-//    feedback_type:selectData[e.currentTarget.dataset.index]
-//   });
-//   console.log(this.data.feedback_type)
-//   },
+
+    submit(){
+      var that = this
+      setTimeout(function(){
+      if(that.data.feedback_type==null||that.data.feedback_content==null){
+        wx.showModal({
+          title: '抱歉',
+          content: '问题类型和反馈内容不能为空!',
+          confirmText: '返回',
+          showCancel:false,
+          success: function (res) {
+          }
+        })
+      }
+      else{
+        var feedbackdata={
+        openid:getApp().globalData.userInfo.openid,
+        feedback_type:that.data.feedback_type,
+        feedback_content:that.data.feedback_content,
+        imagelist:JSON.stringify(that.data.imagelist),
+        contact_info:that.data.contact_info,
+      }
+      console.log(JSON.stringify(feedbackdata))
+      userutil.feedbackInfo(feedbackdata)
+      wx.showModal({
+        title: '提交成功',
+        content: '感谢您的配合!',
+        confirmText: '返回',
+        showCancel:false,
+        success: function (res) {
+          if (res.confirm) {
+            wx.navigateBack({
+            })
+          }
+        }
+      })
+      }
+      },500)
+      
+    },
 
 m_select_touch(e) {
   let that = this;
@@ -127,60 +148,7 @@ m_select_touch(e) {
     })
     // console.log(this.data.feedback_type)
 },
+onLoad: function () {
+},
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

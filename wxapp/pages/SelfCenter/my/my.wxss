@@ -21,6 +21,7 @@ page{
   flex-direction: row;
   margin-top: 6%;
   margin-bottom: 2%;
+  margin-left: 80%;
 }
 .headimg{
   margin-top: 5%;

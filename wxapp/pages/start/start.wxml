@@ -4,16 +4,15 @@
   <block>
     <view class="tr">
       <view class="td">  
-        <!-- <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image> -->
-        <image bindtap="bindViewTap" class="userinfo-avatar" src="../../image/attention/animals/cat.png" mode="cover"></image>
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
       </view>
       <view class="td">
         <view class="tr1">
-          <view><text class="nickname">{{nickname}}</text></view>
+          <view><text class="nickname">{{userInfo.nickName}}</text></view>
         </view>
         <view class="tr1">
           <view><text class="text_age">年龄</text></view>
-          <view><text class="text_age">{{age}}</text></view>
+          <view><text class="text_age">{{userInfo.age}}</text></view>
           <view><text class="text_age">岁</text></view>
         </view>
       </view>
@@ -23,9 +22,9 @@
 </view>
 <view class="start">
   <button class="button_back_test" size="mini" bindtap = "test">
-    <image class="button_back_test_image" src="../../image/start/button_back_test.png" mode="scaleToFill" ></image>
+    <image class="button_back_test_image" src="https://picture.morii.top/renzhixuetang/start/button_back_test.png" mode="scaleToFill" ></image>
   </button>
   <button class="list_back" size="mini" bindtap = "list">
-    <image class="list_back_image" src="../../image/start/list_back.png" mode="scaleToFill" ></image>
+    <image class="list_back_image" src="https://picture.morii.top/renzhixuetang/start/list_back.png" mode="scaleToFill" ></image>
   </button>
 </view>

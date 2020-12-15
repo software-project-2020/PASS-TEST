@@ -22,7 +22,6 @@ App({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo
-
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
@@ -43,7 +42,10 @@ App({
     });
   },
   globalData: {
+    timer:'',//计时器
     userInfo: null,
-    score: []
+    score :[],//每一项能力得分
+    scoreDetail:[[],[],[],[]],
+    time:0 //用于记录用户测试耗费的时间
   }
 })
