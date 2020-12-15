@@ -54,7 +54,9 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {},
+  onUnload: function () {
+    clearTimeout(this.data.time_add_er);
+  },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
@@ -75,9 +77,9 @@ Page({
     get_num_img(num);
   },
   moveStart: function (event) {
-    // if (this.data.game_state != "游戏中") {
-    // return;
-    // }
+    if (this.data.game_state != "游戏中") {
+      return;
+    }
     let who = event.currentTarget.dataset.who;
     let chess_start = this.data.chess_start;
     let param = {};
@@ -91,9 +93,9 @@ Page({
     this.setData(param);
   },
   handleMove: function (event) {
-    // if (this.data.game_state != "游戏中") {
-    // return;
-    // }
+    if (this.data.game_state != "游戏中") {
+      return;
+    }
     let who = event.currentTarget.dataset.who;
     let start = this.data.chess_start[who];
     let table = this.data.pos_table;
@@ -125,9 +127,9 @@ Page({
     // console.log(param["chess_move[" + who + "]"].left, param["chess_float[" + who + "]"]);
   },
   moveEnd: function (event) {
-    // if (this.data.game_state != "游戏中") {
-    // return;
-    // }
+    if (this.data.game_state != "游戏中") {
+      return;
+    }
     let who = event.currentTarget.dataset.who;
     let pos = {
       left: event.changedTouches[0].pageX,
@@ -344,6 +346,7 @@ function fillter_board(board) {
  * @param {String} newGame_or_nextLevel 是新游戏还是下一关
  */
 function gameStart(that, newGame_or_nextLevel = 'newGame') {
+
   if (that.data.level_index >= 6) {
     gameOver(that);
     return;
@@ -353,7 +356,7 @@ function gameStart(that, newGame_or_nextLevel = 'newGame') {
       game_state: "等待中",
     });
   }
-  initTime(that, that.data.time_limit);
+  initTime(that, that.data.time_limit + that.data.level_time[that.data.level_index]);
   initChessBoard(that, true);
   switch (newGame_or_nextLevel) {
     case 'newGame':
@@ -370,8 +373,8 @@ function gameStart(that, newGame_or_nextLevel = 'newGame') {
     icon: "succes",
     duration: 1000,
     complete: () => {
+      checkTime(that);
       setTimeout(() => {
-        checkTime(that);
         that.setData({
           game_state: "游戏中",
           // time_begin: new Date()
