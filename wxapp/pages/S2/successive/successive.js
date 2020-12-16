@@ -113,8 +113,6 @@ Page({
     sumtest: 0, //测试总题数
     count: 0, //错题数
     answer: "", //当前选择的回答
-    dialogShow: false,
-    oneButton: [{ text: '确定' }],
     timer: '',  //定时器名字
     choosed: [false, false, false, false],
     exeshow: true,
@@ -179,12 +177,6 @@ Page({
         }
       })
     }
-  },
-
-  resultShow: function () {
-    wx.navigateTo({
-      url: '../../S2/successive/successive',
-    })
   },
 
   onLoad: function (options) {
