@@ -4,46 +4,56 @@ page{
   background-image: url('https://picture.morii.top/renzhixuetang/background/10.jpg');
   background-size: 100% 100%;
 }
-.title{
-  height: 100rpx;
-  width: 300rpx;
-  margin: 30rpx 30rpx;
+.container{
+  padding: 0rpx;
+}
+.border{
+  height: 760rpx;
+  width: 65%;
+  display: flex;
+  justify-content: center;  /*水平*/
+  align-items: center; /*垂直*/
+  background-color: #ffffff;
+  opacity: 0.8;
+  border: 9rpx solid #edbf40a2;
+  border-radius: 30rpx;
+  padding: 20rpx;
+  flex-direction: column;
+  margin-bottom: 3%;
 }
 
-.rule{
-  background-color: #efd37596;
-  height: 100%;
-  width: 80%;
-  margin-left: 10%;
-  border-radius:20rpx;
-  margin-top: 15%;
+.img1{
+  display: flex;
+  bottom:0; 
 }
-.rule_text{
-  display: block;
-  width: 84%;
-  margin-left: 8%;
-  padding-top: 20rpx;
-  color: #000000;
+.top{
+  width: 100%;
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+}
+
+.bottom{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.img2{
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+.rules{
+  color: #ca970c;
   font-size: 32rpx;
-  font-weight: 600;
+  font-weight: 544;
   line-height: 53rpx;
 }
-.rule_gif{
-  width: 450rpx;
-  height: 500rpx;
-  margin-left: 10%;
-  margin-top: 5%;
-  border-radius:20rpx;
-  display:flex;
-	justify-content:center;
+.introduction{
+  margin: 0% 5% 2% 5%;
 }
-.rule_start{
-  border: 3rpx solid #edbf40;
-  border-radius: 20rpx;
-  margin-top: 3%;
-  background-color: #edbf40a2;
-  color: #ffffff;
-  letter-spacing:5px;
-  font-size: 40rpx;
-  font-weight: 1000;
+.btn[plain]{
+  border:none;
+  padding: 0;
+  width: 34%;
+  height: 130rpx;
 }

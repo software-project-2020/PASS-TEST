@@ -4,11 +4,11 @@ page {
   background-image: url('https://picture.morii.top/renzhixuetang/background/10.jpg');
   background-size: 100% 100%;
 }
-.jindu{
+/* .jindu{ */
   /* 上右下左 */
-  margin:5% 3% 1% 37.5%;
+  /* margin: 8% 0% 1% 25%;
   height: 60rpx;
-  width: 25%;
+  width: 50%;
   display: flex;
   background-color: #ffffff;
   opacity: 0.8;
@@ -21,7 +21,34 @@ page {
   font-size: 18px;
   font-weight: 800;
   letter-spacing:5rpx;
+} */
+.img1{
+  display: flex;
+  bottom:0;
 }
+.top{
+  width: 100%;
+  display: flex;
+  justify-content: left;
+}
+.jindu{
+  /* 上右下左 */
+  margin:12% 3% 1% 10%;
+  height: 60rpx;
+  width: 25%;
+  display: flex;
+  background-color: #ffffff;
+  opacity: 0.8;
+  border: 4rpx solid #edbf40d5;
+  border-radius: 15rpx;
+  text-align:center;
+  align-items:center;
+  justify-content: center;
+}
+.eyu{
+  margin:0% 0% 0% 5%;
+}
+
 .back {
   display: flex;
   height: 20%;
@@ -37,11 +64,21 @@ page {
   border-color:  #edbf40d5;
   border-width: 5rpx;
   border-style: solid;
-  margin: 3% 5%;
+  margin-left: 5%;
   border-radius: 20rpx;
   text-align: center;
   align-items: center;
   flex-direction: column;
+}
+.start{
+  border: 3rpx solid #edbf40;
+  border-radius: 20rpx;
+  margin-top: 60%;
+  background-color: #edbf40c5;
+  color: #ffffff;
+  letter-spacing: 5px;
+  font-size: 40rpx;
+  font-weight: 1000;
 }
 .Num_text{
   color: #000000;
