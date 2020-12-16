@@ -32,6 +32,7 @@
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
+    "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
     "packNpmRelationList": []
   },
@@ -61,6 +62,13 @@
     },
     "miniprogram": {
       "list": [
+        {
+          "id": 0,
+          "name": "pages/rank/rank",
+          "pathName": "pages/rank/rank",
+          "query": "",
+          "scene": null
+        },
         {
           "id": -1,
           "name": "pages/result/result",
@@ -176,8 +184,37 @@
           "scene": null
         },
         {
-          "name": "pages/S2/successive-rules/successive-rules",
-          "pathName": "pages/S2/successive-rules/successive-rules",
+          "id": -1,
+          "name": "pages/SelfCenter/my/my",
+          "pathName": "pages/SelfCenter/my/my",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/SelfCenter/History/History",
+          "pathName": "pages/SelfCenter/History/History",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/SelfCenter/suggestion/suggestion",
+          "pathName": "pages/SelfCenter/suggestion/suggestion",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/result/result",
+          "pathName": "pages/result/result",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/SelfCenter/aboutus/aboutus",
+          "pathName": "pages/SelfCenter/aboutus/aboutus",
           "scene": null
         }
       ]

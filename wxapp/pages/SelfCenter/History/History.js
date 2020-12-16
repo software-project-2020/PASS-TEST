@@ -1,4 +1,5 @@
 // pages/SelfCenter/History/History.js
+var testutil = require('../../../utils/testutil.js')
 Page({
 
   /**
@@ -12,18 +13,16 @@ Page({
     musicIsPlay: true,
     TestYear: null,
     TestMonth: null,
+    TestTime:null,
+    TestScore:null,
+    TestId:null,
     selectList: [{"text": "2020"}, {"text": "2021"}],
     select: false,
     select_value1: {
       "text": "未选择"
     },
     isBest:[],
-    record:[
-    {"testtime":"2021-01-31 12:15","testscore":95},
-    {"testtime":"2021-01-02 15:50","testscore":99},
-    {"testtime":"2021-01-02 12:45","testscore":89},
-    {"testtime":"2021-01-02 13:45","testscore":87},
-    {"testtime":"2021-01-02 13:45","testscore":77},],
+    record:[],
     top : 0,
     now : ''
   },
@@ -46,20 +45,26 @@ Page({
     })
   },
   renew(){
-    var record = this.data.record.slice()
-    var newrecord = [];
-    if(this.data.TestYear==2021&&this.data.TestMonth==1)
-    for(var i =0 ;i<record.length;i++){
-        var item={
-          "testtime":record[i].testtime,
-          "testscore":record[i].testscore,
-          "isBest":record[i].isBest
-        }
-        newrecord.push(item)
+    if(this.data.TestYear!=null&&this.data.TestMonth!=null){
+      this.setData({
+        record:[]
+      })
+      var recorddata={
+        // openid:getApp().globalData.userInfo.openid,
+        openid:"oAkCq5aL-90X9qhtwEDR8lx2TMZA",
+        testyear:this.data.TestYear,
+        testmonth:this.data.TestMonth
+      }
+      // console.log(JSON.stringify(recorddata))
+      var that = this
+      testutil.getrecordInfo(recorddata,(res)=>{
+        console.log(res.data)
+        that.setData({
+          record:res.data
+        })
+        console.log(that.data.record)
+      })
     }
-    this.setData({
-      newrecord:newrecord
-    })
   }
   ,
   m_select_touch(e) {
@@ -99,7 +104,7 @@ Page({
     for(var i=0;i<record.length;i++)
       if(best==record[i].testscore)
       record[i].isBest=true
-    console.log(this.data.record)
+    // console.log(this.data.record)
   },
 
 })

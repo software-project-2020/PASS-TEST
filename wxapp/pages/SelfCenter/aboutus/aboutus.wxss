@@ -23,7 +23,7 @@
 }
 .title{
   font-size: 30rpx;
-  margin: 0% 58% 1% 5%;
+  margin: 3% 58% 2% 5%;
   color: #7c7c7c;
 }
 .border2{
@@ -41,7 +41,7 @@
 }
 .title2{
   font-size: 30rpx;
-  margin: 2% 60% 1% 0%;
+  margin: 4% 60% 2% 0%;
   color: #7c7c7c;
 }
 .about{

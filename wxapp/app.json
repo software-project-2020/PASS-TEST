@@ -1,17 +1,17 @@
 {
   "pages": [
+    
     "pages/index/index",
     "pages/start/start",
     "pages/Planning/rule1/rule1",
     "pages/Planning/test1/test1",
-    "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
     "pages/simultaneous-test/simultaneous1/simultaneous1",
     "pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2",
     "pages/simultaneous-test/test/test",
     "pages/attention/rule1/attention",
     "pages/attention/game1/attention_game",
-    "pages/attention/game2/attention_game",
     "pages/attention/rule2/attention",
+    "pages/attention/game2/attention_game",
     "pages/result/result",
     "pages/SelfCenter/my/my",
     "pages/SelfCenter/aboutus/aboutus",
@@ -21,10 +21,15 @@
     "pages/Planning/test4.1/test4.1",
     "pages/Planning/rule4.1/rule4.1",
     "pages/rank/rank",
-    "pages/history/history"
+    "pages/history/history",
+    "pages/zyy_memory_span/memory_span",
+    "pages/zyy_memory_span/rule/rule",
+    "pages/zyy_memory_span/test/test",
+    "pages/S2/successive/successive",
+    "pages/simultaneous-test/simultaneous-rule/simultaneous-rule"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "Weixin",
     "navigationBarTextStyle": "black"

@@ -1,93 +1,131 @@
-// pages/rank/rank.js
+var rankutil = require('../../utils/rankutil')
+const app = getApp()
 Page({
-  
-  /**
-   * 页面的初始数据
-   */
   data: {
     options: [{
-      city_id: '001',
-      city_name: '计划能力排行'
+      rank_id: '001',
+      rank_name: '计划能力排行',
+      rank_type: 'P'
     }, {
-      city_id: '002',
-      city_name: '注意能力排行'
+      rank_id: '002',
+      rank_name: '注意能力排行',
+      rank_type: 'A'
     }, {
-      city_id: '003',
-      city_name: '同时性加工排行'
+      rank_id: '003',
+      rank_name: '同时性加工排行',
+      rank_type: 'S1'
     }, {
-      city_id: '004',
-      city_name: '继时性加工排行'
+      rank_id: '004',
+      rank_name: '继时性加工排行',
+      rank_type: 'S2'
     }],
-    selected: {}
+    ranklist: [{
+      "rank": 1,
+      "nick_name": "用户1",
+      "score": 100
+    }, {
+      "rank": 2,
+      "nick_name": "用户2",
+      "score": 90
+    }, {
+      "rank": 3,
+      "nick_name": "用户3",
+      "score": 86
+    }, {
+      "rank": 4,
+      "nick_name": "用户4",
+      "score": 77
+    }, {
+      "rank": 5,
+      "nick_name": "用户5",
+      "score": 98
+    }, {
+      "rank": 6,
+      "nick_name": "用户6",
+      "score": 45
+    },
+      //  {
+      //   "rank":7,
+      //   "nick_name":"用户7",
+      //   "score": 87
+      // }, 
+      // {
+      //   "rank":8,
+      //   "nick_name":"用户8",
+      //   "score": 80
+      // }, {
+      //   "rank":9,
+      //   "nick_name":"用户9",
+      //   "score": 17
+      // }, {
+      //   "rank":10,
+      //   "nick_name":"用户10",
+      //   "score": 100
+      // }, {
+      //   "rank":11,
+      //   "nick_name":"用户11",
+      //   "score": 120
+      // }, {
+      //   "rank":12,
+      //   "nick_name":"用户12",
+      //   "score": 234
+      // }
+    ],
+    all_number: 2,
+    my_score: 80,
+    my_rank: 10,
+    selected: {},
+    userInfo: {},
+    hasUserInfo: false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    userrank: 0,
+    userscore: 0,
+    pagenum: 1,
+    allpages: 0,
+    ranktype: null,
   },
-  change (e) {
+  change(e) {
     this.setData({
-      selected: { ...e.detail }
+      selected: { ...e.detail },
+      // ranklist: res.data.ranks,
+      ranktype: e.rank
     })
-    wx.showToast({
-      title: `${this.data.selected.id} - ${this.data.selected.name}`,
-      icon: 'success',
-      duration: 1000
-    })
+    console.log(e.rank)
+    console.log(this.data.ranktype)
+    // wx.showToast({
+    //   title: `${this.data.selected.id} - ${this.data.selected.name}`,
+    //   icon: 'success',
+    //   duration: 1000
+    // })
+    this.onLoad();
   },
-  close () {
+  close() {
     // 关闭select
     this.selectComponent('#select').close()
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-
+    var that = this
+    rankutil.getRanklists(app.globalData.userInfo.openid, app.globalData.userInfo.age, this.data.ranktype, this.data.pagenum, 6, (res) => {
+      that.setData({
+        all_number: res.all_number,
+        my_score: res.my_score,
+        my_rank: res.my_rank,
+        rank_list: res.rank_list
+      })
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  pre: function () {
+    this.setData({
+      pagenum: this.data.pagenum - 1
+    })
+    this.onLoad();
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  next: function () {
+    this.setData({
+      pagenum: this.data.pagenum + 1
+    })
+    this.onLoad();
   }
 })

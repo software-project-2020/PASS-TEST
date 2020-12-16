@@ -1,6 +1,6 @@
 //app.js
 App({
-  
+
   onLaunch: function () {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
@@ -32,6 +32,14 @@ App({
         }
       }
     })
+    /* 获取设备屏幕大小 */
+    let that = this;
+    wx.getSystemInfo({
+      success(res) {
+        that.windowWidth = res.windowWidth;
+        that.windowHeight = res.windowHeight;
+      },
+    });
   },
   globalData: {
     timer:'',//计时器

@@ -1,12 +1,15 @@
 <!--pages/Planning/test1/test1.wxml-->
 <view class="container">
-  <view class="jindu"><image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/lyq1.png' style="width: 600rpx; "></image></view>
+  <view class="jindu">
+    <!-- <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/lyq1.png' style="width: 600rpx; "></image> -->
+  </view>
   <view class="top" style="flex-direction:row;" >
     <view class="eyu">
       <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/eyu.png' style="width: 175rpx; "></image>
     </view>
     <view class="xjindu">
-      <text class="text-jindu" style="color:#9f9fdf">进度:1/6</text>
+      <text wx:if="{{jindu==0}}" class="text-jindu" style="color:#9f9fdf">练习</text>
+      <text wx:if="{{jindu!=0}}" class="text-jindu" style="color:#9f9fdf">进度:{{jindu}}/6</text>
     </view>
     <view class="clock">
       <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/clock.png' style="width: 90rpx;"></image>
