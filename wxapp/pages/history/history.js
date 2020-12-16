@@ -23,7 +23,7 @@ Page({
       title: options.id
     })
     console.log("title : " + this.data.title)
-    testutil.getrecordInfo(this.data.title, (res) => {
+    testutil.getrecordDetailInfo(this.data.title, (res) => {
       console.log(res.data)
       //雷达图数据
       var plan_mygrade = JSON.parse(res.data.plan_score);

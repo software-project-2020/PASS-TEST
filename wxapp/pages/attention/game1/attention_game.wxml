@@ -17,9 +17,8 @@
   <view wx:else class="Num_text">
   <text >{{Num}}</text>
   </view>
-  
-</view>
-<view class="button">
+  <view wx:if="{{start == true}}" class="button">
   <image src="https://picture.morii.top/renzhixuetang/attention/right.png" class="{{rightflag?'right':'right2'}}" mode="widthFix" bindtap="right"></image>
   <image src="https://picture.morii.top/renzhixuetang/attention/wrong.png" class="{{wrongflag?'wrong':'wrong2'}}" bindtap="wrong"></image>
+</view>
 </view>

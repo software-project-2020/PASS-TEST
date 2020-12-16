@@ -4,7 +4,8 @@ module.exports = {
   getS12: getS12,
   getS11: getS11,
   submitResult: submitResult,
-  getrecordInfo: getrecordInfo
+  getrecordInfo: getrecordInfo,
+  getrecordDetailInfo: getrecordDetailInfo
 }
 // 获得题目数据
 function getQuestions(testId, category, num, callback) {
