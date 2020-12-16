@@ -57,7 +57,11 @@ Page({
       }
       // console.log(JSON.stringify(recorddata))
       var that = this
+      wx.showLoading({
+        title: '加载中',
+      })
       testutil.getrecordInfo(recorddata,(res)=>{
+        wx.hideLoading()
         console.log(res.data)
         that.setData({
           record:res.data
