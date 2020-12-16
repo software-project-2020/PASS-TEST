@@ -200,18 +200,15 @@ function checkTime(that, todo, param) {
         time_second: sec,
         time_str: str,
       });
-      checkTime(that);
+      checkTime(that, todo, param);
     } else {
-      // wx.showToast({
-      //   title: "时间到",
-      //   duration: 1000,
-      //   icon: "succes",
-      //   mask: true,
-      // });
       if (typeof (todo) != 'function') {
-        console.log("todo", todo);
-        console.log("that", that);
+        // console.log("回调函数未传入");
+        // console.log("that", that);
+        // console.log("todo", todo);
+        // console.log("param", param);
       } else {
+        // console.log("回调函数传入成功");
         todo(param);
       }
     }

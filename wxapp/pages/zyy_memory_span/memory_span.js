@@ -207,9 +207,6 @@ function gameStart(that, newGame_or_nextLevel = 'newGame') {
       })
       break;
     case 'nextLevel':
-      that.setData({
-        level_index: that.data.level_index + 1
-      })
     default:
   }
 
@@ -218,22 +215,14 @@ function gameStart(that, newGame_or_nextLevel = 'newGame') {
     icon: "succes",
     duration: 1000,
     complete: () => {
-      util.checkTime(that, (e) => {
-        console.log(e);
-      }, {
-        msg: '记忆时间计时器被触发'
-      });
+      util.checkTime(that);
       that.data.time_add_1 = setTimeout(() => {
-        util.initTime(that, 3);
+        util.initTime(that, 30);
         that.setData({
           game_state: "开始拖动吧"
         });
-        util.checkTime(that, (e) => {
-          console.log(e);
-        }, {
-          msg: "做题时间计时器被触发"
-        });
-      }, that.data.level_time[that.data.level_index] * 1000 + 1000);
+        util.checkTime(that, () => userCommitAnswer(null, that));
+      }, that.data.level_time[that.data.level_index] * 1000);
     },
   });
 }
@@ -341,14 +330,14 @@ function userCommitAnswer(event, that) {
       that.data.chess_index[i];
   }
   console.log("测试页 用户提交答案", endAnswer);
+  that.setData({
+    level_index: that.data.level_index + 1
+  })
   if (endAnswer) {
-    console.log("330", that.data.level_index);
     if (that.data.level_index < that.data.level_flow.length) {
       gameStart(that, "nextLevel");
     } else {
-      wx.showToast({
-        title: '前往下一个测试',
-      });
+      // wx.showToast({title: '前往下一个测试'});
       app.globalData.scoreDetail[3, 2] = {
         score: that.data.level_index,
         qnum: that.data.level_index + 1
@@ -358,7 +347,6 @@ function userCommitAnswer(event, that) {
       })
     }
   } else {
-    console.log("wx.showModal");
     wx.showModal({
       title: "答案错误",
       content: '请前往下一个测试',
@@ -374,6 +362,9 @@ function userCommitAnswer(event, that) {
             url: '/pages/S2/successive-rules/successive-rules',
           })
         } else if (res.cancel) {
+          that.setData({
+            level_index: 0
+          });
           that.gameStart(that, "newGame");
         }
       },
