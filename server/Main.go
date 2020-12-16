@@ -639,8 +639,8 @@ func getResult(c *gin.Context) {
 	var date string
 	err = row.Scan(&resultAndRank.PlanRank, &resultAndRank.PlanAvgScore, &resultAndRank.AttentionRank, &resultAndRank.AttentionAvgScore,
 		&resultAndRank.SimulRank, &resultAndRank.SimulAvgScore, &resultAndRank.SucRank, &resultAndRank.SucAvgScore,
-		&resultAndRank.TotalRank, &resultAndRank.SumPeople,&resultAndRank.PlanScore,
-		&resultAndRank.AttentionScore,&resultAndRank.SimulScore,&resultAndRank.SucScore,&date)
+		&resultAndRank.TotalRank, &resultAndRank.SumPeople, &resultAndRank.PlanScore,
+		&resultAndRank.AttentionScore, &resultAndRank.SimulScore, &resultAndRank.SucScore, &date)
 	checkErr(err)
 	resultAndRank.TestDate, _ = time.Parse("2006-01-02 15:04:05", date)
 	reList := make(map[string]interface{})
@@ -766,5 +766,172 @@ func rankList(c *gin.Context) {
 		checkErr(err)
 		c.JSON(200, string(mapJson))
 		panic("list_num" + "字段为空")
+	}
+	sqlForRun := "select p.openid,m, plan_score, attention_score, simul_score, suc_score, total_score,u.nickname from  (SELECT max(test_order) m,openid from test_result  group by openid ) p , test_result,`user` u where p.openid=u.openid and p.m = test_result.test_order and p.openid=test_result.openid and p.openid IN ( SELECT openid FROM `user` WHERE age = ? )"
+	stmt, err := Db.Prepare(sqlForRun)
+	checkErr(err)
+	defer stmt.Close()
+	row, _ := stmt.Query(age)
+	var userTResultList []models.UserTestResult
+	for row.Next() {
+		UTResult := new(models.UserTestResult)
+		err = row.Scan(&UTResult.Openid, &UTResult.TestOrder, &UTResult.PlanScore, &UTResult.AttentionScore,
+			&UTResult.SimulScore, &UTResult.SucScore, &UTResult.TotalScore, &UTResult.Nickname)
+		userTResultList = append(userTResultList, *UTResult)
+	}
+	sumPeople := len(userTResultList)
+	list_num_int, err := strconv.Atoi(list_num)
+	checkErr(err)
+	all_number := sumPeople / list_num_int
+	if sumPeople%list_num_int != 0 {
+		all_number += 1
+	}
+	if tp == "P" {
+		resdata := make(map[string]interface{})
+		resdata["all_number"] = all_number
+		sort.SliceStable(userTResultList, func(i, j int) bool {
+			if userTResultList[i].PlanScore > userTResultList[j].PlanScore {
+				return true
+			}
+			return false
+		})
+		page_num_int, err := strconv.Atoi(page_num)
+		checkErr(err)
+		needMin := list_num_int * (page_num_int - 1)
+		needMax := list_num_int*page_num_int - 1
+		var myscore float64
+		var myrank int
+		var relist []map[string]interface{}
+		for i := 0; i < sumPeople; i++ {
+			if userTResultList[i].Openid == openid {
+				myscore = userTResultList[i].PlanScore
+				myrank = i + 1
+			}
+			if needMin <= i && i <= needMax {
+				people := make(map[string]interface{})
+				people["rank"] = i + 1
+				people["nick_name"] = userTResultList[i].Nickname
+				people["score"] = userTResultList[i].PlanScore
+				relist = append(relist, people)
+			}
+		}
+		resdata["my_score"] = myscore
+		resdata["my_rank"] = myrank
+		resdata["rank_list"] = relist
+		result["data"] = resdata
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+	}
+	if tp == "A" {
+		resdata := make(map[string]interface{})
+		resdata["all_number"] = all_number
+		sort.SliceStable(userTResultList, func(i, j int) bool {
+			if userTResultList[i].AttentionScore > userTResultList[j].AttentionScore {
+				return true
+			}
+			return false
+		})
+		page_num_int, err := strconv.Atoi(page_num)
+		checkErr(err)
+		needMin := list_num_int * (page_num_int - 1)
+		needMax := list_num_int*page_num_int - 1
+		var myscore float64
+		var myrank int
+		var relist []map[string]interface{}
+		for i := 0; i < sumPeople; i++ {
+			if userTResultList[i].Openid == openid {
+				myscore = userTResultList[i].AttentionScore
+				myrank = i + 1
+			}
+			if needMin <= i && i <= needMax {
+				people := make(map[string]interface{})
+				people["rank"] = i + 1
+				people["nick_name"] = userTResultList[i].Nickname
+				people["score"] = userTResultList[i].AttentionScore
+				relist = append(relist, people)
+			}
+		}
+		resdata["my_score"] = myscore
+		resdata["my_rank"] = myrank
+		resdata["rank_list"] = relist
+		result["data"] = resdata
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+	}
+	if tp == "S1" {
+		resdata := make(map[string]interface{})
+		resdata["all_number"] = all_number
+		sort.SliceStable(userTResultList, func(i, j int) bool {
+			if userTResultList[i].SimulScore > userTResultList[j].SimulScore {
+				return true
+			}
+			return false
+		})
+		page_num_int, err := strconv.Atoi(page_num)
+		checkErr(err)
+		needMin := list_num_int * (page_num_int - 1)
+		needMax := list_num_int*page_num_int - 1
+		var myscore float64
+		var myrank int
+		var relist []map[string]interface{}
+		for i := 0; i < sumPeople; i++ {
+			if userTResultList[i].Openid == openid {
+				myscore = userTResultList[i].SimulScore
+				myrank = i + 1
+			}
+			if needMin <= i && i <= needMax {
+				people := make(map[string]interface{})
+				people["rank"] = i + 1
+				people["nick_name"] = userTResultList[i].Nickname
+				people["score"] = userTResultList[i].SimulScore
+				relist = append(relist, people)
+			}
+		}
+		resdata["my_score"] = myscore
+		resdata["my_rank"] = myrank
+		resdata["rank_list"] = relist
+		result["data"] = resdata
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+	}
+	if tp == "S2" {
+		resdata := make(map[string]interface{})
+		resdata["all_number"] = all_number
+		sort.SliceStable(userTResultList, func(i, j int) bool {
+			if userTResultList[i].SucScore > userTResultList[j].SucScore {
+				return true
+			}
+			return false
+		})
+		page_num_int, err := strconv.Atoi(page_num)
+		checkErr(err)
+		needMin := list_num_int * (page_num_int - 1)
+		needMax := list_num_int*page_num_int - 1
+		var myscore float64
+		var myrank int
+		var relist []map[string]interface{}
+		for i := 0; i < sumPeople; i++ {
+			if userTResultList[i].Openid == openid {
+				myscore = userTResultList[i].SucScore
+				myrank = i + 1
+			}
+			if needMin <= i && i <= needMax {
+				people := make(map[string]interface{})
+				people["rank"] = i + 1
+				people["nick_name"] = userTResultList[i].Nickname
+				people["score"] = userTResultList[i].SucScore
+				relist = append(relist, people)
+			}
+		}
+		resdata["my_score"] = myscore
+		resdata["my_rank"] = myrank
+		resdata["rank_list"] = relist
+		result["data"] = resdata
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
 	}
 }

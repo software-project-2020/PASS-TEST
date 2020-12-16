@@ -9,4 +9,5 @@ type UserTestResult struct {
 	SucScore float64
 	TotalScore float64
 	Flag int
+	Nickname string
 }
