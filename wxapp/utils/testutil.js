@@ -215,3 +215,21 @@ function getrecordInfo(recorddata, callback) {
     }
   })
 }
+
+//通过testid查询历史测试
+function getrecordInfo(testid, callback) {
+  wx.request({
+    method: 'POST',
+    dataType: 'json',
+    url: 'https://api.zghy.xyz/api/test/getresult',
+    header: {
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    data: {
+      testid : testid
+    },
+    success: function (res) {
+      callback && callback(JSON.parse(res.data));
+    }
+  })
+}
