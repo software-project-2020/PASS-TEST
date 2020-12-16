@@ -25,7 +25,6 @@
     "pages/zyy_memory_span/memory_span",
     "pages/zyy_memory_span/rule/rule",
     "pages/zyy_memory_span/test/test",
-    "pages/S2/successive/successive",
     "pages/simultaneous-test/simultaneous-rule/simultaneous-rule"
   ],
   "window": {
