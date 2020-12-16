@@ -99,9 +99,13 @@ Page({
     },
 
     submit(){
+      wx.showLoading({
+        title: '提交中',
+      })
       var that = this
       setTimeout(function(){
       if(that.data.feedback_type==null||that.data.feedback_content==null){
+        wx.hideLoading()
         wx.showModal({
           title: '抱歉',
           content: '问题类型和反馈内容不能为空!',
@@ -121,6 +125,7 @@ Page({
       }
       console.log(JSON.stringify(feedbackdata))
       userutil.feedbackInfo(feedbackdata)
+      wx.hideLoading()
       wx.showModal({
         title: '提交成功',
         content: '感谢您的配合!',
