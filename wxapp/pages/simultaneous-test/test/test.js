@@ -115,7 +115,8 @@ Page({
 
   // 清除画布
   clearDraw() {
-    this.data.ctx.clearRect(0, 0, this.data.canvasWidth, this.data.canvasHeight)
+    this.data.ctx.fillStyle = "#FFFFFF";
+    this.data.ctx.fillRect(0, 0, 800, 1000);
     this.data.ctx.draw()
   },
 
@@ -131,6 +132,7 @@ Page({
         canvasHeight: rect.height
       })
     }).exec();
+    this.clearDraw()
   },
   start: function () { //练习页面点击开始测试
     this.saveCanvas((res) => {
@@ -168,7 +170,7 @@ Page({
       })
       this.clearDraw()
     })
-
+    
 
   },
   finish: function () { //提交最后一题，结算分数

@@ -47,15 +47,11 @@ Page({
         intervaltimelist[i]=temp.intervaltime
         startdifficultylist[i]=temp.startdifficulty
       }
-      // console.log(timelist)
-      // console.log(intervaltimelist)
       this.setData({
         Alltime:timelist,
         intervaltime:intervaltimelist,
         startdifficulty:startdifficultylist
       })
-      // console.log(this.data.startdifficulty)
-      // console.log(this.data.intervaltime)
       this.intinum()
     })
     
@@ -283,7 +279,7 @@ Page({
       }
       console.log(getApp().globalData.scoreDetail[3,0])
       wx.redirectTo({
-        url: '/pages/Planning/test1/test1',//跳转下个测试，待修改
+        url: '/pages/S2/successive-rules/successive-rules',
       })
     }
     else {
@@ -479,9 +475,6 @@ Page({
         isSubmit: true,
         Costtime: (this.data.Alltime[this.data.level-1] - this.data.countDownNum).toFixed(1)
       })
-      // console.log(this.data.Costtime)
-      // console.log('连错',this.data.wrongnum)
-      // console.log('得分',this.data.score)
     }
   },
 })

@@ -13,6 +13,9 @@ Page({
     musicIsPlay: true,
     TestYear: null,
     TestMonth: null,
+    TestTime:null,
+    TestScore:null,
+    TestId:null,
     selectList: [{"text": "2020"}, {"text": "2021"}],
     select: false,
     select_value1: {
@@ -63,11 +66,20 @@ Page({
     })
     if(this.data.TestYear!=null&&this.data.TestMonth!=null){
       var recorddata={
-        TestYear:this.data.TestYear,
-        TestMonth:this.data.TestMonth
+        // openid:getApp().globalData.userInfo.openid,
+        openid:"oAkCq5aL-90X9qhtwEDR8lx2TMZA",
+        testyear:this.data.TestYear,
+        testmonth:this.data.TestMonth
       }
-      console.log(JSON.stringify(recorddata))
-      testutil.getrecordInfo(recorddata)
+      // console.log(JSON.stringify(recorddata))
+      testutil.getrecordInfo(recorddata,(res)=>{
+        console.log(res)
+        this.setData({
+          TestTime:res.testtime,
+          TestScore:res.testscore,
+          TestId:res.testid
+        })
+      })
     }
   }
   ,

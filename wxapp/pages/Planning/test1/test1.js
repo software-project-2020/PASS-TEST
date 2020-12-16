@@ -195,8 +195,8 @@ Page({
               that.setData({
                 nowdifficulty: that.data.nowdifficulty - 1
               })
-              wx.navigateTo({
-                url: '/pages/Planning/rule4.1/rule4.1',
+              wx.redirectTo({
+                url: '/pages/simultaneous-test/simultaneous-rule/simultaneous-rule',
               })
             } else
               that.initnum(that.data.nowdifficulty)
@@ -611,8 +611,8 @@ Page({
                 that.setData({
                   nowdifficulty: that.data.nowdifficulty - 1
                 })
-                wx.navigateTo({
-                  url: '/pages/Planning/rule4.1/rule4.1',
+                wx.redirectTo({
+                  url: '/pages/simultaneous-test/simultaneous-rule/simultaneous-rule',
                 })
               } else
                 that.initnum(that.data.nowdifficulty)
