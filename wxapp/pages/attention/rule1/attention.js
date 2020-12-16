@@ -13,7 +13,7 @@ Page({
    */
   onShow: function () {
     wx.setNavigationBarTitle({
-      title: '注意'
+      title: '注意测试'
     })
   },
 

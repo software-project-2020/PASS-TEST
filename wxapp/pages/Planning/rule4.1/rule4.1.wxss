@@ -33,15 +33,6 @@ page{
   justify-content: center;
 }
 
-.bottom{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-.img2{
-  margin-top: 2%;
-  margin-bottom: 2%;
-}
 .rules{
   color: #6262c2;
   font-size: 30rpx;
@@ -56,4 +47,14 @@ page{
   padding: 0;
   width: 34%;
   height: 130rpx;
+}
+
+.bottom{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.img2{
+  margin-top: 2%;
+  margin-bottom: 2%;
 }

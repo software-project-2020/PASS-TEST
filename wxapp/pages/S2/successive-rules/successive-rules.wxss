@@ -69,3 +69,19 @@ page{
 }
 
 
+.btn[plain]{
+  border:none;
+  padding: 0;
+  width: 34%;
+  height: 130rpx;
+}
+
+.bottom{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.img2{
+  margin-top: 2%;
+  margin-bottom: 2%;
+}

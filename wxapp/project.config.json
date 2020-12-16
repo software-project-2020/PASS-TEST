@@ -63,13 +63,6 @@
     "miniprogram": {
       "list": [
         {
-          "id": 0,
-          "name": "pages/rank/rank",
-          "pathName": "pages/rank/rank",
-          "query": "",
-          "scene": null
-        },
-        {
           "id": -1,
           "name": "pages/result/result",
           "pathName": "pages/result/result",
@@ -115,13 +108,6 @@
           "id": -1,
           "name": "pages/attention/game1/attention_game",
           "pathName": "pages/attention/game1/attention_game",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
-          "pathName": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
           "query": "",
           "scene": null
         },
@@ -215,6 +201,13 @@
           "id": -1,
           "name": "pages/SelfCenter/aboutus/aboutus",
           "pathName": "pages/SelfCenter/aboutus/aboutus",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/zyy_memory_span/rule/rule",
+          "pathName": "pages/zyy_memory_span/rule/rule",
+          "query": "",
           "scene": null
         }
       ]

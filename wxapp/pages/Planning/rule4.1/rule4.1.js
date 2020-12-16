@@ -17,6 +17,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.setNavigationBarTitle({
+      title: '继时性加工测试'
+    })
     this.setData({
       // ageGroup:1
       ageGroup:getApp().globalData.userInfo.ageGroup

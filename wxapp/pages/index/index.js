@@ -27,6 +27,9 @@ Page({
 
   },
   onLoad: function () {
+    wx.setNavigationBarTitle({
+      title: '认知学堂'
+    })
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,

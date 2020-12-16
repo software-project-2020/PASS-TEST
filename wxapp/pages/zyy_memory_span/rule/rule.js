@@ -2,7 +2,7 @@
 Page({
   onShow: function () {
     wx.setNavigationBarTitle({
-      title: '注意'
+      title: '继时性加工测试'
     })
   },
   goTest: function (e) {
