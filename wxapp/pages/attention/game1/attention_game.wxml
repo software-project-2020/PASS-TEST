@@ -5,7 +5,13 @@
 
 <view class="back1" style="width : {{deviceWidthLook}}px ; height : {{deviceHeightLook}}px">
   <text class="back">判断下列数字是否为 {{answer1}} ， {{answer2}} ， {{answer3}}</text>
-  <text class="Num_text">{{Num}}</text>
+  <view wx:if="{{start == false}}">
+  <button class="start" bindtap="start">开始测试</button>
+  </view>
+  <view wx:else class="Num_text">
+  <text >{{Num}}</text>
+  </view>
+  
 </view>
 <view class="button">
   <image src="https://picture.morii.top/renzhixuetang/attention/right.png" class="{{rightflag?'right':'right2'}}" mode="widthFix" bindtap="right"></image>

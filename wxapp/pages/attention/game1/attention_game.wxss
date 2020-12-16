@@ -6,9 +6,9 @@ page {
 }
 .jindu{
   /* 上右下左 */
-  margin:5% 3% 1% 37.5%;
+  margin: 8% 0% 1% 25%;
   height: 60rpx;
-  width: 25%;
+  width: 50%;
   display: flex;
   background-color: #ffffff;
   opacity: 0.8;
@@ -42,6 +42,16 @@ page {
   text-align: center;
   align-items: center;
   flex-direction: column;
+}
+.start{
+  border: 3rpx solid #edbf40;
+  border-radius: 20rpx;
+  margin-top: 60%;
+  background-color: #edbf40c5;
+  color: #ffffff;
+  letter-spacing: 5px;
+  font-size: 40rpx;
+  font-weight: 1000;
 }
 .Num_text{
   color: #000000;
