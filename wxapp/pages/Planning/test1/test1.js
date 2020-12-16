@@ -528,7 +528,7 @@ Page({
           PassScore: (PassScore / 2).toFixed(1)
         })
         getApp().globalData.score[0] = Math.round(this.data.PassScore);
-        getApp().globalData.scoreDetail[0] = this.data.score_detail;
+        getApp().globalData.scoreDetail[0] = this.data.scoreDetail;
         console.log(getApp().globalData.score[0])
         console.log(getApp().globalData.scoreDetail[0])
       }
