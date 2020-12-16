@@ -218,8 +218,8 @@ function gameStart(that, newGame_or_nextLevel = 'newGame') {
     icon: "succes",
     duration: 1000,
     complete: () => {
-      util.checkTime(that, (param) => {
-        console.log(param);
+      util.checkTime(that, (e) => {
+        console.log(e);
       }, {
         msg: '记忆时间计时器被触发'
       });
@@ -228,8 +228,8 @@ function gameStart(that, newGame_or_nextLevel = 'newGame') {
         that.setData({
           game_state: "开始拖动吧"
         });
-        util.checkTime(that, (param) => {
-          console.log(param);
+        util.checkTime(that, (e) => {
+          console.log(e);
         }, {
           msg: "做题时间计时器被触发"
         });

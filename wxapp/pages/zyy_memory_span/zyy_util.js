@@ -190,7 +190,7 @@ function prettyBoard(board) {
   }
 }
 
-function checkTime(that, timeout, param) {
+function checkTime(that, todo, param) {
   clearTimeout(that.data.time_add_er);
   that.data.time_add_er = setTimeout(function () {
     let sec = that.data.time_second - 1;
@@ -208,7 +208,12 @@ function checkTime(that, timeout, param) {
       //   icon: "succes",
       //   mask: true,
       // });
-      timeout(param);
+      if (typeof (todo) != 'function') {
+        console.log("todo", todo);
+        console.log("that", that);
+      } else {
+        todo(param);
+      }
     }
   }, 1000);
 }
