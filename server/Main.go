@@ -630,17 +630,19 @@ func getResult(c *gin.Context) {
 	}
 	var resultAndRank models.ResultAndRank
 	sqlForRun := "SELECT plan_rank,plan_avg_score,attention_rank,attention_avg_score,simul_rank,simul_avg_score" +
-		",suc_rank,suc_avg_score,total_rank,sum_people,plan_score,attention_score,simul_score,suc_score" +
+		",suc_rank,suc_avg_score,total_rank,sum_people,plan_score,attention_score,simul_score,suc_score,test_date" +
 		" from test_result where test_id = ?"
 	stmt, err := Db.Prepare(sqlForRun)
 	checkErr(err)
 	defer stmt.Close()
 	row := stmt.QueryRow(testid)
+	var date string
 	err = row.Scan(&resultAndRank.PlanRank, &resultAndRank.PlanAvgScore, &resultAndRank.AttentionRank, &resultAndRank.AttentionAvgScore,
 		&resultAndRank.SimulRank, &resultAndRank.SimulAvgScore, &resultAndRank.SucRank, &resultAndRank.SucAvgScore,
 		&resultAndRank.TotalRank, &resultAndRank.SumPeople,&resultAndRank.PlanScore,
-		&resultAndRank.AttentionScore,&resultAndRank.SimulScore,&resultAndRank.SucScore)
+		&resultAndRank.AttentionScore,&resultAndRank.SimulScore,&resultAndRank.SucScore,&date)
 	checkErr(err)
+	resultAndRank.TestDate, _ = time.Parse("2006-01-02 15:04:05", date)
 	reList := make(map[string]interface{})
 	reList["plan_rank"] = resultAndRank.PlanRank
 	reList["plan_avg_score"] = resultAndRank.PlanAvgScore
@@ -656,6 +658,7 @@ func getResult(c *gin.Context) {
 	reList["attention_score"] = resultAndRank.AttentionScore
 	reList["simul_score"] = resultAndRank.SimulScore
 	reList["suc_score"] = resultAndRank.SucScore
+	reList["test_time"] = resultAndRank.TestDate.Format("2006-01-02 15:04:05")
 	result["data"] = reList
 	mapJson, err := json.Marshal(result)
 	checkErr(err)
