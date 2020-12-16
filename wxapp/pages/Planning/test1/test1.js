@@ -510,6 +510,7 @@ Page({
       if (FinalScore > 100)
         FinalScore = 100
       console.log(FinalScore)
+      console.log(this.data.Passtime)
       var PassScore = this.data.PassScore
       var scoreDetail = this.data.scoreDetail
       if (this.data.nowdifficulty == 4 || this.data.nowdifficulty == 5) {
@@ -519,7 +520,7 @@ Page({
         })
         var item = {
           "difficulty": this.data.nowdifficulty,
-          "score": Math.round(FinalScore)
+          "score": Math.round(this.data.Passtime)
         }
         scoreDetail.push(item)
       }
