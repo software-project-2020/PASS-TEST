@@ -342,8 +342,8 @@ function userCommitAnswer(event, that) {
       success: function (res) {
         if (res.confirm) {
           app.globalData.scoreDetail[3, 2] = {
-            score: that.data.level_index,
-            qnum: that.data.level_index + 1
+            score: 3,
+            qnum: 4
           };
           wx.navigateTo({
             url: '/pages/S2/successive-rules/successive-rules',
