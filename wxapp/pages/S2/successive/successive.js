@@ -117,6 +117,7 @@ Page({
     choosed: [false, false, false, false],
     exeshow: true,
     testtime: 3,
+    dialogShow: false
   },
 
   choose: function (e) {
@@ -140,7 +141,7 @@ Page({
       if (this.data.answer == this.data.qa[this.data.now - 1].right_answer) {
         this.data.score++;
         this.setData({
-          now: this.data.now + 1,//进入下一个游戏
+          // now: this.data.now + 1,//进入下一个游戏
           choosed: [false, false, false, false],
           exeshow: true,
           testtime: parseInt(this.data.qa[this.data.now].sentence.length / 2)
@@ -149,8 +150,8 @@ Page({
         util.initCountDown(this, this.data.testtime, 1)
       } else {
         this.data.count++;
-        this.gameover();
       }
+      this.gameover();
     } else {
       var text
       if (this.data.answer == this.data.qa[this.data.now - 1].right_answer)
@@ -258,9 +259,9 @@ Page({
   gameover: function () {
     if (this.data.count == 3 || this.data.now == 6) {
       util.closeCountDown(this)
-      app.globalData.scoreDetail[3][2] = { score: this.data.score, qnum: this.data.now }
-      this.sumscore()
-      app.globalData.score[3] = this.data.sumscore / this.data.sumtest
+      // app.globalData.scoreDetail[3][2] = { score: this.data.score, qnum: this.data.now }
+      // this.sumscore()
+      // app.globalData.score[3] = this.data.sumscore / this.data.sumtest
       wx.showModal({
         title: '恭喜',
         content: '恭喜你完成本次测试！点击按钮查看本次测试的最终结果！',
@@ -272,9 +273,6 @@ Page({
           })
         }
       })
-      console.log("得分：", this.data.score)
-      console.log("得分：", app.globalData.score[3, 1])
-      console.log("得分：", app.globalData.score[3, 3])
     } else {
       this.setData({
         now: this.data.now + 1,//进入下一个游戏
