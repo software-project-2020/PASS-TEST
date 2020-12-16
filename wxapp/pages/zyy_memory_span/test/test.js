@@ -196,76 +196,22 @@ function gameStart(that) {
       game_state: "等待中",
     });
   }
-  initTime(that, that.data.level_time[that.data.level_index]);
+  util.initTime(that, that.data.level_time[that.data.level_index]);
   initChessBoard(that, true);
   wx.showToast({
     title: "请记住棋盘",
     icon: "succes",
     duration: 1000,
     complete: () => {
-      checkTime(that);
+      util.checkTime(that);
       that.data.time_add_1 = setTimeout(() => {
-        initTime(that, 30);
+        util.initTime(that, 30);
         that.setData({
           game_state: "开始拖动吧"
         });
-        checkTime(that);
+        util.checkTime(that);
       }, that.data.level_time[that.data.level_index] * 1000 + 1000);
     },
-  });
-}
-
-function checkTime(that) {
-  if (that.data.time_add_er != null) {
-    clearTimeout(that.data.time_add_er);
-  }
-  that.data.time_add_er = setTimeout(function () {
-    let sec = that.data.time_second - 1;
-    if (sec >= 0) {
-      let str = sec + "s";
-      that.setData({
-        time_second: sec,
-        time_str: str,
-      });
-      checkTime(that);
-    } else {
-      wx.showToast({
-        title: "时间到",
-        duration: 1000,
-        icon: "succes",
-        mask: true,
-      });
-      userCommitAnswer(null, that);
-      // testOver(that);
-      // setTimeout(() => {
-      //   wx.showToast({
-      //     title: "Game Over",
-      //     duration: 1000,
-      //     icon: "succes",
-      //     mask: true,
-      //   });
-      //   setTimeout(() => {
-      //     testOver(that);
-      //   }, 1000);
-      // }, 1000);
-    }
-  }, 1000);
-}
-
-/**
- * 初始化时间设置
- * @todo 更改游戏状态为  `请记住棋盘`
- * @todo 设置时间限时
- * @todo 设置时间显示字符串
- * @param {Page} that 传递进来的this
- * @param {Number} time_limit_in_second 倒计时 单位`秒`
- */
-function initTime(that, time_limit_in_second) {
-  clearTimeout(that.data.time_add_er);
-  that.setData({
-    time_second: time_limit_in_second,
-    time_str: time_limit_in_second + "s",
-    game_state: "请记住棋盘"
   });
 }
 

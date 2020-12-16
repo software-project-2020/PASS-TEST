@@ -5,6 +5,8 @@ module.exports = {
   chessAt: chessAt,
   get_Random_board: get_Random_board,
   prettyBoard: prettyBoard,
+  initTime: initTime,
+  checkTime: checkTime,
 }
 /**
  * 得到指定数字的图片路径
@@ -57,7 +59,7 @@ function chessAt(pos, table) {
   }
   let where = -1;
   for (let i = 0; i < table.length; i++) {
-    console.log("compare ", pos, table[i], comp(pos.left, table[i].left) && comp(pos.top, table[i].top));
+    // console.log("compare ", pos, table[i], comp(pos.left, table[i].left) && comp(pos.top, table[i].top));
     if (comp(pos.left, table[i].left) && comp(pos.top, table[i].top)) {
       where = i;
       break;
@@ -186,4 +188,44 @@ function prettyBoard(board) {
       break;
     }
   }
+}
+
+function checkTime(that) {
+  clearTimeout(that.data.time_add_er);
+  that.data.time_add_er = setTimeout(function () {
+    let sec = that.data.time_second - 1;
+    if (sec >= 0) {
+      let str = sec + "s";
+      that.setData({
+        time_second: sec,
+        time_str: str,
+      });
+      checkTime(that);
+    } else {
+      wx.showToast({
+        title: "时间到",
+        duration: 1000,
+        icon: "succes",
+        mask: true,
+      });
+      that.userCommitAnswer(null, that);
+    }
+  }, 1000);
+}
+
+/**
+ * 初始化时间设置
+ * @todo 更改游戏状态为  `请记住棋盘`
+ * @todo 设置时间限时
+ * @todo 设置时间显示字符串
+ * @param {Page} that 传递进来的this
+ * @param {Number} time_limit_in_second 倒计时 单位`秒`
+ */
+function initTime(that, time_limit_in_second) {
+  clearTimeout(that.data.time_add_er);
+  that.setData({
+    time_second: time_limit_in_second,
+    time_str: time_limit_in_second + "s",
+    game_state: "请记住棋盘"
+  });
 }

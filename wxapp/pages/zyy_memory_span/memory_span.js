@@ -60,6 +60,7 @@ Page({
    */
   onUnload: function () {
     clearTimeout(this.data.time_add_er);
+    clearTimeout(this.data.time_add_1);
   },
 
   /**
@@ -197,7 +198,7 @@ function gameStart(that, newGame_or_nextLevel = 'newGame') {
       game_state: "请记住棋盘",
     });
   }
-  initTime(that, that.data.time_limit + that.data.level_time[that.data.level_index]);
+  util.initTime(that, that.data.level_time[that.data.level_index]);
   initChessBoard(that, true);
   switch (newGame_or_nextLevel) {
     case 'newGame':
@@ -214,70 +215,17 @@ function gameStart(that, newGame_or_nextLevel = 'newGame') {
     icon: "succes",
     duration: 1000,
     complete: () => {
-      checkTime(that);
-      setTimeout(() => {
+      util.checkTime(that);
+      that.data.time_add_1 = setTimeout(() => {
+        util.initTime(that, 30);
         that.setData({
-          game_state: "开始拖动吧",
-          // time_begin: new Date()
+          game_state: "开始拖动吧"
         });
+        util.checkTime(that);
       }, that.data.level_time[that.data.level_index] * 1000 + 1000);
     },
   });
 }
-
-function checkTime(that) {
-  if (that.data.time_add_er != null) {
-    clearTimeout(that.data.time_add_er);
-  }
-  that.data.time_add_er = setTimeout(function () {
-    let sec = that.data.time_second - 1;
-    if (sec >= 0) {
-      let str = sec + "s";
-      that.setData({
-        time_second: sec,
-        time_str: str,
-      });
-      checkTime(that);
-    } else {
-      wx.showToast({
-        title: "时间到",
-        duration: 1000,
-        icon: "succes",
-        mask: true,
-      });
-      setTimeout(() => {
-        wx.showToast({
-          title: "Game Over",
-          duration: 1000,
-          icon: "succes",
-          mask: true,
-        });
-        setTimeout(() => {
-          gameOver(that);
-        }, 1000);
-      }, 1000);
-    }
-  }, 1000);
-}
-
-/**
- * 初始化时间设置
- * @todo 更改游戏状态为  `请记住棋盘`
- * @todo 设置时间限时
- * @todo 设置时间显示字符串
- * @param {Page} that 传递进来的this
- * @param {Number} time_limit_in_second 倒计时 单位`秒`
- */
-function initTime(that, time_limit_in_second) {
-  clearTimeout(that.data.time_add_er);
-  that.setData({
-    time_second: time_limit_in_second,
-    time_str: time_limit_in_second + "s",
-    game_state: "请记住棋盘"
-  });
-}
-
-
 
 /**
  * 建立一个新的棋盘
@@ -354,26 +302,6 @@ function initChessBoard(that, isRandom) {
     });
   }, 2000);
 }
-/**
- * 计算得分
- * @param {Page} that 传递进来的this
- * @returns {String} 第 ? 关成功
- */
-function getScore(that) {
-  clearTimeout(that.data.time_add_er);
-  let tar = that.data;
-  tar.level_index += 1;
-  if (tar.level_index < 6) {
-    that.setData({
-      game_state: "下一轮",
-      level_index: tar.level_index,
-    });
-    setTimeout(() => {
-      gameStart(that, 'nextLevel');
-    }, 1000);
-  }
-  return "第 " + tar.level_index + " 关成功";
-}
 
 /**
  * 结束比赛
@@ -383,15 +311,15 @@ function gameOver(that) {
   wx.showToast({
     title: "游戏结束",
   });
-  app.globalData.scoreDetail[3, 2] = {
-    score: that.data.level_index,
-    qnum: that.data.level_index + 1
-  };
-  initTime(that, that.data.time_limit);
+
+  util.initTime(that, that.data.time_limit);
   initChessBoard(that, false);
 }
 
 function userCommitAnswer(event, that) {
+  if (that.data.game_state != "开始拖动吧") {
+    return;
+  }
   clearTimeout(that.data.time_add_er);
   clearTimeout(that.data.time_add_1);
   let endAnswer = true;
@@ -401,38 +329,32 @@ function userCommitAnswer(event, that) {
       that.data.chess_nowAt[that.data.chess_index[i]] ==
       that.data.chess_index[i];
   }
+  console.log("测试页 用户提交答案", endAnswer);
   if (endAnswer) {
-    wx.showModal({
-      title: "正式测试即将开始",
-      content: "恭喜你～ 成功通过了练习，现在要开始测试么？",
-      cancelText: "再练一遍",
-      confirmText: "去测试",
-      success: function (res) {
-        if (res.confirm) {
-          wx.navigateTo({
-            url: "/pages/zyy_memory_span/memory_span",
-          });
-        } else {
-          gameStart(that);
-        }
-      },
-    });
+    console.log("330", that.data.level_index);
   } else {
+    console.log("wx.showModal");
     wx.showModal({
       title: "答案错误",
-      content: "很可惜，练习未成功，确定要直接开始测试么？",
-      cancelText: "再练一遍",
-      confirmText: "去测试",
+      content: '请前往下一个测试',
+      cancelText: "再试一次",
+      confirmText: "下个测试",
       success: function (res) {
         if (res.confirm) {
-          //这里是点击了确定以后
+          app.globalData.scoreDetail[3, 2] = {
+            score: that.data.level_index,
+            qnum: that.data.level_index + 1
+          };
           wx.navigateTo({
-            url: "/pages/zyy_memory_span/memory_span",
-          });
-        } else {
-          gameStart(that);
+            url: '/pages/S2/successive-rules/successive-rules',
+          })
+        } else if (res.cancel) {
+          that.gameStart(that, "newGame");
         }
       },
+      fail: function (e) {
+        console.log("fail", e);
+      }
     });
   }
 }
