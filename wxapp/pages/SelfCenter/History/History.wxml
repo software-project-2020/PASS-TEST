@@ -25,13 +25,13 @@
   <view class="record">
     <text class="record_text">测试记录</text>
     <scroll-view class="record_border" scroll-y="true" bindscroll="scroll" scroll-with-animation="{{true}}" scroll-top="{{top}}">
-      <view class="tt" wx:for="{{newrecord}}" wx:if="{{newrecord.length!=0}}"><button class="record_btn" bindtap="GotoRecord" data-item="{{item}}" style="width: 580rpx;">
-        <text class="recorditem">{{newrecord[index].testtime}}</text>
-        <text class="scoretext">测验得分:{{newrecord[index].testscore}}</text>
+      <view class="tt" wx:for="{{record}}" wx:if="{{record.length!=0}}"><button class="record_btn" bindtap="GotoRecord" data-item="{{item}}" style="width: 580rpx;">
+        <text class="recorditem">{{record[index].testtime}}</text>
+        <text class="scoretext">测验得分:{{record[index].testscore}}</text>
       </button>
-      <image class='img_best' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/pika.png' style="width: 100rpx;visibility: {{newrecord[index].isBest?'visible':'hidden'}};" ></image>
+      <image class='img_best' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/pika.png' style="width: 100rpx;visibility: {{record[index].isBest?'visible':'hidden'}};" ></image>
     </view>
-    <view class="Empty" wx:if="{{newrecord.length==0}}">暂无相关记录</view>
+    <!-- <view class="Empty" wx:if="{{record.length==0||record==null}}">暂无相关记录</view> -->
     </scroll-view>
   </view>
 </view>
