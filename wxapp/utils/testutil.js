@@ -31,7 +31,7 @@ function getconfiguration(age_group, test_id, callback) {
   wx.request({
     method: 'POST',
     dataType: 'json',
-    url: 'http://xx.com/api/user/register',
+    url: 'https://api.zghy.xyz/api/test/configuration',
     header: {
       'content-type': 'application/x-www-form-urlencoded'
     },
