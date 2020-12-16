@@ -5,40 +5,48 @@ page {
   background-size: 100% 100%;
 }
 
-.top {
-  width: 80%;
+.img1{
   display: flex;
-  margin-left: 15%;
-  margin-right: 5%;
+  bottom:0;
 }
-
-.jindu {
+.top{
+  width: 100%;
+  display: flex;
+  justify-content: left;
+}
+.jindu{
   /* 上右下左 */
-  margin: 8% 0% 1% 20%;
+  margin:12% 0% 1% 2%;
   height: 60rpx;
-  width: 50%;
+  width: 30%;
   display: flex;
   background-color: #ffffff;
   opacity: 0.8;
   border: 4rpx solid #edbf40d5;
   border-radius: 15rpx;
-  text-align: center;
-  align-items: center;
+  text-align:center;
+  align-items:center;
   justify-content: center;
-  color: #edbf40;
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: 5rpx;
+}
+.eyu{
+  margin:0% 0% 0% 10%;
+}
+.start{
+  width: 50%;
+  margin-top: 12%;
+  margin-left: 3%;
+  margin-right: 2%;
+  display: flex;
 }
 
 .clock {
-  margin: 8% 0% 0% 10%;
+  margin-right: 5%;
 }
 
 .time {
-  margin: 9% 0% 1% 0%;
+  margin-top: 5%;
   height: 50rpx;
-  width: 20%;
+  width: 50%;
   display: flex;
   background-color: #ffffff;
   opacity: 0.8;
@@ -76,7 +84,25 @@ page {
   border-style: solid;
   height: 100%;
   width: 80%;
-  margin: 3% 10%;
+  margin-left: 10%;
+  margin-right: 10%;
+  border-radius: 20rpx;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+.back1 {
+  background-color: #ffffffd5;
+  border-color: #edbf40d5;
+  border-width: 5rpx;
+  border-style: solid;
+  height: 100%;
+  width: 80%;
+  margin-top: 2%;
+  margin-left: 10%;
+  margin-right: 10%;
   border-radius: 20rpx;
   text-align: center;
   align-items: center;

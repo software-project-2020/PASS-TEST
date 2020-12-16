@@ -1,8 +1,23 @@
 <!--pages/attention/attention.wxml-->
-<view class="rule">
-<text class="rule_text" decode="{{true}}" space="{{true}}">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;接下来，你会看到一个题目，和快速跳转的数字，根据题目所给出的要求，在最快的时间内，选择是否符合要求。你需要完成1题这样的题目。
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;请看下面的示例：
-</text>
-<image class="rule_gif" src="https://picture.morii.top/renzhixuetang/attention/demo1.gif"></image>
-<button class="rule_start" bindtap = "button_start">开始练习</button>
+<view class="container">
+  <view class="top" style="flex-direction:row;">
+    <view class="sheep">
+      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/sheep.png' style="width: 170rpx; "></image>
+    </view>
+  </view>
+  <view class="border">
+    <view class="introduction">
+      <text class="rules">接下来，你会看到一个题目，和快速跳转的数字，根据题目所给出的要求，在最快的时间内，选择是否符合要求。你需要完成1题这样的题目。
+        请看下面的示例：</text>
+    </view>
+    <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/attention/demo1.gif' style="width: 400rpx; "></image>
+
+  </view>
+  <view class="bottom">
+    <button class="btn" plain="true" bindtap="button_start" >
+    <image class='img2' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/starttest2.png' style="width: 250rpx; "></image>
+  </button>
 </view>
+</view>
+
+

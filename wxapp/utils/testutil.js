@@ -4,7 +4,8 @@ module.exports = {
   getS12: getS12,
   getS11: getS11,
   submitResult: submitResult,
-  getrecordInfo: getrecordInfo
+  getrecordInfo: getrecordInfo,
+  getrecordDetailInfo: getrecordDetailInfo
 }
 // 获得题目数据
 function getQuestions(testId, category, num, callback) {
@@ -218,7 +219,7 @@ function getrecordInfo(recorddata, callback) {
 }
 
 //通过testid查询历史测试
-function getrecordInfo(testid, callback) {
+function getrecordDetailInfo(testid, callback) {
   wx.request({
     method: 'POST',
     dataType: 'json',

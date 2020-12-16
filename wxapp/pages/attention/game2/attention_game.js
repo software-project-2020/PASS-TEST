@@ -80,12 +80,13 @@ Page({
       text: '确定'
     }],
     write: ["练习结束，测试正式开始", "请继续完成下一题", "本游戏结束，开始下一个测试"],
-    text: ["练习", "进度：1/2", "进度：2/2"]
+    text: ["练习", "进度：1/2", "进度：2/2"],
+    start: false
   },
   onReady: function () {},
   onShow: function () {
     wx.setNavigationBarTitle({
-      title: '注意'
+      title: '注意测试'
     })
   },
   onLoad: function () {
@@ -129,152 +130,155 @@ Page({
   },
   //初始化表格
   initnum() {
-    this.setData({
-      l: [],
-      num: [],
-      bg: [],
-      flag: [],
-    })
-    var bg = this.data.bg;
-    var num = this.data.num;
-    var flag = this.data.flag;
-    for (var i = 0; i < this.data.line[this.data.number] * this.data.column[this.data.number]; i++) {
-      bg.push(true);
-      num.push("0");
-      flag.push(0);
-    }
-    this.setData({
-      bg: bg,
-      num: num,
-      flag: flag
-    })
-    var i = 0;
-    var j = 0;
-    var k = 0;
-    var a, a2;
-    var l = this.data.l;
-    //保证至少有一个答案
-    var place = [];
-    var size = Math.floor((Math.random() * 5) + 2);
-    for (i = 0; i < size; i++) {
-      place[i] = Math.floor(((Math.random() * (this.data.line[this.data.number] * this.data.column[this.data.number]))));
-    }
-    console.log("size : " + size)
-    console.log("place : " + place)
-    for (i = 0; i < this.data.line[this.data.number]; i++) {
-      l.push([])
-      for (j = 0; j < this.data.column[this.data.number]; j++) {
-        var flag = false;
-        for (k = 0; k < size; k++) {
-          if (Number((i * this.data.line[this.data.number] + j)) == Number(place[k])) {
+    if (this.data.start == true) {
+      this.setData({
+        l: [],
+        num: [],
+        bg: [],
+        flag: [],
+      })
+      var bg = this.data.bg;
+      var num = this.data.num;
+      var flag = this.data.flag;
+      for (var i = 0; i < this.data.line[this.data.number] * this.data.column[this.data.number]; i++) {
+        bg.push(true);
+        num.push("0");
+        flag.push(0);
+      }
+      this.setData({
+        bg: bg,
+        num: num,
+        flag: flag
+      })
+      var i = 0;
+      var j = 0;
+      var k = 0;
+      var a, a2;
+      var l = this.data.l;
+      //保证至少有一个答案
+      var place = [];
+      var size = Math.floor((Math.random() * 5) + 3);
+      for (i = 0; i < size; i++) {
+        place[i] = Math.floor(((Math.random() * (this.data.line[this.data.number] * this.data.column[this.data.number]))));
+      }
+      console.log("size : " + size)
+      console.log("place : " + place)
+      for (i = 0; i < this.data.line[this.data.number]; i++) {
+        l.push([])
+        for (j = 0; j < this.data.column[this.data.number]; j++) {
+          var flag = false;
+          for (k = 0; k < size; k++) {
+            if (Number((i * this.data.line[this.data.number] + j)) == Number(place[k])) {
+              if (this.data.age == 0) {
+                if (this.data.number == 0 || this.data.number == 1) {
+                  if (l[i][j] == null) {
+                    a = this.data.answer1
+                    var item = {
+                      "index": i * this.data.line[this.data.number] + j,
+                      "value": a,
+                      "add": this.data.list[a],
+                    }
+                    flag = true;
+                  }
+                } else if (this.data.number == 2) {
+                  if (l[i][j] == null) {
+                    a = [this.data.answer1, this.data.answer2, this.data.answer3];
+                    var item = {
+                      "index": i * this.data.line[this.data.number] + j,
+                      "value": a[Math.floor(Math.random() * 3)],
+                      "add": this.data.list[a[Math.floor(Math.random() * 3)]],
+                    }
+                    flag = true;
+                  }
+                }
+              } else if (this.data.age == 1) {
+                if (this.data.number == 0) {
+                  if (l[i][j] == null) {
+                    var item = {
+                      "index": i * this.data.line[this.data.number] + j,
+                      "value": this.data.age1_question,
+                      "add": this.data.list_big_letter[this.data.age1_question],
+                      "number": ""
+                    }
+                    flag = true;
+                  }
+
+                } else if (this.data.number == 1) {
+                  if (l[i][j] == null) {
+                    var item = {
+                      "index": i * this.data.line[this.data.number] + j,
+                      "value": this.data.age1_question,
+                      "add": this.data.list_small_letter[this.data.age1_question],
+                      "number": this.data.age1_question_number
+                    }
+                    flag = true;
+                  }
+
+                } else if (this.data.number == 2) {
+                  if (l[i][j] == null) {
+                    var item = {
+                      "index": i * this.data.line[this.data.number] + j,
+                      "value": this.data.age1_question,
+                      "add": this.data.list_big_letter[this.data.age1_question],
+                      "value2": this.data.age2_question,
+                      "number": this.data.list_small_letter[this.data.age2_question],
+                    }
+                    flag = true;
+                  }
+                }
+              }
+            }
+          }
+          if (flag == false) {
             if (this.data.age == 0) {
-              if (this.data.number == 0 || this.data.number == 1) {
-                if (l[i][j] == null) {
-                  a = this.data.answer1
-                  var item = {
-                    "index": i * this.data.line[this.data.number] + j,
-                    "value": a,
-                    "add": this.data.list[a],
-                  }
-                  flag = true;
-                }
-              } else if (this.data.number == 2) {
-                if (l[i][j] == null) {
-                  a = [this.data.answer1, this.data.answer2, this.data.answer3];
-                  var item = {
-                    "index": i * this.data.line[this.data.number] + j,
-                    "value": a[Math.floor(Math.random() * 3)],
-                    "add": this.data.list[a[Math.floor(Math.random() * 3)]],
-                  }
-                  flag = true;
-                }
+              a = Math.floor(Math.random() * Object.keys(this.data.list).length);
+              var item = {
+                "index": i * this.data.line[this.data.number] + j,
+                "value": a,
+                "add": this.data.list[a],
               }
             } else if (this.data.age == 1) {
+              a = Math.floor(Math.random() * 26);
+              a2 = Math.floor(Math.random() * 26);
               if (this.data.number == 0) {
-                if (l[i][j] == null) {
-                  var item = {
-                    "index": i * this.data.line[this.data.number] + j,
-                    "value": this.data.age1_question,
-                    "add": this.data.list_big_letter[this.data.age1_question],
-                    "number": ""
-                  }
-                  flag = true;
+                var item = {
+                  "index": i * this.data.line[this.data.number] + j,
+                  "value": a,
+                  "add": this.data.list_big_letter[a],
+                  "value2": "",
+                  "number": ""
                 }
-
               } else if (this.data.number == 1) {
-                if (l[i][j] == null) {
-                  var item = {
-                    "index": i * this.data.line[this.data.number] + j,
-                    "value": this.data.age1_question,
-                    "add": this.data.list_small_letter[this.data.age1_question],
-                    "number": this.data.age1_question_number
-                  }
-                  flag = true;
+                var item = {
+                  "index": i * this.data.line[this.data.number] + j,
+                  "value": a,
+                  "add": this.data.list_small_letter[a],
+                  "value2": "",
+                  "number": Math.floor(Math.random() * 10)
                 }
-
               } else if (this.data.number == 2) {
-                if (l[i][j] == null) {
-                  var item = {
-                    "index": i * this.data.line[this.data.number] + j,
-                    "value": this.data.age1_question,
-                    "add": this.data.list_big_letter[this.data.age1_question],
-                    "value2": this.data.age2_question,
-                    "number": this.data.list_small_letter[this.data.age2_question],
-                  }
-                  flag = true;
+                var item = {
+                  "index": i * this.data.line[this.data.number] + j,
+                  "value": a,
+                  "add": this.data.list_big_letter[a],
+                  "value2": a2,
+                  "number": this.data.list_small_letter[a2],
                 }
               }
             }
-          }
-        }
-        if (flag == false) {
-          if (this.data.age == 0) {
-            a = Math.floor(Math.random() * Object.keys(this.data.list).length);
-            var item = {
-              "index": i * this.data.line[this.data.number] + j,
-              "value": a,
-              "add": this.data.list[a],
-            }
-          } else if (this.data.age == 1) {
-            a = Math.floor(Math.random() * 26);
-            a2 = Math.floor(Math.random() * 26);
-            if (this.data.number == 0) {
-              var item = {
-                "index": i * this.data.line[this.data.number] + j,
-                "value": a,
-                "add": this.data.list_big_letter[a],
-                "value2": "",
-                "number": ""
-              }
-            } else if (this.data.number == 1) {
-              var item = {
-                "index": i * this.data.line[this.data.number] + j,
-                "value": a,
-                "add": this.data.list_small_letter[a],
-                "value2": "",
-                "number": Math.floor(Math.random() * 10)
-              }
-            } else if (this.data.number == 2) {
-              var item = {
-                "index": i * this.data.line[this.data.number] + j,
-                "value": a,
-                "add": this.data.list_big_letter[a],
-                "value2": a2,
-                "number": this.data.list_small_letter[a2],
-              }
-            }
-          }
 
+          }
+          l[i].push(item)
         }
-        l[i].push(item)
+
       }
-
+      this.setData({
+        l: l
+      })
+      this.choicenum()
+      util.initCountDown(this, this.data.time[this.data.number], 0.1)
     }
-    this.setData({
-      l: l
-    })
-    this.choicenum()
-    util.initCountDown(this, this.data.time[this.data.number], 0.1)
+
   },
   //初始化题目
   init() {
@@ -288,7 +292,8 @@ Page({
       age1_question: Math.floor(Math.random() * 26),
       age2_question: Math.floor(Math.random() * 26),
       age1_question_number: Math.floor(Math.random() * 10),
-      finishClick: false
+      finishClick: false,
+      start: false
     })
 
     if (this.data.number == 2 && this.data.age == 0) {
@@ -337,7 +342,7 @@ Page({
         confirmText: '开始尝试',
         showCancel: false,
         success: function (res) {
-          that.initnum()
+          // that.initnum()
         }
       })
     }
@@ -373,14 +378,14 @@ Page({
       var sumRight = this.data.sumRight + this.data.rightcount;
       var sumCount = this.data.sumCount + this.data.count;
       var sum = getApp().globalData.score[2] + this.data.sumGrade;
-      var scoreDetail = [];
+    
       var item = {
         "sumRight": sumRight,
         "sumCount": sumCount
       }
-      scoreDetail.push(item)
+      
       getApp().globalData.score[2] = Math.round(sum);
-      getApp().globalData.scoreDetail[2][1] = scoreDetail;
+      getApp().globalData.scoreDetail[2][1] = item;
       console.log(getApp().globalData.score[2])
       console.log(getApp().globalData.scoreDetail[2][1])
       console.log(getApp().globalData.scoreDetail[2])
@@ -393,15 +398,15 @@ Page({
     console.log("下一题")
     var that = this;
     if (this.data.number == 0) {
-      var title = '糟糕';
-      var content = '时间花光了';
-      if (that.data.finishClick == true) {
-        title = '成功';
-        content = '完成啦'
-      }
+      // var title = '糟糕';
+      // var content = '时间花光了';
+      // if (that.data.finishClick == true) {
+      //   title = '练习结束';
+      //   content = '测试要开始啦，请集中注意力'
+      // }
       wx.showModal({
-        title: title,
-        content: content,
+        title: '练习结束',
+        content: '测试要开始啦，请集中注意力进行测试',
         confirmText: '开始测试',
         cancelText: '再次尝试',
         success: function (res) {
@@ -420,14 +425,24 @@ Page({
         }
       })
     } else {
+      var title ;
+      var content ;
+      if (this.data.number == 1){
+        title = '完成';
+        content = '稍微休息一下，还有一题，继续集中注意力完成下一题'
+      }
+      else if (this.data.number == 2){
+        title = '完成';
+        content = '稍微休息一下，进入下一个题目'
+      }
       var Num = this.data.number;
       Num = Num + 1;
       this.setData({
         number: Num,
       })
       wx.showModal({
-        title: '糟糕',
-        content: '时间花光了',
+        title: title,
+        content: content,
         confirmText: '下一题',
         showCancel: false,
         success: function (res) {
@@ -603,5 +618,11 @@ Page({
     util.closeCountDown(this)
     this.timeout();
   },
+  start: function(e){
+    this.setData({
+      start : true
+    })
+    this.initnum()
+  }
 
 })

@@ -44,15 +44,15 @@ Page({
   },
 
   onLoad: function () {
-    // var userid = getApp().globalData.uesrInfo.openid;
-    // var score = getApp().globalData.score;
-    // var age = getApp().globalData.uesrInfo.age;
-    // clearInterval(getApp().gloableData.timer);
-    // var costtime = getApp().gloableData.time
-    var userid = 'oAkCq5aL-90X9qhtwEDR8lx2TMZA';
-    var score = [31, 90, 21, 80]
-    var costtime = 600;
-    var age = 4;
+    var userid = getApp().globalData.userInfo.openid;
+    var score = getApp().globalData.score;
+    var age = getApp().globalData.userInfo.age;
+    clearInterval(getApp().globalData.timer);
+    var costtime = getApp().globalData.time
+    // var userid = 'oAkCq5aL-90X9qhtwEDR8lx2TMZA';
+    // var score = [31, 90, 21, 80]
+    // var costtime = 600;
+    // var age = 4;
     var plan_mygrade = score[0];
     var attention_mygrade = score[1];
     var simultaneous_mygrade = score[2];

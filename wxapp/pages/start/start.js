@@ -53,5 +53,10 @@ Page({
       }
     })
    
+  },
+  list:function(){
+    wx.navigateTo({
+      url: '/pages/rank/rank',
+    })
   }
 })

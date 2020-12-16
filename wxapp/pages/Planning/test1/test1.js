@@ -21,7 +21,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
+    wx.setNavigationBarTitle({
+      title: '计划测试'
+    })
     this.setData({
+      // age:5,
       age: getApp().globalData.userInfo.age
     })
     testutil.getconfiguration(0, 'P', (res) => {
@@ -527,7 +531,7 @@ Page({
           PassScore: (PassScore / 2).toFixed(1)
         })
         getApp().globalData.score[0] = Math.round(this.data.PassScore);
-        getApp().globalData.scoreDetail[0] = this.data.score_detail;
+        getApp().globalData.scoreDetail[0] = this.data.scoreDetail;
         console.log(getApp().globalData.score[0])
         console.log(getApp().globalData.scoreDetail[0])
       }

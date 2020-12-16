@@ -18,9 +18,9 @@ Page({
     TestId:null,
     selectList: [{"text": "2020"}, {"text": "2021"}],
     select: false,
-    select_value1: {
-      "text": "未选择"
-    },
+    // select_value1: {
+    //   "text": "2020"
+    // },
     isBest:[],
     record:[],
     top : 0,
@@ -50,14 +50,18 @@ Page({
         record:[]
       })
       var recorddata={
-        // openid:getApp().globalData.userInfo.openid,
-        openid:"oAkCq5aL-90X9qhtwEDR8lx2TMZA",
+        openid:getApp().globalData.userInfo.openid,
+        // openid:"oAkCq5aL-90X9qhtwEDR8lx2TMZA",
         testyear:this.data.TestYear,
         testmonth:this.data.TestMonth
       }
       // console.log(JSON.stringify(recorddata))
       var that = this
+      wx.showLoading({
+        title: '加载中',
+      })
       testutil.getrecordInfo(recorddata,(res)=>{
+        wx.hideLoading()
         console.log(res.data)
         that.setData({
           record:res.data
@@ -71,6 +75,7 @@ Page({
     let that = this;
     let selectIndex = e.detail.selIndex;
     let value1 = that.data.selectList[selectIndex];
+    console.log(value1)
     that.setData({
       select_value1: value1,
       TestYear: value1.text
@@ -89,10 +94,16 @@ Page({
       now
     });
   },
-  GotoRecord(){
-
+  GotoRecord(e){
+    console.log(e.currentTarget.dataset.item.testid)
+    wx.navigateTo({
+      url: '/pages/history/history?id='+e.currentTarget.dataset.item.testid,
+    })
   },
   onLoad: function () {
+    wx.setNavigationBarTitle({
+      title: '历史测试'
+    })
     var record = this.data.record
     var best=0;
     for(var i=0;i<record.length;i++){

@@ -15,6 +15,9 @@ Page({
     score: 0
   },
   onLoad: function () {
+    wx.setNavigationBarTitle({
+      title: '同时性加工测试'
+    })
     this.initCanvas()
     testutil.getS11(0, (res) => {
       // console.log(res)

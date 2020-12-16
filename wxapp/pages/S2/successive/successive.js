@@ -188,6 +188,9 @@ Page({
   },
 
   onLoad: function (options) {
+    wx.setNavigationBarTitle({
+      title: '继时性加工测试'
+    })
     util.initCountDown(this, this.data.testtime, 1)
   },
 
@@ -262,17 +265,17 @@ Page({
 
   sumscore: function () {
     this.setData({
-      sumscore: app.globalData.scoreDetail[3, 0].score + app.globalData.scoreDetail[3, 1].score + app.globalData.scoreDetail[3, 1].score,
-      sumstest: app.globalData.scoreDetail[3, 0].qnum + app.globalData.scoreDetail[3, 1].qnum + app.globalData.scoreDetail[3, 1].qnum,
+      sumscore: app.globalData.scoreDetail[3][0].score + app.globalData.scoreDetail[3][1].score + app.globalData.scoreDetail[3][2].score,
+      sumstest: app.globalData.scoreDetail[3][0].qnum + app.globalData.scoreDetail[3][1].qnum + app.globalData.scoreDetail[3][2].qnum,
     })
   },
 
   gameover: function () {
     if (this.data.count == 3 || this.data.now == 10) {
       util.closeCountDown(this)
-      app.globalData.scoreDetail[3, 1] = { score: this.data.score, qnum: this.data.now }
+      app.globalData.scoreDetail[3][2] = { score: this.data.score, qnum: this.data.now }
       this.sumscore()
-      app.globalData.score[3] = { score: this.data.sumscore, qnum: this.data.sumtest }
+      app.globalData.score[3] = this.data.sumscore/this.data.sumtest
       wx.showModal({
         title: '恭喜',
         content: '恭喜你完成本次测试！点击按钮查看本次测试的最终结果！',
