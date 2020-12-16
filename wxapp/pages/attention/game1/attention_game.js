@@ -68,11 +68,22 @@ Page({
           deviceWidth: res.windowWidth,
           deviceHeight: res.windowHeight,
           deviceWidthLook: res.windowWidth * 0.9,
-          deviceHeightLook: res.windowHeight * 0.7
+          deviceHeightLook: res.windowHeight * 0.8
         })
       }
     })
-
+    if (this.data.number == 0) {
+      var that = this
+      wx.showModal({
+        title: '注意',
+        content: '此次为尝试机会，不计入测试成绩',
+        confirmText: '开始尝试',
+        showCancel: false,
+        success: function (res) {
+          // that.initnum()
+        }
+      })
+    }
   },
   initnum() {
     if (this.data.start == true) {
@@ -131,18 +142,7 @@ Page({
       time: time,
     })
     console.log(time);
-    if (this.data.number == 0) {
-      var that = this
-      wx.showModal({
-        title: '注意',
-        content: '此次为尝试机会，不计入测试成绩',
-        confirmText: '开始尝试',
-        showCancel: false,
-        success: function (res) {
-          // that.initnum()
-        }
-      })
-    }
+    
   },
   sum() {
     console.log("错误题数：" + this.data.wrongcount);
