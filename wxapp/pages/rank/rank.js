@@ -5,19 +5,19 @@ Page({
     options: [{
       rank_id: '001',
       rank_name: '计划能力排行',
-      type: 'P'
+      rank_type: 'P'
     }, {
       rank_id: '002',
       rank_name: '注意能力排行',
-      type: 'A'
+      rank_type: 'A'
     }, {
       rank_id: '003',
       rank_name: '同时性加工排行',
-      type: 'S1'
+      rank_type: 'S1'
     }, {
       rank_id: '004',
       rank_name: '继时性加工排行',
-      type: 'S2'
+      rank_type: 'S2'
     }],
     ranklist: [{
       "rank": 1,
@@ -88,8 +88,10 @@ Page({
     this.setData({
       selected: { ...e.detail },
       // ranklist: res.data.ranks,
-      ranktype: e.options.type
+      ranktype: e.rank
     })
+    console.log(e.rank)
+    console.log(this.data.ranktype)
     // wx.showToast({
     //   title: `${this.data.selected.id} - ${this.data.selected.name}`,
     //   icon: 'success',
@@ -103,8 +105,9 @@ Page({
   },
 
   onLoad: function (options) {
+    var that = this
     rankutil.getRanklists(app.globalData.userInfo.openid, app.globalData.userInfo.age, this.data.ranktype, this.data.pagenum, 6, (res) => {
-      this.setdata({
+      that.setData({
         all_number: res.all_number,
         my_score: res.my_score,
         my_rank: res.my_rank,
