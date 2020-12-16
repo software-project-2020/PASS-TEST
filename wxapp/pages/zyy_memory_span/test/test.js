@@ -13,7 +13,6 @@ Page({
     clearTimeout(this.data.time_add_er);
     this.data.time_add_er = null;
     console.log("zyy_test 计时器移除", this.data.time_add_er);
-    util.closeCountDown(this);
   },
   onReady: function () {
     /* 延迟两秒后再更新棋盘位置表，避免出现错误 */
