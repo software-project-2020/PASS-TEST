@@ -19,7 +19,7 @@ Page({
       title: '同时性加工测试'
     })
     this.initCanvas()
-    testutil.getS11(0, (res) => {
+    testutil.getS11(app.globalData.userInfo.ageGroup, (res) => {
       // console.log(res)
       this.setData({
         qnum: res.qnum,
