@@ -31,6 +31,6 @@
 </view>
 <view style="margin:10px;" />
 <view class="f_center">
-  <view class="button f_center" style="margin-right:20rpx" catchtap="gameStart"><text>开始练习</text></view>
-  <view class="button f_center" style="margin-left:20rpx" catchtap="skip_练习"><text>跳过练习</text></view>
+  <view class="button f_center" style="margin-right:20rpx" catchtap="skip_练习"><text>跳过练习</text></view>
+  <view class="button f_center" style="margin-left:20rpx" catchtap="userCommitAnswer"><text>提交答案</text></view>
 </view>
