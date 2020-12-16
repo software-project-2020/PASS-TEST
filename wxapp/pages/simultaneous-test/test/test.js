@@ -103,9 +103,6 @@ Page({
             fileDir: 'order_apply',
             rules: JSON.stringify(this.data.qlist[this.data.now])
           },
-          // success: res => {
-          //   callback && callback(res)
-          // },
           complete: res => {
             callback && callback(res)
             wx.hideLoading()
@@ -118,7 +115,8 @@ Page({
 
   // 清除画布
   clearDraw() {
-    this.data.ctx.clearRect(0, 0, this.data.canvasWidth, this.data.canvasHeight)
+    this.data.ctx.fillStyle = "#FFFFFF";
+    this.data.ctx.fillRect(0, 0, 800, 1000);
     this.data.ctx.draw()
   },
 
@@ -134,6 +132,7 @@ Page({
         canvasHeight: rect.height
       })
     }).exec();
+    this.clearDraw()
   },
   start: function () { //练习页面点击开始测试
     this.saveCanvas((res) => {
@@ -175,14 +174,21 @@ Page({
 
   },
   finish: function () { //提交最后一题，结算分数
+    var that = this
     this.saveCanvas((res) => {
       console.log(res)
       if (res.data == 'true') this.addscore()
       console.log(this.data.score)
+      app.globalData.scoreDetail[1][1] = {
+        score: that.data.score,
+        qnum: that.data.qnum - 1
+      }
+      app.globalData.score[1] =parseInt(app.globalData.score[1] + that.data.score / (that.data.qnum - 1)*100 * 0.4) 
+      wx.redirectTo({
+        url: "/pages/attention/rule1/attention",
+      })
     })
-    wx.navigateTo({
-      url: "/pages/attention/rule1/attention",
-    })
+    
     //展示一个提示框，点击确定后进入下一项测试
   },
   addscore: function () {
@@ -191,7 +197,7 @@ Page({
     })
   },
   timeout: function () {
-    // submitAnswer()
+    this.next()
   },
 
 })

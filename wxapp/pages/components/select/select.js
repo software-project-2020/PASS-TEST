@@ -8,7 +8,8 @@ Component({
       type: Object,
       value: {
         id: '000',
-        name: '总排名'
+        name: '总排名',
+        rank_type: 'T'
       }
     },
     key: {
@@ -18,6 +19,10 @@ Component({
     text: {
       type: String,
       value: 'name'
+    },
+    rank: {
+      type: String,
+      value: 'rank_type'
     }
   },
   data: {
@@ -53,10 +58,10 @@ Component({
     attached() {
       // 属性名称转换, 如果不是 { id: '', name:'' } 格式，则转为 { id: '', name:'' } 格式
       let result = []
-      if (this.data.key !== 'id' || this.data.text !== 'name') {       
+      if (this.data.key !== 'id' || this.data.text !== 'name') {
         for (let item of this.data.options) {
-          let { [this.data.key]: id, [this.data.text]: name } = item
-          result.push({ id, name })
+          let { [this.data.key]: id, [this.data.text]: name, [this.data.rank]: rank_type} = item
+          result.push({ id, name, rank_type })
         }
       }
       this.setData({

@@ -1,16 +1,45 @@
 <view class="container">
-  <view class="head">
-    <image src="../../image/successive/back.png" class="backimg" bindtap="backtox">
-    </image>
-    <image src="../../image/successive/rank.png" class="rankimg">
-    </image>
-  </view>
   <view class="body">
     <view class="combobox">
       <view class="select-wrap">
-        <select id="select" options="{{options}}" key="city_id" text="city_name" bind:change="change">
-      </select>
+        <select id="select" options="{{options}}" key="rank_id" text="rank_name" bind:change="change">
+        </select>
+      </view>
     </view>
+    <view class="table">
+      <view class="tr bg-w">
+        <view class="th">排名</view>
+        <view class="th">昵称</view>
+        <view class="th ">成绩</view>
+      </view>
+      <block wx:for="{{ranklist}}" wx:key="key">
+        <view class="tr bg-w" wx:if="{{index % 2 == 0}}">
+          <view class="td">{{item.rank}}</view>
+          <view class="td">{{item.nick_name}}</view>
+          <view class="td">{{item.score}}</view>
+        </view>
+        <view class="tr bg-g" wx:else>
+          <view class="td">{{item.rank}}</view>
+          <view class="td">{{item.nick_name}}</view>
+          <view class="td">{{item.score}}</view>
+        </view>
+      </block>
+    </view>
+    <view class="pages">
+      <button wx:if="{{pagenum==1}}" style="width:30%" class="btn"> <text class="button-text">首 页</text></button>
+      <button wx:else bindtap="pre" style="width:30%" class="btn"><text class="button-text">上一页</text></button>
+      <text>{{pagenum}}/{{all_number}}</text>
+      <button wx:if="{{pagenum==all_number}}" style="width:30%" class="btn"><text class="button-text">尾 页</text></button>
+      <button wx:else bindtap="next" style="width:30%" class="btn"><text class="button-text">下一页</text></button>
+    </view>
+    <view class="userinfo">
+      <block>
+        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="widthFix"></image>
+      </block>
+      <view class="userself">
+        <view class="userrank">我的排名：{{my_rank}}</view>
+        <view class="userrank">我的成绩：{{my_score}}</view>
+      </view>
     </view>
   </view>
 </view>
