@@ -81,13 +81,13 @@ page{
   flex-direction: column;
 }
 .timu image{
-  height:330rpx;
+  height:300rpx;
   width:100%;
   border-radius:20rpx;
 }
 .choice{
   width: 180rpx;
-  height: 80rpx;
+  height: 90rpx;
   padding: 10rpx 30rpx;
 }
 .choose{
@@ -115,7 +115,9 @@ page{
   font-weight: 550;
   line-height: 53rpx;
   padding-bottom: 20rpx;
+  /* padding-top: 20rpx; */
 }
 .buttonline{
   display: flex;
+  padding-top: 20rpx;
 }

@@ -24,14 +24,15 @@ Page({
     }],
     NumCount: 0, //当前题数
     letter: ["练习结束，测试正式开始", "本游戏结束，开始下一个游戏"],
-    text: ["练习", "测试"]
+    text: ["练习", "进度：1/1"]
   },
   onShow: function () {
-    wx.setNavigationBarTitle({
-      title: '注意'
-    })
+   
   },
   onLoad: function () {
+    wx.setNavigationBarTitle({
+      title: '注意测试'
+    })
     testutil.getconfiguration(0, 'A1', (res) => {
       console.log(res)
       var longestTime = []
@@ -68,27 +69,41 @@ Page({
           deviceWidth: res.windowWidth,
           deviceHeight: res.windowHeight,
           deviceWidthLook: res.windowWidth * 0.9,
-          deviceHeightLook: res.windowHeight * 0.7
+          deviceHeightLook: res.windowHeight * 0.8
         })
       }
     })
-
+    if (this.data.number == 0) {
+      var that = this
+      wx.showModal({
+        title: '注意',
+        content: '此次为尝试机会，不计入测试成绩',
+        confirmText: '开始尝试',
+        showCancel: false,
+        success: function (res) {
+          // that.initnum()
+        }
+      })
+    }
   },
   initnum() {
-    var OldNum = this.data.Num;
-    var Num = Math.floor(Math.random() * 10);
-    while (Num == OldNum) {
-      Num = Math.floor(Math.random() * 10);
+    if (this.data.start == true) {
+      var OldNum = this.data.Num;
+      var Num = Math.floor(Math.random() * 10);
+      while (Num == OldNum) {
+        Num = Math.floor(Math.random() * 10);
+      }
+      this.setData({
+        flag: false,
+        Num: Num,
+      })
+      util.initCountDown(this, this.data.time[this.data.NumCount], 0.1)
+      console.log(Num)
+      console.log("新数字：" + Num)
+      console.log("上一个数字：" + OldNum)
+      console.log("题数：" + this.data.NumCount)
     }
-    this.setData({
-      flag: false,
-      Num: Num,
-    })
-    util.initCountDown(this, this.data.time[this.data.NumCount], 0.1)
-    console.log(Num)
-    console.log("新数字：" + Num)
-    console.log("上一个数字：" + OldNum)
-    console.log("题数：" + this.data.NumCount)
+
   },
   init() {
     this.setData({
@@ -100,6 +115,7 @@ Page({
       answer1: Math.floor(Math.random() * 10),
       answer2: Math.floor(Math.random() * 10),
       answer3: Math.floor(Math.random() * 10),
+      start : false
     })
     if (this.data.answer1 == this.data.answer2) {
       this.init();
@@ -127,18 +143,7 @@ Page({
       time: time,
     })
     console.log(time);
-    if (this.data.number == 0) {
-      var that = this
-      wx.showModal({
-        title: '注意',
-        content: '此次为尝试机会，不计入测试成绩',
-        confirmText: '开始尝试',
-        showCancel: false,
-        success: function (res) {
-          that.initnum()
-        }
-      })
-    }
+    
   },
   sum() {
     console.log("错误题数：" + this.data.wrongcount);
@@ -150,14 +155,14 @@ Page({
     })
     console.log("成绩：" + grade)
     if (this.data.number == 1) {
-      var scoreDetail = [];
+      
       var item = {
         "rightcount": this.data.rightcount,
         "number_count": this.data.number_count[this.data.number]
       }
-      scoreDetail.push(item)
+      
       getApp().globalData.score[2] = Math.round(this.data.grade);
-      getApp().globalData.scoreDetail[2][0] = scoreDetail;
+      getApp().globalData.scoreDetail[2][0] = item;
       console.log(getApp().globalData.score[2])
       console.log(getApp().globalData.scoreDetail[2][0])
     }
@@ -213,8 +218,8 @@ Page({
       var that = this;
       if (this.data.number == 0) {
         wx.showModal({
-          title: '糟糕',
-          content: '时间花光了',
+          title: '完成',
+          content: '测试开始啦，请集中注意进行测试',
           confirmText: '开始测试',
           cancelText: '再次尝试',
           success: function (res) {
@@ -239,8 +244,8 @@ Page({
           number: Num,
         })
         wx.showModal({
-          title: '糟糕',
-          content: '时间花光了',
+          title: '完成',
+          content: '稍微休息一下，进入下一个题目',
           confirmText: '下一题',
           showCancel: false,
           success: function (res) {
@@ -282,5 +287,11 @@ Page({
     console.log("wrongflag : " + this.data.wrongflag)
 
   },
+  start: function(e){
+    this.setData({
+      start : true
+    })
+    this.initnum()
+  }
 
 })

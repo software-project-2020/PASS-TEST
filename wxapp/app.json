@@ -1,9 +1,6 @@
 {
   "pages": [
-    "pages/zyy_memory_span/rule/rule",
-    "pages/zyy_memory_span/test/test",
-    "pages/S2/successive/successive",
-    "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+    
     "pages/index/index",
     "pages/start/start",
     "pages/Planning/rule1/rule1",
@@ -19,12 +16,16 @@
     "pages/SelfCenter/my/my",
     "pages/SelfCenter/aboutus/aboutus",
     "pages/SelfCenter/suggestion/suggestion",
-    "pages/S2/successive-rules/successive-rules",
+    "pages/S2/successive/successive",
+     "pages/S2/successive-rules/successive-rules",
     "pages/Planning/test4.1/test4.1",
     "pages/Planning/rule4.1/rule4.1",
     "pages/rank/rank",
     "pages/history/history",
-    "pages/zyy_memory_span/memory_span"
+    "pages/zyy_memory_span/memory_span",
+    "pages/zyy_memory_span/rule/rule",
+    "pages/zyy_memory_span/test/test",
+    "pages/simultaneous-test/simultaneous-rule/simultaneous-rule"
   ],
   "window": {
     "backgroundTextStyle": "light",

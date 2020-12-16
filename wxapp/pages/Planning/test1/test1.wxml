@@ -15,7 +15,7 @@
   <view class="rightbottom" style="flex-direction:row;width:100%">
     <view class="xjindu">
       <text wx:if="{{nowdifficulty-3==0}}" class="text-jindu" style="color:#2BB31C">练习</text>
-      <text wx:else class="text-jindu" style="color:#2BB31C">进度：{{nowdifficulty-3}}/2</text>
+      <text wx:if="{{nowdifficulty-3!=0}}" class="text-jindu" style="color:#2BB31C">进度：{{nowdifficulty-3}}/2</text>
     </view>
     <view class="clock">
       <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/clock.png' style="width: 70rpx;"></image>

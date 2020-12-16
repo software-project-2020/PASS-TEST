@@ -13,18 +13,16 @@ Page({
     musicIsPlay: true,
     TestYear: null,
     TestMonth: null,
+    TestTime:null,
+    TestScore:null,
+    TestId:null,
     selectList: [{"text": "2020"}, {"text": "2021"}],
     select: false,
-    select_value1: {
-      "text": "未选择"
-    },
+    // select_value1: {
+    //   "text": "2020"
+    // },
     isBest:[],
-    record:[
-    {"testtime":"2021-01-31 12:15","testscore":95},
-    {"testtime":"2021-01-02 15:50","testscore":99},
-    {"testtime":"2021-01-02 12:45","testscore":89},
-    {"testtime":"2021-01-02 13:45","testscore":87},
-    {"testtime":"2021-01-02 13:45","testscore":77},],
+    record:[],
     top : 0,
     now : ''
   },
@@ -47,27 +45,29 @@ Page({
     })
   },
   renew(){
-    var record = this.data.record.slice()
-    var newrecord = [];
-    if(this.data.TestYear==2021&&this.data.TestMonth==1)
-    for(var i =0 ;i<record.length;i++){
-        var item={
-          "testtime":record[i].testtime,
-          "testscore":record[i].testscore,
-          "isBest":record[i].isBest
-        }
-        newrecord.push(item)
-    }
-    this.setData({
-      newrecord:newrecord
-    })
     if(this.data.TestYear!=null&&this.data.TestMonth!=null){
+      this.setData({
+        record:[]
+      })
       var recorddata={
-        TestYear:this.data.TestYear,
-        TestMonth:this.data.TestMonth
+        openid:getApp().globalData.userInfo.openid,
+        // openid:"oAkCq5aL-90X9qhtwEDR8lx2TMZA",
+        testyear:this.data.TestYear,
+        testmonth:this.data.TestMonth
       }
-      console.log(JSON.stringify(recorddata))
-      testutil.getrecordInfo(recorddata)
+      // console.log(JSON.stringify(recorddata))
+      var that = this
+      wx.showLoading({
+        title: '加载中',
+      })
+      testutil.getrecordInfo(recorddata,(res)=>{
+        wx.hideLoading()
+        console.log(res.data)
+        that.setData({
+          record:res.data
+        })
+        console.log(that.data.record)
+      })
     }
   }
   ,
@@ -75,6 +75,7 @@ Page({
     let that = this;
     let selectIndex = e.detail.selIndex;
     let value1 = that.data.selectList[selectIndex];
+    console.log(value1)
     that.setData({
       select_value1: value1,
       TestYear: value1.text
@@ -93,10 +94,16 @@ Page({
       now
     });
   },
-  GotoRecord(){
-
+  GotoRecord(e){
+    console.log(e.currentTarget.dataset.item.testid)
+    wx.navigateTo({
+      url: '/pages/history/history?id='+e.currentTarget.dataset.item.testid,
+    })
   },
   onLoad: function () {
+    wx.setNavigationBarTitle({
+      title: '历史测试'
+    })
     var record = this.data.record
     var best=0;
     for(var i=0;i<record.length;i++){
@@ -108,7 +115,7 @@ Page({
     for(var i=0;i<record.length;i++)
       if(best==record[i].testscore)
       record[i].isBest=true
-    console.log(this.data.record)
+    // console.log(this.data.record)
   },
 
 })

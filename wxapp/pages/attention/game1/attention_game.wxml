@@ -1,13 +1,24 @@
 <!--pages/attention/attention_game.wxml-->
-<view class="jindu">
-      <text>{{text[number]}}</text>
+
+    <view class="top" style="flex-direction:row;">
+    <view class="eyu">
+      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/bear.png' style="width: 175rpx; "></image>
     </view>
+    <view class="jindu">
+      <text class="text-jindu">{{text[number]}}</text>
+    </view>
+  </view>
 
 <view class="back1" style="width : {{deviceWidthLook}}px ; height : {{deviceHeightLook}}px">
   <text class="back">判断下列数字是否为 {{answer1}} ， {{answer2}} ， {{answer3}}</text>
-  <text class="Num_text">{{Num}}</text>
-</view>
-<view class="button">
+  <view wx:if="{{start == false}}">
+  <button class="start" bindtap="start">开始测试</button>
+  </view>
+  <view wx:else class="Num_text">
+  <text >{{Num}}</text>
+  </view>
+  <view wx:if="{{start == true}}" class="button">
   <image src="https://picture.morii.top/renzhixuetang/attention/right.png" class="{{rightflag?'right':'right2'}}" mode="widthFix" bindtap="right"></image>
   <image src="https://picture.morii.top/renzhixuetang/attention/wrong.png" class="{{wrongflag?'wrong':'wrong2'}}" bindtap="wrong"></image>
+</view>
 </view>

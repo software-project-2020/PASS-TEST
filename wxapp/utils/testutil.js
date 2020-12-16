@@ -3,8 +3,9 @@ module.exports = {
   getconfiguration: getconfiguration,
   getS12: getS12,
   getS11: getS11,
-  submitResult:submitResult,
-  getrecordInfo:getrecordInfo
+  submitResult: submitResult,
+  getrecordInfo: getrecordInfo,
+  getrecordDetailInfo: getrecordDetailInfo
 }
 // 获得题目数据
 function getQuestions(testId, category, num, callback) {
@@ -154,20 +155,21 @@ function getS11(ageGroup, callback) {
   })
 }
 // 在生成结果页面的onload上传分数到服务器
-function submitResult(userid,score,costtime,callback){
-  var avg_score=(score[0]+score[1]+score[2]+score[3])/4
+function submitResult(userid, score, costtime, age, callback) {
+  var avg_score = (score[0] + score[1] + score[2] + score[3]) / 4
   score[4] = avg_score
   wx.request({
     method: 'POST',
     dataType: 'json',
-    url: 'xxxxx',
+    url: 'https://api.zghy.xyz/api/test/submit',
     header: {
       'content-type': 'application/x-www-form-urlencoded'
     },
     data: {
-      user_id:userid,
-      score: score,
-      cost_time:costtime
+      openid: userid,
+      age: age,
+      score: JSON.stringify(score),
+      cost_time: costtime
     },
     success: function (res) {
       callback && callback(JSON.parse(res.data).data);
@@ -175,8 +177,8 @@ function submitResult(userid,score,costtime,callback){
   })
 }
 // 获得排行榜
-function getRanklist(listnum,score,costtime,callback){
-  var avg_score=(score[0]+score[1]+score[2]+score[3])/4
+function getRanklist(listnum, score, costtime, callback) {
+  var avg_score = (score[0] + score[1] + score[2] + score[3]) / 4
   score[4] = avg_score
   wx.request({
     method: 'POST',
@@ -186,9 +188,9 @@ function getRanklist(listnum,score,costtime,callback){
       'content-type': 'application/x-www-form-urlencoded'
     },
     data: {
-      user_id:userid,
+      user_id: userid,
       score: score,
-      cost_time:costtime
+      cost_time: costtime
     },
     success: function (res) {
       callback && callback(JSON.parse(res.data).data);
@@ -196,20 +198,39 @@ function getRanklist(listnum,score,costtime,callback){
   })
 }
 //上传历史测试年月
-function getrecordInfo(recorddata,callback) {
+function getrecordInfo(recorddata, callback) {
   wx.request({
     method: 'POST',
     dataType: 'json',
-    url: 'https://app.morii.top/personalInfo',
+    url: 'https://api.zghy.xyz/api/test/gethistory',
     header: {
       'content-type': 'application/x-www-form-urlencoded'
     },
     data: {
-      TestYear:recorddata['TestYear'],
-      TestMonth:recorddata['TestMonth']
+      openid:recorddata['openid'],
+      testyear:recorddata['testyear'],
+      testmonth:recorddata['testmonth']
     },
     success: function (res) {
-      console.log(JSON.parse(res.data))
+      // console.log(JSON.parse(res.data))
+      callback && callback(JSON.parse(res.data));
+    }
+  })
+}
+
+//通过testid查询历史测试
+function getrecordDetailInfo(testid, callback) {
+  wx.request({
+    method: 'POST',
+    dataType: 'json',
+    url: 'https://api.zghy.xyz/api/test/getresult',
+    header: {
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    data: {
+      testid : testid
+    },
+    success: function (res) {
       callback && callback(JSON.parse(res.data));
     }
   })

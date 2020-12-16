@@ -106,16 +106,17 @@ Page({
       },
     ],
     now: 1, //当前题目序号
-    total: 27, //总题数
+    total: 10, //总题数
     test: 0,  //测试标记
     score: 0, //得分
+    sumscore: 0, //总得分
+    sumtest: 0, //测试总题数
     count: 0, //错题数
     answer: "", //当前选择的回答
     dialogShow: false,
     oneButton: [{ text: '确定' }],
     timer: '',  //定时器名字
     choosed: [false, false, false, false],
-    text: "请继续完成下一题",
     exeshow: true,
     testtime: 3,
   },
@@ -187,6 +188,9 @@ Page({
   },
 
   onLoad: function (options) {
+    wx.setNavigationBarTitle({
+      title: '继时性加工测试'
+    })
     util.initCountDown(this, this.data.testtime, 1)
   },
 
@@ -199,6 +203,19 @@ Page({
       } else {
         this.setData({
           dialogShow: true
+        })
+        var that = this
+        wx.showModal({
+          title: '提交答案',
+          content: '请继续完成下一题！',
+          confirmText: '确定',
+          showCancel: false,
+          success: function (res) {
+            that.sure()
+            that.setData({
+              dialogShow: false
+            })
+          }
         })
       }
       if (this.data.exeshow == true) {
@@ -246,10 +263,19 @@ Page({
     })
   },
 
+  sumscore: function () {
+    this.setData({
+      sumscore: app.globalData.scoreDetail[3][0].score + app.globalData.scoreDetail[3][1].score + app.globalData.scoreDetail[3][2].score,
+      sumstest: app.globalData.scoreDetail[3][0].qnum + app.globalData.scoreDetail[3][1].qnum + app.globalData.scoreDetail[3][2].qnum,
+    })
+  },
+
   gameover: function () {
-    if (this.data.count == 3 || this.data.now == 27) {
+    if (this.data.count == 3 || this.data.now == 10) {
       util.closeCountDown(this)
-      app.globalData.score[3] = { score: this.data.score, qnum: this.data.now }
+      app.globalData.scoreDetail[3][2] = { score: this.data.score, qnum: this.data.now }
+      this.sumscore()
+      app.globalData.score[3] = this.data.sumscore/this.data.sumtest
       wx.showModal({
         title: '恭喜',
         content: '恭喜你完成本次测试！点击按钮查看本次测试的最终结果！',
@@ -257,11 +283,13 @@ Page({
         showCancel: false,
         success: function (res) {
           wx.redirectTo({
-            url: '../../S2/successive-rules/successive-rules',
+            url: '../../result/result',
           })
         }
       })
-      console.log("得分：",this.data.score)
+      console.log("得分：", this.data.score)
+      console.log("得分：", app.globalData.score[3, 1])
+      console.log("得分：", app.globalData.score[3, 3])
     } else {
       this.setData({
         now: this.data.now + 1,//进入下一个游戏

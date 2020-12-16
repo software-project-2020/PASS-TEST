@@ -8,9 +8,15 @@
     </view>
     <image class="rule-img" src="https://picture.morii.top/renzhixuetang/successive/1.gif"></image>
   </view>
-  <view class="btn">
+  <!-- <view class="btn">
     <button class="button" style="width:100%;" bindtap="start"  wx:if="{{!exeshow}}">
       <text>开始</text>
+    </button>
+  </view> -->
+  <view class="bottom">
+    <button class="btn" plain="true" bindtap="start">
+      <image class='img2' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/starttest1.png'
+        style="width: 250rpx; "></image>
     </button>
   </view>
 </view>

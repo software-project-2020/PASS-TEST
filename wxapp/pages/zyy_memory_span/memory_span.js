@@ -354,7 +354,7 @@ function userCommitAnswer(event, that) {
       confirmText: "下个测试",
       success: function (res) {
         if (res.confirm) {
-          app.globalData.scoreDetail[3][2] = {
+          app.globalData.scoreDetail[3][1] = {
             score: 3,
             qnum: 4
           };
