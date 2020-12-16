@@ -89,8 +89,11 @@ Page({
       now
     });
   },
-  GotoRecord(){
-
+  GotoRecord(e){
+    console.log(e.currentTarget.dataset.item.testid)
+    wx.navigateTo({
+      url: '/pages/history/history?id='+e.currentTarget.dataset.item.testid,
+    })
   },
   onLoad: function () {
     var record = this.data.record
