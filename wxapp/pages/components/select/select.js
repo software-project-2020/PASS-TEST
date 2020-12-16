@@ -9,7 +9,7 @@ Component({
       value: {
         id: '000',
         name: '总排名',
-        type: 'T'
+        rank_type: 'T'
       }
     },
     key: {
@@ -19,6 +19,10 @@ Component({
     text: {
       type: String,
       value: 'name'
+    },
+    rank: {
+      type: String,
+      value: 'rank_type'
     }
   },
   data: {
@@ -56,8 +60,8 @@ Component({
       let result = []
       if (this.data.key !== 'id' || this.data.text !== 'name') {
         for (let item of this.data.options) {
-          let { [this.data.key]: id, [this.data.text]: name } = item
-          result.push({ id, name })
+          let { [this.data.key]: id, [this.data.text]: name, [this.data.rank]: rank_type} = item
+          result.push({ id, name, rank_type })
         }
       }
       this.setData({
