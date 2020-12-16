@@ -157,7 +157,7 @@ function getrecordInfo(recorddata,callback) {
   wx.request({
     method: 'POST',
     dataType: 'json',
-    url: 'https://api.zghy.xyz/api/test/testhistory',
+    url: 'https://api.zghy.xyz/api/test/gethistory',
     header: {
       'content-type': 'application/x-www-form-urlencoded'
     },
@@ -167,8 +167,8 @@ function getrecordInfo(recorddata,callback) {
       testmonth:recorddata['testmonth']
     },
     success: function (res) {
-      console.log(res)
-      callback && callback(res);
+      // console.log(JSON.parse(res.data))
+      callback && callback(JSON.parse(res.data));
     }
   })
 }
