@@ -169,7 +169,7 @@ Page({
     param["chess_nowAt[" + who + "]"] = nowAt;
     param["chess_zindex[" + who + "]"] = 100;
     this.setData(param);
-    console.log("触摸结束", who, nowAt, this.data.board_num[who], pos);
+    // console.log("触摸结束", who, nowAt, this.data.board_num[who], pos);
   },
   /** 
    * 用户提交答案
@@ -264,7 +264,7 @@ function initChessBoard(that, isRandom) {
   }
   // console.log(tar.board_num);
   // console.log(tar.board_img_url);
-  console.log(tar.chess_index);
+  // console.log(tar.chess_index);
   // console.log(tar.chess_move);
   that.setData({
     board_num: tar.board_num,
@@ -295,7 +295,7 @@ function initChessBoard(that, isRandom) {
           top: (e.top + e.bottom) / 2,
         }
       });
-      console.log(pos_table);
+      // console.log(pos_table);
       that.setData({
         pos_table: pos_table
       });
@@ -329,7 +329,7 @@ function userCommitAnswer(event, that) {
       that.data.chess_nowAt[that.data.chess_index[i]] ==
       that.data.chess_index[i];
   }
-  console.log("测试页 用户提交答案", endAnswer);
+  // console.log("测试页 用户提交答案", endAnswer);
   that.setData({
     level_index: that.data.level_index + 1
   })
@@ -369,7 +369,7 @@ function userCommitAnswer(event, that) {
         }
       },
       fail: function (e) {
-        console.log("fail", e);
+        // console.log("fail", e);
       }
     });
   }
