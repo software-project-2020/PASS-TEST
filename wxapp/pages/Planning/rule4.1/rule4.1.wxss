@@ -8,7 +8,7 @@ page{
   padding: 0rpx;
 }
 .border{
-  height: 70%;
+  height: 780rpx;
   width: 70%;
   display: flex;
   justify-content: center;  /*水平*/

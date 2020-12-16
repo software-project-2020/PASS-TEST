@@ -50,8 +50,8 @@ Page({
         record:[]
       })
       var recorddata={
-        // openid:getApp().globalData.userInfo.openid,
-        openid:"oAkCq5aL-90X9qhtwEDR8lx2TMZA",
+        openid:getApp().globalData.userInfo.openid,
+        // openid:"oAkCq5aL-90X9qhtwEDR8lx2TMZA",
         testyear:this.data.TestYear,
         testmonth:this.data.TestMonth
       }
