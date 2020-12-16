@@ -1,28 +1,21 @@
+
 <view class="container">
-  <view class="rules">
-    <view class="tittle">
-      <image class="rule-tittle" src="https://picture.morii.top/renzhixuetang/successive/规则.png"></image>
+  <view class="top" style="flex-direction:row;">
+    <view class="sheep">
+      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/sheep.png' style="width: 170rpx; "></image>
     </view>
-    <view class="rule-detail">
-      <text decode="{{true}}" space="{{true}}">➔ 接下来，你会看到几个数字
-        ➔ 请在有限的时间内记住
-        &nbsp;&nbsp;&nbsp;&nbsp;每个数字所在的位置。
-        ➔ 数字消失以后，在30s内，
-        &nbsp;&nbsp;&nbsp;&nbsp;从待选区拖动数字
-        &nbsp;&nbsp;&nbsp;&nbsp;到它之前的位置。
-      </text>
-    </view>
-    <image class="rule-img" src="https://picture.morii.top/renzhixuetang/zyy/rule.gif"></image>
   </view>
-  <!-- <view class="btn">
-    <button class="button" style="width:100%;" bindtap="goTest">
-      <text>开始</text>
-    </button>
-  </view> -->
+  <view class="border">
+    <view class="introduction">
+      <text class="rules">接下来，你会看到几个数字，请在有限的时间内记住每个数字所在的位置。数字消失以后，在30s内，从待选区拖动数字到它之前的位置。
+        请看下面的示例：</text>
+    </view>
+    <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/zyy/rule.gif' style="width: 380rpx; "></image>
+   
+  </view>
   <view class="bottom">
-    <button class="btn" plain="true" bindtap="goTest">
-      <image class='img2' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/starttest1.png'
-        style="width: 250rpx; "></image>
-    </button>
-  </view>
+    <button class="btn" plain="true" bindtap="goTest" >
+    <image class='img2' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/starttest1.png' style="width: 250rpx; "></image>
+  </button>
+</view>
 </view>
