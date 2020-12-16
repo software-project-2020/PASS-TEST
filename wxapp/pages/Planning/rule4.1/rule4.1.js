@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    ageGroup:null,
   },
   gototest1:function(e){
     wx.redirectTo({
@@ -17,6 +17,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      // ageGroup:1
+      ageGroup:getApp().globalData.userInfo.ageGroup
+    })
 
   },
 
