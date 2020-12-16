@@ -23,6 +23,7 @@ Page({
     // choosed: [false, false, false, false,false],
     choosed: [true, false, false, false, false],
     type: ['T', 'P', 'A', 'S1', 'S2'],
+    color: {'T':'#285f6f','P':'#387ba6','A':'#c36d5c','S1':'#b0b070','S2':'#dfb85d'},
     // ranktype: null,
     ranktype: 'T',
     all_number: 2,

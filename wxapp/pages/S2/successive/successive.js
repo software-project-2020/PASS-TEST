@@ -106,7 +106,7 @@ Page({
       },
     ],
     now: 1, //当前题目序号
-    total: 10, //总题数
+    total: 6, //总题数
     test: 0,  //测试标记
     score: 0, //得分
     sumscore: 0, //总得分
@@ -248,13 +248,6 @@ Page({
     }
   },
 
-  tapDialogButton: function () {
-    this.sure()
-    this.setData({
-      dialogShow: false
-    })
-  },
-
   sumscore: function () {
     this.setData({
       sumscore: app.globalData.scoreDetail[3][0].score + app.globalData.scoreDetail[3][1].score + app.globalData.scoreDetail[3][2].score,
@@ -263,7 +256,7 @@ Page({
   },
 
   gameover: function () {
-    if (this.data.count == 3 || this.data.now == 10) {
+    if (this.data.count == 3 || this.data.now == 6) {
       util.closeCountDown(this)
       app.globalData.scoreDetail[3][2] = { score: this.data.score, qnum: this.data.now }
       this.sumscore()
