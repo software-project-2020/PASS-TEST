@@ -7,7 +7,7 @@
 <view class="back" style="width : {{deviceWidthLook}}px; height : {{deviceHeightLook}}px">
   <scroll-view scroll-y class="result">
     <view class="time">
-      <text>测试时间 ： {{year}}-{{month}}-{{day}}</text>
+      <text>测试时间 ： {{time}}</text>
     </view>
     <view>
       <canvas class="radarCanvas" canvas-id="radarCanvas" style="height:280px;"></canvas>

@@ -1,6 +1,6 @@
 // pages/result/result.js
 var util = require('../../utils/util')
-
+var testutil = require('../../utils/testutil.js')
 var numCount = 4;
 var numSlot = 3;
 var mW = 800;
@@ -9,73 +9,95 @@ var mAngle = Math.PI * 2 / numCount; //角度
 var mRadius = mCenter - 60; //半径(减去的值用于给绘制的文本留空间)
 //获取Canvas
 var radCtx = wx.createCanvasContext("radarCanvas")
-//雷达图数据
-var plan_mygrade = 66;
-var plan_avggrade = 88;
-var attention_mygrade = 88;
-var attention_avggrade = 24;
-var simultaneous_mygrade = 90;
-var simultaneous_avggrade = 49;
-var successive_mygrade = 30;
-var successive_avggrade = 60;
+
 Page({
 
   data: {
-    year : 2020,
-    month : 1,
-    day : 5,
-    triggered: false,
-    stepText: 5,
-    my: [
-      ["注意", attention_mygrade],
-      ["继时性", successive_mygrade],
-      ["计划", plan_mygrade],
-      ["同时性", simultaneous_mygrade],
-    ],
-    avg: [
-      ["注意", attention_avggrade],
-      ["继时性", successive_avggrade],
-      ["计划", plan_avggrade],
-      ["同时性", simultaneous_avggrade],
-    ],
-    people: 100,
-    plan: 8,
-    attention: 28,
-    simultaneous: 58,
-    successive: 8,
+   
 
-    show: false,
-    plan1_time: 9,
-    plan1_count: 3,
-    plan2_time: 16,
-    plan2_count: 4,
-    plan3_time: 25,
-    plan3_count: 5,
-
-    attention1_right: 9,
-    attention1_sum: 20,
-    attention2_right: 15,
-    attention2_sum: 20,
-
-    simultaneous1_right: 15,
-    simultaneous1_sum: 20,
-    simultaneous2_right: 15,
-    simultaneous2_sum: 20,
-
-    successive1_right: 15,
-    successive1_sum: 20,
-    successive2_right: 15,
-    successive2_sum: 20,
-    successive3_right: 15,
-    successive3_sum: 20,
-    isOpacity: true,
+    title: '',
   },
-  onReady: function () {
-    setTimeout(() => {
+
+  onLoad: function (options) {
+    this.setData({
+      title: options.id
+    })
+    console.log("title : " + this.data.title)
+    testutil.getrecordInfo(49, (res) => {
+      console.log(res.data)
+      //雷达图数据
+      var plan_mygrade = JSON.parse(res.data.plan_score);
+      var plan_avggrade = JSON.parse(res.data.plan_avg_score);
+      var attention_mygrade = JSON.parse(res.data.attention_score);
+      var attention_avggrade = JSON.parse(res.data.attention_avg_score);
+      var simultaneous_mygrade = JSON.parse(res.data.simul_score);
+      var simultaneous_avggrade = JSON.parse(res.data.suc_avg_score);
+      var successive_mygrade = JSON.parse(res.data.suc_score);
+      var successive_avggrade = JSON.parse(res.data.simul_avg_score);
+      var people = JSON.parse(res.data.sum_peoele);
+      var plan = JSON.parse(res.data.plan_rank);
+      var attention = JSON.parse(res.data.attention_rank);
+      var simultaneous = JSON.parse(res.data.simul_rank);
+      var successive = JSON.parse(res.data.suc_rank);
+      var time = res.data.test_time;
       this.setData({
-        triggered: true,
+        time : time,
+        plan_mygrade: plan_mygrade,
+        plan_avggrade: plan_avggrade,
+        attention_mygrade: attention_mygrade,
+        attention_avggrade: attention_avggrade,
+        simultaneous_mygrade: simultaneous_mygrade,
+        simultaneous_avggrade: simultaneous_avggrade,
+        successive_mygrade: successive_mygrade,
+        successive_avggrade: successive_avggrade,
+        people: people,
+        plan: plan,
+        attention: attention,
+        simultaneous: simultaneous,
+        successive: successive,
+        my: [
+          ["注意", attention_mygrade],
+          ["继时性", successive_mygrade],
+          ["计划", plan_mygrade],
+          ["同时性", simultaneous_mygrade],
+        ],
+        avg: [
+          ["注意", attention_avggrade],
+          ["继时性", successive_avggrade],
+          ["计划", plan_avggrade],
+          ["同时性", simultaneous_avggrade],
+        ],
       })
-    }, 1000)
+      this.init()
+    })
+    var that = this;
+    wx.getSystemInfo({
+      success(res) {
+        console.log(res);
+        console.log(res.windowWidth);
+        console.log(res.windowHeight);
+        that.setData({
+          deviceWidth: res.windowWidth,
+          deviceHeight: res.windowHeight,
+          deviceWidthLook: res.windowWidth * 0.9,
+          deviceHeightLook: res.windowHeight * 0.95
+        })
+      }
+    })
+
+  },
+  onShow: function () {
+    wx.setNavigationBarTitle({
+      title: '历史测试结果'
+    })
+  },
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  },
+  init() {
     //雷达图
     this.drawRadar()
     var grade = ['非常优秀', '优秀', '良好', '合格', '一般']
@@ -163,34 +185,6 @@ Page({
       successive_grade: successive_grade,
       successive_percentage: Math.ceil(successive_percentage)
     })
-  },
-  onLoad: function () {
-    var that = this;
-    wx.getSystemInfo({
-      success(res) {
-        console.log(res);
-        console.log(res.windowWidth);
-        console.log(res.windowHeight);
-        that.setData({
-          deviceWidth: res.windowWidth,
-          deviceHeight: res.windowHeight,
-          deviceWidthLook: res.windowWidth*0.9,
-          deviceHeightLook: res.windowHeight*0.95
-        })
-      }
-    })
-
-  },
-  onShow: function () {
-    wx.setNavigationBarTitle({
-      title: '历史测试结果'
-    })
-  },
-    /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
   },
 
   // 雷达图
@@ -290,7 +284,7 @@ Page({
     }
   },
 
-  return:function(e){
+  return: function (e) {
     wx.navigateTo({
       url: '../../pages/start/start'
     })
