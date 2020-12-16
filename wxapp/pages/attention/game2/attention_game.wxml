@@ -1,5 +1,5 @@
 <!--pages/attention/attention_game.wxml-->
-<view class="top">
+<!-- <view class="top">
   <view class="jindu">
     <text>{{text[number]}}</text>
   </view>
@@ -13,7 +13,25 @@
     </view>
   </view>
 
-</view>
+</view> -->
+<view class="top" style="flex-direction:row;">
+    <view class="eyu">
+      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/bear.png' style="width: 175rpx; "></image>
+    </view>
+    <view class="jindu">
+      <text>{{text[number]}}</text>
+    </view>
+    <view wx:if="{{start == true}}" class="start">
+    <view class="clock">
+      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/clock.png'
+        style="width: 70rpx;"></image>
+    </view> 
+    <view class="time">
+      <text style='color:#edbf40'>{{displayTime}}s</text>
+    </view>
+  </view>
+   
+  </view>
 
 <view class="back">
   <view wx:if="{{age == 0}}">
@@ -30,7 +48,7 @@
   <button class="finish" bindtap="start">开始测试</button>
 </view>
 <view wx:else>
-  <view class="back">
+  <view class="back1">
     <view class="t1" wx:for="{{l}}">
       <view class="t2" wx:for="{{l[index]}}">
         <view wx:if="{{age == 0}}">
