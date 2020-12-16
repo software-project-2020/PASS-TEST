@@ -4,24 +4,6 @@ page {
   background-image: url('https://picture.morii.top/renzhixuetang/background/10.jpg');
   background-size: 100% 100%;
 }
-/* .jindu{ */
-  /* 上右下左 */
-  /* margin: 8% 0% 1% 25%;
-  height: 60rpx;
-  width: 50%;
-  display: flex;
-  background-color: #ffffff;
-  opacity: 0.8;
-  border: 4rpx solid #edbf40d5;
-  border-radius: 15rpx;
-  text-align:center;
-  align-items:center;
-  justify-content: center;
-  color:#edbf40;
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing:5rpx;
-} */
 .img1{
   display: flex;
   bottom:0;
@@ -106,8 +88,10 @@ page {
   align-items: center;
 }
 .button{
+  width: 100%;
   margin-left: 10%;
-  margin-top: 5%;
+  margin-top: 30%;
+  display: flex;
 }
 .right{
   width: 150rpx;
