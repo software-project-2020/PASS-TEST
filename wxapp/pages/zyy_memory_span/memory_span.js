@@ -224,7 +224,7 @@ function gameStart(that, newGame_or_nextLevel = 'newGame') {
         msg: '记忆时间计时器被触发'
       });
       that.data.time_add_1 = setTimeout(() => {
-        util.initTime(that, 30);
+        util.initTime(that, 3);
         that.setData({
           game_state: "开始拖动吧"
         });
