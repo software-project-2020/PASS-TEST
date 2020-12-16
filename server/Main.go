@@ -630,14 +630,16 @@ func getResult(c *gin.Context) {
 	}
 	var resultAndRank models.ResultAndRank
 	sqlForRun := "SELECT plan_rank,plan_avg_score,attention_rank,attention_avg_score,simul_rank,simul_avg_score" +
-		",suc_rank,suc_avg_score,total_rank,sum_people from test_result where test_id = ?"
+		",suc_rank,suc_avg_score,total_rank,sum_people,plan_score,attention_score,simul_score,suc_score" +
+		" from test_result where test_id = ?"
 	stmt, err := Db.Prepare(sqlForRun)
 	checkErr(err)
 	defer stmt.Close()
 	row := stmt.QueryRow(testid)
 	err = row.Scan(&resultAndRank.PlanRank, &resultAndRank.PlanAvgScore, &resultAndRank.AttentionRank, &resultAndRank.AttentionAvgScore,
 		&resultAndRank.SimulRank, &resultAndRank.SimulAvgScore, &resultAndRank.SucRank, &resultAndRank.SucAvgScore,
-		&resultAndRank.TotalRank, &resultAndRank.SumPeople)
+		&resultAndRank.TotalRank, &resultAndRank.SumPeople,&resultAndRank.PlanScore,
+		&resultAndRank.AttentionScore,&resultAndRank.SimulScore,&resultAndRank.SucScore)
 	checkErr(err)
 	reList := make(map[string]interface{})
 	reList["plan_rank"] = resultAndRank.PlanRank
@@ -650,6 +652,10 @@ func getResult(c *gin.Context) {
 	reList["suc_avg_score"] = resultAndRank.SucAvgScore
 	reList["total_rank"] = resultAndRank.TotalRank
 	reList["sum_peoele"] = resultAndRank.SumPeople
+	reList["plan_score"] = resultAndRank.PlanScore
+	reList["attention_score"] = resultAndRank.AttentionScore
+	reList["simul_score"] = resultAndRank.SimulScore
+	reList["suc_score"] = resultAndRank.SucScore
 	result["data"] = reList
 	mapJson, err := json.Marshal(result)
 	checkErr(err)
