@@ -22,6 +22,7 @@ Page({
    */
   onLoad: function () {
     this.setData({
+      // age:5,
       age: getApp().globalData.userInfo.age
     })
     testutil.getconfiguration(0, 'P', (res) => {
