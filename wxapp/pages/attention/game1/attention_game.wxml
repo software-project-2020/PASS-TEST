@@ -12,7 +12,7 @@
 <view class="back1" style="width : {{deviceWidthLook}}px ; height : {{deviceHeightLook}}px">
   <text class="back">判断下列数字是否为 {{answer1}} ， {{answer2}} ， {{answer3}}</text>
   <view wx:if="{{start == false}}">
-  <button class="start" bindtap="start">开始测试</button>
+  <button class="start" bindtap="start">开始练习</button>
   </view>
   <view wx:else class="Num_text">
   <text >{{Num}}</text>

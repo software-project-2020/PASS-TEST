@@ -86,7 +86,7 @@ Page({
   onReady: function () {},
   onShow: function () {
     wx.setNavigationBarTitle({
-      title: '注意'
+      title: '注意测试'
     })
   },
   onLoad: function () {
@@ -378,14 +378,14 @@ Page({
       var sumRight = this.data.sumRight + this.data.rightcount;
       var sumCount = this.data.sumCount + this.data.count;
       var sum = getApp().globalData.score[2] + this.data.sumGrade;
-      var scoreDetail = [];
+    
       var item = {
         "sumRight": sumRight,
         "sumCount": sumCount
       }
-      scoreDetail.push(item)
+      
       getApp().globalData.score[2] = Math.round(sum);
-      getApp().globalData.scoreDetail[2][1] = scoreDetail;
+      getApp().globalData.scoreDetail[2][1] = item;
       console.log(getApp().globalData.score[2])
       console.log(getApp().globalData.scoreDetail[2][1])
       console.log(getApp().globalData.scoreDetail[2])

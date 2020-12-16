@@ -154,6 +154,9 @@ m_select_touch(e) {
     // console.log(this.data.feedback_type)
 },
 onLoad: function () {
+  wx.setNavigationBarTitle({
+    title: '意见反馈'
+  })
 },
 
 })

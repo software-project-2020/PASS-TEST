@@ -30,12 +30,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      age:5
-      // age:getApp().globalData.userInfo.age
+    wx.setNavigationBarTitle({
+      title: '继时性加工测试'
     })
-    // testutil.getconfiguration(getApp().globalData.userInfo.ageGroup, 'S21', (res) => {
-      testutil.getconfiguration(0, 'S21', (res) => {
+    this.setData({
+      // age:15
+      age:getApp().globalData.userInfo.age
+    })
+    testutil.getconfiguration(getApp().globalData.userInfo.ageGroup, 'S21', (res) => {
+      // testutil.getconfiguration(0, 'S21', (res) => {
       console.log(res)
       var timelist=[]
       var intervaltimelist=[]
@@ -273,11 +276,11 @@ Page({
       console.log('得分',this.data.score)
       console.log('做题总数',this.data.jindu-1)
       //存globalData
-      getApp().globalData.scoreDetail[3,0] = {
+      getApp().globalData.scoreDetail[3][0] = {
         score: this.data.score,
         qnum: 6
       }
-      console.log(getApp().globalData.scoreDetail[3,0])
+      console.log(getApp().globalData.scoreDetail[3][0])
       wx.redirectTo({
         url: '/pages/zyy_memory_span/rule/rule',
       })

@@ -19,101 +19,54 @@ Page({
       rank_name: '继时性加工排行',
       rank_type: 'S2'
     }],
-    ranklist: [{
-      "rank": 1,
-      "nick_name": "用户1",
-      "score": 100
-    }, {
-      "rank": 2,
-      "nick_name": "用户2",
-      "score": 90
-    }, {
-      "rank": 3,
-      "nick_name": "用户3",
-      "score": 86
-    }, {
-      "rank": 4,
-      "nick_name": "用户4",
-      "score": 77
-    }, {
-      "rank": 5,
-      "nick_name": "用户5",
-      "score": 98
-    }, {
-      "rank": 6,
-      "nick_name": "用户6",
-      "score": 45
-    },
-      //  {
-      //   "rank":7,
-      //   "nick_name":"用户7",
-      //   "score": 87
-      // }, 
-      // {
-      //   "rank":8,
-      //   "nick_name":"用户8",
-      //   "score": 80
-      // }, {
-      //   "rank":9,
-      //   "nick_name":"用户9",
-      //   "score": 17
-      // }, {
-      //   "rank":10,
-      //   "nick_name":"用户10",
-      //   "score": 100
-      // }, {
-      //   "rank":11,
-      //   "nick_name":"用户11",
-      //   "score": 120
-      // }, {
-      //   "rank":12,
-      //   "nick_name":"用户12",
-      //   "score": 234
-      // }
-    ],
+    rank_list: {},
+    // choosed: [false, false, false, false,false],
+    choosed: [true, false, false, false, false],
+    type: ['T', 'P', 'A', 'S1', 'S2'],
+    color: {'T':'#285f6f','P':'#387ba6','A':'#c36d5c','S1':'#b0b070','S2':'#dfb85d'},
+    // ranktype: null,
+    ranktype: 'T',
     all_number: 2,
     my_score: 80,
     my_rank: 10,
     selected: {},
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
     userrank: 0,
     userscore: 0,
     pagenum: 1,
-    allpages: 0,
-    ranktype: null,
+    allpages: 0
   },
-  change(e) {
+  choose: function (e) {
+    var index = parseInt(e.currentTarget.dataset.index);
+    var flag = this.data.choosed;
+    var i;
+    for (i = 0; i < 5; i++) {
+      if (i != index)
+        flag[i] = false;
+      else
+        flag[i] = true;
+    }
     this.setData({
-      selected: { ...e.detail },
-      // ranklist: res.data.ranks,
-      ranktype: e.rank
+      ranktype: this.data.type[index],
+      choosed: flag
     })
-    console.log(e.rank)
+    this.onLoad()
     console.log(this.data.ranktype)
-    // wx.showToast({
-    //   title: `${this.data.selected.id} - ${this.data.selected.name}`,
-    //   icon: 'success',
-    //   duration: 1000
-    // })
-    this.onLoad();
   },
-  close() {
-    // 关闭select
-    this.selectComponent('#select').close()
-  },
-
   onLoad: function (options) {
+    this.setData({
+      headimg: getApp().globalData.userInfo.avatarUrl
+    })
     var that = this
     rankutil.getRanklists(app.globalData.userInfo.openid, app.globalData.userInfo.age, this.data.ranktype, this.data.pagenum, 6, (res) => {
       that.setData({
-        all_number: res.all_number,
-        my_score: res.my_score,
-        my_rank: res.my_rank,
-        rank_list: res.rank_list
+        all_number: res.data.all_number,
+        my_score: res.data.my_score,
+        my_rank: res.data.my_rank,
+        rank_list: res.data.rank_list
       })
+      console.log(res.rank_list)
     })
+    console.log(this.data.ranklist)
   },
 
   pre: function () {
