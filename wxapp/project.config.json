@@ -208,6 +208,12 @@
           "id": -1,
           "name": "pages/result/result",
           "pathName": "pages/result/result",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/zyy_memory_span/memory_span",
+          "pathName": "pages/zyy_memory_span/memory_span",
           "scene": null
         }
       ]
