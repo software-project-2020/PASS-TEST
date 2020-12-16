@@ -12,8 +12,7 @@ Page({
   /* 离开时一定要删除计时器 */
   onUnload: function () {
     clearTimeout(this.data.time_add_er);
-    this.data.time_add_er = null;
-    console.log("zyy_test 计时器移除", this.data.time_add_er);
+    clearTimeout(that.data.time_add_1);
   },
   /* 延迟两秒后再更新棋盘位置表，避免出现错误 */
   onReady: function () {
@@ -59,11 +58,13 @@ Page({
     chess_start: [],
     chess_zindex: [],
     chess_nowAt: [],
-    game_state: "等待中" /* 练习中 等待中 游戏中 游戏结束 */ ,
+    game_state: "等待中" /* 练习中 等待中 开始拖动吧 游戏结束 */ ,
     pos_table: [],
     time_limit: 30,
     time_second: 30,
     time_str: "30s",
+    time_add_1: null,
+    time_add_2: null,
     time_add_er: null,
   },
   /* 映射数字到图片路径 */
@@ -72,12 +73,11 @@ Page({
   },
   /**
    * 处理 触摸开始
-   * 如果游戏状态不是 “游戏中” 则啥也不做
    * @todo 初始化棋子的初始位置
    * @todo 被拖动的棋子 z-index 调高至200
    */
   moveStart: function (event) {
-    if (this.data.game_state != "游戏中") {
+    if (this.data.game_state != "开始拖动吧") {
       return;
     }
     let who = event.currentTarget.dataset.who;
@@ -101,7 +101,7 @@ Page({
    * @todo 棋子位置挪动到触摸位置或者自动吸位
    */
   handleMove: function (event) {
-    if (this.data.game_state != "游戏中") {
+    if (this.data.game_state != "开始拖动吧") {
       return;
     }
     let who = event.currentTarget.dataset.who;
@@ -137,7 +137,7 @@ Page({
    * @todo 被拖动的棋子 z-index 调回至100
    */
   moveEnd: function (event) {
-    if (this.data.game_state != "游戏中") {
+    if (this.data.game_state != "开始拖动吧") {
       return;
     }
     let who = event.currentTarget.dataset.who;
@@ -176,6 +176,7 @@ Page({
    */
   skip_练习: function () {
     clearTimeout(this.data.time_add_er);
+    clearTimeout(this.time_add_1);
     this.data.time_add_er = null;
     console.log("zyy_test 计时器移除", this.data.time_add_er);
     wx.navigateTo({
@@ -190,19 +191,12 @@ Page({
  */
 function gameStart(that) {
   clearTimeout(that.data.time_add_er);
-  let time_limit = that.data.time_limit + that.data.level_time[that.data.level_index];
-  // if (that.data.level_index >= 1) {
-  //   testOver(that);
-  //   initTime(that, time_limit);
-  //   initChessBoard(that, false);
-  //   return;
-  // }
   if (that.data.game_state != "等待中") {
     that.setData({
       game_state: "等待中",
     });
   }
-  initTime(that, time_limit);
+  initTime(that, that.data.level_time[that.data.level_index]);
   initChessBoard(that, true);
   wx.showToast({
     title: "请记住棋盘",
@@ -210,11 +204,12 @@ function gameStart(that) {
     duration: 1000,
     complete: () => {
       checkTime(that);
-      setTimeout(() => {
+      that.data.time_add_1 = setTimeout(() => {
+        initTime(that, 30);
         that.setData({
-          game_state: "游戏中",
-          // time_begin: new Date()
+          game_state: "开始拖动吧"
         });
+        checkTime(that);
       }, that.data.level_time[that.data.level_index] * 1000 + 1000);
     },
   });
@@ -240,7 +235,8 @@ function checkTime(that) {
         icon: "succes",
         mask: true,
       });
-      testOver(that);
+      userCommitAnswer(null, that);
+      // testOver(that);
       // setTimeout(() => {
       //   wx.showToast({
       //     title: "Game Over",
@@ -258,16 +254,18 @@ function checkTime(that) {
 
 /**
  * 初始化时间设置
+ * @todo 更改游戏状态为  `请记住棋盘`
+ * @todo 设置时间限时
+ * @todo 设置时间显示字符串
  * @param {Page} that 传递进来的this
  * @param {Number} time_limit_in_second 倒计时 单位`秒`
  */
 function initTime(that, time_limit_in_second) {
-  if (that.data.time_add_er != null) {
-    clearTimeout(that.data.time_add_er);
-  }
+  clearTimeout(that.data.time_add_er);
   that.setData({
     time_second: time_limit_in_second,
     time_str: time_limit_in_second + "s",
+    game_state: "请记住棋盘"
   });
 }
 
@@ -338,6 +336,7 @@ function initChessBoard(that, mode) {
 
 function userCommitAnswer(event, that) {
   clearTimeout(that.data.time_add_er);
+  clearTimeout(that.data.time_add_1);
   let endAnswer = true;
   for (let i = 0; i < that.data.chess_index.length; i++) {
     endAnswer =
