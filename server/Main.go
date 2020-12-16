@@ -89,6 +89,8 @@ func main() {
 
 	r.POST("/api/test/gethistory", getHistory)
 
+	r.POST("/api/test/ranklist", rankList)
+
 	r.Run(":23333")
 }
 
@@ -698,16 +700,62 @@ func getHistory(c *gin.Context) {
 		err = row.Scan(&history.Openid, &history.TestId, &history.TotalScore, &date)
 		checkErr(err)
 		history.TestDate, _ = time.Parse("2006-01-02 15:04:05", date)
-		if history.TestDate.Year() == testyearNum && int(history.TestDate.Month())==testmonthNum{
-			tmp :=make(map[string]interface{})
-			tmp["testtime"]=history.TestDate
-			tmp["testscore"]=history.TotalScore
-			tmp["testid"]=history.TestId
-			record = append(record,tmp)
+		if history.TestDate.Year() == testyearNum && int(history.TestDate.Month()) == testmonthNum {
+			tmp := make(map[string]interface{})
+			tmp["testtime"] = history.TestDate
+			tmp["testscore"] = history.TotalScore
+			tmp["testid"] = history.TestId
+			record = append(record, tmp)
 		}
 	}
 	result["data"] = record
 	mapJson, err := json.Marshal(result)
 	checkErr(err)
 	c.JSON(200, string(mapJson))
+}
+
+func rankList(c *gin.Context) {
+	defer recoverErr()
+	result := make(map[string]interface{})
+	result["error_code"] = 0
+	openid := c.PostForm("openid")
+	if openid == "" {
+		result["error_code"] = 10001
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("openid" + "字段为空")
+	}
+	age := c.PostForm("age")
+	if age == "" {
+		result["error_code"] = 10002
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("age" + "字段为空")
+	}
+	tp := c.PostForm("type")
+	if tp == "" {
+		result["error_code"] = 10003
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("type" + "字段为空")
+	}
+	page_num := c.PostForm("page_num")
+	if page_num == "" {
+		result["error_code"] = 10004
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("page_num" + "字段为空")
+	}
+	list_num := c.PostForm("list_num")
+	if list_num == "" {
+		result["error_code"] = 10005
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("list_num" + "字段为空")
+	}
 }
