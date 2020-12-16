@@ -157,17 +157,18 @@ function getrecordInfo(recorddata,callback) {
   wx.request({
     method: 'POST',
     dataType: 'json',
-    url: 'https://app.morii.top/personalInfo',
+    url: 'https://api.zghy.xyz/api/test/testhistory',
     header: {
       'content-type': 'application/x-www-form-urlencoded'
     },
     data: {
-      TestYear:recorddata['TestYear'],
-      TestMonth:recorddata['TestMonth']
+      openid:recorddata['openid'],
+      testyear:recorddata['testyear'],
+      testmonth:recorddata['testmonth']
     },
     success: function (res) {
-      console.log(JSON.parse(res.data))
-      callback && callback(JSON.parse(res.data));
+      console.log(res)
+      callback && callback(res);
     }
   })
 }
