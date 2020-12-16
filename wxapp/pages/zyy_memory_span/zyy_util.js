@@ -190,7 +190,7 @@ function prettyBoard(board) {
   }
 }
 
-function checkTime(that) {
+function checkTime(that, todo, param) {
   clearTimeout(that.data.time_add_er);
   that.data.time_add_er = setTimeout(function () {
     let sec = that.data.time_second - 1;
@@ -200,15 +200,17 @@ function checkTime(that) {
         time_second: sec,
         time_str: str,
       });
-      checkTime(that);
+      checkTime(that, todo, param);
     } else {
-      wx.showToast({
-        title: "时间到",
-        duration: 1000,
-        icon: "succes",
-        mask: true,
-      });
-      that.userCommitAnswer(null, that);
+      if (typeof (todo) != 'function') {
+        // console.log("回调函数未传入");
+        // console.log("that", that);
+        // console.log("todo", todo);
+        // console.log("param", param);
+      } else {
+        // console.log("回调函数传入成功");
+        todo(param);
+      }
     }
   }, 1000);
 }
