@@ -1,5 +1,5 @@
 // pages/zyy_memory_span/test/test.js
-let util = require("../zyy_util")
+const util = require("../zyy_util")
 const app = getApp();
 const board_size = 16;
 Page({
