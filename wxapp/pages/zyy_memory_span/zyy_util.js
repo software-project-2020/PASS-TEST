@@ -190,7 +190,7 @@ function prettyBoard(board) {
   }
 }
 
-function checkTime(that) {
+function checkTime(that, timeout, param) {
   clearTimeout(that.data.time_add_er);
   that.data.time_add_er = setTimeout(function () {
     let sec = that.data.time_second - 1;
@@ -202,13 +202,13 @@ function checkTime(that) {
       });
       checkTime(that);
     } else {
-      wx.showToast({
-        title: "时间到",
-        duration: 1000,
-        icon: "succes",
-        mask: true,
-      });
-      that.userCommitAnswer(null, that);
+      // wx.showToast({
+      //   title: "时间到",
+      //   duration: 1000,
+      //   icon: "succes",
+      //   mask: true,
+      // });
+      timeout(param);
     }
   }, 1000);
 }

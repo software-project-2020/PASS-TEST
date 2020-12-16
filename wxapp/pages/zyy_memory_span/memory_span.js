@@ -207,6 +207,9 @@ function gameStart(that, newGame_or_nextLevel = 'newGame') {
       })
       break;
     case 'nextLevel':
+      that.setData({
+        level_index: that.data.level_index + 1
+      })
     default:
   }
 
@@ -215,13 +218,21 @@ function gameStart(that, newGame_or_nextLevel = 'newGame') {
     icon: "succes",
     duration: 1000,
     complete: () => {
-      util.checkTime(that);
+      util.checkTime(that, (param) => {
+        console.log(param);
+      }, {
+        msg: '记忆时间计时器被触发'
+      });
       that.data.time_add_1 = setTimeout(() => {
         util.initTime(that, 30);
         that.setData({
           game_state: "开始拖动吧"
         });
-        util.checkTime(that);
+        util.checkTime(that, (param) => {
+          console.log(param);
+        }, {
+          msg: "做题时间计时器被触发"
+        });
       }, that.data.level_time[that.data.level_index] * 1000 + 1000);
     },
   });
@@ -332,6 +343,20 @@ function userCommitAnswer(event, that) {
   console.log("测试页 用户提交答案", endAnswer);
   if (endAnswer) {
     console.log("330", that.data.level_index);
+    if (that.data.level_index < that.data.level_flow.length) {
+      gameStart(that, "nextLevel");
+    } else {
+      wx.showToast({
+        title: '前往下一个测试',
+      });
+      app.globalData.scoreDetail[3, 2] = {
+        score: that.data.level_index,
+        qnum: that.data.level_index + 1
+      };
+      wx.navigateTo({
+        url: '/pages/S2/successive-rules/successive-rules',
+      })
+    }
   } else {
     console.log("wx.showModal");
     wx.showModal({
