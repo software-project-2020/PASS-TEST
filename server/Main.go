@@ -711,7 +711,7 @@ func getHistory(c *gin.Context) {
 		history.TestDate, _ = time.Parse("2006-01-02 15:04:05", date)
 		if history.TestDate.Year() == testyearNum && int(history.TestDate.Month()) == testmonthNum {
 			tmp := make(map[string]interface{})
-			tmp["testtime"] = history.TestDate
+			tmp["testtime"] = history.TestDate.Format("2006-01-02 15:04:05")
 			tmp["testscore"] = history.TotalScore
 			tmp["testid"] = history.TestId
 			record = append(record, tmp)
