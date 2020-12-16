@@ -21,13 +21,13 @@
   <view class="border">
     <view class="text" wx:if="{{!showover}}">
       <text class="show" wx:if="{{isLowage==false}}" >{{mixlist[shownum].value}}</text>
-      <image wx:if="{{isLowage==true}}" class='img_test' mode='widthFix' src='{{mixlist[shownum].value}}' style="width: 200rpx;"></image>
+      <image wx:if="{{isLowage==true}}" class='img_test' mode='widthFix' src='{{mixlist[shownum].value}}' style="width: 350rpx;"></image>
     </view>
     <view class="choose" wx:if="{{showover}}">{{mixlist_mix[index].isClick}}
     <view class="t1" wx:for="{{mixlist_mix}}"  style="margin-left:{{mixlist_mix[index].marginleft}}rpx"><text class="no" style="visibility:{{mixlist_mix[index].isClick?'visible':'hidden'}};">{{mixlist_mix[index].clicknum}}</text>
       <text class="mix" hidden="{{isLowage}}" wx:if="{{!item.isEmpty}}" bindtap="order" data-name="{{item.index}}" >{{mixlist_mix[index].value}}</text>
     <view wx:if="{{isLowage==true}}">
-      <image  class='img_test' mode='widthFix' wx:if="{{!item.isEmpty}}" bindtap="order" data-name="{{item.index}}" src='{{mixlist_mix[index].value}}' style="width: 100rpx;" hidden="{{!isLowage}}"></image>
+      <image  class='img_test' mode='widthFix' wx:if="{{!item.isEmpty}}" bindtap="order" data-name="{{item.index}}" src='{{mixlist_mix[index].value}}' style="width: 200rpx;" hidden="{{!isLowage}}"></image>
     </view></view>
     </view>
   </view>

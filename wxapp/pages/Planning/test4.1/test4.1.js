@@ -13,8 +13,8 @@ Page({
     Alltime: [0,0,0],//规定最长完成时间
     startdifficulty: [0,0,0],//当前游戏连续词语个数
     testcount: 0,//当前难度测试题数
-    list_pic: ["https://picture.morii.top/renzhixuetang/lyq/animal/dog.png", "https://picture.morii.top/renzhixuetang/lyq/animal/eyu.png", "https://picture.morii.top/renzhixuetang/lyq/animal/fog.png", "https://picture.morii.top/renzhixuetang/lyq/animal/sheep.png",
-      "https://picture.morii.top/renzhixuetang/lyq/animal/bear.png", "https://picture.morii.top/renzhixuetang/lyq/animal/ciwei.png", "https://picture.morii.top/renzhixuetang/lyq/animal/elephant.jpg", "https://picture.morii.top/renzhixuetang/lyq/animal/duck.png"],
+    list_pic: ["https://picture.morii.top/renzhixuetang/lyq/animalnew/dog.png", "https://picture.morii.top/renzhixuetang/lyq/animalnew/eyu.png", "https://picture.morii.top/renzhixuetang/lyq/animalnew/fog.png", "https://picture.morii.top/renzhixuetang/lyq/animalnew/sheep.png",
+      "https://picture.morii.top/renzhixuetang/lyq/animalnew/bear.png", "https://picture.morii.top/renzhixuetang/lyq/animalnew/ciwei.png", "https://picture.morii.top/renzhixuetang/lyq/animalnew/elephant.png", "https://picture.morii.top/renzhixuetang/lyq/animalnew/duck.png"],
     list_complex: ["苹果", "香蕉", "橘子", "香梨", "葡萄", "冬枣", "啤酒", "汉堡", "可乐"],//所有词语
     mixlist: [],//随机抽取nowdifficulty个字，显示的序列(正确序列)
     mixlist_mix: [],//打乱之后的字词，排序界面的序列
@@ -31,11 +31,11 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      // age:5
-      age:getApp().globalData.userInfo.age
+      age:5
+      // age:getApp().globalData.userInfo.age
     })
-    testutil.getconfiguration(getApp().globalData.userInfo.ageGroup, 'S21', (res) => {
-      // testutil.getconfiguration(0, 'S21', (res) => {
+    // testutil.getconfiguration(getApp().globalData.userInfo.ageGroup, 'S21', (res) => {
+      testutil.getconfiguration(0, 'S21', (res) => {
       console.log(res)
       var timelist=[]
       var intervaltimelist=[]
@@ -275,7 +275,7 @@ Page({
       //存globalData
       getApp().globalData.scoreDetail[3,0] = {
         score: this.data.score,
-        qnum: this.data.jindu-1
+        qnum: 6
       }
       console.log(getApp().globalData.scoreDetail[3,0])
       wx.redirectTo({
@@ -383,8 +383,8 @@ Page({
             })
           }
           wx.showModal({
-            title: '恭喜',
-            content: '作答正确',
+            title: '提示',
+            content: '作答完成',
             showCancel: false,
             success: function (res) {
               if (res.confirm) {//这里是点击了确定以后
@@ -435,8 +435,8 @@ Page({
         }
         var that = this;
         wx.showModal({
-          title: '抱歉',
-          content: '作答错误',
+          title: '提示',
+          content: '作答完成',
           showCancel: false,
           success: function (res) {
             if (res.confirm) {//这里是点击了确定以后
