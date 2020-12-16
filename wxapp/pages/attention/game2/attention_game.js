@@ -81,7 +81,8 @@ Page({
     }],
     write: ["练习结束，测试正式开始", "请继续完成下一题", "本游戏结束，开始下一个测试"],
     text: ["练习", "进度：1/2", "进度：2/2"],
-    start: false
+    start: false,
+    button: ['开始练习','开始测试','开始测试']
   },
   onReady: function () {},
   onShow: function () {
