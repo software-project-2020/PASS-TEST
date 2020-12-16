@@ -56,12 +56,12 @@
       </block>
     </view>
     <view class="pages">
-      <button wx:if="{{pagenum==1}}" style="width:30%;background-color:{{color[ranktype]}}"> <text class="button-text">首 页</text></button>
-      <button wx:else bindtap="pre" style="width:30%;background-color:{{color[ranktype]}}"><text class="button-text">上一页</text></button>
+      <button wx:if="{{pagenum==1}}" style="width:32%;background-color:{{color[ranktype]}}"> <text class="button-text">首 页</text></button>
+      <button wx:else bindtap="pre" style="width:32%;background-color:{{color[ranktype]}}"><text class="button-text">上一页</text></button>
       <text>{{pagenum}}/{{all_number}}</text>
-      <button wx:if="{{pagenum==all_number}}" style="width:30%;background-color:{{color[ranktype]}}">
+      <button wx:if="{{pagenum==all_number}}" style="width:32%;background-color:{{color[ranktype]}}">
         <text class="button-text">尾 页</text></button>
-      <button wx:else bindtap="next" style="width:30%;background-color:{{color[ranktype]}}"><text class="button-text">下一页</text></button>
+      <button wx:else bindtap="next" style="width:32%;background-color:{{color[ranktype]}}"><text class="button-text">下一页</text></button>
     </view>
   </view>
 </view>

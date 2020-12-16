@@ -272,9 +272,6 @@ Page({
           })
         }
       })
-      console.log("得分：", this.data.score)
-      console.log("得分：", app.globalData.score[3, 1])
-      console.log("得分：", app.globalData.score[3, 3])
     } else {
       this.setData({
         now: this.data.now + 1,//进入下一个游戏
