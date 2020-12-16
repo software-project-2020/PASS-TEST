@@ -17,29 +17,7 @@ Page({
     triggered: false,
 
     show: false,
-    plan1_time: 9,
-    plan1_count: 3,
-    plan2_time: 16,
-    plan2_count: 4,
-    plan3_time: 25,
-    plan3_count: 5,
-
-    attention1_right: 9,
-    attention1_sum: 20,
-    attention2_right: 15,
-    attention2_sum: 20,
-
-    simultaneous1_right: 15,
-    simultaneous1_sum: 20,
-    simultaneous2_right: 15,
-    simultaneous2_sum: 20,
-
-    successive1_right: 15,
-    successive1_sum: 20,
-    successive2_right: 15,
-    successive2_sum: 20,
-    successive3_right: 15,
-    successive3_sum: 20,
+    
     isOpacity: true,
   },
 
@@ -97,6 +75,30 @@ Page({
       })
       this.init()
     })
+    this.setData({
+      plan2_time: getApp().globalData.scoreDetail[0][0].score,
+      plan2_count: getApp().globalData.scoreDetail[0][0].difficulty,
+      plan3_time: getApp().globalData.scoreDetail[0][1].score,
+      plan3_count: getApp().globalData.scoreDetail[0][1].difficulty,
+  
+      attention1_right: getApp().globalData.scoreDetail[2][0].rightcount,
+      attention1_sum: getApp().globalData.scoreDetail[2][0].number_count,
+      attention2_right: getApp().globalData.scoreDetail[2][1].sumRight,
+      attention2_sum: getApp().globalData.scoreDetail[2][1].sumCount,
+  
+      simultaneous1_right: getApp().globalData.scoreDetail[1][0].score,
+      simultaneous1_sum: getApp().globalData.scoreDetail[1][0].qnum,
+      simultaneous2_right: getApp().globalData.scoreDetail[1][1].score,
+      simultaneous2_sum: getApp().globalData.scoreDetail[1][1].qnum,
+  
+      successive1_right: getApp().globalData.scoreDetail[3][0].score,
+      successive1_sum: getApp().globalData.scoreDetail[3][0].qnum,
+      successive2_right: getApp().globalData.scoreDetail[3][1].score,
+      successive2_sum: getApp().globalData.scoreDetail[3][1].qnum,
+      successive3_right: getApp().globalData.scoreDetail[3][2].score,
+      successive3_sum: getApp().globalData.scoreDetail[3][2].qnum,
+    })
+
     var that = this;
     wx.getSystemInfo({
       success(res) {

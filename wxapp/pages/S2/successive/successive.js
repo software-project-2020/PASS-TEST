@@ -260,7 +260,7 @@ Page({
       util.closeCountDown(this)
       app.globalData.scoreDetail[3][2] = { score: this.data.score, qnum: this.data.now }
       this.sumscore()
-      app.globalData.score[3] = this.data.sumscore / this.data.sumtest
+      app.globalData.score[3] = this.data.sumscore / this.data.sumstest * 100
       wx.showModal({
         title: '恭喜',
         content: '恭喜你完成本次测试！点击按钮查看本次测试的最终结果！',
