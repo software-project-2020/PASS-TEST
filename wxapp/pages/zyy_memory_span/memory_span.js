@@ -346,7 +346,7 @@ function userCommitAnswer(event, that) {
         score: that.data.score,
         qnum: that.data.level_index
       };
-      wx.navigateTo({
+      wx.redirectTo({
         url: '/pages/S2/successive-rules/successive-rules',
       })
     }
@@ -355,6 +355,7 @@ function userCommitAnswer(event, that) {
       title: "答案错误",
       content: '请前往下一个测试',
       cancelText: "再试一次",
+      showCancel: false,
       confirmText: "下个测试",
       success: function (res) {
         if (res.confirm) {
@@ -362,7 +363,7 @@ function userCommitAnswer(event, that) {
             score: 3,
             qnum: 4
           };
-          wx.navigateTo({
+          wx.redirectTo({
             url: '/pages/S2/successive-rules/successive-rules',
           })
         } else if (res.cancel) {

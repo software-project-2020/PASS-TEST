@@ -179,7 +179,7 @@ Page({
     clearTimeout(this.time_add_1);
     this.data.time_add_er = null;
     // console.log("zyy_test 计时器移除", this.data.time_add_er);
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/zyy_memory_span/memory_span',
     })
   }
@@ -299,10 +299,11 @@ function userCommitAnswer(event, that) {
       title: "正式测试即将开始",
       content: "恭喜你～ 成功通过了练习，现在要开始测试么？",
       cancelText: "再练一遍",
+      showCancel: false,
       confirmText: "去测试",
       success: function (res) {
         if (res.confirm) {
-          wx.navigateTo({
+          wx.redirectTo({
             url: "/pages/zyy_memory_span/memory_span",
           });
         } else {
@@ -319,7 +320,7 @@ function userCommitAnswer(event, that) {
       success: function (res) {
         if (res.confirm) {
           //这里是点击了确定以后
-          wx.navigateTo({
+          wx.redirectTo({
             url: "/pages/zyy_memory_span/memory_span",
           });
         } else {
