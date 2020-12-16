@@ -279,8 +279,9 @@ Page({
       }
       console.log(getApp().globalData.scoreDetail[3,0])
       wx.redirectTo({
-        url: '/pages/S2/successive-rules/successive-rules',
+        url: '/pages/zyy_memory_span/rule/rule',
       })
+      
     }
     else {
       this.intinum()
