@@ -934,4 +934,41 @@ func rankList(c *gin.Context) {
 		checkErr(err)
 		c.JSON(200, string(mapJson))
 	}
+	if tp == "T" {
+		resdata := make(map[string]interface{})
+		resdata["all_number"] = all_number
+		sort.SliceStable(userTResultList, func(i, j int) bool {
+			if userTResultList[i].TotalScore > userTResultList[j].TotalScore {
+				return true
+			}
+			return false
+		})
+		page_num_int, err := strconv.Atoi(page_num)
+		checkErr(err)
+		needMin := list_num_int * (page_num_int - 1)
+		needMax := list_num_int*page_num_int - 1
+		var myscore float64
+		var myrank int
+		var relist []map[string]interface{}
+		for i := 0; i < sumPeople; i++ {
+			if userTResultList[i].Openid == openid {
+				myscore = userTResultList[i].TotalScore
+				myrank = i + 1
+			}
+			if needMin <= i && i <= needMax {
+				people := make(map[string]interface{})
+				people["rank"] = i + 1
+				people["nick_name"] = userTResultList[i].Nickname
+				people["score"] = userTResultList[i].TotalScore
+				relist = append(relist, people)
+			}
+		}
+		resdata["my_score"] = myscore
+		resdata["my_rank"] = myrank
+		resdata["rank_list"] = relist
+		result["data"] = resdata
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+	}
 }
