@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    score: 0,
     windowWidth: app.windowWidth,
     windowHeight: app.windowHeight,
     chess_size: (app.windowWidth * 0.8) / 7,
@@ -334,13 +335,16 @@ function userCommitAnswer(event, that) {
     level_index: that.data.level_index + 1
   })
   if (endAnswer) {
+    that.setData({
+      score: that.data.level_index + 1
+    })
     if (that.data.level_index < that.data.level_flow.length) {
       gameStart(that, "nextLevel");
     } else {
       // wx.showToast({title: '前往下一个测试'});
       app.globalData.scoreDetail[3, 2] = {
-        score: that.data.level_index,
-        qnum: that.data.level_index + 1
+        score: that.data.score,
+        qnum: that.data.level_index
       };
       wx.navigateTo({
         url: '/pages/S2/successive-rules/successive-rules',
