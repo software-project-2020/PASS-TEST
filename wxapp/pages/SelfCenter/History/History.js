@@ -22,12 +22,7 @@ Page({
       "text": "未选择"
     },
     isBest:[],
-    record:[
-    {"testtime":"2021-01-31 12:15","testscore":95},
-    {"testtime":"2021-01-02 15:50","testscore":99},
-    {"testtime":"2021-01-02 12:45","testscore":89},
-    {"testtime":"2021-01-02 13:45","testscore":87},
-    {"testtime":"2021-01-02 13:45","testscore":77},],
+    record:[],
     top : 0,
     now : ''
   },
@@ -50,21 +45,10 @@ Page({
     })
   },
   renew(){
-    var record = this.data.record.slice()
-    var newrecord = [];
-    if(this.data.TestYear==2021&&this.data.TestMonth==1)
-    for(var i =0 ;i<record.length;i++){
-        var item={
-          "testtime":record[i].testtime,
-          "testscore":record[i].testscore,
-          "isBest":record[i].isBest
-        }
-        newrecord.push(item)
-    }
-    this.setData({
-      newrecord:newrecord
-    })
     if(this.data.TestYear!=null&&this.data.TestMonth!=null){
+      this.setData({
+        record:[]
+      })
       var recorddata={
         // openid:getApp().globalData.userInfo.openid,
         openid:"oAkCq5aL-90X9qhtwEDR8lx2TMZA",
@@ -72,13 +56,13 @@ Page({
         testmonth:this.data.TestMonth
       }
       // console.log(JSON.stringify(recorddata))
+      var that = this
       testutil.getrecordInfo(recorddata,(res)=>{
-        console.log(res)
-        this.setData({
-          TestTime:res.testtime,
-          TestScore:res.testscore,
-          TestId:res.testid
+        console.log(res.data)
+        that.setData({
+          record:res.data
         })
+        console.log(that.data.record)
       })
     }
   }
@@ -120,7 +104,7 @@ Page({
     for(var i=0;i<record.length;i++)
       if(best==record[i].testscore)
       record[i].isBest=true
-    console.log(this.data.record)
+    // console.log(this.data.record)
   },
 
 })
