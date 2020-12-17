@@ -672,12 +672,13 @@ Page({
     ctx.draw(true, () => {
       that.setData({
         spinning: false
-      })
+      })   
     })
     // ctx.draw()
   },
 
   savePicutre() {
+    setTimeout(() => {
     var that = this;
     //需要把canvas转成图片后才能保存
     wx.canvasToTempFilePath({
@@ -720,6 +721,7 @@ Page({
         })
       }
     }, this)
+  }, 500)
   },
 
   //保存图片 
