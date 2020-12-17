@@ -666,12 +666,12 @@ Page({
     ctx.fillText('加工能力，更加有助于孩子的成长。', 188, 1400)
 
     //渲染
-    ctx.draw(true, () => {
-      that.setData({
-        spinning: false
-      })
-    })
-    // ctx.draw()
+    // ctx.draw(true, () => {
+    //   that.setData({
+    //     spinning: false
+    //   })
+    // })
+    ctx.draw()
   },
 
   savePicutre() {
