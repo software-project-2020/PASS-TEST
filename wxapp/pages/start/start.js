@@ -120,4 +120,10 @@ Page({
     })
     console.log('radio发生change事件，携带value值为：', e.detail.value)
   },
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
 })

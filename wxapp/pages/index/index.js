@@ -130,5 +130,11 @@ Page({
     this.setData({
       region: e.detail.value
     })
+  },
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
   }
 })
