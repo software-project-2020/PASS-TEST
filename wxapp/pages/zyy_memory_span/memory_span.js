@@ -1,5 +1,5 @@
 const util = require("./zyy_util.js");
-const app = getApp();
+let app = getApp();
 const board_size = 16;
 Page({
   /**
@@ -54,7 +54,9 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {},
+  onHide: function () {
+    util.score_to_global(app, this.data.score, this.data.level_index);
+  },
 
   /**
    * 生命周期函数--监听页面卸载
@@ -62,6 +64,7 @@ Page({
   onUnload: function () {
     clearTimeout(this.data.time_add_er);
     clearTimeout(this.data.time_add_1);
+    util.score_to_global(app, this.data.score, this.data.level_index);
   },
 
   /**
@@ -336,16 +339,12 @@ function userCommitAnswer(event, that) {
   })
   if (endAnswer) {
     that.setData({
-      score: that.data.level_index + 1
+      score: that.data.level_index
     })
     if (that.data.level_index < that.data.level_flow.length) {
       gameStart(that, "nextLevel");
     } else {
-      // wx.showToast({title: '前往下一个测试'});
-      app.globalData.scoreDetail[3, 2] = {
-        score: that.data.score,
-        qnum: that.data.level_index
-      };
+      util.score_to_global(app, that.data.score, that.data.level_index);
       wx.redirectTo({
         url: '/pages/S2/successive-rules/successive-rules',
       })
@@ -359,10 +358,10 @@ function userCommitAnswer(event, that) {
       confirmText: "下个测试",
       success: function (res) {
         if (res.confirm) {
-          app.globalData.scoreDetail[3][1] = {
-            score: 3,
-            qnum: 4
-          };
+          that.setData({
+            score: that.data.level_index - 1
+          })
+          util.score_to_global(app, that.data.score, that.data.level_index);
           wx.redirectTo({
             url: '/pages/S2/successive-rules/successive-rules',
           })

@@ -12,7 +12,7 @@ Page({
   /* 离开时一定要删除计时器 */
   onUnload: function () {
     clearTimeout(this.data.time_add_er);
-    clearTimeout(that.data.time_add_1);
+    clearTimeout(this.data.time_add_1);
   },
   /* 延迟两秒后再更新棋盘位置表，避免出现错误 */
   onReady: function () {
