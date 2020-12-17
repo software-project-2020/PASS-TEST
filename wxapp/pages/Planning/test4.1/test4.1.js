@@ -31,11 +31,11 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      age:15
-      // age:getApp().globalData.userInfo.age
+      // age:15
+      age:getApp().globalData.userInfo.age
     })
-    // testutil.getconfiguration(getApp().globalData.userInfo.ageGroup, 'S21', (res) => {
-      testutil.getconfiguration(1, 'S21', (res) => {
+    testutil.getconfiguration(getApp().globalData.userInfo.ageGroup, 'S21', (res) => {
+      // testutil.getconfiguration(1, 'S21', (res) => {
       console.log(res)
       var timelist=[]
       var intervaltimelist=[]
