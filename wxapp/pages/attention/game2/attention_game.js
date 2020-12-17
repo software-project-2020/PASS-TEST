@@ -169,13 +169,13 @@ Page({
         for (j = 0; j < this.data.column[this.data.number]; j++) {
           var flag = false;
           for (k = 0; k < size; k++) {
-            if (Number((i * this.data.line[this.data.number] + j)) == Number(place[k])) {
+            if (Number((i * this.data.column[this.data.number] + j)) == Number(place[k])) {
               if (this.data.age == 0) {
                 if (this.data.number == 0 || this.data.number == 1) {
                   if (l[i][j] == null) {
                     a = this.data.answer1
                     var item = {
-                      "index": i * this.data.line[this.data.number] + j,
+                      "index": i * this.data.column[this.data.number] + j,
                       "value": a,
                       "add": this.data.list[a],
                     }
@@ -185,7 +185,7 @@ Page({
                   if (l[i][j] == null) {
                     a = [this.data.answer1, this.data.answer2, this.data.answer3];
                     var item = {
-                      "index": i * this.data.line[this.data.number] + j,
+                      "index": i * this.data.column[this.data.number] + j,
                       "value": a[Math.floor(Math.random() * 3)],
                       "add": this.data.list[a[Math.floor(Math.random() * 3)]],
                     }
@@ -196,7 +196,7 @@ Page({
                 if (this.data.number == 0) {
                   if (l[i][j] == null) {
                     var item = {
-                      "index": i * this.data.line[this.data.number] + j,
+                      "index": i * this.data.column[this.data.number] + j,
                       "value": this.data.age1_question,
                       "add": this.data.list_big_letter[this.data.age1_question],
                       "number": ""
@@ -207,7 +207,7 @@ Page({
                 } else if (this.data.number == 1) {
                   if (l[i][j] == null) {
                     var item = {
-                      "index": i * this.data.line[this.data.number] + j,
+                      "index": i * this.data.column[this.data.number] + j,
                       "value": this.data.age1_question,
                       "add": this.data.list_small_letter[this.data.age1_question],
                       "number": this.data.age1_question_number
@@ -218,7 +218,7 @@ Page({
                 } else if (this.data.number == 2) {
                   if (l[i][j] == null) {
                     var item = {
-                      "index": i * this.data.line[this.data.number] + j,
+                      "index": i * this.data.column[this.data.number] + j,
                       "value": this.data.age1_question,
                       "add": this.data.list_big_letter[this.data.age1_question],
                       "value2": this.data.age2_question,
@@ -234,7 +234,7 @@ Page({
             if (this.data.age == 0) {
               a = Math.floor(Math.random() * Object.keys(this.data.list).length);
               var item = {
-                "index": i * this.data.line[this.data.number] + j,
+                "index": i * this.data.column[this.data.number] + j,
                 "value": a,
                 "add": this.data.list[a],
               }
@@ -243,7 +243,7 @@ Page({
               a2 = Math.floor(Math.random() * 26);
               if (this.data.number == 0) {
                 var item = {
-                  "index": i * this.data.line[this.data.number] + j,
+                  "index": i * this.data.column[this.data.number] + j,
                   "value": a,
                   "add": this.data.list_big_letter[a],
                   "value2": "",
@@ -251,7 +251,7 @@ Page({
                 }
               } else if (this.data.number == 1) {
                 var item = {
-                  "index": i * this.data.line[this.data.number] + j,
+                  "index": i * this.data.column[this.data.number] + j,
                   "value": a,
                   "add": this.data.list_small_letter[a],
                   "value2": "",
@@ -259,7 +259,7 @@ Page({
                 }
               } else if (this.data.number == 2) {
                 var item = {
-                  "index": i * this.data.line[this.data.number] + j,
+                  "index": i * this.data.column[this.data.number] + j,
                   "value": a,
                   "add": this.data.list_big_letter[a],
                   "value2": a2,
@@ -472,11 +472,11 @@ Page({
       for (j = 0; j < this.data.column[this.data.number]; j++) {
         let index = "num[" + (i*this.data.column[this.data.number] + j) + "]";
         let count = "ans_num[" + (i*this.data.column[this.data.number] + j) + "]";
-        let value = l[Math.floor((i*this.data.column[this.data.number] + j) / this.data.line[this.data.number])][(i*this.data.column[this.data.number] + j) % this.data.column[this.data.number]].value;
+        let value = l[i][j].value;
         if (this.data.age == 1 && this.data.number == 2) {
-          var value_num = l[Math.floor((i*this.data.column[this.data.number] + j) / this.data.line[this.data.number])][(i*this.data.column[this.data.number] + j) % this.data.column[this.data.number]].value2;
+          var value_num = l[i][j].value2;
         } else {
-          var value_num = l[Math.floor((i*this.data.column[this.data.number] + j) / this.data.line[this.data.number])][(i*this.data.column[this.data.number] + j) % this.data.column[this.data.number]].number;
+          var value_num = l[i][j].number;
         }
         that.setData({
           [index]: value,
@@ -537,6 +537,7 @@ Page({
     })
     var i = 0;
     i = Number(e.target.dataset.name)
+    console.log("i : " + i)
     let index = "bg[" + i + "]";
     let indexflag = "flag[" + i + "]";
     var value = false;
