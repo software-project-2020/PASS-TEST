@@ -1,5 +1,4 @@
 /* pages/SelfCenter/History/History.wxss */
-/* pages/SelfCenter/my/my.wxss */
 page{
   overflow: hidden;
   background-image: url('https://picture.morii.top/renzhixuetang/background/8.jpg');
@@ -7,16 +6,19 @@ page{
 }
 .container{
   padding: 0rpx;
+  display: block;
+  /* align-content: center; */
+  margin: 0px 30px;
 }
-.border{
+.border {
   height: 350rpx;
-  width: 66%;
+  width: 100%;
   background-color: rgb(252, 252, 252);
   opacity: 0.8;
   display: flex;
   border-radius: 10rpx;
-  justify-content: center;  /*水平*/
-  align-items: center; /*垂直*/
+  justify-content: center;
+  align-items: center;
   margin-top: 20rpx;
   flex-direction: column;
 }
@@ -40,11 +42,13 @@ page{
   align-items: left;
   display: flex;
   flex-direction: row;
+  float: left;
+  width: 100%;
  }
  .testtime{
    width: 220rpx;
    margin-top: 20rpx;
-   margin-left: 100rpx;
+   /* margin-left: 100rpx; */
    font-size: 36rpx;
    font-weight: 600;
    color: rgb(255, 255, 255);
@@ -77,13 +81,13 @@ page{
 }
 .record{
   width: 100%;
-  margin-left: 20%;
+
   margin-top: 2%;
 }
 
 .record_border{
   height: 400rpx;
-  width: 80%;
+  /* width: 80%; */
   background-color: rgb(252, 252, 252);
   opacity: 0.8;
   display: flex;
@@ -110,6 +114,7 @@ page{
    font-size: 36rpx;
    font-weight: 600;
    color: rgb(255, 255, 255);
+   float: left;
 }
 .offer_wrap{
   /* margin-top: 30rpx; */

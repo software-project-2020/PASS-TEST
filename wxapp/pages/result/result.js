@@ -120,11 +120,14 @@ Page({
       title: '测试结果'
     })
   },
-  /**
+      /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '认知学堂',
+      path: '/pages/index/index',
+    }
   },
 
   init() {
@@ -433,9 +436,9 @@ Page({
     ctx.fillText(this.data.attention1_right + " / " + this.data.attention1_sum, 260, 657)
     ctx.fillText('接受性注意', 80, 707)
     ctx.fillText(this.data.attention2_right + " / " + this.data.attention2_sum, 260, 707)
-    ctx.fillText('言语加工', 80, 757)
+    ctx.fillText('渐进矩阵', 80, 757)
     ctx.fillText(this.data.simultaneous1_right + " / " + this.data.simultaneous1_sum, 260, 757)
-    ctx.fillText('渐进矩阵', 80, 807)
+    ctx.fillText('言语加工', 80, 807)
     ctx.fillText(this.data.simultaneous2_right + " / " + this.data.simultaneous2_sum, 260, 807)
     ctx.fillText('单词序列', 80, 857)
     ctx.fillText(this.data.successive1_right + " / " + this.data.successive1_sum, 260, 857)
@@ -669,12 +672,13 @@ Page({
     ctx.draw(true, () => {
       that.setData({
         spinning: false
-      })
+      })   
     })
     // ctx.draw()
   },
 
   savePicutre() {
+    setTimeout(() => {
     var that = this;
     //需要把canvas转成图片后才能保存
     wx.canvasToTempFilePath({
@@ -717,6 +721,7 @@ Page({
         })
       }
     }, this)
+  }, 500)
   },
 
   //保存图片 

@@ -81,7 +81,8 @@ Page({
     }],
     write: ["练习结束，测试正式开始", "请继续完成下一题", "本游戏结束，开始下一个测试"],
     text: ["练习", "进度：1/2", "进度：2/2"],
-    start: false
+    start: false,
+    button: ['开始练习', '开始测试', '开始测试']
   },
   onReady: function () {},
   onShow: function () {
@@ -326,11 +327,11 @@ Page({
         })
       } else if (this.data.number == 1) {
         this.setData({
-          word: this.data.list_big_letter[this.data.age1_question] + " 对应的小写字母和数字 " + this.data.age1_question_number + " 的组合"
+          word: this.data.list_small_letter[this.data.age1_question] + " 和 " + this.data.age1_question_number + " 的组合"
         })
       } else if (this.data.number == 2) {
         this.setData({
-          word: this.data.list_small_letter[this.data.age1_question] + " 对应的大写字母和 " + this.data.list_big_letter[this.data.age2_question] + " 对应的小写字母的组合"
+          word: this.data.list_big_letter[this.data.age1_question] + " 和 " + this.data.list_small_letter[this.data.age2_question] + " 的组合"
         })
       }
     }
@@ -378,12 +379,12 @@ Page({
       var sumRight = this.data.sumRight + this.data.rightcount;
       var sumCount = this.data.sumCount + this.data.count;
       var sum = getApp().globalData.score[2] + this.data.sumGrade;
-    
+
       var item = {
         "sumRight": sumRight,
         "sumCount": sumCount
       }
-      
+
       getApp().globalData.score[2] = Math.round(sum);
       getApp().globalData.scoreDetail[2][1] = item;
       console.log(getApp().globalData.score[2])
@@ -398,12 +399,6 @@ Page({
     console.log("下一题")
     var that = this;
     if (this.data.number == 0) {
-      // var title = '糟糕';
-      // var content = '时间花光了';
-      // if (that.data.finishClick == true) {
-      //   title = '练习结束';
-      //   content = '测试要开始啦，请集中注意力'
-      // }
       wx.showModal({
         title: '练习结束',
         content: '测试要开始啦，请集中注意力进行测试',
@@ -425,13 +420,12 @@ Page({
         }
       })
     } else {
-      var title ;
-      var content ;
-      if (this.data.number == 1){
+      var title;
+      var content;
+      if (this.data.number == 1) {
         title = '完成';
         content = '稍微休息一下，还有一题，继续集中注意力完成下一题'
-      }
-      else if (this.data.number == 2){
+      } else if (this.data.number == 2) {
         title = '完成';
         content = '稍微休息一下，进入下一个题目'
       }
@@ -473,19 +467,23 @@ Page({
     console.log("answer2 : " + answer2)
     console.log("answer3 : " + answer3)
     var i = 0;
-    for (i = 0; i < this.data.line[this.data.number] * this.data.column[this.data.number]; i++) {
-      let index = "num[" + i + "]";
-      let count = "ans_num[" + i + "]";
-      let value = l[Math.floor(i / this.data.line[this.data.number])][i % this.data.column[this.data.number]].value;
-      if (this.data.age == 1 && this.data.number == 2) {
-        var value_num = l[Math.floor(i / this.data.line[this.data.number])][i % this.data.column[this.data.number]].value2;
-      } else {
-        var value_num = l[Math.floor(i / this.data.line[this.data.number])][i % this.data.column[this.data.number]].number;
+    var j = 0;
+    for (i = 0; i < this.data.line[this.data.number]; i++) {
+      for (j = 0; j < this.data.column[this.data.number]; j++) {
+        let index = "num[" + (i*this.data.column[this.data.number] + j) + "]";
+        let count = "ans_num[" + (i*this.data.column[this.data.number] + j) + "]";
+        let value = l[Math.floor((i*this.data.column[this.data.number] + j) / this.data.line[this.data.number])][(i*this.data.column[this.data.number] + j) % this.data.column[this.data.number]].value;
+        if (this.data.age == 1 && this.data.number == 2) {
+          var value_num = l[Math.floor((i*this.data.column[this.data.number] + j) / this.data.line[this.data.number])][(i*this.data.column[this.data.number] + j) % this.data.column[this.data.number]].value2;
+        } else {
+          var value_num = l[Math.floor((i*this.data.column[this.data.number] + j) / this.data.line[this.data.number])][(i*this.data.column[this.data.number] + j) % this.data.column[this.data.number]].number;
+        }
+        that.setData({
+          [index]: value,
+          [count]: value_num,
+        });
       }
-      that.setData({
-        [index]: value,
-        [count]: value_num,
-      });
+
     }
 
     for (i = 0; i < this.data.line[this.data.number] * this.data.column[this.data.number]; i++) {
@@ -618,9 +616,9 @@ Page({
     util.closeCountDown(this)
     this.timeout();
   },
-  start: function(e){
+  start: function (e) {
     this.setData({
-      start : true
+      start: true
     })
     this.initnum()
   }

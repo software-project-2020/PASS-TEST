@@ -26,11 +26,20 @@
   </block>
 </view>
 <view class="start">
-  <button class="button_back_test" size="mini" bindtap="test">
-    <image class="button_back_test_image" src="https://picture.morii.top/renzhixuetang/start/button_back_test.png"
+  
+  
+  
+  
+    <button class="button_back_test" size="mini" bindtap="test" style="float:right;">
+    <image class="button_back_test_image" src="https://picture.morii.top/renzhixuetang/start/title1.png"
       mode="scaleToFill"></image>
   </button>
-  <button class="list_back" size="mini" bindtap="list">
+  <button class="button_back_test" size="mini" bindtap="bindViewTap" style="float:left;">
+    <image class="button_back_test_image" src="https://picture.morii.top/renzhixuetang/start/title2.png"
+      mode="scaleToFill"></image>
+  </button>
+  
+  <button class="list_back" size="mini" bindtap="list" style="width: 100%;">
     <image class="list_back_image" src="https://picture.morii.top/renzhixuetang/start/list_back.png" mode="scaleToFill">
     </image>
   </button>

@@ -22,13 +22,13 @@ Page({
     }
   ],
     date: '2016-09-01',
+    gender:1
   },
   onLoad: function () {
     this.setData({
       userInfo: app.globalData.userInfo
     })
-    if (app.globalData.userInfo.age > 10) app.globalData.userInfo['ageGroup'] = 1
-    else app.globalData.userInfo['ageGroup'] = 0
+    
   },
   /**
    * 生命周期函数--监听页面显示
@@ -63,6 +63,8 @@ Page({
       cancelText: '取消',
       confirmText: '进入测试',
       success: function (res) {
+        if (app.globalData.userInfo.age > 10) app.globalData.userInfo['ageGroup'] = 1
+        else app.globalData.userInfo['ageGroup'] = 0
         if (res.confirm) {//这里是点击了确定以后
           app.globalData.timer = setInterval(function () {
             app.globalData.time += 1
@@ -119,4 +121,13 @@ Page({
     })
     console.log('radio发生change事件，携带value值为：', e.detail.value)
   },
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+    return {
+      title: '认知学堂',
+      path: '/pages/index/index',
+    }
+  }
 })
