@@ -22,6 +22,7 @@ Page({
     }
   ],
     date: '2016-09-01',
+    gender:1
   },
   onLoad: function () {
     this.setData({
