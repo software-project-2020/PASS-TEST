@@ -297,10 +297,10 @@ func userLogin(c *gin.Context) {
 		err = row.Scan(&user.Id, &user.Openid, &user.SessionKey, &user.Age, &user.Gender, &registerTime,
 			&lastLoginTime, &user.NickName, &birthday)
 		if err == sql.ErrNoRows {
-			sqlForRun = "insert into user(openid,session_key,gender,register_time,last_login_time,nickname)" +
+			sqlForRun = "insert into user(openid,session_key,gender,register_time,last_login_time,nickname,age)" +
 				" values(?,?,?,?,?,?)"
 			res, err := Db.Exec(sqlForRun, requestBody["openid"], requestBody["session_key"],
-				c.PostForm("gender"), time.Now(), time.Now(), c.PostForm("nickname"))
+				c.PostForm("gender"), time.Now(), time.Now(), c.PostForm("nickname"),10)
 			checkErr(err)
 			_, _ = res.LastInsertId()
 			c.JSON(200, gin.H{
