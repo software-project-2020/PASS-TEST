@@ -1,7 +1,8 @@
 /* pages/start/start.wxss */
 page{
   overflow: hidden;
-  background-image: url('https://picture.morii.top/renzhixuetang/background/2.gif');
+  background-image: url('https://picture.morii.top/renzhixuetang/background/4.jpg');
+  /* background-image: url('https://picture.morii.top/renzhixuetang/background/2.gif'); */
   background-size: 100% 100%;
 }
 .my{
