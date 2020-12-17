@@ -7,6 +7,7 @@ module.exports = {
   prettyBoard: prettyBoard,
   initTime: initTime,
   checkTime: checkTime,
+  score_to_global: score_to_global,
 }
 /**
  * 得到指定数字的图片路径
@@ -229,5 +230,16 @@ function initTime(that, time_limit_in_second) {
     time_second: time_limit_in_second,
     time_str: time_limit_in_second + "s",
     game_state: "请记住棋盘"
+  });
+}
+
+function score_to_global(app, score, qnum) {
+  app.globalData.scoreDetail[3][1] = {
+    score: score,
+    qnum: qnum
+  };
+  console.log({
+    score: score,
+    qnum: qnum
   });
 }
