@@ -10,8 +10,8 @@ Page({
     windowWidth: app.windowWidth,
     windowHeight: app.windowHeight,
     chess_size: (app.windowWidth * 0.8) / 7,
-    level_flow: [5, 5, 6, 6, 7, 7],
-    level_time: [5, 5, 10, 10, 15, 15],
+    level_flow: [5, 6, 7, 8, 9],
+    level_time: [4, 4, 5, 5, 5],
     // level_time: [5, 5, 5, 5, 5, 1],
     level_index: 0,
     board_num: [] /* board.length = board_size */ ,
@@ -35,10 +35,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    initChessBoard(this, false);
-    setTimeout(() => {
-      gameStart(this, 'newGame');
-    }, 800);
+    gameStart(this, 'newGame');
   },
 
   /**
@@ -340,45 +337,50 @@ function userCommitAnswer(event, that) {
   // console.log("测试页 用户提交答案", endAnswer);
   that.setData({
     level_index: that.data.level_index + 1
-  })
-  if (endAnswer) {
-    that.setData({
-      score: that.data.level_index
-    })
-    if (that.data.level_index < that.data.level_flow.length) {
-      gameStart(that, "nextLevel");
-    } else {
-      util.score_to_global(app, that.data.score, that.data.level_flow.length);
-      wx.redirectTo({
-        url: '/pages/S2/successive-rules/successive-rules',
-      })
-    }
-  } else {
-    wx.showModal({
-      title: "答案错误",
-      content: '请前往下一个测试',
-      cancelText: "再试一次",
-      showCancel: false,
-      confirmText: "下个测试",
-      success: function (res) {
-        if (res.confirm) {
-          that.setData({
-            score: that.data.level_index - 1
-          })
+  }, () => {
+    if (endAnswer) {
+      that.setData({
+        score: that.data.level_index
+      }, () => {
+        if (that.data.level_index < that.data.level_flow.length) {
+          gameStart(that, "nextLevel");
+        } else {
           util.score_to_global(app, that.data.score, that.data.level_flow.length);
           wx.redirectTo({
             url: '/pages/S2/successive-rules/successive-rules',
           })
-        } else if (res.cancel) {
-          that.setData({
-            level_index: 0
-          });
-          that.gameStart(that, "newGame");
         }
-      },
-      fail: function (e) {
-        // console.log("fail", e);
-      }
-    });
-  }
+      })
+    } else {
+      wx.showModal({
+        title: "答案错误",
+        content: '请前往下一个测试',
+        cancelText: "再试一次",
+        showCancel: false,
+        confirmText: "下个测试",
+        success: function (res) {
+          if (res.confirm) {
+            that.setData({
+              score: that.data.level_index - 1
+            }, () => {
+              util.score_to_global(app, that.data.score, that.data.level_flow.length);
+              wx.redirectTo({
+                url: '/pages/S2/successive-rules/successive-rules',
+              })
+            })
+          } else if (res.cancel) {
+            that.setData({
+              level_index: 0
+            }, () => {
+              that.gameStart(that, "newGame");
+            });
+          }
+        },
+        fail: function (e) {
+          // console.log("fail", e);
+        }
+      });
+    }
+  })
+
 }

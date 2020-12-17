@@ -4,7 +4,7 @@
       style="width: 88rpx;"></image>
   </view>
   <view class="process">
-    <text style='color:#B1AFE6'>进度: {{(level_index < 6 ? level_index+1 : level_index) + "/6"}}</text>
+    <text style='color:#B1AFE6'>进度: {{(level_index < 6 ? level_index+1 : level_index) + "/" + level_flow.length}}</text>
   </view>
   <view class="clock">
     <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/successive/clock.png'
