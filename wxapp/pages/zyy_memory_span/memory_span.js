@@ -55,7 +55,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    util.score_to_global(app, this.data.score, this.data.level_index);
+    util.score_to_global(app, this.data.score, this.data.level_flow.length);
   },
 
   /**
@@ -64,7 +64,7 @@ Page({
   onUnload: function () {
     clearTimeout(this.data.time_add_er);
     clearTimeout(this.data.time_add_1);
-    util.score_to_global(app, this.data.score, this.data.level_index);
+    util.score_to_global(app, this.data.score, this.data.level_flow.length);
   },
 
   /**
@@ -344,7 +344,7 @@ function userCommitAnswer(event, that) {
     if (that.data.level_index < that.data.level_flow.length) {
       gameStart(that, "nextLevel");
     } else {
-      util.score_to_global(app, that.data.score, that.data.level_index);
+      util.score_to_global(app, that.data.score, that.data.level_flow.length);
       wx.redirectTo({
         url: '/pages/S2/successive-rules/successive-rules',
       })
@@ -361,7 +361,7 @@ function userCommitAnswer(event, that) {
           that.setData({
             score: that.data.level_index - 1
           })
-          util.score_to_global(app, that.data.score, that.data.level_index);
+          util.score_to_global(app, that.data.score, that.data.level_flow.length);
           wx.redirectTo({
             url: '/pages/S2/successive-rules/successive-rules',
           })
