@@ -103,7 +103,7 @@ page{
 }
 .mix{
   color: #9f9fdf;
-  font-size: 75rpx;
+  font-size: 72rpx;
   font-weight: 600;
 }
 .no{
