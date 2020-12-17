@@ -68,6 +68,15 @@ Page({
     })
     console.log(this.data.ranklist)
   },
+    /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+    return {
+      title: '认知学堂',
+      path: '/pages/index/index',
+    }
+  },
 
   pre: function () {
     this.setData({

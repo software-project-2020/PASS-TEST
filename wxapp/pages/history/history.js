@@ -91,11 +91,14 @@ Page({
       title: '历史测试结果'
     })
   },
-  /**
+    /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '认知学堂',
+      path: '/pages/index/index',
+    }
   },
   init() {
     //雷达图
