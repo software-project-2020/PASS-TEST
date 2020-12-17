@@ -49,7 +49,11 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () {
+    wx.setNavigationBarTitle({
+      title: '继时性加工测试'
+    })
+  },
 
   /**
    * 生命周期函数--监听页面隐藏
