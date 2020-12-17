@@ -1,0 +1,60 @@
+/* pages/SelfCenter/my/my.wxss */
+page{
+  overflow: hidden;
+  background-image: url('https://picture.morii.top/renzhixuetang/background/8.jpg');
+  background-size: 100% 100%;
+}
+.container{
+  padding: 0rpx;
+}
+.border{
+  height: 800rpx;
+  width: 80%;
+  display: flex;
+  justify-content: center;  /*水平*/
+  align-items: center; /*垂直*/
+  margin-top: 20rpx;
+  flex-direction: column;
+}
+.head{
+  display: flex;
+  flex-direction: row;
+  margin-top: 6%;
+  margin-bottom: 2%;
+  margin-left: 80%;
+}
+.headimg{
+  margin-top: 5%;
+  margin-bottom: 3%;
+  border-radius: 50%;
+  border: ivory 6rpx solid;
+}
+.name{
+  color: aliceblue;
+  font-size: 40rpx;
+  font-weight: 600;
+  margin-bottom: 5%;
+}
+.btnv{
+  display: flex;
+  justify-content: center;  /*水平*/
+  align-items: center; /*垂直*/
+  width: 90%;
+  margin-bottom: 8%;
+}
+.btn[plain]{
+  border:none;
+  padding: 0;
+}
+.imgbtn{
+  border:none;
+}
+.back_btn[plain]{
+  border:none;
+  padding: 0;
+  margin-right: 480rpx;
+}
+.music_btn[plain]{
+  border:none;
+  padding: 0;
+}

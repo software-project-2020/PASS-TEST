@@ -1,0 +1,21 @@
+<!--pages/rule1/rule1.wxml-->
+<view class="container">
+  <view class="top" style="flex-direction:row;">
+    <view class="sheep">
+      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/sheep.png' style="width: 170rpx; "></image>
+    </view>
+  </view>
+  <view class="border">
+    <view class="introduction">
+      <text class="rules">接下来，在游戏方框里会出现数字1~16，均匀打乱分布在4*4的表格里，你需要在规定的时间内按从小到大的顺序依次点击数字，完成一题后难度会上升哦！
+        请看下面的示例：</text>
+    </view>
+    <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/guize.gif' style="width: 400rpx; "></image>
+
+  </view>
+  <view class="bottom">
+    <button class="btn" plain="true" bindtap="gototest1" >
+    <image class='img2' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/starttest.png' style="width: 250rpx; "></image>
+  </button>
+</view>
+</view>

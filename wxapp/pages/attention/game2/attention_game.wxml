@@ -1,0 +1,53 @@
+<!--pages/attention/attention_game.wxml-->
+<view class="top" style="flex-direction:row;">
+    <view class="eyu">
+      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/bear.png' style="width: 175rpx; "></image>
+    </view>
+    <view class="jindu">
+      <text>{{text[number]}}</text>
+    </view>
+    <view wx:if="{{start == true}}" class="start">
+    <view class="clock">
+      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/clock.png'
+        style="width: 70rpx;"></image>
+    </view> 
+    <view class="time">
+      <text style='color:#edbf40'>{{displayTime}}s</text>
+    </view>
+  </view>
+   
+  </view>
+
+<view class="back">
+  <view wx:if="{{age == 0}}">
+    <text>{{question_text[age]}}{{word}}</text>
+    <image src="{{question[number]}}" class="question"></image>
+  </view>
+  <view wx:else>
+    <text class="questionText">{{question_text[age]}}{{word}}</text>
+  </view>
+
+
+</view>
+<view wx:if="{{start == false}}">
+  <button class="finish" bindtap="start">{{button[number]}}</button>
+</view>
+<view wx:else>
+  <view class="back1">
+    <view class="t1" wx:for="{{l}}">
+      <view class="t2" wx:for="{{l[index]}}">
+        <view wx:if="{{age == 0}}">
+          <image wx:if="{{!item.isEmpty}}" class="kuai {{bg[item.index]?'bg1':'bg2'}}" data-name="{{item.index}}"
+            bindtap="change" style="width: 70rpx; height: 70rpx;" mode='widthFix' src="{{item.add}}"></image>
+        </view>
+        <view wx:else>
+          <text wx:if="{{!item.isEmpty}}" class="kuai {{bg[item.index]?'text1':'text2'}}" data-name="{{item.index}}"
+            bindtap="change" style="width: 70rpx; height: 70rpx;" mode='widthFix'>{{item.add}}{{item.number}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view>
+    <button class="finish" bindtap="finish" style="width : 240rpx">完成</button>
+  </view>
+</view>

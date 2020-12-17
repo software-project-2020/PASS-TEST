@@ -1,0 +1,38 @@
+<!-- pages/zyy_memory_span/test/test.wxml -->
+<view class="top" style="flex-direction:row;">
+  <view class="proflag">
+    <image class='img2' mode='widthFix' src='https://picture.morii.top/renzhixuetang/successive/flag.png'
+      style="width: 88rpx;"></image>
+  </view>
+  <view class="process">
+    <text style='color:#B1AFE6'>{{game_state}}</text>
+  </view>
+  <view class="clock">
+    <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/successive/clock.png'
+      style="width: 70rpx;"></image>
+  </view>
+  <view class="time">
+    <text style='color:#B1AFE6'>{{time_str}}</text>
+  </view>
+</view>
+<view class="chess_map">
+  <view class="chess_box" style="width:calc({{(windowWidth*0.8)/4}}px);height:calc({{(windowWidth*0.8)/4}}px );"
+    wx:for="{{board_num}}" wx:key="item" id="{{index}}">
+    <view class="chess_content"
+      style='background-image: url({{(game_state=="开始拖动吧" && item!=-1) ? "https://picture.morii.top/renzhixuetang/zyy/empty.png" : board_img_url[index]}});' />
+    <!-- <view class="chess_content" style='background-image: url("https://picture.morii.top/renzhixuetang/zyy/base_circle.png");' /> -->
+  </view>
+</view>
+<view class="chess_below">
+  <view class="chess_drag" wx:for="{{chess_index}}" wx:key="item" catchtouchstart="moveStart"
+    catchtouchmove="handleMove" catchtouchend="moveEnd" id="chess_{{board_num[item]}}" data-who="{{item}}"
+    data-i="{{index}}"
+    style="z-index:{{chess_zindex[item]}};left:{{chess_move[item].left}}px;top:{{chess_move[item].top}}px;">
+    <image src='{{board_img_url[item]}}' style="width:{{chess_size}}px;height:{{chess_size}}px" />
+  </view>
+</view>
+<view style="margin:10px;" />
+<view class="f_center">
+  <view class="button f_center" style="margin-right:20rpx;width:200rpx;" catchtap="skip_练习"><text>跳过练习</text></view>
+  <view class="button f_center" style="margin-left:20rpx;width:200rpx;" catchtap="userCommitAnswer"><text>提交答案</text></view>
+</view>

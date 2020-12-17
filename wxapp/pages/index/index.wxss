@@ -1,0 +1,45 @@
+/**index.wxss**/
+.container{
+  display: flex;
+  height: 100%;
+  align-content: center;
+  justify-content: center;
+}
+page{
+  overflow: hidden;
+  background-image: url('https://picture.morii.top/renzhixuetang/background/6.jpg');
+  background-size: 100% 100%;
+}
+.title{
+  padding-top: 10rpx;
+  /* height: 150rpx; */
+  width:100%; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.title image{
+  height: 300rpx;
+  width:90%; 
+  padding-top:20rpx;  
+}
+.start{
+  width: 100%;
+  position:fixed;
+	bottom:50px;
+	display:flex;
+	justify-content:center;
+}
+.start button{
+  margin: 0;
+  padding: 0;
+}
+.start-img {
+  width: 160rpx;
+  height: 160rpx;
+  margin: 0;
+  padding: 0;
+}
+.section{
+  padding-top: 15rpx; 
+}

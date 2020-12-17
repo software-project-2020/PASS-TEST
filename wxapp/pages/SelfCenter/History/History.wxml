@@ -1,0 +1,37 @@
+
+<view class="container">
+  <!-- 两个按钮 -->
+  <view class="head">
+    <!-- <button class="back_btn" plain="true" bindtap="goback" style="width: 80rpx; ">
+    <image class='back_img' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/btn/back.png' style="width: 80rpx; "></image>
+  </button> -->
+  <button class="music_btn" plain="true" bindtap="changemusic" style="width: 80rpx; ">
+    <image class='back_img' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/music.png' style="width: 80rpx; "></image>
+  </button>
+</view>
+<view class="time">
+  <text class="testtime">测试年份</text>
+  <view class='offer_wrap'>
+  <view class='offer_item'>
+    <select prop-array='{{selectList}}' selectText="请选择" stype="1" selectShow="{{select}}" bind:m_select_touch="m_select_touch"></select>
+  </view></view>
+</view>
+<text class="testmonth">测试月份</text>
+  <view class="border">
+    <view class="t1" wx:for="{{month}}">
+    <view class="t2" wx:for="{{month[index]}}" ><button class="month_btn" bindtap="choosemonth" data-item="{{item}}"><text class="text_month">{{item}}</text></button></view>
+    </view>
+  </view>
+  <view class="record">
+    <text class="record_text">测试记录</text>
+    <scroll-view class="record_border" scroll-y="true" bindscroll="scroll" scroll-with-animation="{{true}}" scroll-top="{{top}}">
+      <view class="tt" wx:for="{{record}}" wx:if="{{record.length!=0}}"><button class="record_btn" bindtap="GotoRecord" data-item="{{item}}" style="width: 580rpx;">
+        <text class="recorditem">{{record[index].testtime}}</text>
+        <text class="scoretext">测验得分:{{record[index].testscore}}</text>
+      </button>
+      <image class='img_best' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/pika.png' style="width: 100rpx;visibility: {{record[index].isBest?'visible':'hidden'}};" ></image>
+    </view>
+    <!-- <view class="Empty" wx:if="{{record.length==0||record==null}}">暂无相关记录</view> -->
+    </scroll-view>
+  </view>
+</view>

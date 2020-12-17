@@ -1,0 +1,166 @@
+/* pages/SelfCenter/History/History.wxss */
+page{
+  overflow: hidden;
+  background-image: url('https://picture.morii.top/renzhixuetang/background/8.jpg');
+  background-size: 100% 100%;
+}
+.container{
+  padding: 0rpx;
+  display: block;
+  /* align-content: center; */
+  margin: 0px 30px;
+}
+.border {
+  height: 350rpx;
+  width: 100%;
+  background-color: rgb(252, 252, 252);
+  opacity: 0.8;
+  display: flex;
+  border-radius: 10rpx;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20rpx;
+  flex-direction: column;
+}
+.head{
+  display: flex;
+  flex-direction: row;
+  margin-top: 6%;
+  margin-bottom: 2%;
+  margin-left: 80%;
+}
+.back_btn[plain]{
+  border:none;
+  padding: 0;
+  margin-right: 480rpx;
+}
+.music_btn[plain]{
+  border:none;
+  padding: 0;
+}
+ .time{
+  align-items: left;
+  display: flex;
+  flex-direction: row;
+  float: left;
+  width: 100%;
+ }
+ .testtime{
+   width: 220rpx;
+   margin-top: 20rpx;
+   /* margin-left: 100rpx; */
+   font-size: 36rpx;
+   font-weight: 600;
+   color: rgb(255, 255, 255);
+ }
+ .t1{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 40%;
+  align-items: center;
+}
+.t2{
+  justify-content: center;
+  /* border: 1rpx solid #2BB31C; */
+  color: #2BB31C;
+  display: flex;
+  height: 100%;
+  width: 24%;
+  align-items: center;
+}
+.month_btn{
+  height: 90%;
+  align-items: center;
+  display: flex;
+  justify-content: center;  /*水平*/
+}
+.text_month{
+  font-size: 70rpx;
+  color: #2BB31C;
+}
+.record{
+  width: 100%;
+
+  margin-top: 2%;
+}
+
+.record_border{
+  height: 400rpx;
+  /* width: 80%; */
+  background-color: rgb(252, 252, 252);
+  opacity: 0.8;
+  display: flex;
+  border-radius: 10rpx;
+  justify-content: center;  /*水平*/
+  align-items: center; /*垂直*/
+  margin-top: 20rpx;
+  flex-direction: column;
+}
+.now{
+  opacity: 1;
+  transition: all 2s;
+}
+.record_text{
+  width: 300rpx;
+  margin-right: 40rpx;
+  font-size: 36rpx;
+  font-weight: 600;
+  color: rgb(255, 255, 255);
+}
+.testmonth{
+  width: 300rpx;
+   margin-right: 200rpx;
+   font-size: 36rpx;
+   font-weight: 600;
+   color: rgb(255, 255, 255);
+   float: left;
+}
+.offer_wrap{
+  /* margin-top: 30rpx; */
+  margin-right: 200rpx;
+  font-size: 26rpx;
+}
+.offer_item{
+  position: relative;
+  width: 180rpx;
+  height: 50rpx;
+  margin: 20rpx 0 40rpx 0;
+  color: #333;
+  font-size: 26rpx;
+  line-height: 50rpx;
+  box-sizing: border-box;
+}
+.tt{
+  height: 150rpx;
+  display: flex;
+}
+.record_btn{
+  height: 100%;
+  display: flex;
+  justify-content: center;  /*水平*/
+  align-items: center; /*垂直*/
+  flex-direction: column;
+}
+.recorditem{
+  color: #1c6315;
+  font-size: 27rpx;
+  margin-right: 20%;
+  margin-bottom: 10rpx;
+}
+.scoretext{
+  color: #1c6315;
+  font-size: 45rpx;
+}
+.img_best{
+  margin-top: 30rpx;
+}
+.Empty{
+  display: flex;
+  justify-content: center;  /*水平*/
+  align-items: center; /*垂直*/
+  font-size: 50rpx;
+  color: #296e238c;
+  font-weight: 600;
+  height: 100%;
+}

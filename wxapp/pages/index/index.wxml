@@ -1,0 +1,25 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="title">
+    <image src="https://picture.morii.top/renzhixuetang/word/title.png"></image>
+  </view>
+  <view class="start">
+    <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="background: rgba(0,0,0,0);">
+      <image class="start-img" src="https://picture.morii.top/renzhixuetang/word/start.png"></image>
+    </button>
+  </view>
+  <mp-dialog title="完善个人资料" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{oneButton}}">
+    <radio-group class="radio-group" bindchange="radioChange">
+      <label>性别： </label>
+      <label class="radio" wx:for="{{items}}">
+        <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+      </label>
+    </radio-group>
+    <view class="section">
+      <picker mode="date" value="{{date}}" start="2005-09-01" end="2020-09-01" bindchange="bindDateChange">
+        <label class="sectiontitle">出生日期： </label>
+        <label class="picker">{{date}}</label>
+      </picker>
+    </view>
+  </mp-dialog>
+</view>

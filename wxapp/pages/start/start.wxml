@@ -1,0 +1,60 @@
+<!--pages/start/start.wxml-->
+<view class="my">
+
+  <block>
+    <view class="tr">
+      <view class="td">
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      </view>
+      <view class="td">
+        <view class="tr1">
+          <view><text class="nickname">{{userInfo.nickName}}</text></view>
+        </view>
+        <view class="tr1">
+          <view><text class="text_age">年龄</text></view>
+          <view><text class="text_age">{{userInfo.age}}</text></view>
+          <view><text class="text_age">岁</text></view>
+          <view class="text_age" bindtap="changeinfo">
+            <image src="https://picture.morii.top/renzhixuetang/zlx/modify.png"></image>
+          </view>
+          <view><text class="text_age" bindtap="changeinfo">修改</text></view>
+        </view>
+      </view>
+    </view>
+
+
+  </block>
+</view>
+<view class="start">
+  
+  
+  
+  
+    <button class="button_back_test" size="mini" bindtap="test" style="float:right;">
+    <image class="button_back_test_image" src="https://picture.morii.top/renzhixuetang/start/title1.png"
+      mode="scaleToFill"></image>
+  </button>
+  <button class="button_back_test" size="mini" bindtap="bindViewTap" style="float:left;">
+    <image class="button_back_test_image" src="https://picture.morii.top/renzhixuetang/start/title2.png"
+      mode="scaleToFill"></image>
+  </button>
+  
+  <button class="list_back" size="mini" bindtap="list" style="width: 100%;">
+    <image class="list_back_image" src="https://picture.morii.top/renzhixuetang/start/list_back.png" mode="scaleToFill">
+    </image>
+  </button>
+</view>
+<mp-dialog title="完善个人资料" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{oneButton}}">
+  <radio-group class="radio-group" bindchange="radioChange">
+      <label>性别： </label>
+      <label class="radio" wx:for="{{items}}">
+        <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+      </label>
+    </radio-group>
+    <view class="section">
+      <picker mode="date" value="{{date}}" start="2005-09-01" end="2020-09-01" bindchange="bindDateChange">
+        <label class="sectiontitle">出生日期： </label>
+        <label class="picker">{{date}}</label>
+      </picker>
+    </view>
+  </mp-dialog>

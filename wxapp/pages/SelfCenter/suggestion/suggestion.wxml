@@ -1,0 +1,41 @@
+<!--pages/SelfCenter/suggestion/suggestion.wxml-->
+<view class="container">
+  <view class="top">
+  <text class="text">问题类型</text>
+<view class='offer_wrap'>
+  <view class='offer_item'>
+    <select prop-array='{{selectList}}' selectText="请选择" stype="1" selectShow="{{select}}" bind:m_select_touch="m_select_touch"></select>
+  </view></view>
+
+</view>
+  <view>
+    <text class="text">问题反馈</text>
+    <image mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/suggestion/cute1.png' style="width: 150rpx;margin-left:300rpx; "></image></view>
+    <view class="border">
+      <textarea class="textarea" placeholder="请写下您的问题或者建议" bindblur="bindblur" maxlength="1000"/>
+    </view>
+    <view>
+    <text class="text">添加图片</text>
+    <image mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/suggestion/cute2.png' style="width: 150rpx;margin-left:300rpx; "></image></view>
+<view class='ui_uploader_cell'>
+    <view class='ui_uploader_item' wx:for="{{uploaderList}}" wx:key="{{index}}">
+        <!-- 删除-->
+        <icon class='ui_uploader_item_icon' bindtap='clearImg' data-index="{{index}}" type="clear" size="20" color="red"/>
+        <!-- 图片-->
+        <image bindtap='showImg' data-index="{{index}}" src='{{item}}'></image>
+    </view>
+    <!-- 上传按钮+框 -->
+    <view class='ui_uploader' bindtap='upload' wx:if="{{showUpload}}"></view>
+</view>
+    <view>
+    <text class="text">联系方式</text>
+    <image mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/suggestion/cute3.png' style="width: 150rpx;margin-left:300rpx; "></image></view>
+    <view class="border3">
+        <input class="weui-input" bindblur="bindblur1" placeholder="请填写电子邮件地址"/>
+    </view>
+    <view>
+      <image mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/suggestion/cute4.png' style="width: 150rpx;"></image>
+      <text class="thanks">谢谢您的宝贵意见</text>
+    </view>
+    <button class="submit" bindtap="submit">提交反馈</button>
+</view>
