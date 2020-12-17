@@ -1,18 +1,48 @@
 <view class="container">
   <view class="body">
-    <view class="combobox">
-      <view class="select-wrap">
-        <select id="select" options="{{options}}" key="rank_id" text="rank_name" bind:change="change">
-        </select>
+    <view class="userinfo">
+      <block>
+        <image class="userinfo-avatar" src="{{headimg}}" mode="widthFix"></image>
+      </block>
+      <view class="userself">
+        <view class="userrank">我的排名：{{my_rank}}</view>
+        <view class="userrank">我的成绩：{{my_score}}</view>
       </view>
     </view>
-    <view class="table">
+    <view class="tab">
+      <view class="tabsquare">
+        <view class="{{choosed[0] ? 't': 'tb'}}" bindtap="choose" data-index="0">
+          <text class="{{choosed[0] ? 'txt ttext': 'txt ttextb'}}">T</text>
+        </view>
+      </view>
+      <view class="tabsquare">
+        <view class="{{choosed[1] ? 'p': 'pb'}}" bindtap="choose" data-index="1">
+          <text class="{{choosed[1] ? 'txt ptext': 'txt ttextb'}}">P</text>
+        </view>
+      </view>
+      <view class="tabsquare">
+        <view class="{{choosed[2] ? 'a': 'ab'}}" bindtap="choose" data-index="2">
+          <text class="{{choosed[2] ? 'txt atext': 'txt ttextb'}}">A</text>
+        </view>
+      </view>
+      <view class="tabsquare">
+        <view class="{{choosed[3] ? 's1': 's1b'}}" bindtap="choose" data-index="3">
+          <text class="{{choosed[3] ? 'txt s1text': 'txt ttextb'}}">S1</text>
+        </view>
+      </view>
+      <view class="tabsquare">
+        <view class="{{choosed[4] ? 's2': 's2b'}}" bindtap="choose" data-index="4">
+          <text class="{{choosed[4] ? 'txt s2text': 'txt ttextb'}}">S2</text>
+        </view>
+      </view>
+    </view>
+    <view class="table" style="background-color:{{color[ranktype]}}">
       <view class="tr bg-w">
         <view class="th">排名</view>
         <view class="th">昵称</view>
         <view class="th ">成绩</view>
       </view>
-      <block wx:for="{{ranklist}}" wx:key="key">
+      <block wx:for="{{rank_list}}" wx:key="key">
         <view class="tr bg-w" wx:if="{{index % 2 == 0}}">
           <view class="td">{{item.rank}}</view>
           <view class="td">{{item.nick_name}}</view>
@@ -26,20 +56,12 @@
       </block>
     </view>
     <view class="pages">
-      <button wx:if="{{pagenum==1}}" style="width:30%" class="btn"> <text class="button-text">首 页</text></button>
-      <button wx:else bindtap="pre" style="width:30%" class="btn"><text class="button-text">上一页</text></button>
+      <button wx:if="{{pagenum==1}}" style="width:32%;background-color:{{color[ranktype]}}"> <text class="button-text">首 页</text></button>
+      <button wx:else bindtap="pre" style="width:32%;background-color:{{color[ranktype]}}"><text class="button-text">上一页</text></button>
       <text>{{pagenum}}/{{all_number}}</text>
-      <button wx:if="{{pagenum==all_number}}" style="width:30%" class="btn"><text class="button-text">尾 页</text></button>
-      <button wx:else bindtap="next" style="width:30%" class="btn"><text class="button-text">下一页</text></button>
-    </view>
-    <view class="userinfo">
-      <block>
-        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="widthFix"></image>
-      </block>
-      <view class="userself">
-        <view class="userrank">我的排名：{{my_rank}}</view>
-        <view class="userrank">我的成绩：{{my_score}}</view>
-      </view>
+      <button wx:if="{{pagenum==all_number}}" style="width:32%;background-color:{{color[ranktype]}}">
+        <text class="button-text">尾 页</text></button>
+      <button wx:else bindtap="next" style="width:32%;background-color:{{color[ranktype]}}"><text class="button-text">下一页</text></button>
     </view>
   </view>
 </view>

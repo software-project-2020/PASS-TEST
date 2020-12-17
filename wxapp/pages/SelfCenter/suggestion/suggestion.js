@@ -154,6 +154,18 @@ m_select_touch(e) {
     // console.log(this.data.feedback_type)
 },
 onLoad: function () {
+  wx.setNavigationBarTitle({
+    title: '意见反馈'
+  })
 },
+    /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+    return {
+      title: '认知学堂',
+      path: '/pages/index/index',
+    }
+  },
 
 })

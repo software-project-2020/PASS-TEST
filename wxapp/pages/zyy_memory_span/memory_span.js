@@ -1,11 +1,12 @@
 const util = require("./zyy_util.js");
-const app = getApp();
+let app = getApp();
 const board_size = 16;
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    score: 0,
     windowWidth: app.windowWidth,
     windowHeight: app.windowHeight,
     chess_size: (app.windowWidth * 0.8) / 7,
@@ -48,12 +49,18 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () {
+    wx.setNavigationBarTitle({
+      title: '继时性加工测试'
+    })
+  },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {},
+  onHide: function () {
+    util.score_to_global(app, this.data.score, this.data.level_flow.length);
+  },
 
   /**
    * 生命周期函数--监听页面卸载
@@ -61,6 +68,7 @@ Page({
   onUnload: function () {
     clearTimeout(this.data.time_add_er);
     clearTimeout(this.data.time_add_1);
+    util.score_to_global(app, this.data.score, this.data.level_flow.length);
   },
 
   /**
@@ -169,7 +177,7 @@ Page({
     param["chess_nowAt[" + who + "]"] = nowAt;
     param["chess_zindex[" + who + "]"] = 100;
     this.setData(param);
-    console.log("触摸结束", who, nowAt, this.data.board_num[who], pos);
+    // console.log("触摸结束", who, nowAt, this.data.board_num[who], pos);
   },
   /** 
    * 用户提交答案
@@ -221,8 +229,8 @@ function gameStart(that, newGame_or_nextLevel = 'newGame') {
         that.setData({
           game_state: "开始拖动吧"
         });
-        util.checkTime(that);
-      }, that.data.level_time[that.data.level_index] * 1000 + 1000);
+        util.checkTime(that, () => userCommitAnswer(null, that));
+      }, that.data.level_time[that.data.level_index] * 1000);
     },
   });
 }
@@ -264,7 +272,7 @@ function initChessBoard(that, isRandom) {
   }
   // console.log(tar.board_num);
   // console.log(tar.board_img_url);
-  console.log(tar.chess_index);
+  // console.log(tar.chess_index);
   // console.log(tar.chess_move);
   that.setData({
     board_num: tar.board_num,
@@ -295,7 +303,7 @@ function initChessBoard(that, isRandom) {
           top: (e.top + e.bottom) / 2,
         }
       });
-      console.log(pos_table);
+      // console.log(pos_table);
       that.setData({
         pos_table: pos_table
       });
@@ -329,31 +337,47 @@ function userCommitAnswer(event, that) {
       that.data.chess_nowAt[that.data.chess_index[i]] ==
       that.data.chess_index[i];
   }
-  console.log("测试页 用户提交答案", endAnswer);
+  // console.log("测试页 用户提交答案", endAnswer);
+  that.setData({
+    level_index: that.data.level_index + 1
+  })
   if (endAnswer) {
-    console.log("330", that.data.level_index);
+    that.setData({
+      score: that.data.level_index
+    })
+    if (that.data.level_index < that.data.level_flow.length) {
+      gameStart(that, "nextLevel");
+    } else {
+      util.score_to_global(app, that.data.score, that.data.level_flow.length);
+      wx.redirectTo({
+        url: '/pages/S2/successive-rules/successive-rules',
+      })
+    }
   } else {
-    console.log("wx.showModal");
     wx.showModal({
       title: "答案错误",
       content: '请前往下一个测试',
       cancelText: "再试一次",
+      showCancel: false,
       confirmText: "下个测试",
       success: function (res) {
         if (res.confirm) {
-          app.globalData.scoreDetail[3, 2] = {
-            score: 3,
-            qnum: 4
-          };
-          wx.navigateTo({
+          that.setData({
+            score: that.data.level_index - 1
+          })
+          util.score_to_global(app, that.data.score, that.data.level_flow.length);
+          wx.redirectTo({
             url: '/pages/S2/successive-rules/successive-rules',
           })
         } else if (res.cancel) {
+          that.setData({
+            level_index: 0
+          });
           that.gameStart(that, "newGame");
         }
       },
       fail: function (e) {
-        console.log("fail", e);
+        // console.log("fail", e);
       }
     });
   }

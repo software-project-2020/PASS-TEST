@@ -27,6 +27,9 @@ Page({
 
   },
   onLoad: function () {
+    wx.setNavigationBarTitle({
+      title: '认知学堂'
+    })
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -127,5 +130,14 @@ Page({
     this.setData({
       region: e.detail.value
     })
+  },
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+    return {
+      title: '认知学堂',
+      path: '/pages/index/index',
+    }
   }
 })

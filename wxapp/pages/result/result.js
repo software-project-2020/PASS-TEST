@@ -17,38 +17,16 @@ Page({
     triggered: false,
 
     show: false,
-    plan1_time: 9,
-    plan1_count: 3,
-    plan2_time: 16,
-    plan2_count: 4,
-    plan3_time: 25,
-    plan3_count: 5,
-
-    attention1_right: 9,
-    attention1_sum: 20,
-    attention2_right: 15,
-    attention2_sum: 20,
-
-    simultaneous1_right: 15,
-    simultaneous1_sum: 20,
-    simultaneous2_right: 15,
-    simultaneous2_sum: 20,
-
-    successive1_right: 15,
-    successive1_sum: 20,
-    successive2_right: 15,
-    successive2_sum: 20,
-    successive3_right: 15,
-    successive3_sum: 20,
+    
     isOpacity: true,
   },
 
   onLoad: function () {
-    var userid = getApp().globalData.uesrInfo.openid;
+    var userid = getApp().globalData.userInfo.openid;
     var score = getApp().globalData.score;
-    var age = getApp().globalData.uesrInfo.age;
-    clearInterval(getApp().gloableData.timer);
-    var costtime = getApp().gloableData.time
+    var age = getApp().globalData.userInfo.age;
+    clearInterval(getApp().globalData.timer);
+    var costtime = getApp().globalData.time
     // var userid = 'oAkCq5aL-90X9qhtwEDR8lx2TMZA';
     // var score = [31, 90, 21, 80]
     // var costtime = 600;
@@ -97,6 +75,30 @@ Page({
       })
       this.init()
     })
+    this.setData({
+      plan2_time: getApp().globalData.scoreDetail[0][0].score,
+      plan2_count: getApp().globalData.scoreDetail[0][0].difficulty,
+      plan3_time: getApp().globalData.scoreDetail[0][1].score,
+      plan3_count: getApp().globalData.scoreDetail[0][1].difficulty,
+  
+      attention1_right: getApp().globalData.scoreDetail[2][0].rightcount,
+      attention1_sum: getApp().globalData.scoreDetail[2][0].number_count,
+      attention2_right: getApp().globalData.scoreDetail[2][1].sumRight,
+      attention2_sum: getApp().globalData.scoreDetail[2][1].sumCount,
+  
+      simultaneous1_right: getApp().globalData.scoreDetail[1][0].score,
+      simultaneous1_sum: getApp().globalData.scoreDetail[1][0].qnum,
+      simultaneous2_right: getApp().globalData.scoreDetail[1][1].score,
+      simultaneous2_sum: getApp().globalData.scoreDetail[1][1].qnum,
+  
+      successive1_right: getApp().globalData.scoreDetail[3][0].score,
+      successive1_sum: getApp().globalData.scoreDetail[3][0].qnum,
+      successive2_right: getApp().globalData.scoreDetail[3][1].score,
+      successive2_sum: getApp().globalData.scoreDetail[3][1].qnum,
+      successive3_right: getApp().globalData.scoreDetail[3][2].score,
+      successive3_sum: getApp().globalData.scoreDetail[3][2].qnum,
+    })
+
     var that = this;
     wx.getSystemInfo({
       success(res) {
@@ -118,11 +120,14 @@ Page({
       title: '测试结果'
     })
   },
-  /**
+      /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '认知学堂',
+      path: '/pages/index/index',
+    }
   },
 
   init() {
@@ -431,9 +436,9 @@ Page({
     ctx.fillText(this.data.attention1_right + " / " + this.data.attention1_sum, 260, 657)
     ctx.fillText('接受性注意', 80, 707)
     ctx.fillText(this.data.attention2_right + " / " + this.data.attention2_sum, 260, 707)
-    ctx.fillText('言语加工', 80, 757)
+    ctx.fillText('渐进矩阵', 80, 757)
     ctx.fillText(this.data.simultaneous1_right + " / " + this.data.simultaneous1_sum, 260, 757)
-    ctx.fillText('渐进矩阵', 80, 807)
+    ctx.fillText('言语加工', 80, 807)
     ctx.fillText(this.data.simultaneous2_right + " / " + this.data.simultaneous2_sum, 260, 807)
     ctx.fillText('单词序列', 80, 857)
     ctx.fillText(this.data.successive1_right + " / " + this.data.successive1_sum, 260, 857)
@@ -667,12 +672,13 @@ Page({
     ctx.draw(true, () => {
       that.setData({
         spinning: false
-      })
+      })   
     })
     // ctx.draw()
   },
 
   savePicutre() {
+    setTimeout(() => {
     var that = this;
     //需要把canvas转成图片后才能保存
     wx.canvasToTempFilePath({
@@ -715,6 +721,7 @@ Page({
         })
       }
     }, this)
+  }, 500)
   },
 
   //保存图片 

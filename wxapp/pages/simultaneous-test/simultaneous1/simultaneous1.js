@@ -15,7 +15,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    testutil.getS12(1, (res) => {
+    wx.setNavigationBarTitle({
+      title: '同时性加工测试'
+    })
+    testutil.getS12(app.globalData.userInfo.ageGroup, (res) => {
       console.log(res)
       this.setData({
         qnum: res.qnum,

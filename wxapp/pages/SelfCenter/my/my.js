@@ -33,6 +33,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.setNavigationBarTitle({
+      title: '个人中心'
+    })
     this.setData({
       userInfo:app.globalData.userInfo
     })
@@ -80,10 +83,13 @@ Page({
 
   },
 
-  /**
+    /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
-  }
+    return {
+      title: '认知学堂',
+      path: '/pages/index/index',
+    }
+  },
 })

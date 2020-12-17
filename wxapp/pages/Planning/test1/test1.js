@@ -21,6 +21,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
+    wx.setNavigationBarTitle({
+      title: '计划测试'
+    })
     this.setData({
       // age:5,
       age: getApp().globalData.userInfo.age

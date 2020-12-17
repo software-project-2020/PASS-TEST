@@ -24,14 +24,16 @@ Page({
     }],
     NumCount: 0, //当前题数
     letter: ["练习结束，测试正式开始", "本游戏结束，开始下一个游戏"],
-    text: ["练习", "进度：1/1"]
+    text: ["练习", "进度：1/1"],
+    button: ['开始练习','开始测试']
   },
   onShow: function () {
-    wx.setNavigationBarTitle({
-      title: '注意'
-    })
+   
   },
   onLoad: function () {
+    wx.setNavigationBarTitle({
+      title: '注意测试'
+    })
     testutil.getconfiguration(0, 'A1', (res) => {
       console.log(res)
       var longestTime = []
@@ -154,14 +156,14 @@ Page({
     })
     console.log("成绩：" + grade)
     if (this.data.number == 1) {
-      var scoreDetail = [];
+      
       var item = {
         "rightcount": this.data.rightcount,
         "number_count": this.data.number_count[this.data.number]
       }
-      scoreDetail.push(item)
+      
       getApp().globalData.score[2] = Math.round(this.data.grade);
-      getApp().globalData.scoreDetail[2][0] = scoreDetail;
+      getApp().globalData.scoreDetail[2][0] = item;
       console.log(getApp().globalData.score[2])
       console.log(getApp().globalData.scoreDetail[2][0])
     }

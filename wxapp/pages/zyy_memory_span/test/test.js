@@ -12,7 +12,7 @@ Page({
   /* 离开时一定要删除计时器 */
   onUnload: function () {
     clearTimeout(this.data.time_add_er);
-    clearTimeout(that.data.time_add_1);
+    clearTimeout(this.data.time_add_1);
   },
   /* 延迟两秒后再更新棋盘位置表，避免出现错误 */
   onReady: function () {
@@ -33,7 +33,7 @@ Page({
             top: (e.top + e.bottom) / 2,
           }
         });
-        console.log(pos_table);
+        // console.log(pos_table);
         this.setData({
           pos_table: pos_table
         });
@@ -162,7 +162,7 @@ Page({
     param["chess_nowAt[" + who + "]"] = nowAt;
     param["chess_zindex[" + who + "]"] = 100;
     this.setData(param);
-    console.log("触摸结束", who, nowAt, this.data.board_num[who], pos);
+    // console.log("触摸结束", who, nowAt, this.data.board_num[who], pos);
   },
   /** 
    * 用户提交答案
@@ -178,8 +178,8 @@ Page({
     clearTimeout(this.data.time_add_er);
     clearTimeout(this.time_add_1);
     this.data.time_add_er = null;
-    console.log("zyy_test 计时器移除", this.data.time_add_er);
-    wx.navigateTo({
+    // console.log("zyy_test 计时器移除", this.data.time_add_er);
+    wx.redirectTo({
       url: '/pages/zyy_memory_span/memory_span',
     })
   }
@@ -209,7 +209,11 @@ function gameStart(that) {
         that.setData({
           game_state: "开始拖动吧"
         });
-        util.checkTime(that);
+        util.checkTime(that, (e) => {
+          // console.log(e);
+        }, {
+          msg: "做题时间计时器被触发"
+        });
       }, that.data.level_time[that.data.level_index] * 1000 + 1000);
     },
   });
@@ -267,7 +271,7 @@ function initChessBoard(that, mode) {
   tar.chess_index = util.fillter_board(tar.board_num);
   // console.log(tar.board_num);
   // console.log(tar.board_img_url);
-  console.log(tar.chess_index);
+  // console.log(tar.chess_index);
   // console.log(tar.chess_move);
   that.setData({
     board_num: tar.board_num,
@@ -295,10 +299,11 @@ function userCommitAnswer(event, that) {
       title: "正式测试即将开始",
       content: "恭喜你～ 成功通过了练习，现在要开始测试么？",
       cancelText: "再练一遍",
+      showCancel: false,
       confirmText: "去测试",
       success: function (res) {
         if (res.confirm) {
-          wx.navigateTo({
+          wx.redirectTo({
             url: "/pages/zyy_memory_span/memory_span",
           });
         } else {
@@ -315,7 +320,7 @@ function userCommitAnswer(event, that) {
       success: function (res) {
         if (res.confirm) {
           //这里是点击了确定以后
-          wx.navigateTo({
+          wx.redirectTo({
             url: "/pages/zyy_memory_span/memory_span",
           });
         } else {
