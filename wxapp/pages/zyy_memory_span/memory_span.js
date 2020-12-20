@@ -1,4 +1,5 @@
 const util = require("./zyy_util.js");
+const sql_tool = require("../../utils/testutil");
 let app = getApp();
 const board_size = 16;
 Page({
@@ -6,6 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    setting_table: [],
+    diff_choice: 0,
     score: 0,
     windowWidth: app.windowWidth,
     windowHeight: app.windowHeight,
@@ -35,7 +38,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    gameStart(this, 'newGame');
+    let remote_set = [];
+    sql_tool.getconfiguration(0, 'S23', (res) => {
+      // console.log(res);
+      res.forEach(e => {
+        let t = {};
+        t.difficulty = e.difficulty;
+        t.detail = JSON.parse(e.parameter_info);
+        remote_set.push(t);
+      });
+    });
+    let param = {};
+    param["setting_table"] = remote_set;
+    for (let i = 0; i < remote_set.length; i++) {
+      if (remote_set[i].difficulty = this.data.diff_choice) {
+        param["level_flow"] = remote_set[i].detail.level_flow;
+        param["level_time"] = remote_set[i].detail.level_time;
+      }
+    }
+    this.setData(param, () => {
+      gameStart(this, 'newGame');
+    });
   },
 
   /**
