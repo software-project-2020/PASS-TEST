@@ -39,25 +39,25 @@ Page({
    */
   onLoad: function (options) {
     let remote_set = [];
+    let param = {};
+    param["setting_table"] = remote_set;
     sql_tool.getconfiguration(0, 'S23', (res) => {
-      // console.log(res);
       res.forEach(e => {
         let t = {};
         t.difficulty = e.difficulty;
         t.detail = JSON.parse(e.parameter_info);
         remote_set.push(t);
       });
-    });
-    let param = {};
-    param["setting_table"] = remote_set;
-    for (let i = 0; i < remote_set.length; i++) {
-      if (remote_set[i].difficulty = this.data.diff_choice) {
-        param["level_flow"] = remote_set[i].detail.level_flow;
-        param["level_time"] = remote_set[i].detail.level_time;
+      for (let i = 0; i < remote_set.length; i++) {
+        if (remote_set[i].difficulty == this.data.diff_choice) {
+          param["level_flow"] = remote_set[i].detail.level_flow;
+          param["level_time"] = remote_set[i].detail.level_time;
+        }
       }
-    }
-    this.setData(param, () => {
-      gameStart(this, 'newGame');
+      this.setData(param, () => {
+        console.log(param);
+        gameStart(this, 'newGame');
+      });
     });
   },
 
@@ -245,7 +245,7 @@ function gameStart(that, newGame_or_nextLevel = 'newGame') {
     complete: () => {
       util.checkTime(that);
       that.data.time_add_1 = setTimeout(() => {
-        util.initTime(that, 30);
+        util.initTime(that, 30000);
         that.setData({
           game_state: "开始拖动吧"
         });
