@@ -1,25 +1,5 @@
 <!--pages/start/start.wxml-->
 <view class="bg-yellow justify-center" style="height:100%;width: 100%;">
-
-
-  <!-- <view class="start">
-  <button class="button_back_test" size="mini" bindtap="test" style="float:right;">
-    <image class="button_back_test_image" src="https://picture.morii.top/renzhixuetang/start/title1.png"
-      mode="scaleToFill"></image>
-  </button>
-  <button class="button_back_test" size="mini" bindtap="bindViewTap" style="float:left;">
-    <image class="button_back_test_image" src="https://picture.morii.top/renzhixuetang/start/title2.png"
-      mode="scaleToFill"></image>
-  </button>
-
-  <button class="list_back" size="mini" bindtap="list" style="width: 100%;">
-    <image class="list_back_image" src="https://picture.morii.top/renzhixuetang/start/list_back.png" mode="scaleToFill">
-    </image>
-  </button>
-
-
-</view> -->
-
   <view class="cu-card case {{isCard?'no-card':''}}">
     <view class="cu-item shadow">
       <view class="image">
@@ -29,7 +9,6 @@
           <text class="text-cut">欢迎回来，快去开启你的测试吧！</text>
         </view>
       </view>
-
     </view>
     <view class="cu-item shadow" style="height: 250px;">
       <view class="cu-list menu-avatar">
@@ -38,60 +17,38 @@
             <view class="text-yellow text-bold text-xsl" style="font-size: 25px;">{{userInfo.nickName}}</view>
             <view class="text-gray text-sm flex justify-between">
               <view class="tr1">
-            <view><text class="text_age">年龄</text></view>
-            <view><text class="text_age">{{userInfo.age}}</text></view>
-            <view><text class="text_age">岁</text></view>
-            <view class="text_age" bindtap="changeinfo">
-              <image src="https://picture.morii.top/renzhixuetang/zlx/modify.png"></image>
-            </view>
-            <view><text class="text_age" bindtap="changeinfo">修改</text></view>
-          </view>
+                <view><text class="text_age">年龄</text></view>
+                <view><text class="text_age">{{userInfo.age}}</text></view>
+                <view><text class="text_age">岁  </text></view>
+                <view class="text_age" bindtap="changeinfo">
+                  <image src="https://picture.morii.top/renzhixuetang/zlx/modify.png"></image>
+                </view>
+                <view><text class="text_age" bindtap="changeinfo">  修改</text></view>
+              </view>
             </view>
           </view>
           <view class="cu-avatar round lg" style="background-image:url({{userInfo.avatarUrl}});"></view>
-
         </view>
         <view class="justify-center" style="padding:0 5px;opacity:0.7;">
           <view class="action" style="padding: 5px 20px;">
-            <view class="padding bg-gradual-orange solid radius shadow-blur process" style="padding:0px 10px;width:61%;">计划</view>
+            <view class="padding bg-gradual-orange solid radius shadow-blur process"
+              style="padding:0px 10px;width:61%;">计划</view>
           </view>
           <view class="action" style="padding: 5px 20px;">
-            <view class="padding bg-gradual-green solid radius shadow-blur process" style="padding:0px 10px;width:50%;">注意</view>
+            <view class="padding bg-gradual-green solid radius shadow-blur process" style="padding:0px 10px;width:50%;">
+              注意</view>
           </view>
           <view class="action" style="padding: 5px 20px;">
             <view class="padding bg-gradual-red solid radius shadow-blur process" style="padding:0px 10px;">同时性</view>
           </view>
           <view class="action" style="padding: 5px 20px;">
-            <view class="padding bg-gradual-purple solid radius shadow-blur process" style="padding:0px 10px;width:41%;">继时性</view>
+            <view class="padding bg-gradual-purple solid radius shadow-blur process"
+              style="padding:0px 10px;width:41%;">继时性</view>
           </view>
         </view>
-
       </view>
     </view>
   </view>
-  <!-- <view class="my">
-    <block>
-      <view class="tr">
-        <view class="td">
-          <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-        </view>
-        <view class="td">
-          <view class="tr1">
-            <view><text class="nickname">{{userInfo.nickName}}</text></view>
-          </view>
-          <view class="tr1">
-            <view><text class="text_age">年龄</text></view>
-            <view><text class="text_age">{{userInfo.age}}</text></view>
-            <view><text class="text_age">岁</text></view>
-            <view class="text_age" bindtap="changeinfo">
-              <image src="https://picture.morii.top/renzhixuetang/zlx/modify.png"></image>
-            </view>
-            <view><text class="text_age" bindtap="changeinfo">修改</text></view>
-          </view>
-        </view>
-      </view>
-    </block>
-  </view> -->
   <mp-dialog title="完善个人资料" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{oneButton}}">
     <radio-group class="radio-group" bindchange="radioChange">
       <label>性别： </label>
@@ -107,19 +64,16 @@
     </view>
   </mp-dialog>
   <view style="display:flex;">
-      <button class="cu-btn bg-orange round lg shadow button-hover">开始测试!</button>
-      
-    </view>
-  <view class="cu-bar tabbar margin-bottom-xsl bg-white mybar" style="height: 70px;">
-    <view class="action text-yellow text-bold ">
+    <button class="cu-btn bg-gradual-orange round lg shadow button-hover" bindtap="test">开始测试!</button>
+  </view>
+  <view class="cu-bar tabbar margin-bottom-xsl bg-white mybar" style="height: 60px;">
+    <view class="action text-yellow text-bold " bindtap="list">
       <view class="cuIcon-similar"></view>
-      <text>排名</text>
+      排名
     </view>
-    
-
-    <view class="action text-yellow text-bold">
+    <view class="action text-yellow text-bold" bindtap="bindViewTap">
       <view class="cuIcon-my">
-        <view class="cu-tag badge"></view>
+        <!-- <view class="cu-tag "></view> -->
       </view>
       我的
     </view>

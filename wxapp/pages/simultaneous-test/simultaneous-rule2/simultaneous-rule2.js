@@ -5,6 +5,34 @@ Page({
    * 页面的初始数据
    */
   data: {
+    basics: 0,
+    numList: [{
+      name: '开始'
+    }, {
+      name: '画图'
+    }, {
+      name: '错误'
+    }, {
+      name: '完成'
+    }, ],
+    num: 0,
+    scroll: 0,
+    rules:[{
+      words:"进入页面后，你将会看到一句描述性的文字",
+      img:"https://picture.morii.top/renzhixuetang/S11-rule.gif"
+    },
+    {
+      words:"规则1",
+      img:"https://picture.morii.top/renzhixuetang/S11-rule.gif"
+    },
+    {
+      words:"请注意，为避免误判，请尽量将图形画的标准一些哦！",
+      img:"https://picture.morii.top/renzhixuetang/S11-rule.gif"
+    },
+    {
+      words:"如果已经对规则了解了的话，就点击开始测试的按钮吧",
+      img:"https://picture.morii.top/renzhixuetang/S11-rule.gif"
+    }]
   },
   gototest1: function (e) {
 
@@ -79,5 +107,15 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  numSteps() {
+    this.setData({
+      num: this.data.num == this.data.numList.length - 1 ? 0 : this.data.num + 1
+    })
+  },
+  numStepsBack() {
+    this.setData({
+      num: this.data.num - 1
+    })
   }
 })
