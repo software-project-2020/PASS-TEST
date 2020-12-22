@@ -22,6 +22,9 @@ Page({
     }
   ],
     date: '2016-09-01',
+    StatusBar: app.globalData.StatusBar,
+    CustomBar: app.globalData.CustomBar,
+    Custom: app.globalData.Custom
   },
   onLoad: function () {
     this.setData({
