@@ -24,7 +24,8 @@ Page({
     date: '2016-09-01',
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
-    Custom: app.globalData.Custom
+    Custom: app.globalData.Custom,
+    gender:1
   },
   onLoad: function () {
     this.setData({
@@ -127,6 +128,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '认知学堂',
+      path: '/pages/index/index',
+    }
   }
 })

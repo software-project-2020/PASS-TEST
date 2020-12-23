@@ -38,7 +38,7 @@ Page({
       age:getApp().globalData.userInfo.age
     })
     testutil.getconfiguration(getApp().globalData.userInfo.ageGroup, 'S21', (res) => {
-      // testutil.getconfiguration(0, 'S21', (res) => {
+      // testutil.getconfiguration(1, 'S21', (res) => {
       console.log(res)
       var timelist=[]
       var intervaltimelist=[]
@@ -261,6 +261,11 @@ Page({
         showCancel: false,
         success: function (res) {
           if (res.confirm) {//这里是点击了确定以后
+            if (that.data.level == 4 || that.data.wrongnum == 2) {
+              that.setData({
+                jindu:that.data.jindu-1
+              })
+            }
             that.ChangeNavigate()
             that.setData({
               jindu:that.data.jindu+1
@@ -274,7 +279,7 @@ Page({
     if (this.data.level == 4 || this.data.wrongnum == 2) {
       console.log('连错',this.data.wrongnum)
       console.log('得分',this.data.score)
-      console.log('做题总数',this.data.jindu-1)
+      console.log('做题总数',this.data.jindu)
       //存globalData
       getApp().globalData.scoreDetail[3][0] = {
         score: this.data.score,
@@ -394,6 +399,11 @@ Page({
                 that.setData({
                   jindu:that.data.jindu+1
                 })
+                if (that.data.level == 4 || that.data.wrongnum == 2) {
+                  that.setData({
+                    jindu:that.data.jindu-1
+                  })
+                }
                 that.ChangeNavigate()
               }
             }
@@ -446,6 +456,11 @@ Page({
               that.setData({
                 jindu:that.data.jindu+1
               })
+              if (that.data.level == 4 || that.data.wrongnum == 2) {
+                that.setData({
+                  jindu:that.data.jindu-1
+                })
+              }
               that.ChangeNavigate()
             }
           }
