@@ -444,7 +444,7 @@ Page({
             console.log('用户点击确定')
             if (that.data.number == 3) {
               wx.redirectTo({
-                url: '../../Planning/rule4.1/rule4.1'
+                url: '../../planning-test/rule4.1/rule4.1'
               })
             } else {
               that.init()
