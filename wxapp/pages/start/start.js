@@ -72,7 +72,7 @@ Page({
             app.globalData.time += 1
           }, 1000)
           wx.navigateTo({
-            url: '/pages/Planning/rule1/rule1'
+            url: '/pages/planning-test/rule1/rule1'
           })
         }
       }

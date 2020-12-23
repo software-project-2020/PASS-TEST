@@ -1,15 +1,15 @@
-// pages/Planning/rule4.1/rule4.1.js
+// pages/rule1/rule1.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    ageGroup:null,
+
   },
   gototest1:function(e){
     wx.redirectTo({
-      url: '/pages/Planning/test4.1/test4.1',
+      url: '/pages/planning-test/test1/test1',
       })
   },
   
@@ -18,13 +18,8 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({
-      title: '继时性加工测试'
+      title: '计划测试'
     })
-    this.setData({
-      // ageGroup:1
-      ageGroup:getApp().globalData.userInfo.ageGroup
-    })
-
   },
 
   /**
