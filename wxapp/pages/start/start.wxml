@@ -44,7 +44,7 @@
     </view>
   </mp-dialog>
   <view style="display:flex;">
-    <button class="cu-btn bg-gradual-green round lg shadow button-hover" bindtap="test" style="height:80px;width: 200px;bottom: 30px;font-size:25px;">开 始 测 试</button>
+    <button class="cu-btn bg-cyan light round lg shadow button-hover" bindtap="test" style="height:80px;width: 200px;bottom: 30px;font-size:25px;">开 始 测 试</button>
   </view>
   <view class="cu-bar tabbar margin-bottom-xsl bg-white mybar text-xsl" style="height: 60px;">
     <view class="action text-grey text-bold " bindtap="list">
