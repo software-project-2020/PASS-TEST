@@ -1,7 +1,8 @@
 <!--pages/start/start.wxml-->
-<view class=" justify-center" style="height:100%;width: 100%;background-image: url('https://picture.morii.top/renzhixuetang/background/4.jpg');background-size: 100% 100%;">
+<view class=" justify-center"
+  style="height:100%;width: 100%;background-image: url('https://picture.morii.top/renzhixuetang/background/4.jpg');background-size: 100% 100%;">
 
-  <view class="cu-card case {{isCard?'no-card':''}}" style="height:50%;padding: 5% 0px;">
+  <view class="cu-card case {{isCard?'no-card':''}}" style="height:65%;padding: 5% 0px;">
     <view class="cu-item shadow" style="border-radius: 20px;">
       <view class="cu-list menu-avatar">
         <view class="cu-item" style="margin:15px">
@@ -11,28 +12,69 @@
               <view class="tr1">
                 <view><text class="text_age">年龄</text></view>
                 <view><text class="text_age">{{userInfo.age}}</text></view>
-                <view><text class="text_age">岁  </text></view>
+                <view><text class="text_age">岁 </text></view>
                 <view class="text_age" bindtap="changeinfo">
                   <image src="https://picture.morii.top/renzhixuetang/zlx/modify.png"></image>
                 </view>
-                <view><text class="text_age" bindtap="changeinfo">  修改</text></view>
+                <view><text class="text_age" bindtap="changeinfo"> 修改</text></view>
               </view>
             </view>
           </view>
-          <view class="cu-avatar round lg" style="background-image:url({{userInfo.avatarUrl}});width: 65px;height: 65px;"></view>
+          <view class="cu-avatar round lg"
+            style="background-image:url({{userInfo.avatarUrl}});width: 65px;height: 65px;"></view>
         </view>
       </view>
     </view>
-    <!-- <view class="cu-item shadow" style="border-radius: 20px; margin-top: 10%;">
-      <view class="image">
-        <image src="../../images/start/question.png" mode="widthFix"></image>
+    <view class="cu-item shadow" style="border-radius: 20px;padding: 25px;">
+      <view wx:if="{{1==0}}">
+        <view class="text-brown text-xl text-center text-bold solid-bottom" style="padding-bottom: 10px;">个人能力</view>
+        <view class="justify-center" style="padding:0 5px;opacity:0.7;">
+          <view class="action" style="padding: 5px 20px;">
+            P-计划
+            <view class="cu-progress round">
+              <view class="padding bg-gradual-orange solid radius shadow-blur process"
+                style="padding:0px 10px;width:{{loading?score[0]:''}}%;">
+              </view>
+            </view>
+          </view>
+          <view class="action" style="padding: 5px 20px;">
+           A-注意
+            <view class="cu-progress round">
+              <view class="padding bg-gradual-green solid radius shadow-blur process"
+                style="padding:0px 10px;width:{{loading?score[1]:''}}%;">
+              </view>
+            </view>
+          </view>
+          <view class="action" style="padding: 5px 20px;">
+            S-同时
+            <view class="cu-progress round">
+              <view class="padding bg-gradual-red solid radius shadow-blur process"
+                style="padding:0px 10px;width:{{loading?score[2]:''}}%;">
+              </view>
+            </view>
+          </view>
+          <view class="action" style="padding: 5px 20px;">
+            S-继时
+            <view class="cu-progress round">
+              <view class="padding bg-gradual-purple solid radius shadow-blur process"
+                style="padding:0px 10px;width:{{loading?score[3]:''}}%;">
+              </view>
+            </view>
+          </view>
+          
+        </view>
+
       </view>
-    </view> -->
+      <view wx:if="{{1==1}}">
+        <view class="text-brown text-xl text-center solid-bottom" style="padding-bottom: 10px;">个人能力</view>
+        <view class="text-grey text-sm text-center" style="padding-bottom: 10px;">这里还没有你的测试记录，快去开始第一次测试吧!</view>
+      </view>
+    </view>
   </view>
   <mp-dialog title="完善个人资料" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{oneButton}}">
-    <radio-group class="radio-group" bindchange="radioChange">
+    <radio-group class="radio-group" bindchange="radioChange" style="padding-bottom: 10px;">
       <label>性别： </label>
-      <label class="radio" wx:for="{{items}}">
+      <label class="radio" wx:for="{{items}}" style="padding: 5px;">
         <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
       </label>
     </radio-group>
@@ -44,7 +86,8 @@
     </view>
   </mp-dialog>
   <view style="display:flex;">
-    <button class="cu-btn bg-cyan light round lg shadow button-hover" bindtap="test" style="height:80px;width: 200px;bottom: 30px;font-size:25px;">开 始 测 试</button>
+    <button class="cu-btn bg-cyan light round lg shadow button-hover" bindtap="test"
+      style="height:80px;width: 200px;top: 30px;font-size:25px;">开 始 测 试</button>
   </view>
   <view class="cu-bar tabbar margin-bottom-xsl bg-white mybar text-xsl" style="height: 60px;">
     <view class="action text-grey text-bold " bindtap="list">
