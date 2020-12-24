@@ -61,7 +61,13 @@
       "list": []
     },
     "miniprogram": {
-      "list": []
+      "list": [
+        {
+          "name": "pages/zyy_memory_span/memory_span",
+          "pathName": "pages/zyy_memory_span/memory_span",
+          "scene": null
+        }
+      ]
     }
   }
 }

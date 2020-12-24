@@ -125,7 +125,7 @@ Page({
     if (chess_start[who].left == 0 && chess_start[who].top == 0) {
       param["chess_start[" + who + "]"] = {
         left: event.currentTarget.offsetLeft + this.data.chess_size / 2,
-        top: event.currentTarget.offsetTop - this.data.chess_size / 6,
+        top: event.currentTarget.offsetTop + this.data.chess_size / 2,
       };
     }
     param["chess_zindex[" + who + "]"] = 200;
@@ -245,7 +245,7 @@ function gameStart(that, newGame_or_nextLevel = 'newGame') {
     complete: () => {
       util.checkTime(that);
       that.data.time_add_1 = setTimeout(() => {
-        util.initTime(that, 30000);
+        util.initTime(that, 30);
         that.setData({
           game_state: "开始拖动吧"
         });
@@ -376,9 +376,9 @@ function userCommitAnswer(event, that) {
       })
     } else {
       wx.showModal({
-        title: "答案错误",
+        title: "过关啦",
         content: '请前往下一个测试',
-        cancelText: "再试一次",
+        // cancelText: "再试一次",
         showCancel: false,
         confirmText: "下个测试",
         success: function (res) {
