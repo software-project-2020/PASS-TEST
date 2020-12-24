@@ -12,7 +12,9 @@ Page({
     currentLine: [], // 当前线条
     pic: '',
     now: 0,
-    score: 0
+    score: 0,
+    scoredetail:0,
+    allscore:0
   },
   onLoad: function () {
     wx.setNavigationBarTitle({
@@ -20,12 +22,12 @@ Page({
     })
     this.initCanvas()
     testutil.getS11(app.globalData.userInfo.ageGroup, (res) => {
-      // console.log(res)
+      console.log(res)
       this.setData({
         qnum: res.qnum,
-        qlist: res.qlist
+        qlist: res.qlist,
+        time:res.time
       })
-      console.log(res.qlist)
     })
   },
 
@@ -139,12 +141,13 @@ Page({
   },
   start: function () { //练习页面点击开始测试
     this.saveCanvas((res) => {
-      console.log(res)
+      var tempscore= JSON.parse(res.data)
       var text
-      if (res.data == 'true')
+      console.log(tempscore)
+      if (tempscore.all_score == tempscore.detail_score)
         text = "恭喜你答对啦，你有充足的时间来完成这项测试，现在就请点击确定按钮开始吧！"
       else
-        text = "做错了，不要着急，请尝试将图形画的更加规则一些，可以点击取消重新试一下。如果你准备好了，接下来你会有充足的时间来完成这项测试，现在就请点击确定按钮开始吧！"
+        text = "还有点问题，不要着急，请尝试将图形画的更加规则一些，可以点击取消重新试一下。如果你准备好了，接下来你会有充足的时间来完成这项测试，现在就请点击确定按钮开始吧！"
       var that = this
       wx.showModal({
         title: '练习结束',
@@ -153,10 +156,11 @@ Page({
         confirmText: '开始测试',
         success: function (res) {
           if (res.confirm) { //这里是点击了确定以后
-            util.initCountDown(that, 100, 1)
+            
             that.setData({
               now: that.data.now + 1
             })
+            util.initCountDown(that, that.data.time[that.data.now+1], 1)
             that.clearDraw()
           }
         }
@@ -165,11 +169,23 @@ Page({
 
   },
   next: function () { //提交然后进入下一题
+    var that = this
     this.saveCanvas((res) => {
       console.log(res)
-      if (res.data == 'true') this.addscore()
+      var tempscore= JSON.parse(res.data)
+      var score = that.data.score
+      score[that.data.now] = tempscore.detail_score
+      var allscore = that.data.allscore
+      allscore[that.data.now] = tempscore.all_score
+      that.setData({
+        allscore:allscore,
+        scoredetail:scoredetail
+      })
+
+      console.log(tempscore)
+      if (tempscore.all_score == tempscore.detail_score) this.addscore()
       this.setData({
-        now: this.data.now + 1
+        now: that.data.now + 1
       })
       this.clearDraw()
     })
@@ -180,7 +196,18 @@ Page({
     var that = this
     this.saveCanvas((res) => {
       console.log(res)
-      if (res.data == 'true') this.addscore()
+      var tempscore= JSON.parse(res.data)
+      var tempscore= JSON.parse(res.data)
+      var score = that.data.score
+      score[that.data.now] = tempscore.detail_score
+      var allscore = that.data.allscore
+      allscore[that.data.now] = tempscore.all_score
+      that.setData({
+        allscore:allscore,
+        scoredetail:scoredetail
+      })
+      console.log(that.data.allscore,that.data.scoredetail)
+      if (tempscore.all_score == tempscore.detail_score) this.addscore()
       console.log(this.data.score)
       app.globalData.scoreDetail[1][1] = {
         score: that.data.score,
