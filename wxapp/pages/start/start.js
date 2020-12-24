@@ -25,13 +25,19 @@ Page({
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
     Custom: app.globalData.Custom,
-    gender:1
+    gender:1,
+    score:[60,80,50,60]
   },
   onLoad: function () {
+    var that=this
     this.setData({
       userInfo: app.globalData.userInfo
     })
-    
+    setTimeout(function() {
+      that.setData({
+        loading: true
+      })
+    }, 500)
   },
   /**
    * 生命周期函数--监听页面显示
