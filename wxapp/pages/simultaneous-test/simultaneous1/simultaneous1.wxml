@@ -10,7 +10,7 @@
       <text wx:if="{{now==0}}" class="text-jindu" style="color:#2BB31C">练习</text>
       <text wx:else class="text-jindu" style="color:#2BB31C">进度：{{now}}/{{qnum-1}}</text>
     </view>
-    <view wx:if="{{!now==0}}" class="clock">
+    <view wx:if="{{!now==0}}" class="clock animation-{{animation=='shake'?'shake':''}}">
       <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/clock.png' style="width: 70rpx;"></image>
     </view>
     <view wx:if="{{!now==0}}" class="time">
@@ -23,7 +23,7 @@
       <image src="{{qlist[now].q}}">题目加载中</image>
     </view>
     <view class="choose">
-      <view class="line">
+      <view class="line  flex justify-center">
         <view class="block">
           <image class="{{answer[now]-1==0?'choice border1':'choice'}}" src="{{qlist[now].option[0]}}" bindtap="chooseAnster"
             data-index="0"></image>

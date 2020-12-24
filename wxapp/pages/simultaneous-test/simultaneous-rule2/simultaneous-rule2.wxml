@@ -2,15 +2,14 @@
 <view class="container" style="background-image: url('https://picture.morii.top/renzhixuetang/background/13.jpg');">
   <view class="padding light main">
     <view class="cu-steps bg-white" style="border-radius:10px;padding: 10px;opacity: 0.92;">
-      <view class="cu-item {{index>num?'':'text-brown'}} " wx:for="{{numList}}" wx:key>
+      <view class="cu-item {{index>num?'':'text-green'}} " wx:for="{{numList}}" wx:key>
         <text class="num {{index==2?'err':''}}  " data-index="{{index + 1}}"></text> {{item.name}}
       </view>
     </view>
-
     <view class="bg-white rules justify-center">
       <view class="flex-sub text-center" style="height: 30%;">
         <view class="solid-bottom text-xxl padding">
-          <text class="text-brown text-bold">言语加工</text>
+          <text class="text-green text-bold">言语加工</text>
         </view>
         <view class="padding text-left" style="padding: 0 45px;">
           <text space="{{true}}" decode="{{true}}">
@@ -24,13 +23,13 @@
       </view>
       <view class="flex  padding justify-around">
         <view class="action">
-          <button wx:if="{{num>0}}" class="cu-btn bg-brown shadow lg round" bindtap="numStepsBack"
+          <button wx:if="{{num>0}}" class="cu-btn bg-green shadow lg round" bindtap="numStepsBack"
             style="display:flex;justify-content: center;width: 110px;">上一步</button>
         </view>
         <view class="action">
-          <button wx:if="{{num<3}}" class="cu-btn bg-brown shadow lg round" bindtap="numSteps"
+          <button wx:if="{{num<3}}" class="cu-btn bg-green shadow lg round" bindtap="numSteps"
             style="display:felselex;justify-content: center;width: 110px;">下一步</button>
-          <button wx:else class="cu-btn bg-brown shadow lg round" bindtap="gototest1"
+          <button wx:else class="cu-btn bg-green shadow lg round" bindtap="gototest1"
             style="display:flex;justify-content: center;width: 110px;">开始测试</button>
         </view>
       </view>
