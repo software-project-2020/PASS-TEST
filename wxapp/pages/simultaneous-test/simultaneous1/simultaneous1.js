@@ -79,7 +79,7 @@ Page({
       success: function (res) {
         if (res.confirm) { //提交
           var score=0
-          for(var i=0;i<that.data.qnum;i++){
+          for(var i=1;i<that.data.qnum;i++){
             if(that.data.answer[i]==that.data.qlist[i].answer)
               score++
           }
@@ -170,9 +170,8 @@ Page({
       confirmText: '开始测试',
       success: function (res) {
         if (res.confirm) { //这里是点击了确定以后
-          that.nextQuestion();
-          util.initCountDown(that, 10, 1)
-          // util.initCountDown(that, that.data.time, 1)
+          that.nextQuestion()
+          util.initCountDown(that, that.data.time, 1)
         }
       }
     })
