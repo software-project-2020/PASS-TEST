@@ -1,4 +1,5 @@
 /* pages/simultaneous-test/simultaneous1/simultaneous1.wxss */
+@import "../../../colorui/animation.wxss";
 page{
   overflow: hidden;
   background-image: url('https://picture.morii.top/renzhixuetang/background/13.jpg');
@@ -9,20 +10,21 @@ page{
 }
 .border{
   height: 90%;
-  width: 70%;
+  width: 90%;
   display: flex;
   justify-content: center;  /*水平*/
   align-items: center; /*垂直*/
   background-color: #ffffff;
-  opacity: 0.8;
+  opacity: 0.9;
   border: 9rpx solid #2BB31C;
   border-radius: 30rpx;
   padding: 25rpx;
   flex-direction: column;
 }
 .border1{
-  border: 5rpx solid #2BB31C;
-  border-radius: 30rpx;
+  /* border: 5rpx solid #2BB31C; */
+  border-radius: 10rpx;
+  background-color:#6ca338;
 }
 .img1{
   display: flex;
@@ -86,8 +88,8 @@ page{
   border-radius:20rpx;
 }
 .choice{
-  width: 180rpx;
-  height: 90rpx;
+  width: 80%;
+  height: 100%;
   padding: 10rpx 30rpx;
 }
 .choose{
@@ -100,6 +102,7 @@ page{
 .line{
   display: flex;
   height:110rpx;
+  width: 100%;
 }
 .submit{
   /* border: 4rpx solid #2BB31C; */
@@ -107,7 +110,9 @@ page{
   background-color: green;
 }
 .block{
-  width: 80%;
+  width: 100%;
+  justify-content: center;
+  display: flex;
 }
 .buttonword{
   color:white;
