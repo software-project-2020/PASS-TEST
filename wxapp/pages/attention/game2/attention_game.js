@@ -277,7 +277,7 @@ Page({
         l: l
       })
       this.choicenum()
-      util.initCountDown(this, this.data.time[this.data.number], 0.1)
+      util.initCountDown(this, this.data.time[this.data.number], 1)
     }
 
   },

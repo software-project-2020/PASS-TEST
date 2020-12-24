@@ -1,4 +1,5 @@
 /* pages/attention/attention_game.wxss */
+@import "../../../colorui/animation.wxss";
 page {
   overflow: hidden;
   background-image: url('https://picture.morii.top/renzhixuetang/background/10.jpg');
