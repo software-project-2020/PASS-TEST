@@ -19,19 +19,19 @@ Page({
     scroll: 0,
     rules:[{
       words:"进入页面后，你将会4*4或者5*5的数字方块",
-      img:"https://picture.morii.top/renzhixuetang/lyq/guize.gif"
+      img:"https://picture.morii.top/renzhixuetang/rules/plan/test1step1.jpg"
     },
     {
       words:"你需要将数字从小到大顺序依次点击",
-      img:"https://picture.morii.top/renzhixuetang/lyq/guize.gif"
+      img:"https://picture.morii.top/renzhixuetang/rules/plan/test1step2.gif"
     },
     {
       words:"当连续点击速度时间间隔少，速度快时会有加分",
-      img:"https://picture.morii.top/renzhixuetang/lyq/guize.gif"
+      img:"https://picture.morii.top/renzhixuetang/rules/plan/test1step3.gif"
     },
     {
       words:"完成之后会自动结束哦。如果已经对规则了解了的话，就点击开始测试的按钮吧",
-      img:"https://picture.morii.top/renzhixuetang/lyq/guize.gif"
+      img:"https://picture.morii.top/renzhixuetang/rules/plan/test1step4.gif"
     }]
   },
   gototest1: function (e) {
