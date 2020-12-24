@@ -3,7 +3,6 @@
   <view class="jindu">
     <!-- <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/lyq.png' style="width: 500rpx; "></image> -->
   </view>
-  
   <view class="top" style="flex-direction:row;">
     <view class="eyu">
       <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/eyu.png' style="width: 250rpx; "></image>
