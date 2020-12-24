@@ -8,7 +8,7 @@
     </view>
 
     <view class="bg-white rules justify-center">
-      <view class="flex-sub text-center" style="height: 20%;">
+      <view class="flex-sub text-center" style="height: 25%;">
         <view class="solid-bottom text-xxl padding">
           <text class="text-brown text-bold">言语加工</text>
         </view>
