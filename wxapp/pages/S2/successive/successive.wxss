@@ -1,31 +1,39 @@
-page{
+@import "../../../colorui/animation.wxss";
+page {
   overflow: hidden;
   background-image: url('https://picture.morii.top/renzhixuetang/background/9.jpg');
   background-size: 100% 100%;
   height: 100%;
 }
-.container{
+
+.container {
   flex-direction: column;
   width: 100%;
   height: 100%;
   padding: 0;
 }
-.img2,.img1{
+
+.img2,
+.img1 {
   display: flex;
-  bottom:0; 
+  bottom: 0;
 }
-.top{
+
+.top {
   width: 100%;
   display: flex;
   justify-content: center;
 }
-.clock{
-  margin:12% 0% 0% 1%;
+
+.clock {
+  margin: 12% 0% 0% 1%;
 }
-.proflag{
-  margin:10% 0% 0% 1%;
+
+.proflag {
+  margin: 10% 0% 0% 1%;
 }
-.time{
+
+.time {
   margin: 13% 6% 1% 0%;
   height: 54rpx;
   width: 12%;
@@ -34,11 +42,12 @@ page{
   opacity: 0.8;
   border: 4rpx solid #B1AFE6;
   border-radius: 15rpx;
-  text-align:center;
-  align-items:center;
+  text-align: center;
+  align-items: center;
   justify-content: center;
 }
-.process{
+
+.process {
   margin: 13% 7% 1% 0%;
   height: 60rpx;
   width: 28%;
@@ -47,28 +56,28 @@ page{
   opacity: 0.8;
   border: 4rpx solid #B1AFE6;
   border-radius: 15rpx;
-  text-align:center;
-  align-items:center;
+  text-align: center;
+  align-items: center;
   justify-content: center;
 }
-.exercise{
+
+.exercise {
   width: 80%;
   height: 59%;
   flex-direction: column;
-  margin-top: 1rem; 
-  /* margin-bottom: 2rem; */
+  margin-top: 1rem;
 }
-.exercise-show{
+
+.exercise-show {
   width: 80%;
   height: 60%;
   position: absolute;
-  /* z-index: 2; */
   border-radius: 2rem;
   background-color: #ffffff;
   border: 11rpx solid #9f9fdf;
-  /* border-radius: 30rpx; */
 }
-.exercise-txt{
+
+.exercise-txt {
   height: 100%;
   width: 80%;
   font-size: 48rpx;
@@ -80,24 +89,22 @@ page{
   margin: auto;
 }
 
-.question{
+.question {
   position: absolute;
-  /* z-index: -1; */
   width: 80%;
   height: 60%;
   border-radius: 2rem;
   background-color: #ffffff;
   border: 11rpx solid #9f9fdf;
-  /* border-radius: 30rpx; */
 }
 
-.question-show{
+.question-show {
   width: 80%;
   height: 40%;
   margin: auto;
 }
 
-.question-txt{
+.question-txt {
   height: 100%;
   font-size: 48rpx;
   font-weight: 600;
@@ -107,25 +114,35 @@ page{
   justify-content: center;
 }
 
-.option{
+.option {
   width: 100%;
   height: 30%;
   display: flex;
   border-radius: 2rem;
 }
 
-.option-a,.option-b,.option-c,.option-d{
+.option-a,
+.option-b,
+.option-c,
+.option-d {
   margin: 1rem;
   border-radius: 2rem;
   border: 11rpx solid #9f9fdf;
 }
-.option-ab,.option-bb,.option-cb,.option-db{
+
+.option-ab,
+.option-bb,
+.option-cb,
+.option-db {
   margin: 1rem;
   border-radius: 2rem;
   background-color: #9f9fdf;
 }
 
-.a,.b,.c,.d{
+.a,
+.b,
+.c,
+.d {
   height: 100%;
   font-size: 32rpx;
   font-weight: 600;
@@ -135,15 +152,17 @@ page{
   justify-content: center;
 }
 
-.btn{
+.btn {
   margin: auto;
 }
-.button{
+
+.button {
   border: #9f9fdf 7rpx solid;
   border-radius: 60rpx;
   background-color: #cdcdfc;
 }
-.button text{
+
+.button text {
   font-size: 50rpx;
   color: #5c5ca3;
 }
