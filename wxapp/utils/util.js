@@ -52,6 +52,8 @@ function initCountDown(page, countDownNum, interval) {
       if (page.data.countDownNum == 0) {
         closeCountDown(page)
         page.timeout()
+      }else if(page.data.countDownNum> 0 && page.data.countDownNum<5){
+        toggle(page)
       }
     }, 1000 * interval)
   })
@@ -66,4 +68,16 @@ function closeCountDown(page) {
   clearInterval(that.data.timer);
   page.timer = null;
   page.time = 0;
+}
+function toggle(page) {
+  var anmiaton = 'shake';
+  var that = page;
+  that.setData({
+    animation: anmiaton
+  })
+  setTimeout(function () {
+    that.setData({
+      animation: ''
+    })
+  }, 500)
 }

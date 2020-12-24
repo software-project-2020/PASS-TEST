@@ -32,8 +32,8 @@ page{
   justify-content: center;  /*水平*/
 }
 .border{
-  height: 650rpx;
-  width: 70%;
+  height: 670rpx;
+  width: 80%;
   display: flex;
   justify-content: center;  /*水平*/
   align-items: center; /*垂直*/

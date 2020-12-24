@@ -8,6 +8,16 @@ Page({
   data: {
 
   },
+  home:function(e){
+    wx.navigateTo({
+      url: '/pages/start/start',
+      })
+  },
+  rank:function(e){
+    wx.navigateTo({
+      url: '/pages/rank/rank',
+      })
+  },
   gotoHistoryTest:function(e){
     wx.navigateTo({
       url: '/pages/SelfCenter/History/History',

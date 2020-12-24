@@ -1,23 +1,42 @@
 <!--pages/attention/attention.wxml-->
-<view class="container">
-  <view class="top" style="flex-direction:row;">
-    <view class="sheep">
-      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/sheep.png' style="width: 170rpx; "></image>
-    </view>
-  </view>
-  <view class="border">
-    <view class="introduction">
-      <text class="rules">接下来，你会看到一个题目，和快速跳转的数字，根据题目所给出的要求，在最快的时间内，选择是否符合要求。你需要完成1题这样的题目。
-        请看下面的示例：</text>
-    </view>
-    <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/attention/demo1.gif' style="width: 400rpx; "></image>
 
+<view class="padding light main">
+    <view class="cu-steps bg-white" style="border-radius:10px;padding: 10px;opacity: 0.92;">
+      <view class="cu-item {{index>num?'':'text-brown'}} " wx:for="{{numList}}" wx:key>
+        <text class="num " data-index="{{index + 1}}"></text> {{item.name}}
+      </view>
+    </view>
+
+    <view class="bg-white rules justify-center">
+      <view class="flex-sub text-center" style="height: 30%;">
+        <view class="solid-bottom text-xxl padding">
+          <text class="text-brown text-bold">寻找数字</text>
+        </view>
+        <view class="padding text-left" style="padding: 0 45px;">
+          <text space="{{true}}" decode="{{true}}">
+            &nbsp;&nbsp;&nbsp;&nbsp;{{rules[num].words}}。
+          </text>
+
+        </view>
+      </view>
+      <view class="justify-center" style="display:flex;padding:10px;height:50%;">
+        <image src='{{rules[num].img}}' style="width: 80%; height:100%"></image>
+      </view>
+      <view class="flex  padding justify-around">
+        <view class="action">
+          <button wx:if="{{num>0}}" class="cu-btn bg-brown shadow lg round" bindtap="numStepsBack"
+            style="display:flex;justify-content: center;width: 110px;">上一步</button>
+        </view>
+        <view class="action">
+          <button wx:if="{{num<3}}" class="cu-btn bg-brown shadow lg round" bindtap="numSteps"
+            style="display:felselex;justify-content: center;width: 110px;">下一步</button>
+          <button wx:else class="cu-btn bg-brown shadow lg round" bindtap="gototest1"
+            style="display:flex;justify-content: center;width: 110px;">开始测试</button>
+        </view>
+      </view>
+    </view>
+    <view>
+    </view>
   </view>
-  <view class="bottom">
-    <button class="btn" plain="true" bindtap="button_start" >
-    <image class='img2' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/starttest2.png' style="width: 250rpx; "></image>
-  </button>
-</view>
-</view>
 
 

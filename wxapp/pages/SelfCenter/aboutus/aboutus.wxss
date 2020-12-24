@@ -3,8 +3,8 @@
   padding: 0rpx;
 }
 .border{
-  height: 680rpx;
-  width: 75%;
+  height: 800rpx;
+  width: 80%;
   display: flex;
   justify-content: center;  /*水平*s/
   align-items: center; /*垂直*/
@@ -16,6 +16,7 @@
   flex-direction: column;
 }
 .header{
+  margin-top: 5%;
   font-size: 75rpx;
   font-weight: 530;
   color: #7c7c7c;
@@ -27,8 +28,8 @@
   color: #7c7c7c;
 }
 .border2{
-  height: 180rpx;
-  width: 75%;
+  height: 200rpx;
+  width: 80%;
   display: flex;
   justify-content: center;  /*水平*/
   align-items: center; /*垂直*/
@@ -38,6 +39,7 @@
   border-radius: 20rpx;
   padding: 25rpx;
   flex-direction: column;
+  margin-bottom: 10%;
 }
 .title2{
   font-size: 30rpx;
