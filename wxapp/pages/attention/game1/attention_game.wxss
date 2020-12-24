@@ -65,7 +65,7 @@ page {
 .Num_text{
   color: #000000;
   font-size: 100px;
-  font-weight: 1000;
+  font-weight: 600;
   margin-top: 20%;
 }
 .text{

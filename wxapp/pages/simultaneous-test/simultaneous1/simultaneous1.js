@@ -146,7 +146,7 @@ Page({
       success: function (res) {
         if (res.confirm) { //这里是点击了确定以后
           that.nextQuestion();
-          util.initCountDown(that, 300, 1)
+          util.initCountDown(that, 10, 1)
         }
       }
     })
