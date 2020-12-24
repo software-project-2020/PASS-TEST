@@ -36,7 +36,8 @@ Page({
     })
     util.getLastTest(this.data.userInfo.openid,(res) => {
       console.log(res.data=="")
-      if(res.data==""){
+      if(res.data!=""){
+        var tempscore = res.data
         var score=[tempscore.plan_score,tempscore.attention_score,tempscore.simul_score,tempscore.suc_score]
         console.log(score)
         that.setData({
