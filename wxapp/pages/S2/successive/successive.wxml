@@ -8,7 +8,7 @@
       <text wx:if="{{now==1}}" style='color:#B1AFE6'>练习</text>
       <text wx:else style='color:#B1AFE6'>进度：{{now-1}}/{{total-1}}</text>
     </view>
-    <view class="clock" wx:if="{{!test&&now!=1}}">
+    <view class="clock animation-{{animation=='shake'?'shake':''}}"  wx:if="{{!test&&now!=1}}">
       <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/successive/clock.png'
         style="width: 70rpx;"></image>
     </view>

@@ -19,19 +19,19 @@ Page({
     scroll: 0,
     rules:[{
       words:"进入页面后，你将会看到一个题目，记住题目给出的三个数字，点击按钮开始做题",
-      img:"https://picture.morii.top/renzhixuetang/attention/A1-step1.png"
+      img:"https://picture.morii.top/renzhixuetang/rules/attention/A1-step1.png"
     },
     {
       words:"做题开始，会出现快速跳动的数字",
-      img:"https://picture.morii.top/renzhixuetang/attention/A1-step2.gif"
+      img:"https://picture.morii.top/renzhixuetang/rules/attention/A1-step2.gif"
     },
     {
       words:"如果出现的数字为题目给出的数字中的一个，则在跳出下一个数字之前点击✔按钮",
-      img:"https://picture.morii.top/renzhixuetang/attention/A1-step3.png"
+      img:"https://picture.morii.top/renzhixuetang/rules/attention/A1-step3.png"
     },
     {
-      words:"如果出现的数字不为题目给出的数字中的任何一个，则在跳出下一个数字之前点击❌按钮",
-      img:"https://picture.morii.top/renzhixuetang/attention/A1-step4.png"
+      words:"如果出现的数字不为题目给出的数字中的任何一个，则在跳出下一个数字之前点击X按钮",
+      img:"https://picture.morii.top/renzhixuetang/rules/attention/A1-step4.png"
     }]
   },
 

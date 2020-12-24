@@ -3,15 +3,16 @@
 <view class="container">
   <view class="top" style="flex-direction:row;">
     <view class="eyu">
-      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/fog.png' style="width: 175rpx; "></image>
+      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/fog.png'
+        style="width: 175rpx; "></image>
     </view>
     <view class="jindu">
-      
       <text wx:if="{{now==0}}" class="text-jindu" style="color:#2BB31C">练习</text>
       <text wx:else class="text-jindu" style="color:#2BB31C">进度：{{now}}/{{qnum-1}}</text>
     </view>
     <view wx:if="{{!now==0}}" class="clock animation-{{animation=='shake'?'shake':''}}">
-      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/clock.png' style="width: 70rpx;"></image>
+      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/clock.png'
+        style="width: 70rpx;"></image>
     </view>
     <view wx:if="{{!now==0}}" class="time">
       <text style='color:#2BB31C'>{{displayTime}}s</text>
@@ -25,51 +26,58 @@
     <view class="choose">
       <view class="line  flex justify-center">
         <view class="block">
-          <image class="{{answer[now]-1==0?'choice border1':'choice'}}" src="{{qlist[now].option[0]}}" bindtap="chooseAnster"
-            data-index="0"></image>
+          <image class="{{answer[now]-1==0?'choice border1':'choice'}}" src="{{qlist[now].option[0]}}"
+            bindtap="chooseAnster" data-index="0"></image>
         </view>
         <view class="block">
-          <image class="{{answer[now]-1==1?'choice border1':'choice'}}" src="{{qlist[now].option[1]}}" bindtap="chooseAnster"
-            data-index="1"></image>
+          <image class="{{answer[now]-1==1?'choice border1':'choice'}}" src="{{qlist[now].option[1]}}"
+            bindtap="chooseAnster" data-index="1"></image>
         </view>
       </view>
       <view class="line">
         <view class="block">
-          <image class="{{answer[now]-1==2?'choice border1':'choice'}}" src="{{qlist[now].option[2]}}" bindtap="chooseAnster"
-            data-index="2"></image>
+          <image class="{{answer[now]-1==2?'choice border1':'choice'}}" src="{{qlist[now].option[2]}}"
+            bindtap="chooseAnster" data-index="2"></image>
         </view>
         <view class="block">
-          <image class="{{answer[now]-1==3?'choice border1':'choice'}}" src="{{qlist[now].option[3]}}" bindtap="chooseAnster"
-            data-index="3"></image>
+          <image class="{{answer[now]-1==3?'choice border1':'choice'}}" src="{{qlist[now].option[3]}}"
+            bindtap="chooseAnster" data-index="3"></image>
         </view>
       </view>
       <view class="line">
         <view class="block">
-          <image class="{{answer[now]-1==4?'choice border1':'choice'}}" src="{{qlist[now].option[4]}}" bindtap="chooseAnster"
-            data-index="4"></image>
+          <image class="{{answer[now]-1==4?'choice border1':'choice'}}" src="{{qlist[now].option[4]}}"
+            bindtap="chooseAnster" data-index="4"></image>
         </view>
         <view class="block">
-          <image class="{{answer[now]-1==5?'choice border1':'choice'}}" src="{{qlist[now].option[5]}}" bindtap="chooseAnster"
-            data-index="5"></image>
+          <image class="{{answer[now]-1==5?'choice border1':'choice'}}" src="{{qlist[now].option[5]}}"
+            bindtap="chooseAnster" data-index="5"></image>
         </view>
       </view>
-      <view class="line" >
-        <view class="block" >
-          <image class="{{answer[now]-1==6?'choice border1':'choice'}}" src="{{qlist[now].option[6]}}" bindtap="chooseAnster"
-            data-index="6"></image>
+      <view class="line">
+        <view class="block">
+          <image class="{{answer[now]-1==6?'choice border1':'choice'}}" src="{{qlist[now].option[6]}}"
+            bindtap="chooseAnster" data-index="6"></image>
         </view>
         <view class="block">
-          <image class="{{answer[now]-1==7?'choice border1':'choice'}}" src="{{qlist[now].option[7]}}" bindtap="chooseAnster"
-            data-index="7"></image>
+          <image class="{{answer[now]-1==7?'choice border1':'choice'}}" src="{{qlist[now].option[7]}}"
+            bindtap="chooseAnster" data-index="7"></image>
         </view>
       </view>
     </view>
-    <view class="buttonline">
-      <button wx:if="{{now==0}}" class="submit buttonword" style="width:240rpx;" bindtap="start">开始测试</button>
-      <button wx:if="{{now>1}}" class="submit buttonword" style="width:240rpx;" bindtap="preQuestion">上一题</button>
-      <button wx:if="{{now<qnum-1&&now>0}}" class="submit buttonword" style="width:240rpx;" bindtap="nextQuestion">下一题</button> 
-      <button wx:if="{{now==qnum-1}}" class="submit buttonword" style="width:240rpx;" bindtap="submitAnswer">提交</button> 
+    <view class="flex padding justify-around" style="width: 100%;">
+        <button wx:if="{{now==0}}" class="cu-btn bg-green shadow lg round" bindtap="start"
+          style="display:flex;justify-content: center;width: 110px;">开始测试</button>
+        <view class="action">
+          <button wx:if="{{now>1}}" class="cu-btn bg-green shadow lg round" bindtap="preQuestion"
+          style="display:flex;justify-content: center;width: 110px;">上一题</button>
+        </view>
+        <view class="action">
+          <button wx:if="{{now<qnum-1&&now>0}}" class="cu-btn bg-green shadow lg round" bindtap="nextQuestion"
+          style="display:flex;justify-content: center;width: 110px;">下一题</button>
+        <button wx:if="{{now==qnum-1}}" class="cu-btn bg-green shadow lg round" bindtap="submitAnswer"
+          style="display:flex;justify-content: center;width: 110px;">提交</button>
+        </view>
     </view>
   </view>
-  
 </view>
