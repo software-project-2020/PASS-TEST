@@ -65,10 +65,10 @@
     </view>
   </view>
   <view class="cu-bar tabbar margin-bottom-xsl bg-white mybar text-xsl" style="height: 60px;width:100%">
-    <view class="action text-green text-bold " bindtap="list">
+    <view class="action text-green text-bold ">
       <view class="cuIcon-rank"></view>
     </view>
-    <view class="action text-grey text-bold">
+    <view class="action text-grey text-bold" bindtap="goHome">
       <view class="cuIcon-home">
       </view>
     </view>
