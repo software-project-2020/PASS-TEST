@@ -299,7 +299,7 @@ func userLogin(c *gin.Context) {
 			&lastLoginTime, &user.NickName, &birthday)
 		if err == sql.ErrNoRows {
 			sqlForRun = "insert into user(openid,session_key,gender,register_time,last_login_time,nickname,age)" +
-				" values(?,?,?,?,?,?)"
+				" values(?,?,?,?,?,?,?)"
 			res, err := Db.Exec(sqlForRun, requestBody["openid"], requestBody["session_key"],
 				c.PostForm("gender"), time.Now(), time.Now(), c.PostForm("nickname"), 10)
 			checkErr(err)
