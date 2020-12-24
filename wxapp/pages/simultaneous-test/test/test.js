@@ -13,8 +13,8 @@ Page({
     pic: '',
     now: 0,
     score: 0,
-    scoredetail:0,
-    allscore:0
+    scoredetail:[],
+    allscore:[]
   },
   onLoad: function () {
     wx.setNavigationBarTitle({
@@ -171,18 +171,16 @@ Page({
   next: function () { //提交然后进入下一题
     var that = this
     this.saveCanvas((res) => {
-      console.log(res)
       var tempscore= JSON.parse(res.data)
-      var score = that.data.score
-      score[that.data.now] = tempscore.detail_score
+      // console.log(tempscore,that.data.now)
+      var scoredetail = that.data.scoredetail
+      scoredetail[that.data.now-1] = tempscore.detail_score
       var allscore = that.data.allscore
-      allscore[that.data.now] = tempscore.all_score
+      allscore[that.data.now-1] = tempscore.all_score
       that.setData({
         allscore:allscore,
         scoredetail:scoredetail
       })
-
-      console.log(tempscore)
       if (tempscore.all_score == tempscore.detail_score) this.addscore()
       this.setData({
         now: that.data.now + 1
@@ -195,13 +193,12 @@ Page({
   finish: function () { //提交最后一题，结算分数
     var that = this
     this.saveCanvas((res) => {
-      console.log(res)
       var tempscore= JSON.parse(res.data)
-      var tempscore= JSON.parse(res.data)
-      var score = that.data.score
-      score[that.data.now] = tempscore.detail_score
+      // console.log(tempscore,that.data.now)
+      var scoredetail = that.data.scoredetail
+      scoredetail[that.data.now-1] = tempscore.detail_score
       var allscore = that.data.allscore
-      allscore[that.data.now] = tempscore.all_score
+      allscore[that.data.now-1] = tempscore.all_score
       that.setData({
         allscore:allscore,
         scoredetail:scoredetail
@@ -213,7 +210,10 @@ Page({
         score: that.data.score,
         qnum: that.data.qnum - 1
       }
-      app.globalData.score[1] =parseInt(app.globalData.score[1] + that.data.score / (that.data.qnum - 1)*100 * 0.4) 
+      var thisscore = that.data.scoredetail[0]+2*that.data.scoredetail[1]+3*that.data.scoredetail[2]
+      var thisall = that.data.allscore[0]+2*that.data.allscore[1]+3*that.data.allscore[2]
+      app.globalData.score[1] =parseInt(app.globalData.score[1] + thisscore /thisall*100 * 0.4) 
+      console.log(app.globalData.score[1])
       wx.redirectTo({
         url: "/pages/attention/rule1/attention",
       })

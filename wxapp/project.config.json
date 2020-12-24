@@ -61,7 +61,20 @@
       "list": []
     },
     "miniprogram": {
-      "list": []
+      "list": [
+        {
+          "name": "pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2",
+          "pathName": "pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+          "pathName": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+          "query": "",
+          "scene": null
+        }
+      ]
     }
   }
 }
