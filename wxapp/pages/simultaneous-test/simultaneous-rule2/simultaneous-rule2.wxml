@@ -8,7 +8,7 @@
     </view>
 
     <view class="bg-white rules justify-center">
-      <view class="flex-sub text-center" style="height: 25%;">
+      <view class="flex-sub text-center" style="height: 30%;">
         <view class="solid-bottom text-xxl padding">
           <text class="text-brown text-bold">言语加工</text>
         </view>
@@ -19,7 +19,7 @@
 
         </view>
       </view>
-      <view class="justify-center" style="display:flex;padding:10px;height:60%;">
+      <view class="justify-center" style="display:flex;padding:10px;height:50%;">
         <image src='{{rules[num].img}}' style="width: 80%; height:100%"></image>
       </view>
       <view class="flex  padding justify-around">
