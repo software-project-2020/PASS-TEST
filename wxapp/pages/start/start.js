@@ -1,6 +1,7 @@
 // pages/start/start.js
 const app = getApp()
 var userutil = require('../../utils/userutil.js')
+const util = require('../../utils/util.js')
 Page({
 
   /**
@@ -26,18 +27,33 @@ Page({
     CustomBar: app.globalData.CustomBar,
     Custom: app.globalData.Custom,
     gender:1,
-    score:[60,80,50,60]
+    showablity:true
   },
   onLoad: function () {
     var that=this
     this.setData({
       userInfo: app.globalData.userInfo
     })
-    setTimeout(function() {
-      that.setData({
-        loading: true
-      })
-    }, 500)
+    util.getLastTest(this.data.userInfo.openid,(res) => {
+      console.log(res.data=="")
+      if(res.data==""){
+        var score=[tempscore.plan_score,tempscore.attention_score,tempscore.simul_score,tempscore.suc_score]
+        console.log(score)
+        that.setData({
+          score:score
+        })
+        setTimeout(function() {
+          that.setData({
+            loading: true
+          })
+        }, 500)
+      }else{
+        this.setData({
+          showablity:false
+        })
+      }
+      
+    })
   },
   /**
    * 生命周期函数--监听页面显示
