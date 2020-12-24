@@ -38,14 +38,14 @@ page {
 
 .border {
   height: 80%;
-  width: 70%;
+  width: 90%;
   display: flex;
   justify-content: center;
   /*水平*/
   align-items: center;
   /*垂直*/
   background-color: #ffffff;
-  opacity: 0.8;
+  opacity: 0.92;
   border: 9rpx solid #2BB31C;
   border-radius: 30rpx;
   padding: 25rpx;
