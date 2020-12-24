@@ -442,9 +442,9 @@ Page({
     ctx.fillText(this.data.simultaneous2_right + " / " + this.data.simultaneous2_sum, 260, 807)
     ctx.fillText('单词序列', 80, 857)
     ctx.fillText(this.data.successive1_right + " / " + this.data.successive1_sum, 260, 857)
-    ctx.fillText('句子提问', 80, 907)
+    ctx.fillText('记忆广度', 80, 907)
     ctx.fillText(this.data.successive2_right + " / " + this.data.successive2_sum, 260, 907)
-    ctx.fillText('记忆广度', 80, 957)
+    ctx.fillText('句子提问', 80, 957)
     ctx.fillText(this.data.successive3_right + " / " + this.data.successive3_sum, 260, 957)
 
     //画横线
