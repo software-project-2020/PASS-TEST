@@ -37,7 +37,6 @@ func recoverErr() {
 	if err := recover(); err != nil {
 		log.Println(err)
 		fmt.Println("程序捕获，继续执行")
-
 	}
 }
 
@@ -57,7 +56,7 @@ func main() {
 	//post = {
 	//	  "userid": 7
 	//}
-	r.POST("/api/user/getbyid", getUserById)
+	//r.POST("/api/user/getbyid", getUserById)
 	// 用户注册  注册时间和上次登录时间直接用time.Now()
 	//post = {
 	//    "openid": "",
@@ -90,6 +89,8 @@ func main() {
 	r.POST("/api/test/gethistory", getHistory)
 
 	r.POST("/api/test/ranklist", rankList)
+
+	r.POST("/api/test/lasttest", lastTest)
 
 	r.Run(":23333")
 }
@@ -300,7 +301,7 @@ func userLogin(c *gin.Context) {
 			sqlForRun = "insert into user(openid,session_key,gender,register_time,last_login_time,nickname,age)" +
 				" values(?,?,?,?,?,?)"
 			res, err := Db.Exec(sqlForRun, requestBody["openid"], requestBody["session_key"],
-				c.PostForm("gender"), time.Now(), time.Now(), c.PostForm("nickname"),10)
+				c.PostForm("gender"), time.Now(), time.Now(), c.PostForm("nickname"), 10)
 			checkErr(err)
 			_, _ = res.LastInsertId()
 			c.JSON(200, gin.H{
@@ -967,6 +968,51 @@ func rankList(c *gin.Context) {
 		resdata["my_rank"] = myrank
 		resdata["rank_list"] = relist
 		result["data"] = resdata
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+	}
+}
+
+func lastTest(c *gin.Context) {
+	defer recoverErr()
+	result := make(map[string]interface{})
+	result["error_code"] = 0
+	openid := c.PostForm("openid")
+	if openid == "" {
+		result["error_code"] = 10001
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("openid" + "字段为空")
+	}
+	data := make(map[string]interface{})
+	sqlForRun := "SELECT plan_score,attention_score,simul_score,suc_score,test_date FROM test_result WHERE openid = ? ORDER BY test_id DESC LIMIT 1"
+	stmt, err := Db.Prepare(sqlForRun)
+	checkErr(err)
+	defer stmt.Close()
+	row, _ := stmt.Query(openid)
+	var plan_score int
+	var attention_score int
+	var simul_score int
+	var suc_score int
+	var unprase_test_time string
+	if row.Next() {
+		err = row.Scan(&plan_score, &attention_score, &simul_score, &suc_score, &unprase_test_time)
+		checkErr(err)
+		var test_time time.Time
+		test_time, _ = time.Parse("2006-01-02 15:04:05", unprase_test_time)
+		data["plan_score"] = plan_score
+		data["attention_score"] = attention_score
+		data["simul_score"] = simul_score
+		data["suc_score"] = suc_score
+		data["test_time"] = test_time.Format("2006-01-02 15:04:05")
+		result["data"] = data
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+	} else {
+		result["data"] = data
 		mapJson, err := json.Marshal(result)
 		checkErr(err)
 		c.JSON(200, string(mapJson))
