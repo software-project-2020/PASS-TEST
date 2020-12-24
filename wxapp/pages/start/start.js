@@ -22,6 +22,9 @@ Page({
     }
   ],
     date: '2016-09-01',
+    StatusBar: app.globalData.StatusBar,
+    CustomBar: app.globalData.CustomBar,
+    Custom: app.globalData.Custom,
     gender:1
   },
   onLoad: function () {
@@ -70,7 +73,7 @@ Page({
             app.globalData.time += 1
           }, 1000)
           wx.navigateTo({
-            url: '/pages/Planning/rule1/rule1'
+            url: '/pages/planning-test/rule1/rule1'
           })
         }
       }

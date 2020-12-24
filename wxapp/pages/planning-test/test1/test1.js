@@ -1,4 +1,4 @@
-// pages/Planning/test1/test1.js
+// pages/planning-test/test1/test1.js
 var util = require('../../../utils/util.js')
 var testutil = require('../../../utils/testutil.js')
 Page({

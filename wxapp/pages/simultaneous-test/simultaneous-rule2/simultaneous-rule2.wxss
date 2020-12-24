@@ -1,18 +1,50 @@
 /* pages/rule1/rule1.wxss */
-page{
+page {
   overflow: hidden;
   background-image: url('https://picture.morii.top/renzhixuetang/background/13.jpg');
   background-size: 100% 100%;
+  height: 100%;
+  width: 100%;
 }
-.container{
+
+.container {
   padding: 0rpx;
+  height: 100%;
+  width: 100%;
 }
-.border{
+
+.main {
+  width: 95%;
+  height: 100%;
+}
+.rules{
+  margin: 20px 0px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.92;
+  height: 80%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.border {
   height: 750rpx;
   width: 70%;
   display: flex;
-  justify-content: center;  /*水平*/
-  align-items: center; /*垂直*/
+  justify-content: center;
+  /*水平*/
+  align-items: center;
+  /*垂直*/
   background-color: #ffffff;
   opacity: 0.8;
   border: 9rpx solid #2BB31C;
@@ -22,35 +54,40 @@ page{
   margin-bottom: 7%;
 }
 
-.img1{
+.img1 {
   display: flex;
-  bottom:0; 
+  bottom: 0;
 }
-.top{
+
+.top {
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-.bottom{
+.bottom {
   width: 100%;
   display: flex;
   justify-content: center;
 }
-.img2{
+
+.img2 {
   margin-right: 20% 40% 0% 40%;
 }
-.rules{
+/* 
+.rules {
   color: #2BB31C;
   font-size: 32rpx;
   font-weight: 550;
   line-height: 53rpx;
-}
-.introduction{
+} */
+
+.introduction {
   margin: 0% 5% 2% 5%;
 }
-.btn[plain]{
-  border:none;
+
+.btn[plain] {
+  border: none;
   padding: 0;
   width: 34%;
   height: 130rpx;

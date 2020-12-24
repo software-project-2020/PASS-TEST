@@ -1,4 +1,4 @@
-// pages/Planning/test4.1/test4.1.js
+// pages/planning-test/test4.1/test4.1.js
 // util.closeCountDown(this)//关闭计时器
 var util = require('../../../utils/util.js')
 var testutil = require('../../../utils/testutil.js')
