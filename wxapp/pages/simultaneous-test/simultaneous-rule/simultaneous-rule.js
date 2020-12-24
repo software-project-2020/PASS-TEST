@@ -10,7 +10,7 @@ Page({
     }, {
       name: '选择'
     }, {
-      name: '错误'
+      name: '继续'
     }, {
       name: '完成'
     }, ],
@@ -18,19 +18,19 @@ Page({
     scroll: 0,
     rules:[{
       words:"进入页面后，你将会看到一个矩阵题目",
-      img:"https://picture.morii.top/renzhixuetang/rules/S11-rule/S11-step1.jpg"
+      img:"https://picture.morii.top/renzhixuetang/rules/S12-rules/S12-step1.jpg"
     },
     {
-      words:"你需要将题目中描述的形状在屏幕上画出来",
-      img:"https://picture.morii.top/renzhixuetang/rules/S11-rule/S11-step2.gif"
+      words:"你需要观察出规律，找出正确的填补选项",
+      img:"https://picture.morii.top/renzhixuetang/rules/S12-rules/S12-step2.jpg"
     },
     {
-      words:"请注意，为避免误判，请尽量将图形画的标准一些哦",
-      img:"https://picture.morii.top/renzhixuetang/rules/S11-rule/S11-step3.gif"
+      words:"做完一题后点击下一题按钮",
+      img:"https://picture.morii.top/renzhixuetang/rules/S12-rules/S12-step3.jpg"
     },
     {
-      words:"做完后请点击下面的按钮提交成绩。如果已经对规则了解了的话，就点击开始测试的按钮吧",
-      img:"https://picture.morii.top/renzhixuetang/rules/S11-rule/S11-step4.jpg"
+      words:"完成所有的题目后请点击提交按钮。如果已经对规则了解了的话，就点击开始测试的按钮吧",
+      img:"https://picture.morii.top/renzhixuetang/rules/S12-rules/S12-step4.jpg"
     }]
   },
   gototest1: function (e) {
