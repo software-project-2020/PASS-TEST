@@ -39,16 +39,14 @@
     <view wx:if="{{age == 0}}">
       <view class="t1" wx:for="{{l}}">
         <view class="t2 {{bg[item.index]?'t2':'t22'}}" wx:for="{{l[index]}}" wx:if="{{!item.isEmpty}}" bindtap="change"
-          data-name="{{item.index}}" mode='widthFix'>
-          <image class="kuai" style="width: 70rpx; height: 70rpx;" src="{{item.add}}">
-          </image>
+          data-name="{{item.index}}" mode='widthFix'>{{item.add}}{{item.number}}
         </view>
       </view>
     </view>
     <view wx:else>
       <view class="t1" wx:for="{{l}}">
         <view class="t2 {{bg[item.index]?'t2':'t22'}}" wx:for="{{l[index]}}" wx:if="{{!item.isEmpty}}" bindtap="change"
-          data-name="{{item.index}}" mode='widthFix'>{{item.add}}{{item.number}}
+          data-name="{{item.index}}" mode='widthFix'>{{item.add}}{{item.number}}{{item.number1}}
         </view>
       </view>
     </view>
