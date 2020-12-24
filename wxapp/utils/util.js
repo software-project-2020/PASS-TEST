@@ -49,6 +49,7 @@ function initCountDown(page, countDownNum, interval) {
         displayTime: displayTime
       })
       //在倒计时还未到0时，这中间可以做其他的事情，按项目需求来
+      console.log(countDownNum)
       if (page.data.countDownNum == 0) {
         closeCountDown(page)
         page.timeout()
