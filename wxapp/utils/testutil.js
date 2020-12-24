@@ -3,6 +3,7 @@ module.exports = {
   getconfiguration: getconfiguration,
   getS12: getS12,
   getS11: getS11,
+  getS22: getS22,
   submitResult: submitResult,
   getrecordInfo: getrecordInfo,
   getrecordDetailInfo: getrecordDetailInfo
@@ -154,6 +155,47 @@ function getS11(ageGroup, callback) {
     })
   })
 }
+
+//获得S22题目
+function getS22(callback){
+  var diffitylist,qnumlist
+  var qlist = []
+  var alllist = []
+  diffitylist = [0, 1, 2, 3, 4, 5]
+  qnumlist = [1, 1, 1, 1, 1, 1]
+  getQuestions('S22', diffitylist[0], qnumlist[0], (res) => {
+    qlist = res.data
+    alllist = alllist.concat(qlist)
+    getQuestions('S22', diffitylist[1], qnumlist[1], (res) => {
+      qlist = res.data
+      alllist = alllist.concat(qlist)
+      getQuestions('S22', diffitylist[2], qnumlist[2], (res) => {
+        qlist = res.data
+        alllist = alllist.concat(qlist)
+        getQuestions('S22', diffitylist[3], qnumlist[3], (res) => {
+          qlist = res.data
+          alllist = alllist.concat(qlist)
+          getQuestions('S22', diffitylist[4], qnumlist[4], (res) => {
+            qlist = res.data
+            alllist = alllist.concat(qlist)
+            getQuestions('S22', diffitylist[5], qnumlist[5], (res) => {
+              qlist = res.data
+              alllist = alllist.concat(qlist)
+              for (var j = 0; j < 6; j++) {
+                alllist[j] = JSON.parse(alllist[j].replace(new RegExp(" ","gm"),""))
+              }
+              var res = {
+                'qa': alllist
+              }
+              callback && callback(res)
+            })
+          })
+        })
+      })
+    })
+  })
+}
+
 // 在生成结果页面的onload上传分数到服务器
 function submitResult(userid, score, costtime, age, callback) {
   var avg_score = (score[0] + score[1] + score[2] + score[3]) / 4

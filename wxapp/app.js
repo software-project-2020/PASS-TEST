@@ -38,19 +38,14 @@ App({
       success(res) {
         that.windowWidth = res.windowWidth;
         that.windowHeight = res.windowHeight;
-        that.globalData.StatusBar = res.statusBarHeight;
-        let custom = wx.getMenuButtonBoundingClientRect();
-        that.globalData.Custom = custom;  
-        that.globalData.CustomBar = custom.bottom + custom.top - res.statusBarHeight;
       },
     });
-
   },
   globalData: {
     timer:'',//计时器
     userInfo: null,
     score :[],//每一项能力得分
     scoreDetail:[[],[],[],[]],
-    time:0 //用于记录用户测试耗费的时间
+    time:0, //用于记录用户测试耗费的时间
   }
 })

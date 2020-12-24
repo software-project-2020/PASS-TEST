@@ -151,11 +151,15 @@ page {
 .t2 {
   /* border: 10rpx solid #edbf40; */
   justify-content: center;
-  color: #edbf40;
+  color: #000000;
   display: flex;
   height: 2rem;
   width: 3rem;
   align-items: center;
+  border: #edbf40 0.5px dashed;
+}
+.t22{
+  background-color: #f1ce6ec5;
 }
 
 .letter{

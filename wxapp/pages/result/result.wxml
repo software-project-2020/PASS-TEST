@@ -67,11 +67,11 @@
             <view class="td">{{successive1_right}} / {{successive1_sum}}</view>
           </view>
           <view class="tr bg-g">
-            <view class="td">句子提问</view>
+            <view class="td">记忆广度</view>
             <view class="td">{{successive2_right}} / {{successive2_sum}}</view>
           </view>
           <view class="tr">
-            <view class="td">记忆广度</view>
+            <view class="td">句子提问</view>
             <view class="td">{{successive3_right}} / {{successive3_sum}}</view>
           </view>
         </block>
