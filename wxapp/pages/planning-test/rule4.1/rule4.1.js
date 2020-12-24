@@ -1,11 +1,10 @@
 // pages/planning-test/rule4.1/rule4.1.js
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    ageGroup:null,
+    // ageGroup:null,
     basics: 0,
     numList: [{
       name: '开始'
@@ -20,19 +19,19 @@ Page({
     scroll: 0,
     rules:[{
       words:"进入页面后，将会有若干个单词或者单词或者单词和图片出现",
-      img:"https://picture.morii.top/renzhixuetang/lyq/rule4.1.gif"
+      img:"https://picture.morii.top/renzhixuetang/rules/plan/test4step1.gif"
     },
     {
       words:"你需要在单词切换的同时，记住这些单词的顺序",
-      img:"https://picture.morii.top/renzhixuetang/lyq/rule4.1.gif"
+      img:"https://picture.morii.top/renzhixuetang/rules/plan/test4step2.gif"
     },
     {
       words:"单词显示完毕后，按照记忆依次点击单词，再次点击可以取消选择，重新排序",
-      img:"https://picture.morii.top/renzhixuetang/lyq/rule4.1.gif"
+      img:"https://picture.morii.top/renzhixuetang/rules/plan/test4step3.gif"
     },
     {
       words:"完成之后会自动结束哦。如果已经对规则了解了的话，就点击开始测试的按钮吧",
-      img:"https://picture.morii.top/renzhixuetang/lyq/rule4.1.gif"
+      img:"https://picture.morii.top/renzhixuetang/rules/plan/test4step4.gif"
     }]
   },
   gototest1:function(e){
@@ -58,10 +57,10 @@ Page({
     wx.setNavigationBarTitle({
       title: '继时性加工测试'
     })
-    this.setData({
-      // ageGroup:1
-      ageGroup:getApp().globalData.userInfo.ageGroup
-    })
+    // this.setData({
+    //   // ageGroup:1
+    //   // ageGroup:getApp().globalData.userInfo.ageGroup
+    // })
 
   },
 
