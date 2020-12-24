@@ -4,8 +4,7 @@ module.exports = {
   feedbackInfo:feedbackInfo
 }
 function userlogin(userInfo){
-  const d = wx.getStorageSync('userInfo')
-  if(!d){
+    console.log(userInfo)
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
@@ -33,8 +32,6 @@ function userlogin(userInfo){
         })
       }
     })
-  }
-  
 }
 // 上传个人信息
 function personalInfo(userdata,callback) {

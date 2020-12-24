@@ -9,8 +9,9 @@
     <!-- <image class='back_img' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/music.png' style="width: 80rpx; "></image> -->
   </button>
 </view>
-  <image class="headimg" mode='widthFix' src='{{userInfo.avatarUrl}}' style="width: 120rpx;"></image>
-  <text class="name">{{userInfo.nickName}}</text>
+<view class="border1">
+  <image class="headimg" mode='widthFix' src='{{userInfo.avatarUrl}}' style="width: 170rpx;"></image>
+  <text class="name">{{userInfo.nickName}}</text></view>
   <view class="border">
   <view class="btnv">
     <button class="btn" plain="true" bindtap="gotoHistoryTest" style="width: 400rpx;">

@@ -9,12 +9,12 @@ Page({
 
   },
   home:function(e){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/start/start',
       })
   },
   rank:function(e){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/rank/rank',
       })
   },
