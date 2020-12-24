@@ -158,7 +158,7 @@ Page({
       var l = this.data.l;
       //保证至少有一个答案
       var place = [];
-      var size = Math.floor((Math.random() * 10) + 10);
+      var size = Math.floor((Math.random() * 5) + 10);
       for (i = 0; i < size; i++) {
         place[i] = Math.floor(((Math.random() * (this.data.line[this.data.number] * this.data.column[this.data.number]))));
       }
@@ -277,7 +277,7 @@ Page({
         l: l
       })
       this.choicenum()
-      util.initCountDown(this, this.data.time[this.data.number], 0.1)
+      util.initCountDown(this, this.data.time[this.data.number], 1)
     }
 
   },
@@ -334,18 +334,6 @@ Page({
           word: this.data.list_big_letter[this.data.age1_question] + " 和 " + this.data.list_small_letter[this.data.age2_question] + " 的组合"
         })
       }
-    }
-    if (this.data.number == 0) {
-      var that = this
-      wx.showModal({
-        title: '注意',
-        content: '此次为尝试机会，不计入测试成绩',
-        confirmText: '开始尝试',
-        showCancel: false,
-        success: function (res) {
-          // that.initnum()
-        }
-      })
     }
   },
   //计算成绩
