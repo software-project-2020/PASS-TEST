@@ -6,7 +6,7 @@
     <image class='back_img' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/btn/back.png' style="width: 80rpx; "></image>
   </button> -->
   <button class="music_btn" plain="true" bindtap="changemusic" style="width: 80rpx; ">
-    <image class='back_img' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/music.png' style="width: 80rpx; "></image>
+    <!-- <image class='back_img' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/music.png' style="width: 80rpx; "></image> -->
   </button>
 </view>
   <image class="headimg" mode='widthFix' src='{{userInfo.avatarUrl}}' style="width: 120rpx;"></image>
@@ -26,14 +26,14 @@
   </button></view>
   </view>
   <view class="cu-bar tabbar margin-bottom-xsl bg-white mybar text-xsl" style="height: 60px;width:100%">
-    <view class="action text-grey text-bold " bindtap="list">
+    <view class="action text-grey text-bold " bindtap="rank">
       <view class="cuIcon-rank"></view>
     </view>
-    <view class="action text-grey text-bold">
+    <view class="action text-grey text-bold" bindtap="home">
       <view class="cuIcon-home">
       </view>
     </view>
-    <view class="action text-green text-bold" bindtap="bindViewTap">
+    <view class="action text-green text-bold">
       <view class="cuIcon-my">
       </view>
     </view>
