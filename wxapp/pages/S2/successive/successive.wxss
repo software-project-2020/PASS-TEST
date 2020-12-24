@@ -126,7 +126,7 @@ page{
 }
 
 .a,.b,.c,.d{
-  height: 80%;
+  height: 100%;
   font-size: 32rpx;
   font-weight: 600;
   line-height: 53rpx;
