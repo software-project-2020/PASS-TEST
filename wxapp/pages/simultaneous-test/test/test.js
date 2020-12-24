@@ -169,30 +169,39 @@ Page({
 
   },
   next: function () { //提交然后进入下一题
-    var that = this
-    this.saveCanvas((res) => {
-      var tempscore= JSON.parse(res.data)
-      // console.log(tempscore,that.data.now)
-      var scoredetail = that.data.scoredetail
-      scoredetail[that.data.now-1] = tempscore.detail_score
-      var allscore = that.data.allscore
-      allscore[that.data.now-1] = tempscore.all_score
-      that.setData({
-        allscore:allscore,
-        scoredetail:scoredetail
-      })
-      if (tempscore.all_score == tempscore.detail_score) this.addscore()
+    if(this.data.now==3) {
       this.setData({
         now: that.data.now + 1
       })
-      this.clearDraw()
-    })
-    
-
+      this.finish()
+    }
+    else{
+      var that = this
+      this.saveCanvas((res) => {
+        util.closeCountDown(this)
+        var tempscore= JSON.parse(res.data)
+        // console.log(tempscore,that.data.now)
+        var scoredetail = that.data.scoredetail
+        scoredetail[that.data.now-1] = tempscore.detail_score
+        var allscore = that.data.allscore
+        allscore[that.data.now-1] = tempscore.all_score
+        that.setData({
+          allscore:allscore,
+          scoredetail:scoredetail
+        })
+        if (tempscore.all_score == tempscore.detail_score) this.addscore()
+        this.setData({
+          now: that.data.now + 1
+        })
+        util.initCountDown(that, that.data.time[that.data.now], 1)
+        this.clearDraw()
+      })
+    }
   },
   finish: function () { //提交最后一题，结算分数
     var that = this
     this.saveCanvas((res) => {
+      util.closeCountDown(this)
       var tempscore= JSON.parse(res.data)
       // console.log(tempscore,that.data.now)
       var scoredetail = that.data.scoredetail
