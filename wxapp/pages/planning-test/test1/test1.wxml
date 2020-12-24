@@ -1,4 +1,4 @@
-<!--pages/Planning/test1/test1.wxml-->
+<!--pages/planning-test/test1/test1.wxml-->
 <view class="container">
   <view class="jindu">
     <!-- <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/lyq.png' style="width: 500rpx; "></image> -->

@@ -64,4 +64,17 @@
       <button wx:else bindtap="next" style="width:32%;background-color:{{color[ranktype]}}"><text class="button-text">下一页</text></button>
     </view>
   </view>
+  <view class="cu-bar tabbar margin-bottom-xsl bg-white mybar text-xsl" style="height: 60px;width:100%">
+    <view class="action text-green text-bold " bindtap="list">
+      <view class="cuIcon-rank"></view>
+    </view>
+    <view class="action text-grey text-bold">
+      <view class="cuIcon-home">
+      </view>
+    </view>
+    <view class="action text-grey text-bold" bindtap="bindViewTap">
+      <view class="cuIcon-my">
+      </view>
+    </view>
+  </view>
 </view>

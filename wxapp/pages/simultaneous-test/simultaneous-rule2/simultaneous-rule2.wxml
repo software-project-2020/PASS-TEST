@@ -1,6 +1,52 @@
 <!--pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2.wxml-->
-<view class="container">
-  <view class="top" style="flex-direction:row;">
+<view class="container" style="background-image: url('https://picture.morii.top/renzhixuetang/background/13.jpg');">
+  <view class="padding light main">
+    <view class="cu-steps bg-white" style="border-radius:10px;padding: 10px;opacity: 0.95;">
+      <view class="cu-item {{index>num?'':'text-brown'}} " wx:for="{{numList}}" wx:key>
+        <text class="num {{index==2?'err':''}}  " data-index="{{index + 1}}"></text> {{item.name}}
+      </view>
+    </view>
+
+    <view class="bg-white rules justify-center">
+      <view class="flex-sub text-center" style="height: 20%;">
+        <view class="solid-bottom text-xxl padding">
+          <text class="text-brown text-bold">言语加工</text>
+        </view>
+        <view class="padding text-left" style="padding: 0 45px;" > 
+          <text space="{{true}}" decode="{{true}}">
+            &nbsp;&nbsp;&nbsp;&nbsp;{{rules[num].words}}。
+          </text>
+          
+          </view>
+      </view>
+      <view class="justify-center" style="display:flex;padding:10px;height:60%;">
+        <image src='{{rules[num].img}}' style="width: 80%; height:100%"></image>
+      </view>
+      <view class="flex  padding justify-around">
+        <view wx:if="{{num>0}}" class="action">
+          <button class="cu-btn bg-brown shadow lg round" bindtap="numStepsBack"
+            style="display:flex;justify-content: center;width: 110px;">上一步</button>
+        </view>
+        <view wx:if="{{num<3}}" class="action">
+          <button class="cu-btn bg-brown shadow lg round" bindtap="numSteps"
+            style="display:flex;justify-content: center;width: 110px;">下一步</button>
+        </view>
+        <view wx:if="{{num==3}}" class="action">
+          <button class="cu-btn bg-brown shadow lg round" bindtap="numSteps"
+            style="display:flex;justify-content: center;width: 110px;">开始测试</button>
+        </view>
+      </view>
+    </view>
+
+
+    <view>
+
+
+
+    </view>
+
+  </view>
+  <!-- <view class="top" style="flex-direction:row;">
     <view class="sheep">
       <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/sheep.png' style="width: 170rpx; "></image>
     </view>
@@ -18,6 +64,6 @@
     <button class="btn" plain="true" bindtap="gototest1">
       <image class='img2' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/starttest.png' style="width: 250rpx; "></image>
     </button>
-  </view>
+  </view> -->
 
 </view>
