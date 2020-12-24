@@ -30,7 +30,7 @@ Page({
       img:"https://picture.morii.top/renzhixuetang/rules/attention/A1-step3.png"
     },
     {
-      words:"如果出现的数字不为题目给出的数字中的任何一个，则在跳出下一个数字之前点击❌按钮",
+      words:"如果出现的数字不为题目给出的数字中的任何一个，则在跳出下一个数字之前点击X按钮",
       img:"https://picture.morii.top/renzhixuetang/rules/attention/A1-step4.png"
     }]
   },

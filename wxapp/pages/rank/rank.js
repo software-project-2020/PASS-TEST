@@ -77,6 +77,16 @@ Page({
       path: '/pages/index/index',
     }
   },
+  goHome: function () {
+    wx.navigateTo({
+      url: '../start/start'
+    })
+  },
+  bindViewTap: function () {
+    wx.navigateTo({
+      url: '/pages/SelfCenter/my/my'
+    })
+  },
 
   pre: function () {
     this.setData({

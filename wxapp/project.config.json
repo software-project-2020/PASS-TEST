@@ -63,14 +63,14 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2",
-          "pathName": "pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2",
+          "name": "pages/rank/rank",
+          "pathName": "pages/rank/rank",
           "query": "",
           "scene": null
         },
         {
-          "name": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
-          "pathName": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
           "query": "",
           "scene": null
         }
