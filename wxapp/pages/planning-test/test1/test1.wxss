@@ -37,8 +37,8 @@ page{
   margin-bottom: 2%;
 }
 .border{
-  height: 600rpx;
-  width: 80%;
+  height: 670rpx;
+  width: 86%;
   display: flex;
   justify-content: center;  /*水平*/
   align-items: center; /*垂直*/

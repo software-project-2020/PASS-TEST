@@ -25,18 +25,18 @@
         <text class="question-txt">{{qa[now-1].question}}</text>
       </view>
       <view class="option">
-        <button class="{{choosed[0] ? 'option-a': 'option-ab'}}" style="width: 45%" bindtap="choose" data-index="0">
+        <button class="{{choosed[0] ? 'option-a': 'option-ab'}}" style="width: 45%;height:75%" bindtap="choose" data-index="0">
           <text class="a">{{qa[now-1].option[0]}}</text>
         </button>
-        <button class="{{choosed[1] ? 'option-b': 'option-bb'}}" style="width: 45%" bindtap="choose" data-index="1">
+        <button class="{{choosed[1] ? 'option-b': 'option-bb'}}" style="width: 45%;height:75%" bindtap="choose" data-index="1">
           <text class="b">{{qa[now-1].option[1]}}</text>
         </button>
       </view>
       <view class="option">
-        <button class="{{choosed[2] ? 'option-c': 'option-cb'}}" style="width: 45%" bindtap="choose" data-index="2">
+        <button class="{{choosed[2] ? 'option-c': 'option-cb'}}" style="width: 45%;height:75%" bindtap="choose" data-index="2">
           <text class="c">{{qa[now-1].option[2]}}</text>
         </button>
-        <button class="{{choosed[3] ? 'option-d': 'option-db'}}" style="width: 45%" bindtap="choose" data-index="3">
+        <button class="{{choosed[3] ? 'option-d': 'option-db'}}" style="width: 45%;height:75%" bindtap="choose" data-index="3">
           <text class="d">{{qa[now-1].option[3]}}</text>
         </button>
       </view>

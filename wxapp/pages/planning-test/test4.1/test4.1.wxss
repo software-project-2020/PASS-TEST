@@ -33,7 +33,7 @@ page{
 }
 .border{
   height: 650rpx;
-  width: 70%;
+  width: 80%;
   display: flex;
   justify-content: center;  /*水平*/
   align-items: center; /*垂直*/
