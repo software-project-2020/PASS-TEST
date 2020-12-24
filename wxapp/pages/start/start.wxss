@@ -1,22 +1,10 @@
 /* pages/start/start.wxss */
 page{
-  overflow: hidden;
-  background-image: url('https://picture.morii.top/renzhixuetang/background/11.jpg');
   background-size: 100% 100%;
-}
-.my{
-  background-color: #ffffff9c;
-  height: 100%
-}
-.tr {
-  display: flex;
-  width: 100%;
   height: 100%;
-  justify-content: center;
-  align-items: center;
-  padding-top: 5%;
-  padding-bottom: 5%;
- }
+  width: 100%;
+}
+
  .tr1{
   display: flex;
   width: 100%;
@@ -25,65 +13,23 @@ page{
   justify-content: left;
   align-items: left;
  }
- .td {
-   width: 50%;
-  justify-content: center;
-  text-align: center;
- }
- .userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  border-radius: 50%;
-}
-.sign{
-  height: 180rpx;
-  background-color:#f8f8f800;
-}
-.nickname{
-  color: #000000;
-  font-size: 45rpx;
-  font-weight: 1000;
-  letter-spacing:2px;
-}
-.text_age{
-  color: #777777;
-  font-size: 30rpx;
-  font-weight: 900;
-  letter-spacing:1px;
-}
-.huizhang{
-  background-color:#f8f8f800;
-  padding:0px 0px;
-  height: 30px;
-  margin-left: 50%;
+.text_age image{
+  width: 40rpx;
+  height: 40rpx;
 }
 
-
-.start{
-  display: flex;
+.mybar{
+  bottom: 0px;
+  margin-bottom: 0;
   width: 100%;
-  height: 100%;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-content: center;
-  margin-top: 5%;
+  position: fixed;
+  bottom: 0px;
+  height: 60px;
+  /* display: flex; */
+  /* justify-content: center; */
 }
-.button_back_test {
-  margin-top: 5%;
-  background-color:#f8f8f800;
-  padding:0px 0px;
-  width: 450rpx;
-  height: 350rpx
-}
-.button_back_test_image{
-  width: 450rpx;
-  height: 350rpx
-}
-.list_back{
-  background-color:#f8f8f800;
-  padding: 0rpx 0rpx;
-  height: 450rpx
-}
-.list_back_image{
-  height: 100%
+.process{
+  height: 25px;
+  display: flex;
+  align-items: center; /*垂直*/
 }

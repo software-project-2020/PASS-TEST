@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "mp-dialog": "../../weui-miniprogram/dialog/dialog",
+    "cu-custom":"../../colorui/components/cu-custom"
+  }
 }

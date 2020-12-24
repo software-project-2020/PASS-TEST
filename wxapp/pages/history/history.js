@@ -33,7 +33,7 @@ Page({
       var simultaneous_mygrade = JSON.parse(res.data.simul_score);
       var simultaneous_avggrade = JSON.parse(res.data.suc_avg_score);
       var successive_mygrade = JSON.parse(res.data.suc_score);
-      var successive_avggrade = JSON.parse(res.data.simul_avg_score);
+      var successive_avggrade = JSON.parse(res.data.suc_avg_score);
       var people = JSON.parse(res.data.sum_peoele);
       var plan = JSON.parse(res.data.plan_rank);
       var attention = JSON.parse(res.data.attention_rank);
@@ -91,11 +91,14 @@ Page({
       title: '历史测试结果'
     })
   },
-  /**
+    /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '认知学堂',
+      path: '/pages/index/index',
+    }
   },
   init() {
     //雷达图

@@ -13,11 +13,11 @@ Page({
       confirmText: '练习一下',
       success: function (res) {
         if (res.confirm) { //这里是点击了确定以后
-          wx.navigateTo({
+          wx.redirectTo({
             url: '/pages/zyy_memory_span/test/test',
           })
         } else {
-          wx.navigateTo({
+          wx.redirectTo({
             url: '/pages/zyy_memory_span/memory_span',
           })
         }

@@ -19,7 +19,7 @@ Page({
       title: '同时性加工测试'
     })
     this.initCanvas()
-    testutil.getS11(0, (res) => {
+    testutil.getS11(app.globalData.userInfo.ageGroup, (res) => {
       // console.log(res)
       this.setData({
         qnum: res.qnum,
@@ -98,7 +98,8 @@ Page({
         })
         console.log(res.tempFilePath);
         wx.uploadFile({
-          url: 'https://app.morii.top/test',
+          // url: 'https://app.morii.top/test',
+          url:'127.0.0.1:5000',
           filePath: res.tempFilePath,
           fileType: 'jpg',
           name: 'file',

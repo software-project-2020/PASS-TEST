@@ -1,18 +1,37 @@
 // pages/start/start.js
 const app = getApp()
+var userutil = require('../../utils/userutil.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    dialogShow: false,
+    oneButton: [{
+      text: '确定'
+    }],
+    items: [{
+      name: '1',
+      value: '男',
+      checked: 'true'
+    },
+    {
+      name: '2',
+      value: '女'
+    }
+  ],
+    date: '2016-09-01',
+    StatusBar: app.globalData.StatusBar,
+    CustomBar: app.globalData.CustomBar,
+    Custom: app.globalData.Custom,
+    gender:1
   },
   onLoad: function () {
     this.setData({
       userInfo: app.globalData.userInfo
     })
-    if (app.globalData.userInfo.age > 10) app.globalData.userInfo['ageGroup'] = 1
-    else app.globalData.userInfo['ageGroup'] = 0
+    
   },
   /**
    * 生命周期函数--监听页面显示
@@ -47,12 +66,14 @@ Page({
       cancelText: '取消',
       confirmText: '进入测试',
       success: function (res) {
+        if (app.globalData.userInfo.age > 10) app.globalData.userInfo['ageGroup'] = 1
+        else app.globalData.userInfo['ageGroup'] = 0
         if (res.confirm) {//这里是点击了确定以后
           app.globalData.timer = setInterval(function () {
             app.globalData.time += 1
           }, 1000)
           wx.navigateTo({
-            url: '/pages/Planning/rule1/rule1'
+            url: '/pages/planning-test/rule1/rule1'
           })
         }
       }
@@ -63,5 +84,53 @@ Page({
     wx.navigateTo({
       url: '/pages/rank/rank',
     })
+  },
+  changeinfo:function(){
+    this.setData({
+      dialogShow: true
+    })
+   
+  },
+  tapDialogButton(e) {
+    app.globalData.userInfo['birthday'] = this.data.date
+    app.globalData.userInfo['gender'] = this.data.gender
+    userutil.personalInfo(app.globalData.userInfo, (res) => {
+      //年龄放入userinfo
+      app.globalData.userInfo['age'] = res.data.age
+      console.log(app.globalData.userInfo)
+      wx.setStorageSync('userInfo', Object.assign(app.globalData.userInfo, {
+        'birthday': this.data.date,
+        'gender': this.data.gender,
+      }))
+      
+      this.setData({
+        dialogShow: false
+      })
+      this.setData({
+        userInfo:app.globalData.userInfo
+      })
+    })
+    
+  },
+  bindDateChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      date: e.detail.value
+    })
+  },
+  radioChange: function (e) {
+    this.setData({
+      gender: e.detail.value
+    })
+    console.log('radio发生change事件，携带value值为：', e.detail.value)
+  },
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+    return {
+      title: '认知学堂',
+      path: '/pages/index/index',
+    }
   }
 })

@@ -81,7 +81,8 @@ Page({
     }],
     write: ["练习结束，测试正式开始", "请继续完成下一题", "本游戏结束，开始下一个测试"],
     text: ["练习", "进度：1/2", "进度：2/2"],
-    start: false
+    start: false,
+    button: ['开始练习', '开始测试', '开始测试']
   },
   onReady: function () {},
   onShow: function () {
@@ -157,7 +158,7 @@ Page({
       var l = this.data.l;
       //保证至少有一个答案
       var place = [];
-      var size = Math.floor((Math.random() * 5) + 3);
+      var size = Math.floor((Math.random() * 10) + 10);
       for (i = 0; i < size; i++) {
         place[i] = Math.floor(((Math.random() * (this.data.line[this.data.number] * this.data.column[this.data.number]))));
       }
@@ -168,13 +169,13 @@ Page({
         for (j = 0; j < this.data.column[this.data.number]; j++) {
           var flag = false;
           for (k = 0; k < size; k++) {
-            if (Number((i * this.data.line[this.data.number] + j)) == Number(place[k])) {
+            if (Number((i * this.data.column[this.data.number] + j)) == Number(place[k])) {
               if (this.data.age == 0) {
                 if (this.data.number == 0 || this.data.number == 1) {
                   if (l[i][j] == null) {
                     a = this.data.answer1
                     var item = {
-                      "index": i * this.data.line[this.data.number] + j,
+                      "index": i * this.data.column[this.data.number] + j,
                       "value": a,
                       "add": this.data.list[a],
                     }
@@ -184,7 +185,7 @@ Page({
                   if (l[i][j] == null) {
                     a = [this.data.answer1, this.data.answer2, this.data.answer3];
                     var item = {
-                      "index": i * this.data.line[this.data.number] + j,
+                      "index": i * this.data.column[this.data.number] + j,
                       "value": a[Math.floor(Math.random() * 3)],
                       "add": this.data.list[a[Math.floor(Math.random() * 3)]],
                     }
@@ -195,7 +196,7 @@ Page({
                 if (this.data.number == 0) {
                   if (l[i][j] == null) {
                     var item = {
-                      "index": i * this.data.line[this.data.number] + j,
+                      "index": i * this.data.column[this.data.number] + j,
                       "value": this.data.age1_question,
                       "add": this.data.list_big_letter[this.data.age1_question],
                       "number": ""
@@ -206,7 +207,7 @@ Page({
                 } else if (this.data.number == 1) {
                   if (l[i][j] == null) {
                     var item = {
-                      "index": i * this.data.line[this.data.number] + j,
+                      "index": i * this.data.column[this.data.number] + j,
                       "value": this.data.age1_question,
                       "add": this.data.list_small_letter[this.data.age1_question],
                       "number": this.data.age1_question_number
@@ -217,7 +218,7 @@ Page({
                 } else if (this.data.number == 2) {
                   if (l[i][j] == null) {
                     var item = {
-                      "index": i * this.data.line[this.data.number] + j,
+                      "index": i * this.data.column[this.data.number] + j,
                       "value": this.data.age1_question,
                       "add": this.data.list_big_letter[this.data.age1_question],
                       "value2": this.data.age2_question,
@@ -233,7 +234,7 @@ Page({
             if (this.data.age == 0) {
               a = Math.floor(Math.random() * Object.keys(this.data.list).length);
               var item = {
-                "index": i * this.data.line[this.data.number] + j,
+                "index": i * this.data.column[this.data.number] + j,
                 "value": a,
                 "add": this.data.list[a],
               }
@@ -242,7 +243,7 @@ Page({
               a2 = Math.floor(Math.random() * 26);
               if (this.data.number == 0) {
                 var item = {
-                  "index": i * this.data.line[this.data.number] + j,
+                  "index": i * this.data.column[this.data.number] + j,
                   "value": a,
                   "add": this.data.list_big_letter[a],
                   "value2": "",
@@ -250,7 +251,7 @@ Page({
                 }
               } else if (this.data.number == 1) {
                 var item = {
-                  "index": i * this.data.line[this.data.number] + j,
+                  "index": i * this.data.column[this.data.number] + j,
                   "value": a,
                   "add": this.data.list_small_letter[a],
                   "value2": "",
@@ -258,7 +259,7 @@ Page({
                 }
               } else if (this.data.number == 2) {
                 var item = {
-                  "index": i * this.data.line[this.data.number] + j,
+                  "index": i * this.data.column[this.data.number] + j,
                   "value": a,
                   "add": this.data.list_big_letter[a],
                   "value2": a2,
@@ -326,11 +327,11 @@ Page({
         })
       } else if (this.data.number == 1) {
         this.setData({
-          word: this.data.list_big_letter[this.data.age1_question] + " 对应的小写字母和数字 " + this.data.age1_question_number + " 的组合"
+          word: this.data.list_small_letter[this.data.age1_question] + " 和 " + this.data.age1_question_number + " 的组合"
         })
       } else if (this.data.number == 2) {
         this.setData({
-          word: this.data.list_small_letter[this.data.age1_question] + " 对应的大写字母和 " + this.data.list_big_letter[this.data.age2_question] + " 对应的小写字母的组合"
+          word: this.data.list_big_letter[this.data.age1_question] + " 和 " + this.data.list_small_letter[this.data.age2_question] + " 的组合"
         })
       }
     }
@@ -378,12 +379,12 @@ Page({
       var sumRight = this.data.sumRight + this.data.rightcount;
       var sumCount = this.data.sumCount + this.data.count;
       var sum = getApp().globalData.score[2] + this.data.sumGrade;
-    
+
       var item = {
         "sumRight": sumRight,
         "sumCount": sumCount
       }
-      
+
       getApp().globalData.score[2] = Math.round(sum);
       getApp().globalData.scoreDetail[2][1] = item;
       console.log(getApp().globalData.score[2])
@@ -398,12 +399,6 @@ Page({
     console.log("下一题")
     var that = this;
     if (this.data.number == 0) {
-      // var title = '糟糕';
-      // var content = '时间花光了';
-      // if (that.data.finishClick == true) {
-      //   title = '练习结束';
-      //   content = '测试要开始啦，请集中注意力'
-      // }
       wx.showModal({
         title: '练习结束',
         content: '测试要开始啦，请集中注意力进行测试',
@@ -425,13 +420,12 @@ Page({
         }
       })
     } else {
-      var title ;
-      var content ;
-      if (this.data.number == 1){
+      var title;
+      var content;
+      if (this.data.number == 1) {
         title = '完成';
         content = '稍微休息一下，还有一题，继续集中注意力完成下一题'
-      }
-      else if (this.data.number == 2){
+      } else if (this.data.number == 2) {
         title = '完成';
         content = '稍微休息一下，进入下一个题目'
       }
@@ -450,7 +444,7 @@ Page({
             console.log('用户点击确定')
             if (that.data.number == 3) {
               wx.redirectTo({
-                url: '../../Planning/rule4.1/rule4.1'
+                url: '../../planning-test/rule4.1/rule4.1'
               })
             } else {
               that.init()
@@ -473,19 +467,23 @@ Page({
     console.log("answer2 : " + answer2)
     console.log("answer3 : " + answer3)
     var i = 0;
-    for (i = 0; i < this.data.line[this.data.number] * this.data.column[this.data.number]; i++) {
-      let index = "num[" + i + "]";
-      let count = "ans_num[" + i + "]";
-      let value = l[Math.floor(i / this.data.line[this.data.number])][i % this.data.column[this.data.number]].value;
-      if (this.data.age == 1 && this.data.number == 2) {
-        var value_num = l[Math.floor(i / this.data.line[this.data.number])][i % this.data.column[this.data.number]].value2;
-      } else {
-        var value_num = l[Math.floor(i / this.data.line[this.data.number])][i % this.data.column[this.data.number]].number;
+    var j = 0;
+    for (i = 0; i < this.data.line[this.data.number]; i++) {
+      for (j = 0; j < this.data.column[this.data.number]; j++) {
+        let index = "num[" + (i*this.data.column[this.data.number] + j) + "]";
+        let count = "ans_num[" + (i*this.data.column[this.data.number] + j) + "]";
+        let value = l[i][j].value;
+        if (this.data.age == 1 && this.data.number == 2) {
+          var value_num = l[i][j].value2;
+        } else {
+          var value_num = l[i][j].number;
+        }
+        that.setData({
+          [index]: value,
+          [count]: value_num,
+        });
       }
-      that.setData({
-        [index]: value,
-        [count]: value_num,
-      });
+
     }
 
     for (i = 0; i < this.data.line[this.data.number] * this.data.column[this.data.number]; i++) {
@@ -539,6 +537,7 @@ Page({
     })
     var i = 0;
     i = Number(e.target.dataset.name)
+    console.log("i : " + i)
     let index = "bg[" + i + "]";
     let indexflag = "flag[" + i + "]";
     var value = false;
@@ -618,9 +617,9 @@ Page({
     util.closeCountDown(this)
     this.timeout();
   },
-  start: function(e){
+  start: function (e) {
     this.setData({
-      start : true
+      start: true
     })
     this.initnum()
   }

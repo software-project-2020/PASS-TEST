@@ -1,22 +1,20 @@
 <view class="container">
-  <view class="rules">
-    <view class="tittle">
-      <image class="rule-tittle" src="https://picture.morii.top/renzhixuetang/successive/规则.png"></image>
+
+  <view class="top" style="flex-direction:row;">
+    <view class="sheep">
+      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/sheep.png' style="width: 170rpx; "></image>
     </view>
-    <view class="rule-detail">
-      接下来你将会看到一句由多个词组组成的句子，句子只出现一次，你需要回答一个有关句子的问题，有四个选项供你选择。请尽快选择你的答案。然后点击确定按钮提交你的答案。请看下面的例子：
-    </view>
-    <image class="rule-img" src="https://picture.morii.top/renzhixuetang/successive/1.gif"></image>
   </view>
-  <!-- <view class="btn">
-    <button class="button" style="width:100%;" bindtap="start"  wx:if="{{!exeshow}}">
-      <text>开始</text>
-    </button>
-  </view> -->
+  <view class="border">
+    <view class="introduction">
+      <text class="rules"> 接下来你将会看到一句由多个词组组成的句子，句子只出现一次，你需要回答一个有关句子的问题，有四个选项供你选择。请尽快选择你的答案。然后点击确定按钮提交你的答案。请看下面的例子：</text>
+    </view>
+    <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/successive/1.gif' style="width: 380rpx; "></image>
+   
+  </view>
   <view class="bottom">
-    <button class="btn" plain="true" bindtap="start">
-      <image class='img2' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/starttest1.png'
-        style="width: 250rpx; "></image>
-    </button>
-  </view>
+    <button class="btn" plain="true" bindtap="start" >
+    <image class='img2' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/starttest1.png' style="width: 250rpx; "></image>
+  </button></view>
+
 </view>

@@ -1,4 +1,4 @@
-// pages/Planning/test1/test1.js
+// pages/planning-test/test1/test1.js
 var util = require('../../../utils/util.js')
 var testutil = require('../../../utils/testutil.js')
 Page({
@@ -513,6 +513,7 @@ Page({
       if (FinalScore > 100)
         FinalScore = 100
       console.log(FinalScore)
+      console.log(this.data.Passtime)
       var PassScore = this.data.PassScore
       var scoreDetail = this.data.scoreDetail
       if (this.data.nowdifficulty == 4 || this.data.nowdifficulty == 5) {
@@ -522,7 +523,7 @@ Page({
         })
         var item = {
           "difficulty": this.data.nowdifficulty,
-          "score": Math.round(FinalScore)
+          "score": Math.round(this.data.Passtime)
         }
         scoreDetail.push(item)
       }

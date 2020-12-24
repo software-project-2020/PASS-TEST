@@ -18,7 +18,7 @@ Page({
     wx.setNavigationBarTitle({
       title: '同时性加工测试'
     })
-    testutil.getS12(1, (res) => {
+    testutil.getS12(app.globalData.userInfo.ageGroup, (res) => {
       console.log(res)
       this.setData({
         qnum: res.qnum,

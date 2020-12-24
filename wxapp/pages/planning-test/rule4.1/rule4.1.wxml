@@ -1,4 +1,4 @@
-<!--pages/Planning/rule4.1/rule4.1.wxml-->
+<!--pages/planning-test/rule4.1/rule4.1.wxml-->
 <view class="container">
   <view class="top" style="flex-direction:row;">
     <view class="sheep">
