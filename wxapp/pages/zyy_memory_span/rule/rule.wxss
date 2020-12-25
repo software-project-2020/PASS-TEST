@@ -1,8 +1,9 @@
-/* pages/Planning/rule4.1/rule4.1.wxss */
 page {
   overflow: hidden;
   background-image: url('https://picture.morii.top/renzhixuetang/background/9.jpg');
   background-size: 100% 100%;
+  height: 100%;
+  width: 100%;
 }
 
 .container {
