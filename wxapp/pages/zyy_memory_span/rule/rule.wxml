@@ -9,7 +9,7 @@
     <view class="bg-white rules justify-center">
       <view class="flex-sub text-center" style="height: 30%;">
         <view class="solid-bottom text-xxl padding">
-          <text class="text-purple text-bold">句子提问</text>
+          <text class="text-purple text-bold">继时性加工</text>
         </view>
         <view class="padding text-left" style="padding: 0 45px;">
           <text space="{{true}}" decode="{{true}}">
