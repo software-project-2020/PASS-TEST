@@ -9,6 +9,9 @@
     </button>
   </view>
   <mp-dialog title="完善个人资料" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{oneButton}}">
+    <view style="margin-bottom:20px;">
+    <text >注意：年龄关系到测试结果的准确性，请正确选择你的出生日期!</text>
+   </view> 
     <radio-group class="radio-group" bindchange="radioChange" style="padding-bottom: 10px;">
       <label>性别： </label>
       <label class="radio" wx:for="{{items}}" style="padding: 5px;">

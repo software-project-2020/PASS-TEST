@@ -63,13 +63,16 @@
           </view>
         </view>
       </view>
-      <view wx:if="{{!showablity}}">
+      <view wx:else>
         <view class="text-brown text-xl text-center solid-bottom" style="padding-bottom: 10px;">个人能力</view>
         <view class="text-grey text-sm text-center" style="padding-bottom: 10px;">这里还没有你的测试记录，快去开始第一次测试吧!</view>
       </view>
     </view>
   </view>
   <mp-dialog title="完善个人资料" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{oneButton}}">
+   <view style="margin-bottom:20px;">
+    <text >注意：年龄关系到测试结果的准确性，请正确选择你的出生日期!</text>
+   </view> 
     <radio-group class="radio-group" bindchange="radioChange" style="padding-bottom: 10px;">
       <label>性别： </label>
       <label class="radio" wx:for="{{items}}" style="padding: 5px;">
