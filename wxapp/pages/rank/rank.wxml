@@ -12,27 +12,27 @@
     <view class="tab">
       <view class="tabsquare">
         <view class="{{choosed[0] ? 't': 'tb'}}" bindtap="choose" data-index="0">
-          <text class="{{choosed[0] ? 'txt ttext': 'txt ttextb'}}">T</text>
+          <text class="{{choosed[0] ? 'txt ttext': 'txt ttextb'}}">综合</text>
         </view>
       </view>
       <view class="tabsquare">
         <view class="{{choosed[1] ? 'p': 'pb'}}" bindtap="choose" data-index="1">
-          <text class="{{choosed[1] ? 'txt ptext': 'txt ttextb'}}">P</text>
+          <text class="{{choosed[1] ? 'txt ptext': 'txt ttextb'}}">计划</text>
         </view>
       </view>
       <view class="tabsquare">
         <view class="{{choosed[2] ? 'a': 'ab'}}" bindtap="choose" data-index="2">
-          <text class="{{choosed[2] ? 'txt atext': 'txt ttextb'}}">A</text>
+          <text class="{{choosed[2] ? 'txt atext': 'txt ttextb'}}">注意</text>
         </view>
       </view>
       <view class="tabsquare">
         <view class="{{choosed[3] ? 's1': 's1b'}}" bindtap="choose" data-index="3">
-          <text class="{{choosed[3] ? 'txt s1text': 'txt ttextb'}}">S1</text>
+          <text class="{{choosed[3] ? 'txt s1text': 'txt ttextb'}}">同时</text>
         </view>
       </view>
       <view class="tabsquare">
         <view class="{{choosed[4] ? 's2': 's2b'}}" bindtap="choose" data-index="4">
-          <text class="{{choosed[4] ? 'txt s2text': 'txt ttextb'}}">S2</text>
+          <text class="{{choosed[4] ? 'txt s2text': 'txt ttextb'}}">继时</text>
         </view>
       </view>
     </view>
@@ -62,6 +62,19 @@
       <button wx:if="{{pagenum==all_number}}" style="width:32%;background-color:{{color[ranktype]}}">
         <text class="button-text">尾 页</text></button>
       <button wx:else bindtap="next" style="width:32%;background-color:{{color[ranktype]}}"><text class="button-text">下一页</text></button>
+    </view>
+  </view>
+  <view class="cu-bar tabbar margin-bottom-xsl bg-white mybar text-xsl" style="height: 60px;width:100%">
+    <view class="action text-green text-bold ">
+      <view class="cuIcon-rank"></view>
+    </view>
+    <view class="action text-grey text-bold" bindtap="goHome">
+      <view class="cuIcon-home">
+      </view>
+    </view>
+    <view class="action text-grey text-bold" bindtap="bindViewTap">
+      <view class="cuIcon-my">
+      </view>
     </view>
   </view>
 </view>

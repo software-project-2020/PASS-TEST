@@ -53,7 +53,7 @@ page{
 }
 
 .chess_map {
-  width: 80%;
+  width: 85%;
   display: flex;
   overflow: hidden;
   flex-direction: row;
@@ -99,6 +99,7 @@ page{
 }
 
 .chess_below {
+  width: 85%;
   height: auto;
   overflow: visible;
   white-space: nowrap;

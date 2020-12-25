@@ -46,7 +46,7 @@ Page({
   data: {
     windowWidth: app.windowWidth,
     windowHeight: app.windowHeight,
-    chess_size: (app.windowWidth * 0.8) / 7,
+    chess_size: (app.windowWidth * 0.8) / 6,
     level_flow: [5],
     level_time: [5],
     level_index: 0,
@@ -86,7 +86,7 @@ Page({
     if (chess_start[who].left == 0 && chess_start[who].top == 0) {
       param["chess_start[" + who + "]"] = {
         left: event.currentTarget.offsetLeft + this.data.chess_size / 2,
-        top: event.currentTarget.offsetTop,
+        top: event.currentTarget.offsetTop - this.data.chess_size / 6,
       };
     }
     param["chess_zindex[" + who + "]"] = 200;
@@ -209,10 +209,8 @@ function gameStart(that) {
         that.setData({
           game_state: "开始拖动吧"
         });
-        util.checkTime(that, (e) => {
-          // console.log(e);
-        }, {
-          msg: "做题时间计时器被触发"
+        util.checkTime(that, () => {
+          userCommitAnswer(null, that)
         });
       }, that.data.level_time[that.data.level_index] * 1000 + 1000);
     },

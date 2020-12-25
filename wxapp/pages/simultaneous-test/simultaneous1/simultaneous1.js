@@ -22,7 +22,8 @@ Page({
       console.log(res)
       this.setData({
         qnum: res.qnum,
-        qlist: res.qlist
+        qlist: res.qlist,
+        time :res.time
       })
       // console.log(res.qlist)
     })
@@ -78,7 +79,7 @@ Page({
       success: function (res) {
         if (res.confirm) { //提交
           var score=0
-          for(var i=0;i<that.data.qnum;i++){
+          for(var i=1;i<that.data.qnum;i++){
             if(that.data.answer[i]==that.data.qlist[i].answer)
               score++
           }
@@ -97,7 +98,31 @@ Page({
     })
   },
   timeout: function () {
-    submitAnswer()
+    util.closeCountDown(this)
+    var that=this
+    wx.showModal({
+      title: '时间结束',
+      content: '很遗憾，时间到了，点击提交结果进入下一项测试吧！',
+      confirmText: '提交结果',
+      showCancel: false,
+      success: function (res) {
+        if (res.confirm) { //提交
+          var score=0
+          for(var i=0;i<that.data.qnum;i++){
+            if(that.data.answer[i]==that.data.qlist[i].answer)
+              score++
+          }
+          //S12占测试总数的0.6
+          app.globalData.scoreDetail[1][0]={score:score,qnum:that.data.qnum-1}
+          console.log(app.globalData.scoreDetail[1][0])
+          app.globalData.score[1]=score/(that.data.qnum-1)*100*0.6
+          console.log(app.globalData.scoreDetail[1],app.globalData.score[1])
+          wx.redirectTo({
+            url: '/pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2',
+          })
+        }
+      }
+    })
   },
   tapDialogButton: function () {
     this.setData({
@@ -145,8 +170,8 @@ Page({
       confirmText: '开始测试',
       success: function (res) {
         if (res.confirm) { //这里是点击了确定以后
-          that.nextQuestion();
-          util.initCountDown(that, 300, 1)
+          that.nextQuestion()
+          util.initCountDown(that, that.data.time, 1)
         }
       }
     })

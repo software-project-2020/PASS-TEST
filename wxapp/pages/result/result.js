@@ -32,8 +32,8 @@ Page({
     // var costtime = 600;
     // var age = 4;
     var plan_mygrade = score[0];
-    var attention_mygrade = score[1];
-    var simultaneous_mygrade = score[2];
+    var attention_mygrade = score[2];
+    var simultaneous_mygrade = score[1];
     var successive_mygrade = score[3];
     testutil.submitResult(userid, score, costtime, age, (res) => {
       console.log(res)
@@ -436,15 +436,15 @@ Page({
     ctx.fillText(this.data.attention1_right + " / " + this.data.attention1_sum, 260, 657)
     ctx.fillText('接受性注意', 80, 707)
     ctx.fillText(this.data.attention2_right + " / " + this.data.attention2_sum, 260, 707)
-    ctx.fillText('言语加工', 80, 757)
+    ctx.fillText('渐进矩阵', 80, 757)
     ctx.fillText(this.data.simultaneous1_right + " / " + this.data.simultaneous1_sum, 260, 757)
-    ctx.fillText('渐进矩阵', 80, 807)
+    ctx.fillText('言语加工', 80, 807)
     ctx.fillText(this.data.simultaneous2_right + " / " + this.data.simultaneous2_sum, 260, 807)
     ctx.fillText('单词序列', 80, 857)
     ctx.fillText(this.data.successive1_right + " / " + this.data.successive1_sum, 260, 857)
-    ctx.fillText('句子提问', 80, 907)
+    ctx.fillText('记忆广度', 80, 907)
     ctx.fillText(this.data.successive2_right + " / " + this.data.successive2_sum, 260, 907)
-    ctx.fillText('记忆广度', 80, 957)
+    ctx.fillText('句子提问', 80, 957)
     ctx.fillText(this.data.successive3_right + " / " + this.data.successive3_sum, 260, 957)
 
     //画横线
@@ -666,18 +666,19 @@ Page({
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('加工能力，更加有助于孩子的成长。', 188, 1400)
+    ctx.fillText('加工能力。', 188, 1400)
 
     //渲染
     ctx.draw(true, () => {
       that.setData({
         spinning: false
-      })
+      })   
     })
     // ctx.draw()
   },
 
   savePicutre() {
+    setTimeout(() => {
     var that = this;
     //需要把canvas转成图片后才能保存
     wx.canvasToTempFilePath({
@@ -720,6 +721,7 @@ Page({
         })
       }
     }, this)
+  }, 500)
   },
 
   //保存图片 

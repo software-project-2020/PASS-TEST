@@ -1,10 +1,37 @@
 // pages/simultaneous-test/simultaneous-rule/simultaneous-rule.js
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
+    basics: 0,
+    numList: [{
+      name: '开始'
+    }, {
+      name: '选择'
+    }, {
+      name: '继续'
+    }, {
+      name: '完成'
+    }, ],
+    num: 0,
+    scroll: 0,
+    rules:[{
+      words:"进入页面后，你将会看到一个矩阵题目",
+      img:"https://picture.morii.top/renzhixuetang/rules/S12-rules/S12-step1.jpg"
+    },
+    {
+      words:"你需要观察出规律，找出正确的填补选项",
+      img:"https://picture.morii.top/renzhixuetang/rules/S12-rules/S12-step2.jpg"
+    },
+    {
+      words:"做完一题后点击下一题按钮",
+      img:"https://picture.morii.top/renzhixuetang/rules/S12-rules/S12-step3.jpg"
+    },
+    {
+      words:"完成所有的题目后请点击提交按钮。如果已经对规则了解了的话，就点击开始测试的按钮吧",
+      img:"https://picture.morii.top/renzhixuetang/rules/S12-rules/S12-step4.jpg"
+    }]
   },
   gototest1: function (e) {
 
@@ -79,5 +106,15 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  numSteps() {
+    this.setData({
+      num: this.data.num == this.data.numList.length - 1 ? 0 : this.data.num + 1
+    })
+  },
+  numStepsBack() {
+    this.setData({
+      num: this.data.num - 1
+    })
   }
 })

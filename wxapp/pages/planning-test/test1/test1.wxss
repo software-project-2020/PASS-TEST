@@ -1,0 +1,168 @@
+/* pages/planning-test/test1/test1.wxss */
+@import "../../../colorui/animation.wxss";
+page{
+  overflow: hidden;
+  background-image: url('https://picture.morii.top/renzhixuetang/background/8.jpg');
+  background-size: 100% 100%;
+}
+.container{
+  padding: 0rpx;
+  display: flex;
+  justify-content: center;  /*水平*/
+  align-items: center; /*垂直*/
+}
+.jindu{
+  height: 15%;
+  margin-top: 5%;
+}
+.xjindu{
+    /* 上右下左 */
+    margin:12% 3% 1% 2%;
+    height: 60rpx;
+    width: 37%;
+    display: flex;
+    background-color: #ffffff;
+    opacity: 0.8;
+    border: 4rpx solid #2BB31C;
+    border-radius: 15rpx;
+    text-align:center;
+    align-items:center;
+    justify-content: center;
+}
+.rightbottom{
+  width: 100%;
+  height: 80rpx;
+  display: flex;
+  justify-content: left;  /*水平*/
+  align-items: flex-end; /*垂直*/
+  margin-bottom: 2%;
+}
+.border{
+  height: 670rpx;
+  width: 86%;
+  display: flex;
+  justify-content: center;  /*水平*/
+  align-items: center; /*垂直*/
+  background-color: #ffffff;
+  opacity: 0.9;
+  border: 9rpx solid #2BB31C;
+  border-radius: 30rpx;
+  padding: 25rpx;
+  flex-direction: column;
+  margin-bottom: 4% ;
+}
+.eyu{
+  margin-left: 10%;
+}
+.border1{
+  height: 160rpx;
+  width: 75%;
+  display: flex;
+  justify-content: center;  /*水平*/
+  align-items: center; /*垂直*/
+  background-color: #ffffff;
+  opacity: 0.8;
+  border: 9rpx solid #2BB31C;
+  border-radius: 30rpx;
+  padding: 2rpx;
+}
+.img1{
+  display: flex;
+  bottom:0; 
+}
+.top{
+  margin-top: 0%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /*垂直*/
+}
+.clock{
+  margin:0% 0% 0% 2%;
+}
+.time{
+  margin: 0% 0% 1% 0%;
+  height: 55rpx;
+  width:25%;
+  display: flex;
+  background-color: #ffffff;
+  opacity: 0.8;
+  border: 4rpx solid #2BB31C;
+  border-radius: 15rpx;
+  text-align:center;
+  align-items:center;
+  justify-content: center;
+}
+.displaytime{
+  display: flex;
+  justify-content: center;  /*水平*/
+  
+}
+.rightup{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; /*垂直*/
+}
+.bottom{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.hide{
+  display: flex;
+  align-items: flex-end;
+}
+.Series{
+  color: rgb(255, 217, 0);
+  margin-bottom: 10%;
+  font-size: 55rpx;
+  font-weight: 600;
+}
+.bg1{
+  background-color: white;
+  font-size: 80rpx;
+}
+.bg2{
+  background-color: rgba(143, 241, 148, 0.76);
+  font-size: 80rpx;
+}
+.t1{
+  display: flex;
+  width: 95%;
+  justify-content: center;
+  height: 3rem;
+  align-items: center;
+  margin: 25rpx;
+}
+.t2{
+  /* width: 60%; */
+  justify-content: center;
+  margin: 5rpx;
+  color: #2BB31C;
+  border: 4rpx solid #2BB31C;
+  display: flex;
+  width: 3.3rem;
+  height: 3.3rem;
+  align-items: center;
+}
+.say{
+  margin: 5% 10% 10% 0%;
+  height: 100rpx;
+  width: 40%;
+  display: flex;
+  justify-content: center;  /*水平*/
+  align-items: center; /*垂直*/
+  background-color: #ffffff;
+  opacity: 0.8;
+  border: 9rpx solid #2BB31C;
+  border-radius: 30rpx;
+  padding: 25rpx;
+  flex-direction: column;
+}
+.saytext{
+  justify-content: center;
+  color: #2BB31C;
+  font-weight: 550;
+  align-items: center;
+}

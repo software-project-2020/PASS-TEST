@@ -1,0 +1,114 @@
+/* pages/Planning/test1/test1.wxss */
+@import "../../../colorui/animation.wxss";
+page{
+  overflow: hidden;
+  background-image: url('https://picture.morii.top/renzhixuetang/background/9.jpg');
+  background-size: 100% 100%;
+}
+.container{
+  padding: 0rpx;
+}
+.jindu{
+  height: 15%;
+  margin-bottom: 3%;
+  margin-top: 5%;
+}
+.xjindu{
+  /* 上右下左 */
+  margin:5% 0% 0% 3%;
+  height: 60rpx;
+  width: 21%;
+  display: flex;
+  background-color: #ffffff;
+  opacity: 0.8;
+  border: 6rpx solid #9f9fdf;
+  border-radius: 15rpx;
+  text-align:center;
+  align-items:center;
+  justify-content: center;
+}
+.t1{
+  display: flex;
+  align-items: center;
+  justify-content: center;  /*水平*/
+}
+.border{
+  height: 670rpx;
+  width: 80%;
+  display: flex;
+  justify-content: center;  /*水平*/
+  align-items: center; /*垂直*/
+  background-color: #ffffff;
+  opacity: 0.9;
+  border: 11rpx solid #9f9fdf;
+  border-radius: 30rpx;
+  padding: 25rpx;
+  flex-direction: column;
+}
+.img1{
+  display: flex;
+  bottom:0; 
+}
+.top{
+  margin-top: 5%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; /*垂直*/
+}
+.clock{
+    margin:3% 1% 0% 3%;
+}
+.time{
+  margin: 5% 0% 0% 0%;
+  height: 60rpx;
+  width: 12%;
+  display: flex;
+  background-color: #ffffff;
+  opacity: 0.8;
+  border: 6rpx solid #9f9fdf;
+  border-radius: 15rpx;
+  text-align:center;
+  align-items:center;
+  justify-content: center;
+}
+
+.bottom{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.text{
+  width: 70%;
+  height: 30%;
+  display: flex;
+  justify-content: center;  /*水平*/
+  align-items: center; /*垂直*/
+}
+.show{
+  color: #9f9fdf;
+  font-size: 100rpx;
+  font-weight: 600;
+}
+.btn{
+  margin-top: 5%;
+}
+.button{
+  border: #9f9fdf 7rpx solid;
+  border-radius: 20rpx;
+  background-color: #cdcdfc;
+}
+.button text{
+  font-size: 50rpx;
+  color: #5c5ca3;
+}
+.mix{
+  color: #9f9fdf;
+  font-size: 72rpx;
+  font-weight: 600;
+}
+.no{
+  color: #ff92d2;
+  font-size: 50rpx;
+  width: 40rpx;
+}

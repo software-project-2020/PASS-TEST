@@ -39,6 +39,7 @@ function fillter_board(board) {
 /**
  * 打乱一个数组（原地打乱）
  * @param {Number[]} arr 需要被打乱的数组
+ * @returns {Number[]} 被打乱后的数组的引用（其实和被传入的引用是同一个）
  */
 function randArr(arr) {
   for (var i = 0; i < arr.length; i++) {
@@ -179,7 +180,7 @@ function prettyBoard(board) {
   }
 
   // console.log("调整前：", isOK(board));
-  for (let k = 0; k < 5; k++) {
+  for (let k = 0; k < 3; k++) {
     if (!isOK(board)) {
       for (let i = 0; i < board.length; i++) {
         step(board, i);
