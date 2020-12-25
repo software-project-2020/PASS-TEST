@@ -209,10 +209,8 @@ function gameStart(that) {
         that.setData({
           game_state: "开始拖动吧"
         });
-        util.checkTime(that, (e) => {
-          // console.log(e);
-        }, {
-          msg: "做题时间计时器被触发"
+        util.checkTime(that, () => {
+          userCommitAnswer(null, that)
         });
       }, that.data.level_time[that.data.level_index] * 1000 + 1000);
     },
