@@ -2,30 +2,30 @@
 Page({
   data: {
     numList: [{
-      name: '开始'
+      name: '开始记忆'
     }, {
-      name: '画图'
+      name: '拖拽成功'
     }, {
-      name: '错误'
+      name: '拖拽失败'
     }, {
-      name: '完成'
+      name: '提交答案'
     }, ],
     num: 0,
     scroll: 0,
     rules: [{
-        words: "进入页面后，你将会看到一句描述性的文字",
+        words: "请记住这些数字各自的位置。一定时间后，数字会转移到屏幕下方。",
         img: "https://picture.morii.top/renzhixuetang/rules/S11-rule/S11-step1.jpg"
       },
       {
-        words: "你需要将题目中描述的形状在屏幕上画出来",
+        words: "被拖拽的数字会自动吸附到附近的格子上",
         img: "https://picture.morii.top/renzhixuetang/rules/S11-rule/S11-step2.gif"
       },
       {
-        words: "请注意，为避免误判，请尽量将图形画的标准一些哦",
+        words: "如果附近没有格子，松手后，数字会回到屏幕下方",
         img: "https://picture.morii.top/renzhixuetang/rules/S11-rule/S11-step3.gif"
       },
       {
-        words: "做完后请点击下面的按钮提交成绩。如果已经对规则了解了的话，就点击开始测试的按钮吧",
+        words: "完成以后，要记得点击\"提交答案\"的按钮哦",
         img: "https://picture.morii.top/renzhixuetang/rules/S11-rule/S11-step4.jpg"
       }
     ]

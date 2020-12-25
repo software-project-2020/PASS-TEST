@@ -5,7 +5,6 @@
         <text class="num {{index==2?'err':''}}  " data-index="{{index + 1}}"></text> {{item.name}}
       </view>
     </view>
-
     <view class="bg-white rules justify-center">
       <view class="flex-sub text-center" style="height: 30%;">
         <view class="solid-bottom text-xxl padding">
@@ -13,9 +12,8 @@
         </view>
         <view class="padding text-left" style="padding: 0 45px;">
           <text space="{{true}}" decode="{{true}}">
-            &nbsp;&nbsp;&nbsp;&nbsp;{{rules[num].words}}。
+            &nbsp;&nbsp;&nbsp;&nbsp;{{rules[num].words}}
           </text>
-
         </view>
       </view>
       <view class="justify-center" style="display:flex;padding:10px;height:50%;">
@@ -29,7 +27,7 @@
         <view class="action">
           <button wx:if="{{num<3}}" class="cu-btn bg-purple shadow lg round" bindtap="numSteps"
             style="display:felselex;justify-content: center;width: 110px;">下一步</button>
-          <button wx:else class="cu-btn bg-purple shadow lg round" bindtap="gototest1"
+          <button wx:else class="cu-btn bg-purple shadow lg round" bindtap="goTest"
             style="display:flex;justify-content: center;width: 110px;">开始测试</button>
         </view>
       </view>
