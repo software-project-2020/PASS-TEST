@@ -22,9 +22,8 @@ page {
   border-radius: 10px;
   justify-content: center;
   align-items: center;
-  opacity: 0.95;
+  opacity: 0.92;
   height: 80%;
-
 }
 
 

@@ -1,7 +1,8 @@
 module.exports = {
   formatTime: formatTime,
   initCountDown: initCountDown,
-  closeCountDown: closeCountDown
+  closeCountDown: closeCountDown,
+  getLastTest:getLastTest
 }
 const formatTime = date => {
   const year = date.getFullYear()
@@ -49,9 +50,11 @@ function initCountDown(page, countDownNum, interval) {
         displayTime: displayTime
       })
       //在倒计时还未到0时，这中间可以做其他的事情，按项目需求来
-      if (page.data.countDownNum == 0) {
+      if (page.data.displayTime == 0) {
         closeCountDown(page)
         page.timeout()
+      }else if(page.data.displayTime> 0 && page.data.displayTime<=5){
+        toggle(page,interval)
       }
     }, 1000 * interval)
   })
@@ -66,4 +69,33 @@ function closeCountDown(page) {
   clearInterval(that.data.timer);
   page.timer = null;
   page.time = 0;
+}
+function toggle(page,interval) {
+  var anmiaton = 'shake';
+  var that = page;
+  that.setData({
+    animation: anmiaton
+  })
+  setTimeout(function () {
+    that.setData({
+      animation: ''
+    })
+  }, 800*interval)
+}
+function getLastTest(openid,callback){
+  wx.request({
+    method: 'POST',
+    dataType: 'json',
+    url: 'https://api.zghy.xyz/api/test/lasttest',
+    header: {
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    data: {
+      openid:openid
+    },
+    success: function (res) {
+      console.log(res.data)
+      callback && callback(JSON.parse(res.data))
+    }
+  })
 }

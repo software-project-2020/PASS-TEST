@@ -13,9 +13,6 @@ Page({
     rightflag: false,
     wrongflag: false,
     flag: false,
-    answer1: Math.floor(Math.random() * 10),
-    answer2: Math.floor(Math.random() * 10),
-    answer3: Math.floor(Math.random() * 10),
     grade: 0,
     time: [],
     dialogShow: false,
@@ -76,15 +73,6 @@ Page({
     })
     if (this.data.number == 0) {
       var that = this
-      wx.showModal({
-        title: '注意',
-        content: '此次为尝试机会，不计入测试成绩',
-        confirmText: '开始尝试',
-        showCancel: false,
-        success: function (res) {
-          // that.initnum()
-        }
-      })
     }
   },
   initnum() {

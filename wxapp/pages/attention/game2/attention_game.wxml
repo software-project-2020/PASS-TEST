@@ -1,22 +1,24 @@
 <!--pages/attention/attention_game.wxml-->
+
 <view class="top" style="flex-direction:row;">
-    <view class="eyu">
-      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/bear.png' style="width: 175rpx; "></image>
-    </view>
-    <view class="jindu">
-      <text>{{text[number]}}</text>
-    </view>
-    <view wx:if="{{start == true}}" class="start">
-    <view class="clock">
+  <view class="eyu">
+    <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/bear.png'
+      style="width: 175rpx; "></image>
+  </view>
+  <view class="jindu">
+    <text>{{text[number]}}</text>
+  </view>
+  <view wx:if="{{start == true}}" class="start">
+    <view class="clock  animation-{{animation=='shake'?'shake':''}}">
       <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/clock.png'
         style="width: 70rpx;"></image>
-    </view> 
+    </view>
     <view class="time">
       <text style='color:#edbf40'>{{displayTime}}s</text>
     </view>
   </view>
-   
-  </view>
+
+</view>
 
 <view class="back">
   <view wx:if="{{age == 0}}">
@@ -34,15 +36,17 @@
 </view>
 <view wx:else>
   <view class="back1">
-    <view class="t1" wx:for="{{l}}">
-      <view class="t2" wx:for="{{l[index]}}">
-        <view wx:if="{{age == 0}}">
-          <image wx:if="{{!item.isEmpty}}" class="kuai {{bg[item.index]?'bg1':'bg2'}}" data-name="{{item.index}}"
-            bindtap="change" style="width: 70rpx; height: 70rpx;" mode='widthFix' src="{{item.add}}"></image>
+    <view wx:if="{{age == 0}}">
+      <view class="t1" wx:for="{{l}}">
+        <view class="t2 {{bg[item.index]?'t2':'t22'}}" wx:for="{{l[index]}}" wx:if="{{!item.isEmpty}}" bindtap="change"
+          data-name="{{item.index}}" mode='widthFix'>{{item.add}}{{item.number}}
         </view>
-        <view wx:else>
-          <text wx:if="{{!item.isEmpty}}" class="kuai {{bg[item.index]?'text1':'text2'}}" data-name="{{item.index}}"
-            bindtap="change" style="width: 70rpx; height: 70rpx;" mode='widthFix'>{{item.add}}{{item.number}}</text>
+      </view>
+    </view>
+    <view wx:else>
+      <view class="t1" wx:for="{{l}}">
+        <view class="t2 {{bg[item.index]?'t2':'t22'}}" wx:for="{{l[index]}}" wx:if="{{!item.isEmpty}}" bindtap="change"
+          data-name="{{item.index}}" mode='widthFix'>{{item.add}}{{item.number}}{{item.number1}}
         </view>
       </view>
     </view>

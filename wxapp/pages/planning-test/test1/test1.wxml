@@ -3,7 +3,6 @@
   <view class="jindu">
     <!-- <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/lyq.png' style="width: 500rpx; "></image> -->
   </view>
-  
   <view class="top" style="flex-direction:row;">
     <view class="eyu">
       <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/eyu.png' style="width: 250rpx; "></image>
@@ -17,7 +16,7 @@
       <text wx:if="{{nowdifficulty-3==0}}" class="text-jindu" style="color:#2BB31C">练习</text>
       <text wx:if="{{nowdifficulty-3!=0}}" class="text-jindu" style="color:#2BB31C">进度：{{nowdifficulty-3}}/2</text>
     </view>
-    <view class="clock">
+    <view class="clock animation-{{animation=='shake'?'shake':''}}">
       <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/clock.png' style="width: 70rpx;"></image>
     </view>
     <view class="time" >
