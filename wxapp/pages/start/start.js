@@ -36,7 +36,8 @@ Page({
     })
     util.getLastTest(this.data.userInfo.openid,(res) => {
       console.log(res.data=="")
-      if(res.data==""){
+      if(res.data!=""){
+        var tempscore = res.data
         var score=[tempscore.plan_score,tempscore.attention_score,tempscore.simul_score,tempscore.suc_score]
         console.log(score)
         that.setData({
@@ -65,17 +66,17 @@ Page({
     console.log(app.globalData.userInfo)
   },
   myinformation: function () {
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../index/index'
     })
   },
   bindViewTap: function () {
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/SelfCenter/my/my'
     })
   },
   list: function () {
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../rank/rank'
     })
   },
@@ -94,7 +95,7 @@ Page({
           app.globalData.timer = setInterval(function () {
             app.globalData.time += 1
           }, 1000)
-          wx.navigateTo({
+          wx.redirectTo({
             url: '/pages/planning-test/rule1/rule1'
           })
         }
@@ -103,7 +104,7 @@ Page({
    
   },
   list:function(){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/rank/rank',
     })
   },

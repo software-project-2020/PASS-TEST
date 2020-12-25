@@ -1,6 +1,12 @@
 /* pages/SelfCenter/suggestion/suggestion.wxss */
+page{
+  width: 100%;
+  height: 100%;
+}
 .container {
   padding: 0rpx;
+  width: 100%;
+  height: 100%;
 }
 
 .border {
