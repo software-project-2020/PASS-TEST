@@ -13,20 +13,20 @@ Page({
     num: 0,
     scroll: 0,
     rules: [{
-        words: "请记住这些数字各自的位置。一定时间后，数字会转移到屏幕下方。",
-        img: "https://picture.morii.top/renzhixuetang/rules/S11-rule/S11-step1.jpg"
+        words: "请记住这些数字各自的位置。一定时间后，数字会消失",
+        img: "https://picture.morii.top/renzhixuetang/rules/S23/step_1.jpg"
       },
       {
         words: "被拖拽的数字会自动吸附到附近的格子上",
-        img: "https://picture.morii.top/renzhixuetang/rules/S11-rule/S11-step2.gif"
+        img: "https://picture.morii.top/renzhixuetang/rules/S23/step_2.gif"
       },
       {
         words: "如果附近没有格子，松手后，数字会回到屏幕下方",
-        img: "https://picture.morii.top/renzhixuetang/rules/S11-rule/S11-step3.gif"
+        img: "https://picture.morii.top/renzhixuetang/rules/S23/step_3.gif"
       },
       {
         words: "完成以后，要记得点击\"提交答案\"的按钮哦",
-        img: "https://picture.morii.top/renzhixuetang/rules/S11-rule/S11-step4.jpg"
+        img: "https://picture.morii.top/renzhixuetang/rules/S23/step_4.jpg"
       }
     ]
   },
