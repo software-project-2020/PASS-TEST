@@ -46,7 +46,7 @@ Page({
   data: {
     windowWidth: app.windowWidth,
     windowHeight: app.windowHeight,
-    chess_size: (app.windowWidth * 0.8) / 7,
+    chess_size: (app.windowWidth * 0.8) / 6,
     level_flow: [5],
     level_time: [5],
     level_index: 0,

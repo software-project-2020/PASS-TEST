@@ -12,7 +12,7 @@ Page({
     score: 0,
     windowWidth: app.windowWidth,
     windowHeight: app.windowHeight,
-    chess_size: (app.windowWidth * 0.8) / 7,
+    chess_size: (app.windowWidth * 0.8) / 6,
     level_flow: [5, 6, 7, 8, 9],
     level_time: [4, 4, 5, 5, 5],
     // level_time: [5, 5, 5, 5, 5, 1],
@@ -375,34 +375,42 @@ function userCommitAnswer(event, that) {
         }
       })
     } else {
-      wx.showModal({
-        title: "过关啦",
-        content: '请前往下一个测试',
-        // cancelText: "再试一次",
-        showCancel: false,
-        confirmText: "下个测试",
-        success: function (res) {
-          if (res.confirm) {
-            that.setData({
-              score: that.data.level_index - 1
-            }, () => {
-              util.score_to_global(app, that.data.score, that.data.level_flow.length);
-              wx.redirectTo({
-                url: '/pages/S2/successive-rules/successive-rules',
-              })
-            })
-          } else if (res.cancel) {
-            that.setData({
-              level_index: 0
-            }, () => {
-              that.gameStart(that, "newGame");
-            });
-          }
-        },
-        fail: function (e) {
-          // console.log("fail", e);
-        }
+      that.setData({
+        score: that.data.level_index - 1
+      }, () => {
+        util.score_to_global(app, that.data.score, that.data.level_flow.length);
+        wx.redirectTo({
+          url: '/pages/S2/successive-rules/successive-rules',
+        })
       });
+      // wx.showModal({
+      //   title: "过关啦",
+      //   content: '请前往下一个测试',
+      //   // cancelText: "再试一次",
+      //   showCancel: false,
+      //   confirmText: "下个测试",
+      //   success: function (res) {
+      //     if (res.confirm) {
+      //       that.setData({
+      //         score: that.data.level_index - 1
+      //       }, () => {
+      //         util.score_to_global(app, that.data.score, that.data.level_flow.length);
+      //         wx.redirectTo({
+      //           url: '/pages/S2/successive-rules/successive-rules',
+      //         })
+      //       })
+      //     } else if (res.cancel) {
+      //       that.setData({
+      //         level_index: 0
+      //       }, () => {
+      //         that.gameStart(that, "newGame");
+      //       });
+      //     }
+      //   },
+      //   fail: function (e) {
+      //     // console.log("fail", e);
+      //   }
+      // });
     }
   })
 
