@@ -14,7 +14,9 @@ Page({
     noworder: [],
     showTime: false,
     PassScore: 0,
-    scoreDetail: []
+    scoreDetail: [],
+    nowdifficultylist:[],
+    tryagain:false
   },
 
   /**
@@ -42,7 +44,8 @@ Page({
       console.log(difficultylist)
       this.setData({
         nowdifficulty: difficultylist[0],
-        Alltime: qnumlist
+        Alltime: qnumlist,
+        nowdifficultylist:difficultylist
       })
       this.initnum(this.data.nowdifficulty)
     })
@@ -111,18 +114,29 @@ Page({
     this.setData({
       complex: complex
     })
-    if (this.data.nowdifficulty == 3) {
+    if (this.data.nowdifficulty == 3&&this.data.tryagain==false) {
       var that = this
       wx.showModal({
         title: '注意',
         content: '此次为尝试机会，不计入测试成绩',
         confirmText: '开始尝试',
-        showCancel: false,
+        cancelText: '跳过尝试',
         success: function (res) {
-          that.setData({
+          if(res.confirm){
+            that.setData({
             showTime: true
           })
           util.initCountDown(that, that.data.Alltime[that.data.nowdifficulty - 3], 0.1)
+          }
+          else if(res.cancel){
+            that.setData({
+              nowdifficulty:that.data.nowdifficultylist[1]
+            })
+            that.initnum(that.data.nowdifficulty)
+            that.setData({
+              showTime: true
+            })
+          }
         }
       })
     } else {
@@ -179,6 +193,9 @@ Page({
             })
             that.initnum(that.data.nowdifficulty)
           } else if (res.cancel) {
+            that.setData({
+              tryagain:true
+            })
             that.initnum(that.data.nowdifficulty)
           }
         }
@@ -638,6 +655,9 @@ Page({
               })
               that.initnum(that.data.nowdifficulty)
             } else if (res.cancel) {
+              that.setData({
+                tryagain:true
+              })
               that.initnum(that.data.nowdifficulty)
             }
           }
