@@ -24,6 +24,7 @@ Page({
     wrongnum: 0,//连续错误题数
     score: 0,//得分
     isTry: true,
+    tryagain:false
   },
 
   /**
@@ -34,11 +35,11 @@ Page({
       title: '继时性加工测试'
     })
     this.setData({
-      // age:15
+      // age:5
       age:getApp().globalData.userInfo.age
     })
     testutil.getconfiguration(getApp().globalData.userInfo.ageGroup, 'S21', (res) => {
-      // testutil.getconfiguration(1, 'S21', (res) => {
+      // testutil.getconfiguration(0, 'S21', (res) => {
       console.log(res)
       var timelist=[]
       var intervaltimelist=[]
@@ -78,17 +79,24 @@ Page({
         startdifficulty:this.data.startdifficulty
       })
     }
-    if (this.data.isTry == true) {
+    if (this.data.isTry == true&&this.data.tryagain==false) {
       var that = this
       wx.showModal({
         title: '注意',
         content: '此次为尝试机会，不计入测试成绩',
         confirmText: '开始尝试',
-        showCancel: false,
+        cancelText:'跳过尝试',
         success: function (res) {
           if (res.confirm) {//这里是点击了确定以后
+            // that.setData({
+            //   begin: true
+            // })
+            that.changeletter()
+          }
+          else if(res.cancel){
             that.setData({
-              begin: true
+              isTry:false,
+              jindu:that.data.jindu+1
             })
             that.changeletter()
           }
@@ -157,7 +165,7 @@ Page({
       isSubmit: false,//是否有效提交，（不作答提交无效）
       num: 0,//用户排序时当前排的序号
       shownum: 0,//字词显示时，当前显示的是第几个数
-      begin: false
+      // begin: false
     }),
     mixlist.splice(0, mixlist.length);
     mixlist_mix.splice(0, mixlist_mix.length);
@@ -228,7 +236,11 @@ Page({
         success: function (res) {
           if (res.cancel) {//这里是点击了确定以后
             console.log('再次尝试')
+            that.setData({
+              tryagain:true
+            })
             that.intinum()
+            that.changeletter()
           }
           else if (res.confirm) {
             that.setData({
@@ -417,7 +429,11 @@ Page({
             success: function (res) {
               if (res.cancel) {//这里是点击了确定以后
                 console.log('再次尝试')
+                that.setData({
+                  tryagain:true
+                })
                 that.intinum()
+                that.changeletter()
               }
               else if (res.confirm) {
                 that.setData({
@@ -476,7 +492,11 @@ Page({
             success: function (res) {
               if (res.cancel) {//这里是点击了确定以后
                 console.log('再次尝试')
+                that.setData({
+                  tryagain:true
+                })
                 that.intinum()
+                that.changeletter()
               }
               else if (res.confirm) {
                 that.setData({
