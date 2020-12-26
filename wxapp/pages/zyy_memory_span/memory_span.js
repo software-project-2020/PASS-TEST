@@ -1,4 +1,5 @@
 const util = require("./zyy_util.js");
+const sql_tool = require("../../utils/testutil");
 let app = getApp();
 const board_size = 16;
 Page({
@@ -6,12 +7,14 @@ Page({
    * 页面的初始数据
    */
   data: {
+    setting_table: [],
+    diff_choice: 0,
     score: 0,
     windowWidth: app.windowWidth,
     windowHeight: app.windowHeight,
-    chess_size: (app.windowWidth * 0.8) / 7,
-    level_flow: [5, 5, 6, 6, 7, 7],
-    level_time: [5, 5, 10, 10, 15, 15],
+    chess_size: (app.windowWidth * 0.8) / 6,
+    level_flow: [5, 6, 7, 8, 9],
+    level_time: [4, 4, 5, 5, 5],
     // level_time: [5, 5, 5, 5, 5, 1],
     level_index: 0,
     board_num: [] /* board.length = board_size */ ,
@@ -35,10 +38,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    initChessBoard(this, false);
-    setTimeout(() => {
-      gameStart(this, 'newGame');
-    }, 800);
+    let remote_set = [];
+    let param = {};
+    param["setting_table"] = remote_set;
+    sql_tool.getconfiguration(0, 'S23', (res) => {
+      res.forEach(e => {
+        let t = {};
+        t.difficulty = e.difficulty;
+        t.detail = JSON.parse(e.parameter_info);
+        remote_set.push(t);
+      });
+      for (let i = 0; i < remote_set.length; i++) {
+        if (remote_set[i].difficulty == this.data.diff_choice) {
+          param["level_flow"] = remote_set[i].detail.level_flow;
+          param["level_time"] = remote_set[i].detail.level_time;
+        }
+      }
+      this.setData(param, () => {
+        console.log(param);
+        gameStart(this, 'newGame');
+      });
+    });
   },
 
   /**
@@ -105,7 +125,7 @@ Page({
     if (chess_start[who].left == 0 && chess_start[who].top == 0) {
       param["chess_start[" + who + "]"] = {
         left: event.currentTarget.offsetLeft + this.data.chess_size / 2,
-        top: event.currentTarget.offsetTop,
+        top: event.currentTarget.offsetTop + this.data.chess_size / 2,
       };
     }
     param["chess_zindex[" + who + "]"] = 200;
@@ -340,45 +360,58 @@ function userCommitAnswer(event, that) {
   // console.log("测试页 用户提交答案", endAnswer);
   that.setData({
     level_index: that.data.level_index + 1
-  })
-  if (endAnswer) {
-    that.setData({
-      score: that.data.level_index
-    })
-    if (that.data.level_index < that.data.level_flow.length) {
-      gameStart(that, "nextLevel");
-    } else {
-      util.score_to_global(app, that.data.score, that.data.level_flow.length);
-      wx.redirectTo({
-        url: '/pages/S2/successive-rules/successive-rules',
-      })
-    }
-  } else {
-    wx.showModal({
-      title: "答案错误",
-      content: '请前往下一个测试',
-      cancelText: "再试一次",
-      showCancel: false,
-      confirmText: "下个测试",
-      success: function (res) {
-        if (res.confirm) {
-          that.setData({
-            score: that.data.level_index - 1
-          })
+  }, () => {
+    if (endAnswer) {
+      that.setData({
+        score: that.data.level_index
+      }, () => {
+        if (that.data.level_index < that.data.level_flow.length) {
+          gameStart(that, "nextLevel");
+        } else {
           util.score_to_global(app, that.data.score, that.data.level_flow.length);
           wx.redirectTo({
             url: '/pages/S2/successive-rules/successive-rules',
           })
-        } else if (res.cancel) {
-          that.setData({
-            level_index: 0
-          });
-          that.gameStart(that, "newGame");
         }
-      },
-      fail: function (e) {
-        // console.log("fail", e);
-      }
-    });
-  }
+      })
+    } else {
+      that.setData({
+        score: that.data.level_index - 1
+      }, () => {
+        util.score_to_global(app, that.data.score, that.data.level_flow.length);
+        wx.redirectTo({
+          url: '/pages/S2/successive-rules/successive-rules',
+        })
+      });
+      // wx.showModal({
+      //   title: "过关啦",
+      //   content: '请前往下一个测试',
+      //   // cancelText: "再试一次",
+      //   showCancel: false,
+      //   confirmText: "下个测试",
+      //   success: function (res) {
+      //     if (res.confirm) {
+      //       that.setData({
+      //         score: that.data.level_index - 1
+      //       }, () => {
+      //         util.score_to_global(app, that.data.score, that.data.level_flow.length);
+      //         wx.redirectTo({
+      //           url: '/pages/S2/successive-rules/successive-rules',
+      //         })
+      //       })
+      //     } else if (res.cancel) {
+      //       that.setData({
+      //         level_index: 0
+      //       }, () => {
+      //         that.gameStart(that, "newGame");
+      //       });
+      //     }
+      //   },
+      //   fail: function (e) {
+      //     // console.log("fail", e);
+      //   }
+      // });
+    }
+  })
+
 }

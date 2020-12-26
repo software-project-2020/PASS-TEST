@@ -31,7 +31,7 @@ Page({
       var attention_mygrade = JSON.parse(res.data.attention_score);
       var attention_avggrade = JSON.parse(res.data.attention_avg_score);
       var simultaneous_mygrade = JSON.parse(res.data.simul_score);
-      var simultaneous_avggrade = JSON.parse(res.data.suc_avg_score);
+      var simultaneous_avggrade = JSON.parse(res.data.simul_avg_score);
       var successive_mygrade = JSON.parse(res.data.suc_score);
       var successive_avggrade = JSON.parse(res.data.suc_avg_score);
       var people = JSON.parse(res.data.sum_peoele);

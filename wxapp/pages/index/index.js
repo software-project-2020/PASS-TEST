@@ -22,7 +22,7 @@ Page({
         value: '女'
       }
     ],
-    date: '2016-09-01',
+    date: '2010-09-01',
     gender: 1,
 
   },
@@ -61,34 +61,37 @@ Page({
     this.setData({
       dialogShow: true
     })
+    wx.hideLoading()
   },
   getUserInfo: function (e) {
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-    //缓存中不存在用户信息
-    if (!wx.getStorageSync('userInfo')) {
-      userutil.userlogin(app.globalData.userInfo)
-      userutil.userloginCallback = res => {
-        console.log(res.data)
-        if (res.data.flag) { //第一次登陆
-          app.globalData.userInfo['openid'] = res.data.openid
-          this.openForm()
-        } else { //不是第一次登陆
-          app.globalData.userInfo = Object.assign(app.globalData.userInfo, res.data)
-          wx.navigateTo({
-            url: '../start/start'
-          })
+    var that = this
+    wx.getUserInfo({
+      success: function (res) {
+        wx.showLoading({
+          title: '登录中'
+        })
+        app.globalData.userInfo = res.userInfo
+        that.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+        userutil.userlogin(res.userInfo)
+        userutil.userloginCallback = res => {
+          console.log(res.data)
+          if (res.data.flag) { //第一次登陆
+            app.globalData.userInfo['openid'] = res.data.openid
+            that.openForm()
+          } else { //不是第一次登陆
+            app.globalData.userInfo = Object.assign(app.globalData.userInfo, res.data)
+            wx.navigateTo({
+              url: '../start/start'
+            })
+            wx.hideLoading()
+          }
         }
+        
       }
-    } else {
-      app.globalData.userInfo = wx.getStorageSync('userInfo')
-      wx.redirectTo({
-        url: '../start/start'
-      })
-    }
+    })
   },
   tapDialogButton(e) {
     app.globalData.userInfo['birthday'] = this.data.date
@@ -105,7 +108,6 @@ Page({
         url: '../start/start'
       })
     })
-
   },
   radioChange: function (e) {
     this.setData({

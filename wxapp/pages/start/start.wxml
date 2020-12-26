@@ -2,7 +2,7 @@
 <view class=" justify-center"
   style="height:100%;width: 100%;background-image: url('https://picture.morii.top/renzhixuetang/background/4.jpg');background-size: 100% 100%;">
 
-  <view class="cu-card case {{isCard?'no-card':''}}" style="height:65%;padding: 5% 0px;">
+  <view class="cu-card case {{isCard?'no-card':''}}" style="height:70%;padding: 5% 0px;">
     <view class="cu-item shadow" style="border-radius: 20px;">
       <view class="cu-list menu-avatar">
         <view class="cu-item" style="margin:15px">
@@ -26,7 +26,7 @@
       </view>
     </view>
     <view class="cu-item shadow" style="border-radius: 20px;padding: 25px;">
-      <view wx:if="{{1==0}}">
+      <view wx:if="{{showablity}}">
         <view class="text-brown text-xl text-center text-bold solid-bottom" style="padding-bottom: 10px;">个人能力</view>
         <view class="justify-center" style="padding:0 5px;opacity:0.7;">
           <view class="action" style="padding: 5px 20px;">
@@ -38,7 +38,7 @@
             </view>
           </view>
           <view class="action" style="padding: 5px 20px;">
-           A-注意
+            A-注意
             <view class="cu-progress round">
               <view class="padding bg-gradual-green solid radius shadow-blur process"
                 style="padding:0px 10px;width:{{loading?score[1]:''}}%;">
@@ -61,17 +61,18 @@
               </view>
             </view>
           </view>
-          
         </view>
-
       </view>
-      <view wx:if="{{1==1}}">
+      <view wx:else>
         <view class="text-brown text-xl text-center solid-bottom" style="padding-bottom: 10px;">个人能力</view>
         <view class="text-grey text-sm text-center" style="padding-bottom: 10px;">这里还没有你的测试记录，快去开始第一次测试吧!</view>
       </view>
     </view>
   </view>
   <mp-dialog title="完善个人资料" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{oneButton}}">
+   <view style="margin-bottom:20px;">
+    <text >注意：年龄关系到测试结果的准确性，请正确选择你的出生日期!</text>
+   </view> 
     <radio-group class="radio-group" bindchange="radioChange" style="padding-bottom: 10px;">
       <label>性别： </label>
       <label class="radio" wx:for="{{items}}" style="padding: 5px;">
@@ -79,7 +80,7 @@
       </label>
     </radio-group>
     <view class="section">
-      <picker mode="date" value="{{date}}" start="2005-09-01" end="2020-09-01" bindchange="bindDateChange">
+      <picker mode="date" value="{{date}}" start="2003-09-01" end="2020-09-01" bindchange="bindDateChange">
         <label class="sectiontitle">出生日期： </label>
         <label class="picker">{{date}}</label>
       </picker>

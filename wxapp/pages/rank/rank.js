@@ -78,12 +78,12 @@ Page({
     }
   },
   goHome: function () {
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../start/start'
     })
   },
   bindViewTap: function () {
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/SelfCenter/my/my'
     })
   },

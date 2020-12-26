@@ -1,7 +1,8 @@
 module.exports = {
   formatTime: formatTime,
   initCountDown: initCountDown,
-  closeCountDown: closeCountDown
+  closeCountDown: closeCountDown,
+  getLastTest:getLastTest
 }
 const formatTime = date => {
   const year = date.getFullYear()
@@ -80,4 +81,21 @@ function toggle(page,interval) {
       animation: ''
     })
   }, 800*interval)
+}
+function getLastTest(openid,callback){
+  wx.request({
+    method: 'POST',
+    dataType: 'json',
+    url: 'https://api.zghy.xyz/api/test/lasttest',
+    header: {
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    data: {
+      openid:openid
+    },
+    success: function (res) {
+      console.log(res.data)
+      callback && callback(JSON.parse(res.data))
+    }
+  })
 }
