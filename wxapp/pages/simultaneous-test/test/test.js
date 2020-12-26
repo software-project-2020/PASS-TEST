@@ -13,8 +13,8 @@ Page({
     pic: '',
     now: 0,
     score: 0,
-    scoredetail:[],
-    allscore:[]
+    scoredetail: [],
+    allscore: []
   },
   onLoad: function () {
     wx.setNavigationBarTitle({
@@ -26,7 +26,7 @@ Page({
       this.setData({
         qnum: res.qnum,
         qlist: res.qlist,
-        time:res.time
+        time: res.time
       })
     })
   },
@@ -120,8 +120,8 @@ Page({
 
   // 清除画布
   clearDraw() {
-    this.data.ctx.fillStyle = "#FFFFFF";
-    this.data.ctx.fillRect(0, 0, 800, 1000);
+    this.data.ctx.fillStyle = "#FFFFFF";
+    this.data.ctx.fillRect(0, 0, 800, 1000);
     this.data.ctx.draw()
   },
 
@@ -141,7 +141,7 @@ Page({
   },
   start: function () { //练习页面点击开始测试
     this.saveCanvas((res) => {
-      var tempscore= JSON.parse(res.data)
+      var tempscore = JSON.parse(res.data)
       var text
       console.log(tempscore)
       if (tempscore.all_score == tempscore.detail_score)
@@ -156,11 +156,11 @@ Page({
         confirmText: '开始测试',
         success: function (res) {
           if (res.confirm) { //这里是点击了确定以后
-            
+
             that.setData({
               now: that.data.now + 1
             })
-            util.initCountDown(that, that.data.time[that.data.now+1], 1)
+            util.initCountDown(that, that.data.time[that.data.now + 1], 1)
             that.clearDraw()
           }
         }
@@ -169,57 +169,70 @@ Page({
 
   },
   next: function () { //提交然后进入下一题
+    console.log(this.data.now)
     var that = this
     this.saveCanvas((res) => {
-      var tempscore= JSON.parse(res.data)
+      util.closeCountDown(this)
+      var tempscore = JSON.parse(res.data)
       // console.log(tempscore,that.data.now)
       var scoredetail = that.data.scoredetail
-      scoredetail[that.data.now-1] = tempscore.detail_score
+      scoredetail[that.data.now - 1] = tempscore.detail_score
       var allscore = that.data.allscore
-      allscore[that.data.now-1] = tempscore.all_score
+      allscore[that.data.now - 1] = tempscore.all_score
       that.setData({
-        allscore:allscore,
-        scoredetail:scoredetail
+        allscore: allscore,
+        scoredetail: scoredetail
       })
       if (tempscore.all_score == tempscore.detail_score) this.addscore()
       this.setData({
         now: that.data.now + 1
       })
+      util.initCountDown(that, that.data.time[that.data.now], 1)
       this.clearDraw()
     })
-    
 
   },
   finish: function () { //提交最后一题，结算分数
+    console.log(this.data.now)
     var that = this
     this.saveCanvas((res) => {
-      var tempscore= JSON.parse(res.data)
+      util.closeCountDown(this)
+      var tempscore = JSON.parse(res.data)
       // console.log(tempscore,that.data.now)
       var scoredetail = that.data.scoredetail
-      scoredetail[that.data.now-1] = tempscore.detail_score
+      scoredetail[that.data.now - 1] = tempscore.detail_score
       var allscore = that.data.allscore
-      allscore[that.data.now-1] = tempscore.all_score
+      allscore[that.data.now - 1] = tempscore.all_score
       that.setData({
-        allscore:allscore,
-        scoredetail:scoredetail
+        allscore: allscore,
+        scoredetail: scoredetail
       })
-      console.log(that.data.allscore,that.data.scoredetail)
+      console.log(that.data.allscore, that.data.scoredetail)
       if (tempscore.all_score == tempscore.detail_score) this.addscore()
       console.log(this.data.score)
       app.globalData.scoreDetail[1][1] = {
         score: that.data.score,
         qnum: that.data.qnum - 1
       }
-      var thisscore = that.data.scoredetail[0]+2*that.data.scoredetail[1]+3*that.data.scoredetail[2]
-      var thisall = that.data.allscore[0]+2*that.data.allscore[1]+3*that.data.allscore[2]
-      app.globalData.score[1] =parseInt(app.globalData.score[1] + thisscore /thisall*100 * 0.4) 
+      var thisscore = that.data.scoredetail[0] + 2 * that.data.scoredetail[1] + 3 * that.data.scoredetail[2]
+      var thisall = that.data.allscore[0] + 2 * that.data.allscore[1] + 3 * that.data.allscore[2]
+      console.log(thisscore,thisall)
+      app.globalData.score[1] = parseInt(app.globalData.score[1] + thisscore / thisall * 100 * 0.4)
       console.log(app.globalData.score[1])
-      wx.redirectTo({
-        url: "/pages/attention/rule1/attention",
+      wx.showModal({
+        title: '完成测试',
+        content: '恭喜你完成本项测试，点击确定进入下一项测试吧！',
+        confirmText: '确定',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) { //提交
+            wx.redirectTo({
+              url: "/pages/attention/rule1/attention",
+            })
+          }
+        }
       })
     })
-    
-    //展示一个提示框，点击确定后进入下一项测试
   },
   addscore: function () {
     this.setData({
@@ -227,7 +240,10 @@ Page({
     })
   },
   timeout: function () {
-    this.next()
+    if (this.data.now == 3)
+      this.finish()
+    else
+      this.next()
   },
 
 })

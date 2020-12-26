@@ -22,7 +22,7 @@ Page({
         value: '女'
       }
     ],
-    date: '2016-09-01',
+    date: '2010-09-01',
     gender: 1,
 
   },
@@ -61,11 +61,15 @@ Page({
     this.setData({
       dialogShow: true
     })
+    wx.hideLoading()
   },
   getUserInfo: function (e) {
     var that = this
     wx.getUserInfo({
       success: function (res) {
+        wx.showLoading({
+          title: '登录中'
+        })
         app.globalData.userInfo = res.userInfo
         that.setData({
           userInfo: res.userInfo,
@@ -82,8 +86,10 @@ Page({
             wx.navigateTo({
               url: '../start/start'
             })
+            wx.hideLoading()
           }
         }
+        
       }
     })
   },
