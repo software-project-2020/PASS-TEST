@@ -31,7 +31,8 @@ Page({
     wx.setNavigationBarTitle({
       title: '注意测试'
     })
-    testutil.getconfiguration(0, 'A1', (res) => {
+    var age = getApp().globalData.userInfo.ageGroup
+    testutil.getconfiguration(age, 'A1', (res) => {
       console.log(res)
       var longestTime = []
       var shortestTime = []
