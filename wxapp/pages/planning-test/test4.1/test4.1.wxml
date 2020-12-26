@@ -5,13 +5,13 @@
   </view>
   <view class="top" style="flex-direction:row;" >
     <view class="eyu">
-      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/eyu.png' style="width: 175rpx; "></image>
+      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/successive/flag.png' style="width: 90rpx; "></image>
     </view>
     <view class="xjindu">
       <text wx:if="{{jindu==0}}" class="text-jindu" style="color:#9f9fdf">练习</text>
       <text wx:if="{{jindu!=0}}" class="text-jindu" style="color:#9f9fdf">进度:{{jindu}}/6</text>
     </view>
-    <view class="clock">
+    <view class="clock animation-{{animation=='shake'?'shake':''}}">
       <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/clock.png' style="width: 90rpx;"></image>
     </view>
     <view class="time" >

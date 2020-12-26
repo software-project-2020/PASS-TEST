@@ -1,4 +1,5 @@
 <!--pages/attention/attention_game.wxml-->
+
 <view class="top" style="flex-direction:row;">
   <view class="eyu">
     <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/bear.png'
@@ -8,7 +9,7 @@
     <text>{{text[number]}}</text>
   </view>
   <view wx:if="{{start == true}}" class="start">
-    <view class="clock">
+    <view class="clock  animation-{{animation=='shake'?'shake':''}}">
       <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/clock.png'
         style="width: 70rpx;"></image>
     </view>
@@ -20,16 +21,9 @@
 </view>
 
 <view class="back">
-  <view wx:if="{{age == 0}}">
-    <text>{{question_text[age]}}{{word}}</text>
-    <image src="{{question[number]}}" class="question"></image>
-  </view>
-  <view wx:else>
     <text class="questionText">{{question_text[age]}}{{word}}</text>
   </view>
-
-
-</view>
+  
 <view wx:if="{{start == false}}">
   <button class="finish" bindtap="start">{{button[number]}}</button>
 </view>
@@ -38,16 +32,14 @@
     <view wx:if="{{age == 0}}">
       <view class="t1" wx:for="{{l}}">
         <view class="t2 {{bg[item.index]?'t2':'t22'}}" wx:for="{{l[index]}}" wx:if="{{!item.isEmpty}}" bindtap="change"
-          data-name="{{item.index}}" mode='widthFix'>
-          <image class="kuai" style="width: 70rpx; height: 70rpx;" src="{{item.add}}">
-          </image>
+          data-name="{{item.index}}" mode='widthFix'>{{item.add}}{{item.number}}
         </view>
       </view>
     </view>
     <view wx:else>
       <view class="t1" wx:for="{{l}}">
         <view class="t2 {{bg[item.index]?'t2':'t22'}}" wx:for="{{l[index]}}" wx:if="{{!item.isEmpty}}" bindtap="change"
-          data-name="{{item.index}}" mode='widthFix'>{{item.add}}{{item.number}}
+          data-name="{{item.index}}" mode='widthFix'>{{item.add}}{{item.number}}{{item.number1}}
         </view>
       </view>
     </view>

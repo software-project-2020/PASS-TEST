@@ -1,6 +1,7 @@
 // pages/start/start.js
 const app = getApp()
 var userutil = require('../../utils/userutil.js')
+const util = require('../../utils/util.js')
 Page({
 
   /**
@@ -21,16 +22,19 @@ Page({
       value: '女'
     }
   ],
-    date: '2016-09-01',
+    date: '2010-09-01',
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
     Custom: app.globalData.Custom,
-    gender:1
+    gender:1,
+    showablity:false
   },
   onLoad: function () {
+    var that=this
     this.setData({
       userInfo: app.globalData.userInfo
     })
+    
     
   },
   /**
@@ -40,20 +44,39 @@ Page({
     wx.setNavigationBarTitle({
       title: '主页'
     })
+    var that=this
+    util.getLastTest(this.data.userInfo.openid,(res) => {
+      console.log(JSON.stringify(res.data)!="{}")
+      if(JSON.stringify(res.data)!="{}"){
+        var tempscore = res.data
+        var score=[tempscore.plan_score,tempscore.attention_score,tempscore.simul_score,tempscore.suc_score]
+        console.log(score)
+        that.setData({
+          score:score,
+          showablity:true
+        })
+        setTimeout(function() {
+          that.setData({
+            loading: true
+          })
+        }, 500)
+      }
+      console.log(that.data.score)
+    })
     console.log(app.globalData.userInfo)
   },
   myinformation: function () {
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../index/index'
     })
   },
   bindViewTap: function () {
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/SelfCenter/my/my'
     })
   },
   list: function () {
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../rank/rank'
     })
   },
@@ -81,7 +104,7 @@ Page({
    
   },
   list:function(){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/rank/rank',
     })
   },

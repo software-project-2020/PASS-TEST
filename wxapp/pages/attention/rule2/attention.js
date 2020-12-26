@@ -19,19 +19,19 @@ Page({
     scroll: 0,
     rules:[{
       words:"进入页面后，你将会看到一个题目，点击按钮开始做题",
-      img:"https://picture.morii.top/renzhixuetang/attention/A2-step1.png"
+      img:"https://picture.morii.top/renzhixuetang/rules/attention/A2-step1.png"
     },
     {
       words:"做题开始，会出现一些字母或者数字",
-      img:"https://picture.morii.top/renzhixuetang/attention/A2-step2.gif"
+      img:"https://picture.morii.top/renzhixuetang/rules/attention/A2-step2.gif"
     },
     {
       words:"如果下面的字母或者数字与题目匹配，则点击该字母或者数字",
-      img:"https://picture.morii.top/renzhixuetang/attention/A2-step3.png"
+      img:"https://picture.morii.top/renzhixuetang/rules/attention/A2-step3.png"
     },
     {
       words:"在一定时间内，找出你认为的所有答案后，可以点击完成按钮进入下一题",
-      img:"https://picture.morii.top/renzhixuetang/attention/A2-step4.gif"
+      img:"https://picture.morii.top/renzhixuetang/rules/attention/A2-step4.gif"
     }]
   },
 

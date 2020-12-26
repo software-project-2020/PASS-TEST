@@ -50,13 +50,14 @@ function getconfiguration(age_group, test_id, callback) {
 //获得S12题目
 function getS12(ageGroup, callback) {
   var qnumlist = []
+  var time =0 
   getconfiguration(ageGroup, 'S12', (res) => {
-
     for (var i = 0; i < res.length; i++) {
       var temp = JSON.parse(res[i].parameter_info)
-      console.log(temp)
       qnumlist[i] = temp.num
+      time+= temp.num*temp.time
     }
+    console.log(time)
     var allnum = 0
     var alllist = []
     var qnum, qlist
@@ -91,7 +92,9 @@ function getS12(ageGroup, callback) {
               }
               var res = {
                 'qnum': allnum,
-                'qlist': alllist
+                'qlist': alllist,
+                'time': time
+
               }
               callback && callback(res)
             })
@@ -104,6 +107,7 @@ function getS12(ageGroup, callback) {
 //获得S11题目
 function getS11(ageGroup, callback) {
   var qnumlist = []
+  var time = []
   var diffitylist
   if (ageGroup == 0)
     diffitylist = [0, 1, 2, 3]
@@ -115,6 +119,7 @@ function getS11(ageGroup, callback) {
       var temp = JSON.parse(res[i].parameter_info)
       console.log(temp)
       qnumlist[i] = temp.num
+      time[i] = temp.time
     }
     console.log(qnumlist)
     var allnum = 0
@@ -146,7 +151,8 @@ function getS11(ageGroup, callback) {
             }
             var res = {
               'qnum': allnum,
-              'qlist': alllist
+              'qlist': alllist,
+              'time':time
             }
             callback && callback(res)
           })

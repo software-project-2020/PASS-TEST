@@ -65,17 +65,8 @@ Page({
       24: "y",
       25: "z",
     },
-    list: {
-      0: "https://picture.morii.top/renzhixuetang/attention/animals/cat.png",
-      1: "https://picture.morii.top/renzhixuetang/attention/animals/mouse.png",
-      2: "https://picture.morii.top/renzhixuetang/attention/animals/rabbit.png",
-      3: "https://picture.morii.top/renzhixuetang/attention/fruit/apple.png",
-      4: "https://picture.morii.top/renzhixuetang/attention/fruit/orange.png",
-      5: "https://picture.morii.top/renzhixuetang/attention/fruit/strawberry.png",
-    },
     age1_question: Math.floor(Math.random() * 26),
     age2_question: Math.floor(Math.random() * 26),
-    age0_question: ["动物", "水果"],
     oneButton: [{
       text: '确定'
     }],
@@ -92,8 +83,8 @@ Page({
   },
   onLoad: function () {
     //年龄暂时为写死为1
-    // var age = getApp().globalData.userInfo.ageGroup
-    var age = 1
+    var age = getApp().globalData.userInfo.ageGroup
+    // var age = 1
     testutil.getconfiguration(age, 'A2', (res) => {
       console.log(res)
       var line = []
@@ -170,29 +161,7 @@ Page({
           var flag = false;
           for (k = 0; k < size; k++) {
             if (Number((i * this.data.column[this.data.number] + j)) == Number(place[k])) {
-              if (this.data.age == 0) {
-                if (this.data.number == 0 || this.data.number == 1) {
-                  if (l[i][j] == null) {
-                    a = this.data.answer1
-                    var item = {
-                      "index": i * this.data.column[this.data.number] + j,
-                      "value": a,
-                      "add": this.data.list[a],
-                    }
-                    flag = true;
-                  }
-                } else if (this.data.number == 2) {
-                  if (l[i][j] == null) {
-                    a = [this.data.answer1, this.data.answer2, this.data.answer3];
-                    var item = {
-                      "index": i * this.data.column[this.data.number] + j,
-                      "value": a[Math.floor(Math.random() * 3)],
-                      "add": this.data.list[a[Math.floor(Math.random() * 3)]],
-                    }
-                    flag = true;
-                  }
-                }
-              } else if (this.data.age == 1) {
+           if (this.data.age == 0) {
                 if (this.data.number == 0) {
                   if (l[i][j] == null) {
                     var item = {
@@ -227,18 +196,50 @@ Page({
                     flag = true;
                   }
                 }
+              }else if (this.data.age == 1) {
+                if (this.data.number == 0) {
+                  if (l[i][j] == null) {
+                    var item = {
+                      "index": i * this.data.column[this.data.number] + j,
+                      "value": this.data.age1_question,
+                      "add": this.data.list_big_letter[this.data.age1_question],
+                      "number": "",
+                      "number1": "",
+                    }
+                    flag = true;
+                  }
+
+                } else if (this.data.number == 1) {
+                  if (l[i][j] == null) {
+                    var item = {
+                      "index": i * this.data.column[this.data.number] + j,
+                      "value": this.data.age1_question,
+                      "add": this.data.list_big_letter[this.data.age1_question],
+                      "value2": this.data.age2_question,
+                      "number": this.data.list_small_letter[this.data.age2_question],
+                      "number1": "",
+                    }
+                    flag = true;
+                  }
+
+                } else if (this.data.number == 2) {
+                  if (l[i][j] == null) {
+                    var item = {
+                      "index": i * this.data.column[this.data.number] + j,
+                      "value": this.data.age1_question,
+                      "add": this.data.list_big_letter[this.data.age1_question],
+                      "value2": this.data.age2_question,
+                      "number": this.data.list_small_letter[this.data.age2_question],
+                      "number1": this.data.age2_question_number,
+                    }
+                    flag = true;
+                  }
+                }
               }
             }
           }
           if (flag == false) {
             if (this.data.age == 0) {
-              a = Math.floor(Math.random() * Object.keys(this.data.list).length);
-              var item = {
-                "index": i * this.data.column[this.data.number] + j,
-                "value": a,
-                "add": this.data.list[a],
-              }
-            } else if (this.data.age == 1) {
               a = Math.floor(Math.random() * 26);
               a2 = Math.floor(Math.random() * 26);
               if (this.data.number == 0) {
@@ -266,6 +267,37 @@ Page({
                   "number": this.data.list_small_letter[a2],
                 }
               }
+            }else if (this.data.age == 1) {
+              a = Math.floor(Math.random() * 26);
+              a2 = Math.floor(Math.random() * 26);
+              if (this.data.number == 0) {
+                var item = {
+                  "index": i * this.data.column[this.data.number] + j,
+                  "value": a,
+                  "add": this.data.list_big_letter[a],
+                  "value2": "",
+                  "number": "",
+                  "number1": "",
+                }
+              } else if (this.data.number == 1) {
+                var item = {
+                  "index": i * this.data.column[this.data.number] + j,
+                  "value": a,
+                  "add": this.data.list_big_letter[a],
+                  "value2": a2,
+                  "number": this.data.list_small_letter[a2],
+                  "number1": "",
+                }
+              } else if (this.data.number == 2) {
+                var item = {
+                  "index": i * this.data.column[this.data.number] + j,
+                  "value": a,
+                  "add": this.data.list_big_letter[a],
+                  "value2": a2,
+                  "number": this.data.list_small_letter[a2],
+                  "number1": Math.floor(Math.random() * 10)
+                }
+              }
             }
 
           }
@@ -277,7 +309,7 @@ Page({
         l: l
       })
       this.choicenum()
-      util.initCountDown(this, this.data.time[this.data.number], 0.1)
+      util.initCountDown(this, this.data.time[this.data.number], 1)
     }
 
   },
@@ -293,34 +325,11 @@ Page({
       age1_question: Math.floor(Math.random() * 26),
       age2_question: Math.floor(Math.random() * 26),
       age1_question_number: Math.floor(Math.random() * 10),
+      age2_question_number: Math.floor(Math.random() * 10),
       finishClick: false,
       start: false
     })
-
-    if (this.data.number == 2 && this.data.age == 0) {
-      var Ans = Math.floor(Math.random() * 2);
-      var answer1 = Math.floor((Math.random() * 3) + (Ans * 3));
-      var answer2 = Math.floor((Math.random() * 3) + (Ans * 3));
-      while (answer2 == answer1) {
-        answer2 = Math.floor((Math.random() * 3) + (Ans * 3));
-      }
-      var answer3 = Math.floor((Math.random() * 3) + (Ans * 3));
-      while (answer3 == answer1 || answer2 == answer3) {
-        answer3 = Math.floor((Math.random() * 3) + (Ans * 3));
-      }
-      this.setData({
-        word: this.data.age0_question[Ans],
-        answer1: answer1,
-        answer2: answer2,
-        answer3: answer3
-      })
-    }
-    console.log("answer2 : " + answer2)
-    console.log("answer3 : " + answer3)
-    this.setData({
-      question: [this.data.list[this.data.answer1], this.data.list[this.data.answer1], ""],
-    })
-    if (this.data.age == 1) {
+    if (this.data.age == 0) {
       if (this.data.number == 0) {
         this.setData({
           word: this.data.list_big_letter[this.data.age1_question]
@@ -332,6 +341,20 @@ Page({
       } else if (this.data.number == 2) {
         this.setData({
           word: this.data.list_big_letter[this.data.age1_question] + " 和 " + this.data.list_small_letter[this.data.age2_question] + " 的组合"
+        })
+      }
+    }else if (this.data.age == 1) {
+      if (this.data.number == 0) {
+        this.setData({
+          word: this.data.list_big_letter[this.data.age1_question]
+        })
+      } else if (this.data.number == 1) {
+        this.setData({
+          word: this.data.list_big_letter[this.data.age1_question] + " 和 " + this.data.list_small_letter[this.data.age2_question] + " 的组合"
+        })
+      } else if (this.data.number == 2) {
+        this.setData({
+          word: this.data.list_big_letter[this.data.age1_question] + " , " + this.data.list_small_letter[this.data.age2_question] + "和" + this.data.age2_question_number+ " 的组合"
         })
       }
     }
@@ -448,48 +471,42 @@ Page({
   choicenum: function (e) {
     var that = this;
     let l = this.data.l;
-    let answer1 = this.data.answer1;
-    let answer2 = this.data.answer2;
-    let answer3 = this.data.answer3;
-    console.log("answer1 : " + answer1)
-    console.log("answer2 : " + answer2)
-    console.log("answer3 : " + answer3)
     var i = 0;
     var j = 0;
     for (i = 0; i < this.data.line[this.data.number]; i++) {
       for (j = 0; j < this.data.column[this.data.number]; j++) {
         let index = "num[" + (i*this.data.column[this.data.number] + j) + "]";
         let count = "ans_num[" + (i*this.data.column[this.data.number] + j) + "]";
+        let count1 = "ans_num1[" + (i*this.data.column[this.data.number] + j) + "]";
         let value = l[i][j].value;
-        if (this.data.age == 1 && this.data.number == 2) {
-          var value_num = l[i][j].value2;
-        } else {
+        let value2 = l[i][j].value2;
+        let number1 = l[i][j].number1;
+        if (this.data.age == 0) {
+          if (this.data.number == 2){
+             var value_num = l[i][j].value2;
+          }else {
           var value_num = l[i][j].number;
         }
-        that.setData({
+      }
+        if (this.data.age == 0){
+          that.setData({
           [index]: value,
           [count]: value_num,
         });
+        }else if (this.data.age == 1){
+          that.setData({
+            [index]: value,
+            [count]: value2,
+            [count1]: number1,
+          });
+        }
+        
       }
 
     }
 
     for (i = 0; i < this.data.line[this.data.number] * this.data.column[this.data.number]; i++) {
       if (this.data.age == 0) {
-        if (this.data.number == 2) {
-          if (Number(this.data.num[i]) == Number(answer1) || Number(this.data.num[i]) == Number(answer2) || Number(this.data.num[i]) == Number(answer3)) {
-            that.setData({
-              count: this.data.count + 1,
-            });
-          }
-        } else if (this.data.number == 0 || this.data.number == 1) {
-          if (Number(this.data.num[i]) == Number(answer1)) {
-            that.setData({
-              count: this.data.count + 1,
-            });
-          }
-        }
-      } else if (this.data.age == 1) {
         if (this.data.number == 0) {
           if (Number(this.data.num[i]) == Number(this.data.age1_question)) {
             that.setData({
@@ -504,6 +521,27 @@ Page({
           }
         } else if (this.data.number == 2) {
           if ((Number(this.data.num[i]) == Number(this.data.age1_question)) && (Number(this.data.ans_num[i]) == Number(this.data.age2_question))) {
+            that.setData({
+              count: this.data.count + 1,
+            });
+          }
+        }
+
+      }else if (this.data.age == 1) {
+        if (this.data.number == 0) {
+          if (Number(this.data.num[i]) == Number(this.data.age1_question)) {
+            that.setData({
+              count: this.data.count + 1,
+            });
+          }
+        } else if (this.data.number == 1) {
+          if ((Number(this.data.num[i]) == Number(this.data.age1_question)) && (Number(this.data.ans_num[i]) == Number(this.data.age2_question))) {
+            that.setData({
+              count: this.data.count + 1,
+            });
+          }
+        } else if (this.data.number == 2) {
+          if ((Number(this.data.num[i]) == Number(this.data.age1_question)) && (Number(this.data.ans_num[i]) == Number(this.data.age2_question)) && (Number(this.data.ans_num1[i]) == Number(this.data.age2_question_number))) {
             that.setData({
               count: this.data.count + 1,
             });
@@ -530,32 +568,6 @@ Page({
     let indexflag = "flag[" + i + "]";
     var value = false;
     if (this.data.age == 0) {
-      if (this.data.number == 2) {
-        if (Number(this.data.num[i]) == Number(this.data.answer1) || Number(this.data.num[i]) == Number(this.data.answer2) || Number(this.data.num[i]) == Number(this.data.answer3)) {
-          if (this.data.flag[i] <= 1) { //如果flag[i]是2，说明已经圈过，nowcount不能再加了
-            that.setData({
-              rightcount: rightcount + 1,
-            })
-          }
-        } else if (this.data.number == 0 || this.data.number == 1) {
-          if (Number(this.data.num[i]) == Number(this.data.answer1)) {
-            if (this.data.flag[i] <= 1) { //如果flag[i]是2，说明已经圈过，nowcount不能再加了
-              that.setData({
-                rightcount: rightcount + 1,
-              })
-            }
-          }
-        }
-      } else if (this.data.number == 0 || this.data.number == 1) {
-        if (Number(this.data.num[i]) == Number(this.data.answer1)) {
-          if (this.data.flag[i] <= 1) { //如果flag[i]是2，说明已经圈过，nowcount不能再加了
-            that.setData({
-              rightcount: rightcount + 1,
-            })
-          }
-        }
-      }
-    } else if (this.data.age == 1) {
 
       if (this.data.number == 0) {
         if (Number(this.data.num[i]) == Number(this.data.age1_question)) {
@@ -575,6 +587,35 @@ Page({
         }
       } else if (this.data.number == 2) {
         if ((Number(this.data.num[i]) == Number(this.data.age1_question)) && (Number(this.data.ans_num[i]) == Number(this.data.age2_question))) {
+          if (this.data.flag[i] <= 1) { //如果flag[i]是2，说明已经圈过，nowcount不能再加了
+            that.setData({
+              rightcount: rightcount + 1,
+            })
+          }
+        }
+      }
+
+
+    }else if (this.data.age == 1) {
+
+      if (this.data.number == 0) {
+        if (Number(this.data.num[i]) == Number(this.data.age1_question)) {
+          if (this.data.flag[i] <= 1) { //如果flag[i]是2，说明已经圈过，nowcount不能再加了
+            that.setData({
+              rightcount: rightcount + 1,
+            })
+          }
+        }
+      } else if (this.data.number == 1) {
+        if ((Number(this.data.num[i]) == Number(this.data.age1_question)) && (Number(this.data.ans_num[i]) == Number(this.data.age2_question))) {
+          if (this.data.flag[i] <= 1) { //如果flag[i]是2，说明已经圈过，nowcount不能再加了
+            that.setData({
+              rightcount: rightcount + 1,
+            })
+          }
+        }
+      } else if (this.data.number == 2) {
+        if ((Number(this.data.num[i]) == Number(this.data.age1_question)) && (Number(this.data.ans_num[i]) == Number(this.data.age2_question)) && (Number(this.data.ans_num1[i]) == Number(this.data.age2_question_number))) {
           if (this.data.flag[i] <= 1) { //如果flag[i]是2，说明已经圈过，nowcount不能再加了
             that.setData({
               rightcount: rightcount + 1,
