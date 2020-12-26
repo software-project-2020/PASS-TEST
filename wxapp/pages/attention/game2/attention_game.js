@@ -83,8 +83,8 @@ Page({
   },
   onLoad: function () {
     //年龄暂时为写死为1
-    // var age = getApp().globalData.userInfo.ageGroup
-    var age = 1
+    var age = getApp().globalData.userInfo.ageGroup
+    // var age = 1
     testutil.getconfiguration(age, 'A2', (res) => {
       console.log(res)
       var line = []
@@ -357,6 +357,28 @@ Page({
           word: this.data.list_big_letter[this.data.age1_question] + " , " + this.data.list_small_letter[this.data.age2_question] + "和" + this.data.age2_question_number + " 的组合"
         })
       }
+    }
+    var that = this
+    if (this.data.number == 0){
+      wx.showModal({
+        title: '注意',
+        content: '此次为尝试机会，不计入测试成绩',
+        confirmText: '开始尝试',
+        cancelText: '跳过尝试',
+        success: function (res) {
+          if(res.confirm){
+            that.setData({
+            number : 0
+          })
+          }
+          else if(res.cancel){
+            that.setData({
+              number : 1
+            })
+            that.init()
+          }
+        }
+      })
     }
   },
   //计算成绩
