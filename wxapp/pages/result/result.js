@@ -32,8 +32,8 @@ Page({
     // var costtime = 600;
     // var age = 4;
     var plan_mygrade = score[0];
-    var attention_mygrade = score[1];
-    var simultaneous_mygrade = score[2];
+    var attention_mygrade = score[2];
+    var simultaneous_mygrade = score[1];
     var successive_mygrade = score[3];
     testutil.submitResult(userid, score, costtime, age, (res) => {
       console.log(res)
@@ -666,7 +666,7 @@ Page({
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('加工能力，更加有助于孩子的成长。', 188, 1400)
+    ctx.fillText('加工能力。', 188, 1400)
 
     //渲染
     ctx.draw(true, () => {

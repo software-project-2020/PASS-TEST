@@ -31,7 +31,9 @@ Page({
     wx.setNavigationBarTitle({
       title: '注意测试'
     })
-    testutil.getconfiguration(0, 'A1', (res) => {
+    var age = getApp().globalData.userInfo.ageGroup
+    // var age = 0;
+    testutil.getconfiguration(age, 'A1', (res) => {
       console.log(res)
       var longestTime = []
       var shortestTime = []
@@ -71,9 +73,7 @@ Page({
         })
       }
     })
-    if (this.data.number == 0) {
-      var that = this
-    }
+     
   },
   initnum() {
     if (this.data.start == true) {
@@ -132,7 +132,28 @@ Page({
       time: time,
     })
     console.log(time);
-    
+    var that = this
+    if (this.data.number == 0){
+      wx.showModal({
+        title: '注意',
+        content: '此次为尝试机会，不计入测试成绩',
+        confirmText: '开始尝试',
+        cancelText: '跳过尝试',
+        success: function (res) {
+          if(res.confirm){
+            that.setData({
+            number : 0
+          })
+          }
+          else if(res.cancel){
+            that.setData({
+              number : 1
+            })
+            that.init()
+          }
+        }
+      })
+    }
   },
   sum() {
     console.log("错误题数：" + this.data.wrongcount);
