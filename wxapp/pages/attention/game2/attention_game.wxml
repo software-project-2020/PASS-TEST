@@ -21,16 +21,9 @@
 </view>
 
 <view class="back">
-  <view wx:if="{{age == 0}}">
-    <text>{{question_text[age]}}{{word}}</text>
-    <image src="{{question[number]}}" class="question"></image>
-  </view>
-  <view wx:else>
     <text class="questionText">{{question_text[age]}}{{word}}</text>
   </view>
-
-
-</view>
+  
 <view wx:if="{{start == false}}">
   <button class="finish" bindtap="start">{{button[number]}}</button>
 </view>

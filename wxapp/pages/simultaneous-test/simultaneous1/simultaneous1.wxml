@@ -67,16 +67,16 @@
     </view>
     <view class="flex padding justify-around" style="width: 100%;">
         <button wx:if="{{now==0}}" class="cu-btn bg-green shadow lg round" bindtap="start"
-          style="display:flex;justify-content: center;width: 110px;">开始测试</button>
+          style="display:flex;justify-content: center;width: 120px;">开始测试</button>
         <view class="action">
           <button wx:if="{{now>1}}" class="cu-btn bg-green shadow lg round" bindtap="preQuestion"
-          style="display:flex;justify-content: center;width: 110px;">上一题</button>
+          style="display:flex;justify-content: center;width: 120px;">上一题</button>
         </view>
         <view class="action">
           <button wx:if="{{now<qnum-1&&now>0}}" class="cu-btn bg-green shadow lg round" bindtap="nextQuestion"
-          style="display:flex;justify-content: center;width: 110px;">下一题</button>
+          style="display:flex;justify-content: center;width: 120px;">下一题</button>
         <button wx:if="{{now==qnum-1}}" class="cu-btn bg-green shadow lg round" bindtap="submitAnswer"
-          style="display:flex;justify-content: center;width: 110px;">提交</button>
+          style="display:flex;justify-content: center;width: 120px;">提交</button>
         </view>
     </view>
   </view>

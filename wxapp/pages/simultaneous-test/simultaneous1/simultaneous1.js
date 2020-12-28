@@ -15,6 +15,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this
     wx.setNavigationBarTitle({
       title: '同时性加工测试'
     })
@@ -23,23 +24,32 @@ Page({
       this.setData({
         qnum: res.qnum,
         qlist: res.qlist,
-        time :res.time
+        time: res.time
       })
-      // console.log(res.qlist)
+      wx.showModal({
+        title: '开始尝试',
+        content: '在开始测试之前，你有一次尝试的机会，尝试将不会被计入成绩，快去熟悉一下题目吧！如果你已经完全了解了规则也可以选择跳过尝试。',
+        cancelText: '跳过尝试',
+        confirmText: '开始尝试',
+        success: function (res) {
+          if (res.confirm) {} else {
+            that.nextQuestion()
+            util.initCountDown(that, that.data.time, 1)
+          }
+        }
+      })
     })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  },
+  onReady: function () {},
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  },
+  onShow: function () {},
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -70,7 +80,7 @@ Page({
   },
   submitAnswer: function () {
     util.closeCountDown(this)
-    var that=this
+    var that = this
     wx.showModal({
       title: '提交结果',
       content: '恭喜你完成了所有题目，点击提交结果进入下一项测试吧！如果想要再检查一下也可以点击继续测试哦！',
@@ -78,20 +88,23 @@ Page({
       confirmText: '提交结果',
       success: function (res) {
         if (res.confirm) { //提交
-          var score=0
-          for(var i=1;i<that.data.qnum;i++){
-            if(that.data.answer[i]==that.data.qlist[i].answer)
+          var score = 0
+          for (var i = 1; i < that.data.qnum; i++) {
+            if (that.data.answer[i] == that.data.qlist[i].answer)
               score++
           }
           //S12占测试总数的0.6
-          app.globalData.scoreDetail[1][0]={score:score,qnum:that.data.qnum-1}
+          app.globalData.scoreDetail[1][0] = {
+            score: score,
+            qnum: that.data.qnum - 1
+          }
           console.log(app.globalData.scoreDetail[1][0])
-          app.globalData.score[1]=score/(that.data.qnum-1)*100*0.6
-          console.log(app.globalData.scoreDetail[1],app.globalData.score[1])
+          app.globalData.score[1] = score / (that.data.qnum - 1) * 100 * 0.6
+          console.log(app.globalData.scoreDetail[1], app.globalData.score[1])
           wx.redirectTo({
             url: '/pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2',
           })
-        } else if (res.cancel) {//继续
+        } else if (res.cancel) { //继续
           util.initCountDown(that, that.data.displayTime, 1)
         }
       }
@@ -99,7 +112,7 @@ Page({
   },
   timeout: function () {
     util.closeCountDown(this)
-    var that=this
+    var that = this
     wx.showModal({
       title: '时间结束',
       content: '很遗憾，时间到了，点击提交结果进入下一项测试吧！',
@@ -107,16 +120,19 @@ Page({
       showCancel: false,
       success: function (res) {
         if (res.confirm) { //提交
-          var score=0
-          for(var i=0;i<that.data.qnum;i++){
-            if(that.data.answer[i]==that.data.qlist[i].answer)
+          var score = 0
+          for (var i = 0; i < that.data.qnum; i++) {
+            if (that.data.answer[i] == that.data.qlist[i].answer)
               score++
           }
           //S12占测试总数的0.6
-          app.globalData.scoreDetail[1][0]={score:score,qnum:that.data.qnum-1}
+          app.globalData.scoreDetail[1][0] = {
+            score: score,
+            qnum: that.data.qnum - 1
+          }
           console.log(app.globalData.scoreDetail[1][0])
-          app.globalData.score[1]=score/(that.data.qnum-1)*100*0.6
-          console.log(app.globalData.scoreDetail[1],app.globalData.score[1])
+          app.globalData.score[1] = score / (that.data.qnum - 1) * 100 * 0.6
+          console.log(app.globalData.scoreDetail[1], app.globalData.score[1])
           wx.redirectTo({
             url: '/pages/simultaneous-test/simultaneous-rule2/simultaneous-rule2',
           })
@@ -135,22 +151,21 @@ Page({
     })
   },
   nextQuestion: function () {
-    if(this.data.now >0){
-      if(this.data.answer[this.data.now]==null){
+    if (this.data.now > 0) {
+      if (this.data.answer[this.data.now] == null) {
         wx.showModal({
           title: '未完成',
           content: '当前题目未完成，请点击确定按钮继续完成这一题',
           confirmText: '确定',
           showCancel: false,
-          success: function (res) {
-          }
+          success: function (res) {}
         })
-      }else{
+      } else {
         this.setData({
           now: this.data.now + 1
         })
       }
-    }else{
+    } else {
       this.setData({
         now: this.data.now + 1
       })

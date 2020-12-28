@@ -18,7 +18,7 @@ Page({
     num: 0,
     scroll: 0,
     rules:[{
-      words:"进入页面后，你将会看到一句描述性的文字",
+      words:"进入页面后，你将会看到一段描述性的文字",
       img:"https://picture.morii.top/renzhixuetang/rules/S11-rule/S11-step1.jpg"
     },
     {
@@ -35,20 +35,10 @@ Page({
     }]
   },
   gototest1: function (e) {
-
-    wx.showModal({
-      title: '开始练习',
-      content: '在开始测试之前，你有一次练习的机会，练习将不会被计入成绩，快去熟悉一下题目吧!',
-      cancelText:'取消',
-      confirmText:'开始练习',
-      success: function (res) {
-        if (res.confirm) {//这里是点击了确定以后
-          wx.redirectTo({
-            url: '/pages/simultaneous-test/test/test',
-          })
-        }
-      }
+    wx.redirectTo({
+      url: '/pages/simultaneous-test/test/test',
     })
+    
   },
 
   /**

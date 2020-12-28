@@ -17,6 +17,7 @@ Page({
     allscore: []
   },
   onLoad: function () {
+    var that =this
     wx.setNavigationBarTitle({
       title: '同时性加工测试'
     })
@@ -27,6 +28,22 @@ Page({
         qnum: res.qnum,
         qlist: res.qlist,
         time: res.time
+      })
+      wx.showModal({
+        title: '开始尝试',
+        content: '在开始测试之前，你有一次尝试的机会，尝试将不会被计入成绩，快去熟悉一下题目吧!',
+        cancelText:'跳过尝试',
+        confirmText:'开始尝试',
+        success: function (res) {
+          if (res.confirm) {
+          }else{
+            that.setData({
+              now: that.data.now + 1
+            })
+            util.initCountDown(that, that.data.time[that.data.now + 1], 1)
+            that.clearDraw()
+          }
+        }
       })
     })
   },
