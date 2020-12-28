@@ -109,7 +109,7 @@ Page({
               now: 2
             })
           }
-          util.initCountDown(this, this.data.testtime, 1)
+          util.initCountDown(that, that.data.testtime, 1)
         }
       })
     } else {
