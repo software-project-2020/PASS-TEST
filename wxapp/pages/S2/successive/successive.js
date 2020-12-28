@@ -17,6 +17,7 @@ Page({
     testtime: 3,
     dialogShow: false,
     qa: [],
+    tryagain: false
   },
 
   choose: function (e) {
@@ -90,7 +91,33 @@ Page({
       })
       console.log(this.data.qa)
     })
-    util.initCountDown(this, this.data.testtime, 1)
+    if (this.data.now == 1&&this.data.tryagain==false) {
+      var that = this
+      wx.showModal({
+        title: '注意',
+        content: '此次为尝试机会，不计入测试成绩',
+        confirmText: '开始尝试',
+        cancelText: '跳过尝试',
+        success: function (res) {
+          if(res.confirm){
+            that.setData({
+            tryagain: true
+          })
+          }
+          else if(res.cancel){
+            that.setData({
+              now: 2
+            })
+          }
+          util.initCountDown(that, that.data.testtime, 1)
+        }
+      })
+    } else {
+      this.setData({
+        istry: false
+      })
+      util.initCountDown(this, this.data.testtime, 1)
+    }
   },
 
   timeout: function () {
