@@ -18,7 +18,7 @@ Page({
     num: 0,
     scroll: 0,
     rules:[{
-      words:"进入页面后，你将会4*4或者5*5的数字方块",
+      words:"进入页面后，你将会看到4*4或者5*5的数字方块",
       img:"https://picture.morii.top/renzhixuetang/rules/plan/test1step1.jpg"
     },
     {

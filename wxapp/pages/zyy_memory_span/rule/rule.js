@@ -25,7 +25,7 @@ Page({
         img: "https://picture.morii.top/renzhixuetang/rules/S23/step_3.gif"
       },
       {
-        words: "完成以后，要记得点击\"提交答案\"的按钮哦",
+        words: "完成以后，要记得点击\"提交答案\"的按钮哦",
         img: "https://picture.morii.top/renzhixuetang/rules/S23/step_4.jpg"
       }
     ]
