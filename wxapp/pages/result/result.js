@@ -706,7 +706,7 @@ Page({
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('加工能力。可以尝试一下方法：', 188, 1700)
+    ctx.fillText('加工能力。可以尝试以下方法：', 188, 1700)
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
