@@ -492,8 +492,8 @@ func userSubmit(c *gin.Context) {
 	UTResult.Openid = openid
 	UTResult.TestOrder = test_order
 	UTResult.PlanScore = scoreList[0]
-	UTResult.AttentionScore = scoreList[1]
-	UTResult.SimulScore = scoreList[2]
+	UTResult.AttentionScore = scoreList[2]
+	UTResult.SimulScore = scoreList[1]
 	UTResult.SucScore = scoreList[3]
 	UTResult.TotalScore = scoreList[4]
 	UTResult.Flag = 1
@@ -588,7 +588,7 @@ func userSubmit(c *gin.Context) {
 		",attention_score,attention_rank,simul_score,simul_rank,suc_score,suc_rank,cost_time" +
 		",test_date,sum_people,total_score,total_rank,plan_avg_score,attention_avg_score,simul_avg_score,suc_avg_score)" +
 		" values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
-	_, err = Db.Exec(sqlForRun, openid, test_order, scoreList[0], insertPRank, scoreList[1], insertARank, scoreList[2],
+	_, err = Db.Exec(sqlForRun, openid, test_order, scoreList[0], insertPRank, scoreList[2], insertARank, scoreList[1],
 		insertS1Rank, scoreList[3], insertS2Rank, cost_time, time.Now().Format("2006-01-02 15:04:05"), sumPeople, scoreList[4], insertTRank,
 		avgP, avgA, avgS1, avgS2)
 	if err != nil {
