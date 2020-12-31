@@ -393,15 +393,7 @@ Page({
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('设定目标，自我监控和自我纠正。此外，这款软件还提供了训练模', 15, 220)        
-    ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize(12)
-    ctx.setFillStyle('#000000')
-    ctx.fillText('式，儿童化的界面以及有趣的闯关情景可以让孩子在游戏中逐步', 15, 240)    
-    ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize(12)
-    ctx.setFillStyle('#000000')
-    ctx.fillText('提升对应方面能力，从而提升认知水平。', 15, 260)          
+    ctx.fillText('设定目标，自我监控和自我纠正。', 15, 220)           
     //雷达图
     ctx.setFillStyle('white')
     this.drawRadar()
