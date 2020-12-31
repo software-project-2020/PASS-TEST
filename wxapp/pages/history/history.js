@@ -105,6 +105,7 @@ Page({
     this.drawRadar()
     var grade = ['非常优秀', '优秀', '良好', '合格', '一般']
     var name = ['计划的', '注意的', '同时性', '继时性']
+    var way = ['做一些类似于舒尔特方块这样的有关视觉搜索和跟踪制作的练习。','做一些读词的练习（如字体颜色为红的蓝字）增加速度和正确率。','做一些找规律或者根据长句画图的练习。','做一些短时记忆或者排序的练习。']
     var rank = [this.data.plan, this.data.attention, this.data.simultaneous, this.data.successive]
     var max = this.data.plan;
     var min = this.data.plan;
@@ -179,6 +180,7 @@ Page({
     this.setData({
       max: name[minIndex],
       min: name[maxIndex],
+      methods: way[maxIndex],
       plan_grade: plan_grade,
       plan_percentage: Math.ceil(plan_percentage),
       attention_grade: attention_grade,

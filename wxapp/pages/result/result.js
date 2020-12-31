@@ -140,6 +140,7 @@ Page({
     this.drawRadar()
     var grade = ['非常优秀', '优秀', '良好', '合格', '一般']
     var name = ['计划的', '注意的', '同时性', '继时性']
+    var way = ['做一些类似于舒尔特方块这样的有关视觉搜索和跟踪制作的练习。','做一些读词的练习（如字体颜色为红的蓝字）增加速度和正确率。','做一些找规律或者根据长句画图的练习。','做一些短时记忆或者排序的练习。']
     var rank = [this.data.plan, this.data.attention, this.data.simultaneous, this.data.successive]
     var max = this.data.plan;
     var min = this.data.plan;
@@ -214,6 +215,7 @@ Page({
     this.setData({
       max: name[minIndex],
       min: name[maxIndex],
+      methods: way[maxIndex],
       plan_grade: plan_grade,
       plan_percentage: Math.ceil(plan_percentage),
       attention_grade: attention_grade,
@@ -262,7 +264,7 @@ Page({
         var x = mCenter + rdius * Math.cos(mAngle * j);
         var y = mCenter + rdius * Math.sin(mAngle * j);
         radCtx.lineTo(x, y);
-        ctx.lineTo(x, y);
+        ctx.lineTo(x, y+300);
       }
       radCtx.closePath()
       radCtx.stroke()
@@ -280,8 +282,8 @@ Page({
 
       radCtx.moveTo(mCenter, mCenter);
       radCtx.lineTo(x, y);
-      ctx.moveTo(mCenter, mCenter);
-      ctx.lineTo(x, y);
+      ctx.moveTo(mCenter, mCenter+300);
+      ctx.lineTo(x, y+300);
     }
     radCtx.stroke();
     ctx.stroke();
@@ -299,7 +301,7 @@ Page({
       var y = mCenter + mRadius * Math.sin(mAngle * m) * mData[m][1] / 100;
 
       radCtx.lineTo(x, y);
-      ctx.lineTo(x, y);
+      ctx.lineTo(x, y+300);
     }
     radCtx.closePath();
     radCtx.stroke()
@@ -318,16 +320,16 @@ Page({
       //通过不同的位置，调整文本的显示位置
       if (mAngle * n >= 0 && mAngle * n <= Math.PI / 2) {
         radCtx.fillText(mData[n][0], x + 5, y + 5);
-        ctx.fillText(mData[n][0], x + 5, y + 5);
+        ctx.fillText(mData[n][0], x + 5, y + 305);
       } else if (mAngle * n > Math.PI / 2 && mAngle * n <= Math.PI) {
         radCtx.fillText(mData[n][0], x - radCtx.measureText(mData[n][0]).width - 7, y + 5);
-        ctx.fillText(mData[n][0], x - radCtx.measureText(mData[n][0]).width - 7, y + 5);
+        ctx.fillText(mData[n][0], x - radCtx.measureText(mData[n][0]).width - 7, y + 305);
       } else if (mAngle * n > Math.PI && mAngle * n <= Math.PI * 3 / 2) {
         radCtx.fillText(mData[n][0], x - radCtx.measureText(mData[n][0]).width - 5, y);
-        ctx.fillText(mData[n][0], x - radCtx.measureText(mData[n][0]).width - 5, y);
+        ctx.fillText(mData[n][0], x - radCtx.measureText(mData[n][0]).width - 5, y+300);
       } else {
         radCtx.fillText(mData[n][0], x + 7, y + 2);
-        ctx.fillText(mData[n][0], x + 7, y + 2);
+        ctx.fillText(mData[n][0], x + 7, y + 302);
       }
     }
   },
@@ -343,7 +345,7 @@ Page({
       radCtx.fillStyle = color;
       radCtx.fill();
       ctx.beginPath();
-      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.arc(x, y+300, r, 0, Math.PI * 2);
       ctx.fillStyle = color;
       ctx.fill();
     }
@@ -359,9 +361,47 @@ Page({
     var that = this;
     //加白色矩形当背景
     ctx.fillStyle = "#FFFFFF";
-    ctx.fillRect(0, 0, 800, 3000);
-
-
+    ctx.fillRect(0, 0, 800, 4000);
+    ctx.font = `normal 40px sans-serif`;
+    ctx.setFontSize(20)
+    ctx.setFillStyle('#000000')
+    ctx.fillText('测试结果报告', 130, 50)
+    ctx.font = `normal 40px sans-serif`;
+    ctx.setFontSize(12)
+    ctx.setFillStyle('#000000')
+    ctx.fillText('认知学堂这款软件是针对5-16周岁的孩子进行认知能力评估', 40, 100)
+    ctx.font = `normal 40px sans-serif`;
+    ctx.setFontSize(12)
+    ctx.setFillStyle('#000000')
+    ctx.fillText('以及训练，这款软件利用了基于PASS智力评估模型，从计划能力、', 15, 120)
+    ctx.font = `normal 40px sans-serif`;
+    ctx.setFontSize(12)
+    ctx.setFillStyle('#000000')
+    ctx.fillText('注意力、同时性加工、继时性加工这四个方面进行多维智力测', 15, 140)
+    ctx.font = `normal 40px sans-serif`;
+    ctx.setFontSize(12)
+    ctx.setFillStyle('#000000')
+    ctx.fillText('验，该测验由四个与PASS技能匹配的量表和一个代表整体能力的', 15, 160)        
+    ctx.font = `normal 40px sans-serif`;
+    ctx.setFontSize(12)
+    ctx.setFillStyle('#000000')
+    ctx.fillText('满分量表组成。规划测试提供了一种新颖的解决问题的情况，需', 15, 180)              
+    ctx.font = `normal 40px sans-serif`;
+    ctx.setFontSize(12)
+    ctx.setFillStyle('#000000')
+    ctx.fillText('要自我调节，灵活使用策略，分配注意力和记忆力，抑制响应，', 15, 200)         
+    ctx.font = `normal 40px sans-serif`;
+    ctx.setFontSize(12)
+    ctx.setFillStyle('#000000')
+    ctx.fillText('设定目标，自我监控和自我纠正。此外，这款软件还提供了训练模', 15, 220)        
+    ctx.font = `normal 40px sans-serif`;
+    ctx.setFontSize(12)
+    ctx.setFillStyle('#000000')
+    ctx.fillText('式，儿童化的界面以及有趣的闯关情景可以让孩子在游戏中逐步', 15, 240)    
+    ctx.font = `normal 40px sans-serif`;
+    ctx.setFontSize(12)
+    ctx.setFillStyle('#000000')
+    ctx.fillText('提升对应方面能力，从而提升认知水平。', 15, 260)          
     //雷达图
     ctx.setFillStyle('white')
     this.drawRadar()
@@ -369,48 +409,48 @@ Page({
     //雷达图图标
     ctx.setFontSize(11)
     ctx.setFillStyle('#666666')
-    ctx.fillText('我的成绩', 105, 325)
+    ctx.fillText('我的成绩', 105, 625)
     ctx.setFillStyle('#666666')
-    ctx.fillText('平均成绩', 205, 325)
+    ctx.fillText('平均成绩', 205, 625)
     ctx.fillStyle = '#475CB1';
-    ctx.fillRect(85, 315, 10, 10)
+    ctx.fillRect(85, 615, 10, 10)
     ctx.fillStyle = '#F7991F';
-    ctx.fillRect(185, 315, 10, 10)
+    ctx.fillRect(185, 615, 10, 10)
     //排名
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(11)
     ctx.setFillStyle('#666666')
-    ctx.fillText('排名', 15, 350)
+    ctx.fillText('排名', 15, 650)
 
     ctx.font = `bold 40px sans-serif`;
     ctx.setFontSize((that.data.deviceWidth / 750) * 25)
     ctx.setFillStyle('#000000')
-    ctx.fillText('计划', 42, 390)
-    ctx.fillText('注意', 132, 390)
-    ctx.fillText('同时性', 222, 390)
-    ctx.fillText('继时性', 312, 390)
+    ctx.fillText('计划', 42, 690)
+    ctx.fillText('注意', 132, 690)
+    ctx.fillText('同时性', 222, 690)
+    ctx.fillText('继时性', 312, 690)
 
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.plan + ' / ' + this.data.people, 45, 440)
-    ctx.fillText(this.data.attention + ' / ' + this.data.people, 135, 440)
-    ctx.fillText(this.data.simultaneous + ' / ' + this.data.people, 225, 440)
-    ctx.fillText(this.data.successive + ' / ' + this.data.people, 315, 440)
+    ctx.fillText(this.data.plan + ' / ' + this.data.people, 45, 740)
+    ctx.fillText(this.data.attention + ' / ' + this.data.people, 135, 740)
+    ctx.fillText(this.data.simultaneous + ' / ' + this.data.people, 225, 740)
+    ctx.fillText(this.data.successive + ' / ' + this.data.people, 315, 740)
 
     ctx.setStrokeStyle("#E5E5E5");
     //画横线
     for (var i = 0; i < 3; i++) {
       ctx.beginPath();
-      ctx.moveTo(15, (i * 50 + 360));
-      ctx.lineTo(375, (i * 50 + 360));
+      ctx.moveTo(15, (i * 50 + 660));
+      ctx.lineTo(375, (i * 50 + 660));
       ctx.stroke();
     }
     //画竖线
     for (var i = 0; i < 5; i++) {
       ctx.beginPath();
-      ctx.moveTo((i * 90 + 15), 360);
-      ctx.lineTo((i * 90 + 15), 460);
+      ctx.moveTo((i * 90 + 15), 660);
+      ctx.lineTo((i * 90 + 15), 760);
       ctx.stroke();
     }
 
@@ -418,47 +458,47 @@ Page({
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(11)
     ctx.setFillStyle('#666666')
-    ctx.fillText('做题详情', 15, 500)
+    ctx.fillText('测试详情', 15, 800)
 
     ctx.font = `bold 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('题目', 90, 557)
-    ctx.fillText('做题详情', 260, 557)
+    ctx.fillText('题目', 90, 857)
+    ctx.fillText('测试详情', 260, 857)
 
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('舒尔特方块', 80, 607)
-    ctx.fillText(this.data.plan2_count + " * " + this.data.plan2_count + " : " + this.data.plan2_time + " s", 255, 599)
-    ctx.fillText(this.data.plan3_count + " * " + this.data.plan3_count + " : " + this.data.plan3_time + " s", 255, 615)
-    ctx.fillText('寻找数字', 80, 657)
-    ctx.fillText(this.data.attention1_right + " / " + this.data.attention1_sum, 260, 657)
-    ctx.fillText('接受性注意', 80, 707)
-    ctx.fillText(this.data.attention2_right + " / " + this.data.attention2_sum, 260, 707)
-    ctx.fillText('渐进矩阵', 80, 757)
-    ctx.fillText(this.data.simultaneous1_right + " / " + this.data.simultaneous1_sum, 260, 757)
-    ctx.fillText('言语加工', 80, 807)
-    ctx.fillText(this.data.simultaneous2_right + " / " + this.data.simultaneous2_sum, 260, 807)
-    ctx.fillText('单词序列', 80, 857)
-    ctx.fillText(this.data.successive1_right + " / " + this.data.successive1_sum, 260, 857)
-    ctx.fillText('记忆广度', 80, 907)
-    ctx.fillText(this.data.successive2_right + " / " + this.data.successive2_sum, 260, 907)
-    ctx.fillText('句子提问', 80, 957)
-    ctx.fillText(this.data.successive3_right + " / " + this.data.successive3_sum, 260, 957)
+    ctx.fillText('舒尔特方块', 80, 907)
+    ctx.fillText(this.data.plan2_count + " * " + this.data.plan2_count + " : " + this.data.plan2_time + " s", 255, 899)
+    ctx.fillText(this.data.plan3_count + " * " + this.data.plan3_count + " : " + this.data.plan3_time + " s", 255, 915)
+    ctx.fillText('寻找数字', 80, 957)
+    ctx.fillText(this.data.attention1_right + " / " + this.data.attention1_sum, 260, 957)
+    ctx.fillText('接受性注意', 80, 1007)
+    ctx.fillText(this.data.attention2_right + " / " + this.data.attention2_sum, 260, 1007)
+    ctx.fillText('渐进矩阵', 80, 1057)
+    ctx.fillText(this.data.simultaneous1_right + " / " + this.data.simultaneous1_sum, 260, 1057)
+    ctx.fillText('言语加工', 80, 1107)
+    ctx.fillText(this.data.simultaneous2_right + " / " + this.data.simultaneous2_sum, 260, 1107)
+    ctx.fillText('单词序列', 80, 1157)
+    ctx.fillText(this.data.successive1_right + " / " + this.data.successive1_sum, 260, 1157)
+    ctx.fillText('记忆广度', 80, 1207)
+    ctx.fillText(this.data.successive2_right + " / " + this.data.successive2_sum, 260, 1207)
+    ctx.fillText('句子提问', 80, 1257)
+    ctx.fillText(this.data.successive3_right + " / " + this.data.successive3_sum, 260, 1257)
 
     //画横线
     for (var i = 0; i < 10; i++) {
       ctx.beginPath();
-      ctx.moveTo(15, (i * 50 + 525));
-      ctx.lineTo(375, (i * 50 + 525));
+      ctx.moveTo(15, (i * 50 + 825));
+      ctx.lineTo(375, (i * 50 + 825));
       ctx.stroke();
     }
     //画竖线
     for (var i = 0; i < 3; i++) {
       ctx.beginPath();
-      ctx.moveTo((i * 179 + 15), 975);
-      ctx.lineTo((i * 179 + 15), 525);
+      ctx.moveTo((i * 179 + 15), 1275);
+      ctx.lineTo((i * 179 + 15), 825);
       ctx.stroke();
     }
 
@@ -466,207 +506,211 @@ Page({
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(11)
     ctx.setFillStyle('#666666')
-    ctx.fillText('分析与建议', 15, 1015)
+    ctx.fillText('分析与建议', 15, 1315)
 
     //第一段
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('根据上述排名，你的', 40, 1050)
+    ctx.fillText('根据上述排名，你的', 40, 1350)
     ctx.font = `bold 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.max, 149, 1050)
+    ctx.fillText(this.data.max, 149, 1350)
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('加工能力比较好，你的', (150 + 12 * this.data.max.length), 1050)
+    ctx.fillText('加工能力比较好，你的', (150 + 12 * this.data.max.length), 1350)
     ctx.font = `bold 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.min, (272 + 12 * this.data.max.length), 1050)
+    ctx.fillText(this.data.min, (272 + 12 * this.data.max.length), 1350)
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('加', (273 + 12 * this.data.max.length + 12 * this.data.min.length), 1050)
+    ctx.fillText('加', (273 + 12 * this.data.max.length + 12 * this.data.min.length), 1350)
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('工能力比较差。', 15, 1075)
+    ctx.fillText('工能力比较差。', 15, 1375)
     //计划
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('同龄人中，你的计划加工能力达到了', 40, 1100)
+    ctx.fillText('同龄人中，你的计划加工能力达到了', 40, 1400)
     ctx.font = `bold 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.plan_grade, 235, 1100)
+    ctx.fillText(this.data.plan_grade, 235, 1400)
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('水平，约有', (238 + 12 * this.data.plan_grade.length), 1100)
+    ctx.fillText('水平，约有', (238 + 12 * this.data.plan_grade.length), 1400)
     ctx.font = `bold 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.plan_percentage + '%', (300 + 12 * this.data.plan_grade.length), 1100)
+    ctx.fillText(this.data.plan_percentage + '%', (300 + 12 * this.data.plan_grade.length), 1400)
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('的人处于这一水平。计划加工能力是为解决问题、达到目标而使', 15, 1120)
+    ctx.fillText('的人处于这一水平。计划加工能力是为解决问题、达到目标而使', 15, 1420)
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('用和修改的一组决策或策略，它是指向某个目标的行动过程的预', 15, 1140)
+    ctx.fillText('用和修改的一组决策或策略，它是指向某个目标的行动过程的预', 15, 1440)
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('先决定。', 15, 1160)
+    ctx.fillText('先决定。', 15, 1460)
     //注意
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('你的注意加工能力达到了', 40, 1185)
+    ctx.fillText('你的注意加工能力达到了', 40, 1485)
     ctx.font = `bold 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.attention_grade, 175, 1185)
+    ctx.fillText(this.data.attention_grade, 175, 1485)
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('水平，约有', (175 + 12 * this.data.attention_grade.length), 1185)
+    ctx.fillText('水平，约有', (175 + 12 * this.data.attention_grade.length), 1485)
     ctx.font = `bold 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.attention_percentage + '%', (240 + 12 * this.data.attention_grade.length), 1185)
+    ctx.fillText(this.data.attention_percentage + '%', (240 + 12 * this.data.attention_grade.length), 1485)
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
     if (this.data.attention_percentage < 10) {
-      ctx.fillText('的人处于这', (256 + 12 * this.data.attention_grade.length), 1185)
+      ctx.fillText('的人处于这', (256 + 12 * this.data.attention_grade.length), 1485)
       ctx.font = `normal 40px sans-serif`;
       ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('一水平。维持性注意是对单一信息源在连续的一段时间内的注意', 15, 1205)
+      ctx.fillText('一水平。维持性注意是对单一信息源在连续的一段时间内的注意', 15, 1505)
       ctx.font = `normal 40px sans-serif`;
       ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('保持，但是对注意的评估不包括集中和分配时间的能力。', 15, 1225)
+      ctx.fillText('保持，但是对注意的评估不包括集中和分配时间的能力。', 15, 1525)
     } else {
-      ctx.fillText('的人处于这一', (267 + 12 * this.data.attention_grade.length), 1185)
+      ctx.fillText('的人处于这一', (267 + 12 * this.data.attention_grade.length), 1485)
       ctx.font = `normal 40px sans-serif`;
       ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('水平。维持性注意是对单一信息源在连续的一段时间内的注意保', 15, 1205)
+      ctx.fillText('水平。维持性注意是对单一信息源在连续的一段时间内的注意保', 15, 1505)
       ctx.font = `normal 40px sans-serif`;
       ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('持，但是对注意的评估不包括集中和分配时间的能力。', 15, 1225)
+      ctx.fillText('持，但是对注意的评估不包括集中和分配时间的能力。', 15, 1525)
     }
     //同时性
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('你的同时性加工能力达到了', 40, 1250)
+    ctx.fillText('你的同时性加工能力达到了', 40, 1550)
     ctx.font = `bold 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.simultaneous_grade, 188, 1250)
+    ctx.fillText(this.data.simultaneous_grade, 188, 1550)
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('水平，约有', (188 + 12 * this.data.simultaneous_grade.length), 1250)
+    ctx.fillText('水平，约有', (188 + 12 * this.data.simultaneous_grade.length), 1550)
     ctx.font = `bold 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.simultaneous_percentage + '%', (250 + 12 * this.data.simultaneous_grade.length), 1250)
+    ctx.fillText(this.data.simultaneous_percentage + '%', (250 + 12 * this.data.simultaneous_grade.length), 1550)
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
     if (this.data.simultaneous_percentage < 10) {
-      ctx.fillText('的人处于', (270 + 12 * this.data.simultaneous_grade.length), 1250)
+      ctx.fillText('的人处于', (270 + 12 * this.data.simultaneous_grade.length), 1550)
       ctx.font = `normal 40px sans-serif`;
       ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('这一水平。评估同时性编码的目标是要测量人们联结和整合离散', 15, 1270)
+      ctx.fillText('这一水平。评估同时性编码的目标是要测量人们联结和整合离散', 15, 1570)
       ctx.font = `normal 40px sans-serif`;
       ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('的片断信息的能力——即把两个或两个以上的信息片断加工为一', 15, 1290)
+      ctx.fillText('的片断信息的能力——即把两个或两个以上的信息片断加工为一', 15, 1590)
       ctx.font = `normal 40px sans-serif`;
       ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('个片断。', 15, 1310)
+      ctx.fillText('个片断。', 15, 1610)
     } else {
-      ctx.fillText('的人处于这', (280 + 12 * this.data.simultaneous_grade.length), 1250)
+      ctx.fillText('的人处于这', (280 + 12 * this.data.simultaneous_grade.length), 1550)
       ctx.font = `normal 40px sans-serif`;
       ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('一水平。评估同时性编码的目标是要测量人们联结和整合离散的', 15, 1270)
+      ctx.fillText('一水平。评估同时性编码的目标是要测量人们联结和整合离散的', 15, 1570)
       ctx.font = `normal 40px sans-serif`;
       ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('片断信息的能力——即把两个或两个以上的信息片断加工为一个', 15, 1290)
+      ctx.fillText('片断信息的能力——即把两个或两个以上的信息片断加工为一个', 15, 1590)
       ctx.font = `normal 40px sans-serif`;
       ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('片断。', 15, 1310)
+      ctx.fillText('片断。', 15, 1610)
     }
     //继时性
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('你的继时性加工能力达到了', 40, 1335)
+    ctx.fillText('你的继时性加工能力达到了', 40, 1635)
     ctx.font = `bold 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.successive_grade, 188, 1335)
+    ctx.fillText(this.data.successive_grade, 188, 1635)
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('水平，约有', (188 + 12 * this.data.successive_grade.length), 1335)
+    ctx.fillText('水平，约有', (188 + 12 * this.data.successive_grade.length), 1635)
     ctx.font = `bold 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.successive_percentage + '%', (250 + 12 * this.data.successive_grade.length), 1335)
+    ctx.fillText(this.data.successive_percentage + '%', (250 + 12 * this.data.successive_grade.length), 1635)
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
     if (this.data.successive_percentage < 10) {
-      ctx.fillText('的人处于', (270 + 12 * this.data.successive_grade.length), 1335)
+      ctx.fillText('的人处于', (270 + 12 * this.data.successive_grade.length), 1635)
       ctx.font = `normal 40px sans-serif`;
       ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('这一水平。测试继时性编码的目的是为了评价人们以特定的顺', 15, 1355)
+      ctx.fillText('这一水平。测试继时性编码的目的是为了评价人们以特定的顺', 15, 1655)
       ctx.font = `normal 40px sans-serif`;
       ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('序保持信息的技能。', 15, 1375)
+      ctx.fillText('序保持信息的技能。', 15, 1675)
     } else {
-      ctx.fillText('的人处于这', (280 + 12 * this.data.successive_grade.length), 1335)
+      ctx.fillText('的人处于这', (280 + 12 * this.data.successive_grade.length), 1635)
       ctx.font = `normal 40px sans-serif`;
       ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('一水平。测试继时性编码的目的是为了评价人们以特定的顺序保', 15, 1355)
+      ctx.fillText('一水平。测试继时性编码的目的是为了评价人们以特定的顺序保', 15, 1655)
       ctx.font = `normal 40px sans-serif`;
       ctx.setFontSize(12)
       ctx.setFillStyle('#000000')
-      ctx.fillText('持信息的技能。', 15, 1375)
+      ctx.fillText('持信息的技能。', 15, 1675)
     }
 
     //建议
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('建议：可以适当提高', 40, 1400)
+    ctx.fillText('建议：可以适当提高', 40, 1700)
     ctx.font = `bold 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.min, 150, 1400)
+    ctx.fillText(this.data.min, 150, 1700)
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('加工能力。', 188, 1400)
+    ctx.fillText('加工能力。可以尝试以下方法：', 188, 1700)
+    ctx.font = `normal 40px sans-serif`;
+    ctx.setFontSize(12)
+    ctx.setFillStyle('#000000')
+    ctx.fillText(this.data.methods, 15, 1720)
 
     //渲染
     ctx.draw(true, () => {
