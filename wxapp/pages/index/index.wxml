@@ -4,8 +4,8 @@
     <image src="https://picture.morii.top/renzhixuetang/word/title.png"></image>
   </view>
   <view class="start">
-    <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="background: rgba(0,0,0,0);">
-      <image class="start-img" src="https://picture.morii.top/renzhixuetang/word/start.png"></image>
+    <button bindtap="getUserInfo" style="background: rgba(0,0,0,0);">
+      <image class="start-img" src="../../images/start.png"></image>
     </button>
   </view>
   <mp-dialog title="完善个人资料" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{oneButton}}">
