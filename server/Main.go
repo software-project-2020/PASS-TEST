@@ -92,6 +92,8 @@ func main() {
 
 	r.POST("/api/test/lasttest", lastTest)
 
+	r.GET("/api/root/datastastics",getDataStastics)
+
 	r.Run(":23333")
 }
 
@@ -1017,4 +1019,15 @@ func lastTest(c *gin.Context) {
 		checkErr(err)
 		c.JSON(200, string(mapJson))
 	}
+}
+
+func getDataStastics(c *gin.Context)  {
+	defer recoverErr()
+	result := make(map[string]interface{})
+	result["error_code"] = 0
+	sqlForRun := "SELECT age, sum(plan_score)/COUNT(*),sum(attention_score)/COUNT(*),sum(simul_score)/COUNT(*),sum(suc_score)/COUNT(*) FROM `user`,test_result WHERE `user`.openid = test_result.openid GROUP BY age"
+	stmt, err := Db.Prepare(sqlForRun)
+	checkErr(err)
+	defer stmt.Close()
+	//row, _ := stmt.Query()
 }
