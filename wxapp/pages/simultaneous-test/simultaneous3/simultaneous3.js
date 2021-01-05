@@ -20,8 +20,8 @@ Page({
       title: '同时性加工测试'
     })
 
-    testutil.getS13(1, (res) => {
-      // testutil.getS13(app.globalData.userInfo.ageGroup, (res) => {
+    // testutil.getS13(1, (res) => {
+    testutil.getS13(app.globalData.userInfo.ageGroup, (res) => {
       this.setData({
         qnum: res.qnum,
         qlist: res.qlist,
