@@ -60,7 +60,7 @@
             <view class="td">{{simultaneous1_right}} / {{simultaneous1_sum}}</view>
           </view>
           <view class="tr bg-g">
-            <view class="td">言语加工</view>
+            <view class="td">看话识图</view>
             <view class="td">{{simultaneous2_right}} / {{simultaneous2_sum}}</view>
           </view>
           <view class="tr">

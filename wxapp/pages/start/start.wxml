@@ -2,7 +2,7 @@
 <view class=" justify-center"
   style="height:100%;width: 100%;background-image: url('https://picture.morii.top/renzhixuetang/background/4.jpg');background-size: 100% 100%;">
 
-  <view class="cu-card case {{isCard?'no-card':''}}" style="height:70%;padding: 5% 0px;">
+  <view wx:if="{{islogin}}" class="cu-card case {{isCard?'no-card':''}}" style="height:70%;padding: 5% 0px;">
     <view class="cu-item shadow" style="border-radius: 20px;">
       <view class="cu-list menu-avatar">
         <view class="cu-item" style="margin:15px">
@@ -69,10 +69,48 @@
       </view>
     </view>
   </view>
+  <view wx:else class="cu-card case {{isCard?'no-card':''}}" style="height:70%;padding: 5% 0px;">
+    <view class="cu-item shadow" style="border-radius: 20px;">
+      <view class="cu-list menu-avatar">
+        <view class="cu-item" style="margin:15px">
+          <view class="content flex-sub" style="padding-left:40px;padding-top: 12px;">
+            <view class="text-green text-bold text-xsl" style="font-size: 23px;">匿名用户</view>
+            <view class="text-gray text-sm flex justify-between">
+              <view class="tr1">
+                <view><text class="text_age">年龄</text></view>
+                <view><text class="text_age">{{userInfo.age}}</text></view>
+                <view><text class="text_age">岁 </text></view>
+                <view class="text_age" bindtap="changeinfo">
+                  <image src="https://picture.morii.top/renzhixuetang/zlx/modify.png"></image>
+                </view>
+                <view><text class="text_age" bindtap="changeinfo"> 修改</text></view>
+              </view>
+            </view>
+          </view>
+
+
+          <view class="cu-avatar round lg"
+            style="background-image:url('../../images/head.jpg');width: 65px;height: 65px;" open-type="getUserInfo"
+            bindgetuserinfo="getUserInfo">
+            <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="background: rgba(0,0,0,0);height: 100%;width: 100%;padding: 0;"></button>
+
+          </view>
+
+
+        </view>
+
+      </view>
+    </view>
+    <view class="cu-item shadow" style="border-radius: 20px;padding: 25px;">
+      <view class="text-brown text-xl text-center solid-bottom text-bold" style="padding-bottom: 10px;">提示</view>
+      <view class="text-grey text-left" style="padding-bottom: 10px;">
+        <text space="ensp">    当前您还没有登录，您可以进行测试，默认的年龄是10岁，如果和实际不符，你可以点击年龄边上的修改按钮，但是你的测试记录不会被保存。如果你希望能看到自己的能力变化，请先点击头像授权登录！</text></view>
+    </view>
+  </view>
   <mp-dialog title="完善个人资料" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{oneButton}}">
-   <view style="margin-bottom:20px;">
-    <text >注意：年龄关系到测试结果的准确性，请正确选择你的出生日期!</text>
-   </view> 
+    <view style="margin-bottom:20px;">
+      <text>注意：年龄关系到测试结果的准确性，请正确选择你的出生日期!</text>
+    </view>
     <radio-group class="radio-group" bindchange="radioChange" style="padding-bottom: 10px;">
       <label>性别： </label>
       <label class="radio" wx:for="{{items}}" style="padding: 5px;">
