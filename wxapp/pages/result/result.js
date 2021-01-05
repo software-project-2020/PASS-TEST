@@ -470,7 +470,7 @@ Page({
     ctx.fillText(this.data.attention2_right + " / " + this.data.attention2_sum, 260, 1007)
     ctx.fillText('渐进矩阵', 80, 1057)
     ctx.fillText(this.data.simultaneous1_right + " / " + this.data.simultaneous1_sum, 260, 1057)
-    ctx.fillText('言语加工', 80, 1107)
+    ctx.fillText('看话识图', 80, 1107)
     ctx.fillText(this.data.simultaneous2_right + " / " + this.data.simultaneous2_sum, 260, 1107)
     ctx.fillText('单词序列', 80, 1157)
     ctx.fillText(this.data.successive1_right + " / " + this.data.successive1_sum, 260, 1157)

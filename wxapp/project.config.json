@@ -61,7 +61,26 @@
       "list": []
     },
     "miniprogram": {
-      "list": []
+      "list": [
+        {
+          "name": "pages/start/start",
+          "pathName": "pages/start/start",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+          "pathName": "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/simultaneous-test/simultaneous3/simultaneous3",
+          "pathName": "pages/simultaneous-test/simultaneous3/simultaneous3",
+          "query": "",
+          "scene": null
+        }
+      ]
     }
   }
 }

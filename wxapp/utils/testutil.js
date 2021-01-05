@@ -4,6 +4,7 @@ module.exports = {
   getS12: getS12,
   getS11: getS11,
   getS22: getS22,
+  getS13:getS13,
   submitResult: submitResult,
   getrecordInfo: getrecordInfo,
   getrecordDetailInfo: getrecordDetailInfo
@@ -100,6 +101,44 @@ function getS12(ageGroup, callback) {
             })
           })
         })
+      })
+    })
+  })
+}
+//获得S13
+function getS13(ageGroup, callback) {
+  var qnumlist = []
+  var time =[] 
+  getconfiguration(ageGroup, 'S13', (res) => {
+    for (var i = 0; i < res.length; i++) {
+      var temp = JSON.parse(res[i].parameter_info)
+      qnumlist[i] = temp.num
+      time[i] =temp.time
+    }
+    console.log(qnumlist,time)
+    var allnum = 0
+    var alllist = []
+    var qnum, qlist
+    getQuestions('S13', 0, qnumlist[0], (res) => {
+      console.log(res)
+      qnum = res.data.length
+      qlist = res.data
+      alllist = alllist.concat(qlist)
+      allnum = allnum + qnum
+      getQuestions('S13', 1, qnumlist[1], (res) => {
+        qnum = res.data.length
+        qlist = res.data
+        alllist = alllist.concat(qlist)
+        allnum = allnum + qnum
+        for (var j = 0; j < allnum; j++) {
+          alllist[j] = JSON.parse(alllist[j])
+        }
+        var res = {
+          'qnum': allnum,
+          'qlist': alllist,
+          'time': time
+        }
+        callback && callback(res)
       })
     })
   })

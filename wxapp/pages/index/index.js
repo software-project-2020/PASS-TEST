@@ -64,34 +64,24 @@ Page({
     wx.hideLoading()
   },
   getUserInfo: function (e) {
+    // 先从缓存获取用户数据,无缓存信息将显示匿名用户
     var that = this
-    wx.getUserInfo({
-      success: function (res) {
-        wx.showLoading({
-          title: '登录中'
+
+    wx.getStorage({
+      key: 'userInfo',
+      success(res) {
+        app.globalData.userInfo=res.data
+        wx.redirectTo({
+          url: '../start/start'
         })
-        app.globalData.userInfo = res.userInfo
-        that.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
+      },
+      fail: (res) => {
+        wx.redirectTo({
+          url: '../start/start'
         })
-        userutil.userlogin(res.userInfo)
-        userutil.userloginCallback = res => {
-          console.log(res.data)
-          if (res.data.flag) { //第一次登陆
-            app.globalData.userInfo['openid'] = res.data.openid
-            that.openForm()
-          } else { //不是第一次登陆
-            app.globalData.userInfo = Object.assign(app.globalData.userInfo, res.data)
-            wx.navigateTo({
-              url: '../start/start'
-            })
-            wx.hideLoading()
-          }
-        }
-        
       }
     })
+
   },
   tapDialogButton(e) {
     app.globalData.userInfo['birthday'] = this.data.date
