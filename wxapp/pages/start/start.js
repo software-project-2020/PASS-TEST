@@ -79,7 +79,10 @@ Page({
         }
       })
     }
-
+    
+    if(!this.data.userInfo.age ){
+      this.openForm()
+    }
 
   },
   /**
@@ -91,7 +94,6 @@ Page({
     })
     var that = this
     util.getLastTest(this.data.userInfo.openid, (res) => {
-      console.log(JSON.stringify(res.data) != "{}")
       if (JSON.stringify(res.data) != "{}") {
         var tempscore = res.data
         var score = [tempscore.plan_score, tempscore.attention_score, tempscore.simul_score, tempscore.suc_score]
@@ -106,9 +108,7 @@ Page({
           })
         }, 500)
       }
-      console.log(that.data.score)
     })
-    console.log("onshow",app.globalData.userInfo)
   },
   myinformation: function () {
     wx.redirectTo({

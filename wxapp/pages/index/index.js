@@ -56,6 +56,7 @@ Page({
         }
       })
     }
+    
   },
   openForm: function () {
     this.setData({
