@@ -8,7 +8,7 @@ Page({
    */
   data: {
     number: 0,
-    question_text: ["选出下列图片中的 ", "选出下列字母中的 "],
+    question_text: ["选出下列字母中的 ", "选出下列字母中的 "],
     list_big_letter: {
       0: "A",
       1: "B",
@@ -83,8 +83,8 @@ Page({
   },
   onLoad: function () {
     //年龄暂时为写死为1
-    var age = getApp().globalData.userInfo.ageGroup
-    // var age = 1
+    // var age = getApp().globalData.userInfo.ageGroup
+    var age = 1
     testutil.getconfiguration(age, 'A2', (res) => {
       console.log(res)
       var line = []
@@ -204,7 +204,6 @@ Page({
                       "value": this.data.age1_question,
                       "add": this.data.list_big_letter[this.data.age1_question],
                       "number": "",
-                      "number1": "",
                     }
                     flag = true;
                   }
@@ -217,20 +216,19 @@ Page({
                       "add": this.data.list_big_letter[this.data.age1_question],
                       "value2": this.data.age2_question,
                       "number": this.data.list_small_letter[this.data.age2_question],
-                      "number1": "",
                     }
                     flag = true;
                   }
 
                 } else if (this.data.number == 2) {
+                  var age3_question = Math.floor(Math.random() * 26);
                   if (l[i][j] == null) {
                     var item = {
                       "index": i * this.data.column[this.data.number] + j,
-                      "value": this.data.age1_question,
-                      "add": this.data.list_big_letter[this.data.age1_question],
-                      "value2": this.data.age2_question,
-                      "number": this.data.list_small_letter[this.data.age2_question],
-                      "number1": this.data.age2_question_number,
+                      "value": age3_question,
+                      "add": this.data.list_big_letter[age3_question],
+                      "value2": age3_question,
+                      "number": this.data.list_small_letter[age3_question],
                     }
                     flag = true;
                   }
@@ -277,7 +275,6 @@ Page({
                   "add": this.data.list_big_letter[a],
                   "value2": "",
                   "number": "",
-                  "number1": "",
                 }
               } else if (this.data.number == 1) {
                 var item = {
@@ -286,7 +283,6 @@ Page({
                   "add": this.data.list_big_letter[a],
                   "value2": a2,
                   "number": this.data.list_small_letter[a2],
-                  "number1": "",
                 }
               } else if (this.data.number == 2) {
                 var item = {
@@ -295,7 +291,6 @@ Page({
                   "add": this.data.list_big_letter[a],
                   "value2": a2,
                   "number": this.data.list_small_letter[a2],
-                  "number1": Math.floor(Math.random() * 10)
                 }
               }
             }
@@ -325,7 +320,6 @@ Page({
       age1_question: Math.floor(Math.random() * 26),
       age2_question: Math.floor(Math.random() * 26),
       age1_question_number: Math.floor(Math.random() * 10),
-      age2_question_number: Math.floor(Math.random() * 10),
       finishClick: false,
       start: false
     })
@@ -354,7 +348,7 @@ Page({
         })
       } else if (this.data.number == 2) {
         this.setData({
-          word: this.data.list_big_letter[this.data.age1_question] + " , " + this.data.list_small_letter[this.data.age2_question] + "和" + this.data.age2_question_number + " 的组合"
+          word: "所有大小写的组合（如Aa、Bb、Cc……）"
         })
       }
     }
@@ -391,10 +385,8 @@ Page({
       for (j = 0; j < this.data.column[this.data.number]; j++) {
         let index = "num[" + (i * this.data.column[this.data.number] + j) + "]";
         let count = "ans_num[" + (i * this.data.column[this.data.number] + j) + "]";
-        let count1 = "ans_num1[" + (i * this.data.column[this.data.number] + j) + "]";
         let value = l[i][j].value;
         let value2 = l[i][j].value2;
-        let number1 = l[i][j].number1;
         if (this.data.age == 0) {
           if (this.data.number == 2) {
             var value_num = l[i][j].value2;
@@ -411,7 +403,6 @@ Page({
           that.setData({
             [index]: value,
             [count]: value2,
-            [count1]: number1,
           });
         }
       }
@@ -444,7 +435,7 @@ Page({
               rightcount++;
             }
           } else if (this.data.number == 2) {
-            if ((Number(this.data.num[i]) == Number(this.data.age1_question)) && (Number(this.data.ans_num[i]) == Number(this.data.age2_question)) && (Number(this.data.ans_num1[i]) == Number(this.data.age2_question_number))) {
+            if (Number(this.data.num[i]) == Number(this.data.ans_num[i])) {
               rightcount++;
             }
           }
@@ -572,10 +563,8 @@ Page({
       for (j = 0; j < this.data.column[this.data.number]; j++) {
         let index = "num[" + (i * this.data.column[this.data.number] + j) + "]";
         let count = "ans_num[" + (i * this.data.column[this.data.number] + j) + "]";
-        let count1 = "ans_num1[" + (i * this.data.column[this.data.number] + j) + "]";
         let value = l[i][j].value;
         let value2 = l[i][j].value2;
-        let number1 = l[i][j].number1;
         if (this.data.age == 0) {
           if (this.data.number == 2) {
             var value_num = l[i][j].value2;
@@ -592,7 +581,6 @@ Page({
           that.setData({
             [index]: value,
             [count]: value2,
-            [count1]: number1,
           });
         }
 
@@ -636,7 +624,7 @@ Page({
             });
           }
         } else if (this.data.number == 2) {
-          if ((Number(this.data.num[i]) == Number(this.data.age1_question)) && (Number(this.data.ans_num[i]) == Number(this.data.age2_question)) && (Number(this.data.ans_num1[i]) == Number(this.data.age2_question_number))) {
+          if (Number(this.data.num[i]) == Number(this.data.ans_num[i])) {
             that.setData({
               count: this.data.count + 1,
             });
@@ -666,7 +654,6 @@ Page({
         [indexflag]: 0,
       })
     }
-    console.log("flag: " + this.data.flag)
   },
 
   finish: function (e) {
