@@ -30,10 +30,10 @@ Page({
         time: res.time
       })
       wx.showModal({
-        title: '开始练习',
-        content: '在开始测试之前，你有一次练习的机会，练习将不会被计入成绩，快去熟悉一下题目吧!',
-        cancelText:'跳过练习',
-        confirmText:'开始练习',
+        title: '开始尝试',
+        content: '在开始测试之前，你有一次尝试的机会，尝试将不会被计入成绩，快去熟悉一下题目吧!',
+        cancelText:'跳过尝试',
+        confirmText:'开始尝试',
         success: function (res) {
           if (res.confirm) {
           }else{

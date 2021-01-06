@@ -24,13 +24,13 @@
       <view class="flex  padding justify-around">
         <view class="action">
           <button wx:if="{{num>0}}" class="cu-btn bg-green shadow lg round" bindtap="numStepsBack"
-            style="display:flex;justify-content: center;width: 110px;">上一步</button>
+            style="display:flex;justify-content: center;width: 120px;">上一步</button>
         </view>
         <view class="action">
           <button wx:if="{{num<3}}" class="cu-btn bg-green shadow lg round" bindtap="numSteps"
-            style="display:felselex;justify-content: center;width: 110px;">下一步</button>
+            style="display:felselex;justify-content: center;width: 120px;">下一步</button>
           <button wx:else class="cu-btn bg-green shadow lg round" bindtap="gototest1"
-            style="display:flex;justify-content: center;width: 110px;">开始测试</button>
+            style="display:flex;justify-content: center;width: 120px;">开始测试</button>
         </view>
       </view>
     </view>

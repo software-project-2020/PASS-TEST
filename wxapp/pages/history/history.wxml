@@ -1,9 +1,3 @@
-<!--pages/history/history.wxml-->
-<!-- <view class="top"> -->
-<!-- <image class="return" src="https://picture.morii.top/renzhixuetang/return.png" bindtap="return"></image> -->
-<!-- <text class="text">历史测试结果</text>
-</view> -->
-
 <view class="back" style="width : {{deviceWidthLook}}px; height : {{deviceHeightLook}}px">
   <scroll-view scroll-y class="result">
     <view class="time">
@@ -54,7 +48,7 @@
           class="text_thick">{{successive_grade}}</text>水平，约有<text
           class="text_thick">{{successive_percentage}}%</text>的人处于这一水平。测试继时性编码的目的是为了评价人们以特定的顺序保持信息的技能。</text>
       <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;建议：可以适当提高<text
-          class="text_thick">{{min}}</text>加工能力，更加有助于孩子的成长。</text>
+          class="text_thick">{{min}}</text>加工能力。可以尝试以下方法：{{methods}}</text>
     </view>
   </scroll-view>
 </view>

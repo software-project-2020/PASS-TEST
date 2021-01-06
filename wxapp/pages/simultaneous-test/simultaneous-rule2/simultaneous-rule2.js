@@ -18,7 +18,7 @@ Page({
     num: 0,
     scroll: 0,
     rules:[{
-      words:"进入页面后，你将会看到一句描述性的文字",
+      words:"进入页面后，你将会看到一段描述性的文字",
       img:"https://picture.morii.top/renzhixuetang/rules/S11-rule/S11-step1.jpg"
     },
     {

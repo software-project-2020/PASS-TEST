@@ -17,6 +17,8 @@ Page({
     testtime: 3,
     dialogShow: false,
     qa: [],
+    tryagain: false,
+    wordspersec: [],
   },
 
   choose: function (e) {
@@ -42,7 +44,7 @@ Page({
         this.setData({
           choosed: [false, false, false, false],
           exeshow: true,
-          testtime: parseInt(this.data.qa[this.data.now-1].sentence.length / 2)
+          testtime: parseInt(this.data.qa[this.data.now - 1].sentence.length / this.data.wordspersec)
         })
         util.closeCountDown(this)
         util.initCountDown(this, this.data.testtime, 1)
@@ -68,7 +70,7 @@ Page({
               now: that.data.now + 1,//进入下一个游戏
               choosed: [false, false, false, false],
               exeshow: true,
-              testtime: parseInt(that.data.qa[that.data.now-1].sentence.length / 2)
+              testtime: parseInt(that.data.qa[that.data.now - 1].sentence.length / that.data.wordspersec)
             })
             util.closeCountDown(that)
             util.initCountDown(that, that.data.testtime, 1)
@@ -83,6 +85,14 @@ Page({
       title: '继时性加工测试'
     })
     var that = this
+    testutil.getconfiguration(0, 'S22', (res) => {
+      for (var i = 0; i < res.length; i++) {
+        var temp = JSON.parse(res[i].parameter_info)
+        that.setData({
+          wordspersec: temp.wordspersec
+        })
+      }
+    })
     testutil.getS22((res) => {
       console.log(JSON.stringify(res.qa[0]))
       that.setData({
@@ -90,7 +100,33 @@ Page({
       })
       console.log(this.data.qa)
     })
-    util.initCountDown(this, this.data.testtime, 1)
+    if (this.data.now == 1 && this.data.tryagain == false) {
+      var that = this
+      wx.showModal({
+        title: '注意',
+        content: '此次为尝试机会，不计入测试成绩',
+        confirmText: '开始尝试',
+        cancelText: '跳过尝试',
+        success: function (res) {
+          if (res.confirm) {
+            that.setData({
+              tryagain: true
+            })
+          }
+          else if (res.cancel) {
+            that.setData({
+              now: 2
+            })
+          }
+          util.initCountDown(that, that.data.testtime, 1)
+        }
+      })
+    } else {
+      this.setData({
+        istry: false
+      })
+      util.initCountDown(this, this.data.testtime, 1)
+    }
   },
 
   timeout: function () {
@@ -123,7 +159,7 @@ Page({
         util.closeCountDown(this)
       } else {
         this.setData({
-          testtime: parseInt(this.data.qa[this.data.now-1].question.length / 2) + this.data.qa[this.data.now-1].right_answer.length * 2
+          testtime: parseInt(this.data.qa[this.data.now - 1].question.length / this.data.wordspersec) + this.data.qa[this.data.now - 1].right_answer.length * 2
         })
         util.initCountDown(this, this.data.testtime, 1)
       }
@@ -144,7 +180,7 @@ Page({
                 now: that.data.now + 1,//进入下一个游戏
                 choosed: [false, false, false, false],
                 exeshow: true,
-                testtime: parseInt(that.data.qa[that.data.now].sentence.length / 2)
+                testtime: parseInt(that.data.qa[that.data.now].sentence.length / that.data.wordspersec)
               })
               util.closeCountDown(that)
               util.initCountDown(that, that.data.testtime, 1)
@@ -184,7 +220,7 @@ Page({
         now: this.data.now + 1,//进入下一个游戏
         choosed: [false, false, false, false],
         exeshow: true,
-        testtime: parseInt(this.data.qa[this.data.now].sentence.length / 2)
+        testtime: parseInt(this.data.qa[this.data.now].sentence.length / this.data.wordspersec)
       })
       util.closeCountDown(this)
       util.initCountDown(this, this.data.testtime, 1)

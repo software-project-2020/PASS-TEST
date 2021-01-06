@@ -20,11 +20,10 @@
   </view>
   <view class="border">
     <view class="timu">
-      <text class="word">题目{{now}}：请在下面的选项中选出空缺处的图案。</text>
-      <image src="{{qlist[now].q}}">题目加载中</image>
+      <text class="word">题目{{now}}：{{qlist[now].q}}</text>
     </view>
     <view class="choose">
-      <view class="line  flex justify-center">
+      <view class="line">
         <view class="block">
           <image class="{{answer[now]-1==0?'choice border1':'choice'}}" src="{{qlist[now].option[0]}}"
             bindtap="chooseAnster" data-index="0"></image>
@@ -42,26 +41,6 @@
         <view class="block">
           <image class="{{answer[now]-1==3?'choice border1':'choice'}}" src="{{qlist[now].option[3]}}"
             bindtap="chooseAnster" data-index="3"></image>
-        </view>
-      </view>
-      <view class="line">
-        <view class="block">
-          <image class="{{answer[now]-1==4?'choice border1':'choice'}}" src="{{qlist[now].option[4]}}"
-            bindtap="chooseAnster" data-index="4"></image>
-        </view>
-        <view class="block">
-          <image class="{{answer[now]-1==5?'choice border1':'choice'}}" src="{{qlist[now].option[5]}}"
-            bindtap="chooseAnster" data-index="5"></image>
-        </view>
-      </view>
-      <view class="line">
-        <view class="block">
-          <image class="{{answer[now]-1==6?'choice border1':'choice'}}" src="{{qlist[now].option[6]}}"
-            bindtap="chooseAnster" data-index="6"></image>
-        </view>
-        <view class="block">
-          <image class="{{answer[now]-1==7?'choice border1':'choice'}}" src="{{qlist[now].option[7]}}"
-            bindtap="chooseAnster" data-index="7"></image>
         </view>
       </view>
     </view>

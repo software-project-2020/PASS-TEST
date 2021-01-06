@@ -149,7 +149,7 @@ Page({
       var l = this.data.l;
       //保证至少有一个答案
       var place = [];
-      var size = Math.floor((Math.random() * 5) + 10);
+      var size = Math.floor((Math.random() * 10) + 10);
       for (i = 0; i < size; i++) {
         place[i] = Math.floor(((Math.random() * (this.data.line[this.data.number] * this.data.column[this.data.number]))));
       }

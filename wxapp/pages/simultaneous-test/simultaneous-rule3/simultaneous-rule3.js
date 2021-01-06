@@ -1,6 +1,5 @@
 // pages/simultaneous-test/simultaneous-rule/simultaneous-rule.js
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -9,46 +8,35 @@ Page({
     numList: [{
       name: '开始'
     }, {
-      name: '点击'
+      name: '选择'
     }, {
-      name: '加分'
+      name: '继续'
     }, {
       name: '完成'
     }, ],
     num: 0,
     scroll: 0,
     rules:[{
-      words:"进入页面后，你将会看到4*4或者5*5的数字方块",
-      img:"https://picture.morii.top/renzhixuetang/rules/plan/test1step1.jpg"
+      words:"进入页面后，你将会看到一段描述文字",
+      img:"https://picture.morii.top/renzhixuetang/rules/S12-rules/S13-step1.jpg"
     },
     {
-      words:"你需要将数字从小到大顺序依次点击",
-      img:"https://picture.morii.top/renzhixuetang/rules/plan/test1step2.gif"
+      words:"你需要根据文字，在选项中找出符合描述的一项",
+      img:"https://picture.morii.top/renzhixuetang/rules/S12-rules/S13-step2.jpg"
     },
     {
-      words:"当连续点击速度时间间隔少，速度快时会有加分",
-      img:"https://picture.morii.top/renzhixuetang/rules/plan/test1step3.gif"
+      words:"做完一题后点击下一题按钮",
+      img:"https://picture.morii.top/renzhixuetang/rules/S12-rules/S13-step3.jpg"
     },
     {
-      words:"完成之后会自动结束哦。如果已经对规则了解了的话，就点击开始测试的按钮吧",
-      img:"https://picture.morii.top/renzhixuetang/rules/plan/test1step4.gif"
+      words:"完成所有的题目后请点击提交按钮。如果已经对规则了解了的话，就点击开始测试的按钮吧",
+      img:"https://picture.morii.top/renzhixuetang/rules/S12-rules/S13-step4.jpg"
     }]
   },
   gototest1: function (e) {
-
-    // wx.showModal({
-    //   title: '开始练习',
-    //   content: '在开始测试之前，你有一次练习的机会，练习将不会被计入成绩，快去熟悉一下题目吧!',
-    //   cancelText:'取消',
-    //   confirmText:'开始练习',
-    //   success: function (res) {
-    //     if (res.confirm) {//这里是点击了确定以后
-          wx.redirectTo({
-            url: '/pages/planning-test/test1/test1',
-          })
-    //     }
-    //   }
-    // })
+    wx.redirectTo({
+      url: '/pages/simultaneous-test/simultaneous3/simultaneous3',
+    })
   },
 
   /**
@@ -56,7 +44,7 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({
-      title: '计划测试'
+      title: '同时性加工测试'
     })
   },
 

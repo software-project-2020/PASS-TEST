@@ -35,16 +35,17 @@
       </view>
     </view>
     <view>
-      <text class="{{show?'text1':'text2'}}" bindtap="show">点击查看做题详情</text>
+      <text class="{{show?'text1':'text2'}}" bindtap="show">点击查看测试详情</text>
       <view class="table" wx:if="{{show}}">
         <view class="tr bg-w">
           <view class="th">题目</view>
-          <view class="th">做题详情</view>
+          <view class="th">测试详情</view>
         </view>
         <block>
           <view class="tr bg-g">
             <view class="td">舒尔特方块</view>
-            <view class="td" style="white-space:pre-wrap">{{plan2_count}} * {{plan2_count}} : {{plan2_time}}s \n{{plan3_count}} * {{plan3_count}} : {{plan3_time}}s</view>
+            <view class="td" style="white-space:pre-wrap">{{plan2_count}} * {{plan2_count}} : {{plan2_time}}s
+              \n{{plan3_count}} * {{plan3_count}} : {{plan3_time}}s</view>
           </view>
           <view class="tr">
             <view class="td">寻找数字</view>
@@ -59,7 +60,7 @@
             <view class="td">{{simultaneous1_right}} / {{simultaneous1_sum}}</view>
           </view>
           <view class="tr bg-g">
-            <view class="td">言语加工</view>
+            <view class="td">看话识图</view>
             <view class="td">{{simultaneous2_right}} / {{simultaneous2_sum}}</view>
           </view>
           <view class="tr">
@@ -94,7 +95,7 @@
           class="text_thick">{{successive_grade}}</text>水平，约有<text
           class="text_thick">{{successive_percentage}}%</text>的人处于这一水平。测试继时性编码的目的是为了评价人们以特定的顺序保持信息的技能。</text>
       <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;建议：可以适当提高<text
-          class="text_thick">{{min}}</text>加工能力。</text>
+          class="text_thick">{{min}}</text>加工能力。可以尝试以下方法：{{methods}}</text>
     </view>
   </scroll-view>
 </view>

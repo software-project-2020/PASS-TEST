@@ -22,13 +22,13 @@
       <view class="flex  padding justify-around">
         <view class="action">
           <button wx:if="{{num>0}}" class="cu-btn bg-purple shadow lg round" bindtap="numStepsBack"
-            style="display:flex;justify-content: center;width: 110px;">上一步</button>
+            style="display:flex;justify-content: center;width: 120px;">上一步</button>
         </view>
         <view class="action">
           <button wx:if="{{num<3}}" class="cu-btn bg-purple shadow lg round" bindtap="numSteps"
-            style="display:felselex;justify-content: center;width: 110px;">下一步</button>
+            style="display:felselex;justify-content: center;width: 120px;">下一步</button>
           <button wx:else class="cu-btn bg-purple shadow lg round" bindtap="goTest"
-            style="display:flex;justify-content: center;width: 110px;">开始测试</button>
+            style="display:flex;justify-content: center;width: 120px;">开始测试</button>
         </view>
       </view>
     </view>
@@ -36,24 +36,3 @@
     </view>
   </view>
 </view>
-<!-- 
-<view class="container">
-  <view class="top" style="flex-direction:row;">
-    <view class="sheep">
-      <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/animal/sheep.png' style="width: 170rpx; "></image>
-    </view>
-  </view>
-  <view class="border">
-    <view class="introduction">
-      <text class="rules">接下来，你会看到几个数字，请在有限的时间内记住每个数字所在的位置。数字消失以后，在30s内，从待选区拖动数字到它之前的位置。
-        请看下面的示例：</text>
-    </view>
-    <image class='img1' mode='widthFix' src='https://picture.morii.top/renzhixuetang/zyy/rule.gif' style="width: 380rpx; "></image>
-   
-  </view>
-  <view class="bottom">
-    <button class="btn" plain="true" bindtap="goTest" >
-    <image class='img2' mode='widthFix' src='https://picture.morii.top/renzhixuetang/lyq/starttest1.png' style="width: 250rpx; "></image>
-  </button>
-</view>
-</view> -->

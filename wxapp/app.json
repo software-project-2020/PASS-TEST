@@ -1,6 +1,5 @@
 {
   "pages": [
-    
     "pages/index/index",
     "pages/start/start",
     "pages/planning-test/rule1/rule1",
@@ -25,7 +24,9 @@
     "pages/zyy_memory_span/memory_span",
     "pages/zyy_memory_span/rule/rule",
     "pages/zyy_memory_span/test/test",
-    "pages/simultaneous-test/simultaneous-rule/simultaneous-rule"
+    "pages/simultaneous-test/simultaneous-rule/simultaneous-rule",
+    "pages/simultaneous-test/simultaneous-rule3/simultaneous-rule3",
+    "pages/simultaneous-test/simultaneous3/simultaneous3"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -38,5 +39,4 @@
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
-  
 }

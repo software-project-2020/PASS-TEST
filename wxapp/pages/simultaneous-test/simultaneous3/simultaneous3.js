@@ -5,7 +5,7 @@ const app = getApp()
 Page({
   data: {
     score: 0,
-    choosed: [false, false, false, false, false, false, false, false],
+    choosed: [false, false, false, false],
     now: 0,
     answer: [],
     qnum: 0
@@ -19,13 +19,15 @@ Page({
     wx.setNavigationBarTitle({
       title: '同时性加工测试'
     })
-    testutil.getS12(app.globalData.userInfo.ageGroup, (res) => {
-      console.log(res)
+
+    // testutil.getS13(1, (res) => {
+    testutil.getS13(app.globalData.userInfo.ageGroup, (res) => {
       this.setData({
         qnum: res.qnum,
         qlist: res.qlist,
         time: res.time
       })
+      that.getOptions()
       wx.showModal({
         title: '开始尝试',
         content: '在开始测试之前，你有一次尝试的机会，尝试将不会被计入成绩，快去熟悉一下题目吧！如果你已经完全了解了规则也可以选择跳过尝试。',
@@ -34,7 +36,7 @@ Page({
         success: function (res) {
           if (res.confirm) {} else {
             that.nextQuestion()
-            util.initCountDown(that, that.data.time, 1)
+            util.initCountDown(that, that.data.time[1] * (that.data.qnum - 1), 1)
           }
         }
       })
@@ -94,15 +96,15 @@ Page({
               score++
           }
           //S12占测试总数的0.5
-          app.globalData.scoreDetail[1][0] = {
+          app.globalData.scoreDetail[1][1] = {
             score: score,
             qnum: that.data.qnum - 1
           }
-          console.log(app.globalData.scoreDetail[1][0])
-          app.globalData.score[1] = score / (that.data.qnum - 1) * 100 * 0.5
-          console.log(app.globalData.scoreDetail[1], app.globalData.score[1])
+
+          app.globalData.score[1] = app.globalData.score[1] + score / (that.data.qnum - 1) * 100 * 0.5
+
           wx.redirectTo({
-            url: '/pages/simultaneous-test/simultaneous-rule3/simultaneous-rule3',
+            url: "/pages/attention/rule1/attention",
           })
         } else if (res.cancel) { //继续
           util.initCountDown(that, that.data.displayTime, 1)
@@ -126,15 +128,14 @@ Page({
               score++
           }
           //S12占测试总数的0.5
-          app.globalData.scoreDetail[1][0] = {
+
+          app.globalData.scoreDetail[1][1] = {
             score: score,
             qnum: that.data.qnum - 1
           }
-          console.log(app.globalData.scoreDetail[1][0])
-          app.globalData.score[1] = score / (that.data.qnum - 1) * 100 * 0.5
-          console.log(app.globalData.scoreDetail[1], app.globalData.score[1])
+          app.globalData.score[1] = app.globalData.score[1] + score / (that.data.qnum - 1) * 100 * 0.5
           wx.redirectTo({
-            url: '/pages/simultaneous-test/simultaneous-rule3/simultaneous-rule3',
+            url: "/pages/attention/rule1/attention",
           })
         }
       }
@@ -186,9 +187,43 @@ Page({
       success: function (res) {
         if (res.confirm) { //这里是点击了确定以后
           that.nextQuestion()
-          util.initCountDown(that, that.data.time, 1)
+          util.initCountDown(that, that.data.time[1] * (that.data.qnum - 1), 1)
         }
       }
+    })
+  },
+  getOptions: function () {
+    var qnum = this.data.qnum
+    console.log(qnum)
+    var q = this.data.qlist
+    for (var i = 0; i < qnum; i++) {
+      var op = [null, null, null, null]
+      var options = q[i].option
+      var answer = q[i].answer
+      var k = 1
+      var right = Math.floor(Math.random() * 4)
+      op[right] = options[answer - 1]
+      options[answer - 1] = null
+      while (k < 4) {
+        var randop = Math.floor(Math.random() * options.length)
+        if (options[randop]) {
+          for (var j = 0; j < 4; j++) {
+            if (!op[j]) {
+              console.log(op[j])
+              op[j] = options[randop]
+              console.log(op[j])
+              k++
+              break
+            }
+          }
+          options[randop] = null
+        }
+      }
+      q[i].option = op
+      q[i].answer = right + 1
+    }
+    this.setData({
+      qlist: q
     })
   }
 })
