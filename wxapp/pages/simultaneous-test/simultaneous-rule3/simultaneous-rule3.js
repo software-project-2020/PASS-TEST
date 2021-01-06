@@ -18,19 +18,19 @@ Page({
     scroll: 0,
     rules:[{
       words:"进入页面后，你将会看到一段描述文字",
-      img:"https://picture.morii.top/renzhixuetang/rules/S12-rules/S12-step1.jpg"
+      img:"https://picture.morii.top/renzhixuetang/rules/S12-rules/S13-step1.jpg"
     },
     {
       words:"你需要根据文字，在选项中找出符合描述的一项",
-      img:"https://picture.morii.top/renzhixuetang/rules/S12-rules/S12-step2.jpg"
+      img:"https://picture.morii.top/renzhixuetang/rules/S12-rules/S13-step2.jpg"
     },
     {
       words:"做完一题后点击下一题按钮",
-      img:"https://picture.morii.top/renzhixuetang/rules/S12-rules/S12-step3.jpg"
+      img:"https://picture.morii.top/renzhixuetang/rules/S12-rules/S13-step3.jpg"
     },
     {
       words:"完成所有的题目后请点击提交按钮。如果已经对规则了解了的话，就点击开始测试的按钮吧",
-      img:"https://picture.morii.top/renzhixuetang/rules/S12-rules/S12-step4.jpg"
+      img:"https://picture.morii.top/renzhixuetang/rules/S12-rules/S13-step4.jpg"
     }]
   },
   gototest1: function (e) {
