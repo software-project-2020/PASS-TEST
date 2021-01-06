@@ -83,8 +83,8 @@ Page({
   },
   onLoad: function () {
     //年龄暂时为写死为1
-    // var age = getApp().globalData.userInfo.ageGroup
-    var age = 1
+    var age = getApp().globalData.userInfo.ageGroup
+    // var age = 1
     testutil.getconfiguration(age, 'A2', (res) => {
       console.log(res)
       var line = []
