@@ -2,6 +2,20 @@ const util = require("./zyy_util.js");
 const sql_tool = require("../../utils/testutil");
 let app = getApp();
 const board_size = 16;
+
+function Chess(val = 0, answer_index = -1, now_index = -1, move = {
+  left: 0,
+  top: 0
+}, zindex = 100) {
+  this.val = val;
+  this.answer_index = answer_index;
+  this.now_index = now_index;
+  this.move = move;
+  this.zindex = zindex;
+  this.below_img_url = util.get_num_img(val);
+  this.board_img_url = "";
+  return this;
+}
 Page({
   /**
    * 页面的初始数据
@@ -13,18 +27,10 @@ Page({
     windowWidth: app.windowWidth,
     windowHeight: app.windowHeight,
     chess_size: (app.windowWidth * 0.8) / 6,
+    chess_list: [],
     level_flow: [5, 6, 7, 8, 9],
     level_time: [4, 4, 5, 5, 5],
-    // level_time: [5, 5, 5, 5, 5, 1],
     level_index: 0,
-    board_num: [] /* board.length = board_size */ ,
-    board_img_url: [],
-    chess_index: [],
-    chess_move: [],
-    chess_float: [] /* 左右方向上的浮动变量 */ ,
-    chess_start: [],
-    chess_zindex: [],
-    chess_nowAt: [],
     game_state: "请记住棋盘",
     pos_table: [],
     time_limit: 30,
@@ -227,7 +233,7 @@ function gameStart(that, newGame_or_nextLevel = 'newGame') {
     });
   }
   util.initTime(that, that.data.level_time[that.data.level_index]);
-  initChessBoard(that, true);
+  initChessBoard(that, false);
   switch (newGame_or_nextLevel) {
     case 'newGame':
       that.setData({
@@ -264,44 +270,29 @@ function initChessBoard(that, isRandom) {
   let tar = that.data;
   tar.board_num = util.get_Random_board(tar.level_flow[tar.level_index], board_size);
   tar.board_img_url = [];
-  tar.chess_move = [];
-  tar.chess_start = [];
-  tar.chess_nowAt = [];
-  tar.chess_zindex = [];
-  tar.chess_index = [];
-  tar.chess_float = [];
   tar.pos_table = [];
   tar.board_num.forEach((e) => {
     tar.board_img_url.push(util.get_num_img(e));
-    tar.chess_move.push({
-      left: 0,
-      top: 0,
-    });
-    tar.chess_start.push({
-      left: 0,
-      top: 0,
-    });
-    tar.chess_nowAt.push(-1);
-    tar.chess_zindex.push(100);
-    tar.chess_float.push(0);
   });
-  if (isRandom) {
-    tar.chess_index = util.randArr(util.fillter_board(tar.board_num));
-  } else {
-    tar.chess_index = util.fillter_board(tar.board_num);
+  tar.chess_list = [];
+  for (let i = 0; i < board_size; i++) {
+    tar.chess_list.push(new Chess(i + 1));
   }
-  // console.log(tar.board_num);
-  // console.log(tar.board_img_url);
-  // console.log(tar.chess_index);
-  // console.log(tar.chess_move);
+  let board_select = tar.board_num;
+  for (let i = 0; i < board_size; i++) {
+    let answer = board_select.indexOf(tar.chess_list[i].val);
+    if (answer >= 0) {
+      tar.chess_list[i].answer_index = answer
+      tar.chess_list[i].board_img_url = util.get_num_img(tar.chess_list[i].val);
+    } else {
+      tar.chess_list[i].board_img_url = util.get_num_img(-1);
+    }
+  }
+
   that.setData({
     board_num: tar.board_num,
     board_img_url: tar.board_img_url,
-    chess_index: tar.chess_index,
-    chess_move: tar.chess_move,
-    chess_zindex: tar.chess_zindex,
-    chess_nowAt: tar.chess_nowAt,
-    chess_float: tar.chess_float,
+    chess_list: tar.chess_list,
     game_state: '请记住棋盘',
   });
 
