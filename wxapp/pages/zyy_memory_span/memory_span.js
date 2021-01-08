@@ -11,9 +11,13 @@ function Chess(val = 0, answer_index = -1, now_index = -1, move = {
   this.answer_index = answer_index;
   this.now_index = now_index;
   this.move = move;
+  this.start = {
+    left: 0,
+    top: 0
+  };
   this.zindex = zindex;
-  this.below_img_url = val <= 9 ? util.get_num_img(val) : "";
   this.board_img_url = "";
+  this.below_img_url = val <= 9 ? util.get_num_img(val) : "";
   return this;
 }
 Page({
@@ -125,16 +129,19 @@ Page({
     if (this.data.game_state != "开始拖动吧") {
       return;
     }
+
+    let cs = this.data.chess_list;
     let who = event.currentTarget.dataset.who;
-    let chess_start = this.data.chess_start;
     let param = {};
-    if (chess_start[who].left == 0 && chess_start[who].top == 0) {
-      param["chess_start[" + who + "]"] = {
+
+    if (cs[who].start.left == 0 && cs[who].start.top == 0) {
+      param["chess_list[" + who + "].start"] = {
         left: event.currentTarget.offsetLeft + this.data.chess_size / 2,
         top: event.currentTarget.offsetTop + this.data.chess_size / 2,
       };
     }
-    param["chess_zindex[" + who + "]"] = 200;
+    param["chess_list[" + who + "].zindex"] = 200;
+    // console.log(param);
     this.setData(param);
   },
   /**
@@ -146,7 +153,7 @@ Page({
       return;
     }
     let who = event.currentTarget.dataset.who;
-    let start = this.data.chess_start[who];
+    let start = this.data.chess_list[who].start;
     let table = this.data.pos_table;
     let pos = {
       left: event.changedTouches[0].pageX,
@@ -167,7 +174,7 @@ Page({
     }
 
     let param = {};
-    param["chess_move[" + who + "]"] = move;
+    param["chess_list[" + who + "].move"] = move;
     this.setData(param);
   },
   /**
@@ -197,13 +204,13 @@ Page({
         left: 0,
         top: 0,
       };
-      param["chess_move[" + who + "]"] = move;
+      param["chess_list[" + who + "].move"] = move;
     }
 
-    param["chess_nowAt[" + who + "]"] = nowAt;
-    param["chess_zindex[" + who + "]"] = 100;
+    param["chess_list[" + who + "].now_index"] = nowAt;
+    param["chess_list[" + who + "].zindex"] = 100;
     this.setData(param);
-    // console.log("触摸结束", who, nowAt, this.data.board_num[who], pos);
+    // console.log(nowAt == this.data.chess_list[who].answer_index);
   },
   /** 
    * 用户提交答案
@@ -342,12 +349,14 @@ function userCommitAnswer(event, that) {
   clearTimeout(that.data.time_add_er);
   clearTimeout(that.data.time_add_1);
   let endAnswer = true;
-  for (let i = 0; i < that.data.chess_index.length; i++) {
+  let cs = that.data.chess_list;
+
+  for (let i = 0; i < cs.length; i++) {
     endAnswer =
       endAnswer &&
-      that.data.chess_nowAt[that.data.chess_index[i]] ==
-      that.data.chess_index[i];
+      cs[i].answer_index == cs[i].now_index;
   }
+  console.log("End Answer: ", endAnswer);
   // console.log("测试页 用户提交答案", endAnswer);
   that.setData({
     level_index: that.data.level_index + 1

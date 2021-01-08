@@ -24,7 +24,7 @@
 </view>
 <view class="chess_below">
   <view class="chess_drag" wx:for="{{chess_list}}" wx:key="item" catchtouchstart="moveStart" catchtouchmove="handleMove"
-    catchtouchend="moveEnd" id="chess_{{item.val}}" data-who="{{item.val}}" data-i="{{index}}"
+    catchtouchend="moveEnd" id="chess_{{item.val}}" data-who="{{index}}"
     style="z-index:{{item.zindex}};left:{{item.move.left}}px;top:{{item.move.top}}px;">
     <image src='{{item.below_img_url}}' style="width:{{chess_size}}px;height:{{chess_size}}px;" />
   </view>
