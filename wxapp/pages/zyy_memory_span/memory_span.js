@@ -12,7 +12,7 @@ function Chess(val = 0, answer_index = -1, now_index = -1, move = {
   this.now_index = now_index;
   this.move = move;
   this.zindex = zindex;
-  this.below_img_url = util.get_num_img(val);
+  this.below_img_url = val <= 9 ? util.get_num_img(val) : "";
   this.board_img_url = "";
   return this;
 }
@@ -275,11 +275,11 @@ function initChessBoard(that, isRandom) {
     tar.board_img_url.push(util.get_num_img(e));
   });
   tar.chess_list = [];
-  for (let i = 0; i < board_size; i++) {
+  for (let i = 0; i < 9; i++) {
     tar.chess_list.push(new Chess(i + 1));
   }
   let board_select = tar.board_num;
-  for (let i = 0; i < board_size; i++) {
+  for (let i = 0; i < tar.chess_list.length; i++) {
     let answer = board_select.indexOf(tar.chess_list[i].val);
     if (answer >= 0) {
       tar.chess_list[i].answer_index = answer
