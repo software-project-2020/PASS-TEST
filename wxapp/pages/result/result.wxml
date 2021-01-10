@@ -94,8 +94,7 @@
       <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你的继时性加工能力达到了<text
           class="text_thick">{{successive_grade}}</text>水平，约有<text
           class="text_thick">{{successive_percentage}}%</text>的人处于这一水平。测试继时性编码的目的是为了评价人们以特定的顺序保持信息的技能。</text>
-      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;建议：可以适当提高<text
-          class="text_thick">{{min}}</text>加工能力。可以尝试以下方法：{{methods}}</text>
+      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{methods}}</text>
     </view>
   </scroll-view>
 </view>

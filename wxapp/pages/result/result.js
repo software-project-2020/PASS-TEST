@@ -140,7 +140,10 @@ Page({
     this.drawRadar()
     var grade = ['非常优秀', '优秀', '良好', '合格', '一般']
     var name = ['计划的', '注意的', '同时性', '继时性']
-    var way = ['做一些类似于舒尔特方块这样的有关视觉搜索和跟踪制作的练习。','做一些读词的练习（如字体颜色为红的蓝字）增加速度和正确率。','做一些找规律或者根据长句画图的练习。','做一些短时记忆或者排序的练习。']
+    var way = ['建议：计划能力偏弱，建议每天练习2次舒尔特方块，让孩子从日常的生活做起，从小养成做事的计划，可以有大目标和分解后的小目标。','建议：注意力偏弱，建议孩子日常提高专注力训练，利用六角球等专注力训练工具进行专项训练。','建议：同时性加工能力偏弱，建议孩子能够增加视觉训练，比如记忆一幅图像，能回忆并复述出图像的大致内容。','建议：继时性加工偏弱，建议增加听觉训练，听一段信息，能够对这段信息理解并有效的进行表达。']
+    var way1=['建议：计划能力偏弱，建议每天练习2次舒尔特方块，让孩子','建议：注意力偏弱，建议孩子日常提高专注力训练，利用六','建议：同时性加工能力偏弱，建议孩子能够增加视觉训练，','建议：继时性加工偏弱，建议增加听觉训练，听一段信息，']
+    var way2=['从日常的生活做起，从小养成做事的计划，可以有大目标和分解','角球等专注力训练工具进行专项训练。','比如记忆一幅图像，能回忆并复述出图像的大致内容。','能够对这段信息理解并有效的进行表达。']
+    var way3=['后的小目标。','','','']
     var rank = [this.data.plan, this.data.attention, this.data.simultaneous, this.data.successive]
     var max = this.data.plan;
     var min = this.data.plan;
@@ -216,6 +219,9 @@ Page({
       max: name[minIndex],
       min: name[maxIndex],
       methods: way[maxIndex],
+      methods1:way1[maxIndex],
+      methods2:way2[maxIndex],
+      methods3:way3[maxIndex],
       plan_grade: plan_grade,
       plan_percentage: Math.ceil(plan_percentage),
       attention_grade: attention_grade,
@@ -690,19 +696,29 @@ Page({
     ctx.font = `normal 40px sans-serif`;
     ctx.setFontSize(12)
     ctx.setFillStyle('#000000')
-    ctx.fillText('建议：可以适当提高', 40, 1700)
-    ctx.font = `bold 40px sans-serif`;
-    ctx.setFontSize(12)
-    ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.min, 150, 1700)
-    ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize(12)
-    ctx.setFillStyle('#000000')
-    ctx.fillText('加工能力。可以尝试以下方法：', 188, 1700)
-    ctx.font = `normal 40px sans-serif`;
-    ctx.setFontSize(12)
-    ctx.setFillStyle('#000000')
-    ctx.fillText(this.data.methods, 15, 1720)
+    ctx.fillText(this.data.methods1, 40, 1700);
+    ctx.fillText(this.data.methods2, 15, 1720);
+    ctx.fillText(this.data.methods3, 15, 1740);
+    // var line = 0;
+    // var number = 0;
+    // for (var i = 0 ; i < this.data.methods.length ; i++){
+    //   console.log(this.data.methods[i]);
+    //   if (line == 0){
+    //     if (i % 26 == 0){
+    //       line++;
+    //       number = 0;
+    //     }
+    //     ctx.fillText(this.data.methods[i],(12*number+40),(1700+20*line)); 
+    //   }
+    //   else{
+    //     if (i % 28 == 0){
+    //       line++;
+    //       number = 0;
+    //     }
+    //     ctx.fillText(this.data.methods[i],(12*number+15),(1700+20*line)); 
+    //   }
+    //     number++;
+    // }
 
     //渲染
     ctx.draw(true, () => {
