@@ -92,7 +92,7 @@ func main() {
 
 	r.POST("/api/test/lasttest", lastTest)
 
-	r.GET("/api/root/datastastics",getDataStastics)
+	r.GET("/api/root/datastastics", getDataStastics)
 
 	r.Run(":23333")
 }
@@ -1021,7 +1021,7 @@ func lastTest(c *gin.Context) {
 	}
 }
 
-func getDataStastics(c *gin.Context)  {
+func getDataStastics(c *gin.Context) {
 	defer recoverErr()
 	result := make(map[string]interface{})
 	result["error_code"] = 0
@@ -1029,5 +1029,25 @@ func getDataStastics(c *gin.Context)  {
 	stmt, err := Db.Prepare(sqlForRun)
 	checkErr(err)
 	defer stmt.Close()
-	//row, _ := stmt.Query()
+	row, _ := stmt.Query()
+	var age int
+	var plan_score float64
+	var attention_score float64
+	var simul_score float64
+	var suc_score float64
+	var list []map[string]interface{}
+	for row.Next() {
+		err = row.Scan(&age,&plan_score, &attention_score, &simul_score, &suc_score)
+		data := make(map[string]interface{})
+		data["age"]=age
+		data["plan_avg_score"]=plan_score
+		data["attention_avg_score"]=attention_score
+		data["simul_avg_score"]=simul_score
+		data["suc_avg_score"]=suc_score
+		list = append(list, data)
+	}
+	result["data"] = list
+	mapJson, err := json.Marshal(result)
+	checkErr(err)
+	c.JSON(200, string(mapJson))
 }
