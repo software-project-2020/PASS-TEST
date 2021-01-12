@@ -1104,7 +1104,7 @@ func questionBank(c *gin.Context) {
 	stmt, err := Db.Prepare(sqlForRun)
 	checkErr(err)
 	defer stmt.Close()
-	_, err = stmt.Exec(parameter_info,test_id,difficulty,age_group )
+	_, err = stmt.Exec(parameter_info,test_id,difficulty,age_group)
 	checkErr(err)
 	sqlForRun = "insert into parameter_modify(modify_date,modify_detail) values(?,?)"
 	stmt2, err := Db.Prepare(sqlForRun)
@@ -1136,7 +1136,31 @@ func setFeedback(c *gin.Context)  {
 		c.JSON(200, string(mapJson))
 		panic("endTime" + "字段为空")
 	}
-
+	sqlForRun := "select (contack_info,feedback_type,feedback_content,img_url,feedback_time) from feedback where feedbakc_time > ? and feedbacktime<?";
+	stmt, err := Db.Prepare(sqlForRun)
+	checkErr(err)
+	defer stmt.Close()
+	row, _ := stmt.Query(beginTime,endTime)
+	var contack_info string
+	var feedback_type string
+	var feedback_content string
+	var img_url string
+	var feedback_time string
+	var list []map[string]interface{}
+	for row.Next() {
+		err = row.Scan(&contack_info, &feedback_type, &feedback_content, &img_url, &feedback_time)
+		data := make(map[string]interface{})
+		data["contack_info"] = contack_info
+		data["feedback_type"] = feedback_type
+		data["feedback_content"] = feedback_content
+		data["img_url"] = img_url
+		data["feedback_time"],_ = time.Parse("2006-01-02 15:04:05", feedback_time)
+		list = append(list, data)
+	}
+	result["data"] = list
+	mapJson, err := json.Marshal(result)
+	checkErr(err)
+	c.JSON(200, string(mapJson))
 }
 
 
