@@ -94,6 +94,10 @@ func main() {
 
 	r.GET("/api/root/datastastics", getDataStastics)
 
+	r.POST("/api/root/questionbank", questionBank)
+
+	r.GET("/api/root/feedback",setFeedback)
+
 	r.Run(":23333")
 }
 
@@ -1037,13 +1041,13 @@ func getDataStastics(c *gin.Context) {
 	var suc_score float64
 	var list []map[string]interface{}
 	for row.Next() {
-		err = row.Scan(&age,&plan_score, &attention_score, &simul_score, &suc_score)
+		err = row.Scan(&age, &plan_score, &attention_score, &simul_score, &suc_score)
 		data := make(map[string]interface{})
-		data["age"]=age
-		data["plan_avg_score"]=plan_score
-		data["attention_avg_score"]=attention_score
-		data["simul_avg_score"]=simul_score
-		data["suc_avg_score"]=suc_score
+		data["age"] = age
+		data["plan_avg_score"] = plan_score
+		data["attention_avg_score"] = attention_score
+		data["simul_avg_score"] = simul_score
+		data["suc_avg_score"] = suc_score
 		list = append(list, data)
 	}
 	result["data"] = list
@@ -1051,3 +1055,88 @@ func getDataStastics(c *gin.Context) {
 	checkErr(err)
 	c.JSON(200, string(mapJson))
 }
+
+func questionBank(c *gin.Context) {
+	defer recoverErr()
+	result := make(map[string]interface{})
+	result["error_code"] = 0
+	modify_detail := c.PostForm("modify_detail")
+	if modify_detail == "" {
+		result["error_code"] = 10001
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("modify_detail" + "字段为空")
+	}
+	test_id := c.PostForm("test_id")
+	if test_id == "" {
+		result["error_code"] = 10002
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("test_id" + "字段为空")
+	}
+	age_group := c.PostForm("age_group")
+	if age_group == "" {
+		result["error_code"] = 10003
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("age_group" + "字段为空")
+	}
+	difficulty := c.PostForm("difficulty")
+	if difficulty == "" {
+		result["error_code"] = 10004
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("difficulty" + "字段为空")
+	}
+	parameter_info := c.PostForm("parameter_info")
+	if parameter_info == "" {
+		result["error_code"] = 10005
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("parameter_info" + "字段为空")
+	}
+	sqlForRun := "update parameter_configuration set parameter_info = ? where test_id = ? and difficulty = ? and age_group = ?"
+	stmt, err := Db.Prepare(sqlForRun)
+	checkErr(err)
+	defer stmt.Close()
+	_, err = stmt.Exec(parameter_info,test_id,difficulty,age_group )
+	checkErr(err)
+	sqlForRun = "insert into parameter_modify(modify_date,modify_detail) values(?,?)"
+	stmt2, err := Db.Prepare(sqlForRun)
+	checkErr(err)
+	defer stmt2.Close()
+	_, err = stmt.Exec(time.Now(),modify_detail)
+	mapJson, err := json.Marshal(result)
+	checkErr(err)
+	c.JSON(200, string(mapJson))
+}
+
+func setFeedback(c *gin.Context)  {
+	defer recoverErr()
+	result := make(map[string]interface{})
+	result["error_code"] = 0
+	beginTime := c.PostForm("beginTime")
+	if beginTime == "" {
+		result["error_code"] = 10001
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("beginTime" + "字段为空")
+	}
+	endTime := c.PostForm("endTime")
+	if endTime == "" {
+		result["error_code"] = 10001
+		mapJson, err := json.Marshal(result)
+		checkErr(err)
+		c.JSON(200, string(mapJson))
+		panic("endTime" + "字段为空")
+	}
+
+}
+
+
